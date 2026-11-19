@@ -9,13 +9,20 @@ The full plan, every chapter, and the open questions are in [GAME_OUTLINE.md](GA
 3. **Forward:** The Camp (1863, five-card stud), then the finale, The Last Hand (1876, five-card draw). Then the bonus, The Gaming House (1817, Poque).
 4. **Polish:** title screen, deck-case chapter select, almanac, difficulty levels, Free Play.
 
-Alongside Part One:
-
-- **Card School: every RSDP Live game.** Open from the title screen from the first visit, so friends can learn a game without risking money before playing it on RSDP Live. Each game gets a rules card, a guided first hand and practice with hints (built on the engine's `advice.ts`). The plan is to ship it with the first release, starting with the games the engine already runs: Hold'em, Omaha and Omaha Hi-Lo (4, 5 and 6 cards), seven-card stud, Razz, Stud Hi-Lo, 2-7 Triple Draw, Badugi, HORSE and 8-Game, plus bomb pots, double board and the 7-2 bounty as Free Play options. Until a game's era art exists, its lessons use the riverboat table with Delphine as the coach. The outline's "Card School" section maps each game to its chapter or side table. Open question: build it before or after chapters 2 and 3.
-
 That is **Part One, the first release**. Then:
 
-5. **Part Two, to the present day (a later release).** Six chapters, built one at a time after Part One ships: The Left Bank (Paris 1925, seven-card stud), The Boardwalk (Atlantic City 1929, Razz), The Desert Classic (Las Vegas 1972, Texas Hold'em), The Mayfair Club (London 1988, pot-limit Omaha), The Boom (online 2003, Hold'em) and The Last Table (Macau today, a rotation of the story's games). The engine already plays these games; the new systems are tournament blinds and an online "timing" tell. Every person, venue and website in Part Two is fictional, with generic names: no real trademarks or living people. Details are in the outline's "Part Two" section.
+5. **Part Two, to the present day (a later release).** Eight chapters and an epilogue, built in order after Part One ships. Each one teaches RSDP Live games inside the story, through a character, the first time the game appears, so John's friends can learn them here before playing for money:
+   - 6 The Left Bank (Paris 1925): Seven Card Stud
+   - 7 The Boardwalk (Atlantic City 1929): Razz
+   - 8 The Desert Classic (Las Vegas 1972): Limit, then No-Limit Hold'em
+   - 9 The Mayfair Club (London 1988): Pot-Limit Omaha, then Omaha Hi-Lo
+   - 10 The Lucky Bend (Mississippi riverboat casino 1994): Stud Hi-Lo
+   - 11 The Boom (online 2005): 2-7 Triple Draw, then Badugi
+   - 12 The Rooftop Game (Seoul 2019): 5- and 6-Card Omaha, then their Hi-Lo versions
+   - 13 The Last Table (Macau today): HORSE, then 8-Game
+   - Epilogue, The Kitchen Table (a home game today): bomb pots, double board, 7-2 bounty
+
+   The engine already runs all of these games; the new systems are tournament blinds and an online "timing" tell. Every person, venue and website in Part Two is fictional, with generic names: no real trademarks or living people. The outline's "Part Two" and "Teaching inside the story" sections have the details: a guided first hand per game, rules cards as era objects, teacher hints built on the engine's `advice.ts`, and replay as practice.
 
 Art for each chapter can be made in parallel; the code uses placeholders until it arrives.
 
@@ -40,4 +47,4 @@ To do (story beats from the outline):
 
 ## Open questions
 
-Tracked in the outline's "Open questions". The one that matters for chapter 1: the betting limit (pot-limit for now).
+Tracked in the outline's "Open questions". The one that matters for chapter 1: the betting limit (pot-limit for now). Two affect the build order: whether Part Two should come before the Part One flashbacks, so friends can learn the RSDP Live games sooner, and whether players can start any chapter straight away after a "story so far".

@@ -32,5 +32,5 @@ Everything is placed in stage pixels and the stage scales to the window, so art 
 ### Part Two, to the present day, is a later release (2026-11-19)
 John wants the story to reach today. The first release is Part One only (through Deadwood, plus the Poque bonus), so it ships sooner. Part Two's six chapters (1925 to today) come after, and use only fictional people, venues and websites, with no real trademarks or living people.
 
-### Card School teaches every RSDP Live game (2026-11-19)
-John wants his friends to learn RSDP Live's games here, for free, before playing for money. Card School is open from the start and doesn't need the story. Each game is taught at the table of the era it belongs to, or a side table, so there is no separate tutorial look; until that art exists, lessons use the riverboat table. Chapter 7 became Razz (instead of lowball draw) so a story chapter teaches it.
+### Every RSDP Live game is taught inside the story (2026-11-19)
+John wants his friends to learn RSDP Live's games here, for free, before playing for money, but without a separate "school" mode. Each game is taught by a character in the chapter where it first appears, with a guided first hand. Part Two grew to eight chapters plus an epilogue so every game has a place; chapter 7 is Razz.

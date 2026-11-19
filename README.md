@@ -1,6 +1,6 @@
 # Historical Poker
 
-A single-player card game that tells the history of poker, one chapter per era. You follow one heirloom deck, the Ashcombe deck, from table to table: a Mississippi steamboat in 1836, then flashbacks to a Tudor hall and a coaching inn, then forward to a Civil War camp and a Deadwood saloon. A later release carries it on to the present day. Each chapter is played with the poker of its time, against painted rivals with their own personalities and tells.
+A single-player card game that tells the history of poker, one chapter per era. You follow one heirloom deck, the Ashcombe deck, from table to table: a Mississippi steamboat in 1836, then flashbacks to a Tudor hall and a coaching inn, then forward to a Civil War camp and a Deadwood saloon. A later release carries it on to the present day. A **Card School** teaches every game RSDP Live offers, so friends can learn one without risking money. Each chapter is played with the poker of its time, against painted rivals with their own personalities and tells.
 
 **Chapter 1, "The River"** (20-card straight poker aboard the *Magnolia Queen*, 1836) is the first one built. The whole game is designed in [docs/GAME_OUTLINE.md](docs/GAME_OUTLINE.md); what's built and what's next is in [docs/ROADMAP.md](docs/ROADMAP.md).
 

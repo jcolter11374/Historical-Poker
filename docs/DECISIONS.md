@@ -28,3 +28,6 @@ John found boxed layouts looked generic. Controls are painted chips on the felt,
 
 ### Fixed 1600 x 900 stage (2026-11-19)
 Everything is placed in stage pixels and the stage scales to the window, so art placement in chapter files is simple and the scene looks the same at any size.
+
+### Part Two, to the present day, is a later release (2026-11-19)
+John wants the story to reach today. The first release is Part One only (through Deadwood, plus the Poque bonus), so it ships sooner. Part Two's six chapters (1925 to today) come after, and use only fictional people, venues and websites, with no real trademarks or living people.

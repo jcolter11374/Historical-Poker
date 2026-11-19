@@ -9,6 +9,10 @@ The full plan, every chapter, and the open questions are in [GAME_OUTLINE.md](GA
 3. **Forward:** The Camp (1863, five-card stud), then the finale, The Last Hand (1876, five-card draw). Then the bonus, The Gaming House (1817, Poque).
 4. **Polish:** title screen, deck-case chapter select, almanac, difficulty levels, Free Play.
 
+That is **Part One, the first release**. Then:
+
+5. **Part Two, to the present day (a later release).** Six chapters, built one at a time after Part One ships: The Left Bank (Paris 1925, seven-card stud), The Boardwalk (Atlantic City 1929, lowball draw), The Desert Classic (Las Vegas 1972, Texas Hold'em), The Mayfair Club (London 1988, pot-limit Omaha), The Boom (online 2003, Hold'em) and The Last Table (Macau today, a rotation of the story's games). The engine already plays these games; the new systems are tournament blinds and an online "timing" tell. Every person, venue and website in Part Two is fictional, with generic names: no real trademarks or living people. Details are in the outline's "Part Two" section.
+
 Art for each chapter can be made in parallel; the code uses placeholders until it arrives.
 
 ## Chapter 1 status

@@ -4,11 +4,11 @@
 
 ## Overview
 
-Historical Poker is a single-player story game in the browser: you follow one heirloom deck of cards through 330 years of card tables, from a Tudor hall in 1543 to a Deadwood saloon in 1876, and play each era's real game against painted rival characters. It opens on a Mississippi steamboat in 1836, the first game actually called poker, and reaches back and forward from there.
+Historical Poker is a single-player story game in the browser: you follow one heirloom deck of cards through 330 years of card tables, from a Tudor hall in 1543 to a Deadwood saloon in 1876 and on to the present day, and play each era's real game against painted rival characters. It opens on a Mississippi steamboat in 1836, the first game actually called poker, and reaches back and forward from there.
 
 - **Platform:** static website, played in any modern browser, hosted free on GitHub Pages. No server, no accounts; progress saves in the browser.
 - **Engine:** a copy of the RSDP Live poker engine (pure TypeScript), extended with the historical games. RSDP Live itself is never changed.
-- **Length:** five main chapters plus one bonus chapter, roughly 20 to 40 minutes each.
+- **Length:** Part One has five main chapters plus one bonus chapter, roughly 20 to 40 minutes each, and is the first release. Part Two adds six chapters from 1925 to today in a later release.
 - **Audience:** casual players and history fans. Every game is taught in play, so no poker knowledge is needed.
 - **Feel:** a painted, narrative card game, not a poker client. People at the table, dialogue in the lower third, controls that look like objects on the table.
 - **Credit:** a small "Powered by RSDP Live" mark with the RSDP Live chip logo, linking to the live site.
@@ -224,6 +224,38 @@ Every chapter below lists the same things: setting, rules as the game will run t
 
 **Art needed.** Gaming-house background, Élodie, Henri, Lacroix and young Delphine on green, piquet cards, a payout board, a title card.
 
+## Part Two: to the present day (a later release)
+
+Part Two carries the deck from 1925 to today: Paris, Atlantic City, Las Vegas, London, online and finally Macau. It is planned now but built only after Part One (the six chapters above) ships. Most of its games already exist in the RSDP Live engine, so the main cost is art and story, not rules.
+
+| # | Chapter | Year | Place | Game | Rival | You play as |
+| --- | --- | --- | --- | --- | --- | --- |
+| 6 | The Left Bank | 1925 | A private card club in Paris | Seven-card stud | Lord Peregrine Vane | Edith Avery, Clara's daughter |
+| 7 | The Boardwalk | 1929 | A speakeasy back room, Atlantic City | Lowball draw | Nora Shea | Ray Avery, Edith's brother |
+| 8 | The Desert Classic | 1972 | A casino tournament, Las Vegas | Texas Hold'em | "Tex" Dawson Pruitt | Lou Avery |
+| 9 | The Mayfair Club | 1988 | A private gaming club, London | Pot-limit Omaha | Desmond Hale | Anna Avery |
+| 10 | The Boom | 2003 | Online, from a college dorm | Online Texas Hold'em | A player known only as "N0rthStar" | Jamie Avery |
+| 11 | The Last Table | Today | A private high-stakes room, Macau | The Mix: a rotation of the story's games | Victor Crane | You |
+
+All people, clubs, events and websites in Part Two are fictional, with generic venue names. No real trademarks or real living people appear; real places and history stay in the background and in the history notes.
+
+### The chapters in brief
+
+- **6, The Left Bank (1925), seven-card stud.** Edith Avery has taken the deck to jazz-age Paris, where American expatriates brought their card games. Lord Peregrine Vane, a ruined English aristocrat, bluffs with style; Rafael Ibarra, an Argentine bandleader, plays loose; Colette Marchand, a French aviator, plays tight and fearless. Rules: two cards down and one up, betting, three more up cards and a last card down, with betting after each. History (to verify): seven-card stud spread in the early 1900s and was the main American game for decades.
+- **7, The Boardwalk (1929), lowball draw.** Prohibition-era Atlantic City, in the back room of a boardwalk speakeasy, the last summer before the crash. Nora Shea, the owner, reads everyone; Sal Moretti, a bootlegger's bookkeeper, counts every odd; Gus Lindqvist, a Swedish-born rum-runner captain, gambles happily. Rules: five-card draw where the lowest hand wins; we pick one standard (deuce-to-seven, already in the engine, or ace-to-five) when building. History (to verify): lowball appeared around this time and later boomed in California card clubs.
+- **8, The Desert Classic (1972), Texas Hold'em.** A fictional early poker championship in Las Vegas, where Hold'em arrived from Texas in the late 1960s. Lou Avery faces "Tex" Dawson Pruitt, a road gambler who plays every hand fast; Lorraine Fisk, a former showgirl with an iron poker face; and Professor Milton Weiss, a math teacher who plays the odds. Rules: two hole cards, five shared cards, four betting rounds, no limit. The first tournament chapter: blinds rise as players drop out.
+- **9, The Mayfair Club (1988), pot-limit Omaha.** Anna Avery, a translator, follows the deck to London, where Omaha caught on in private clubs. Desmond Hale, the club's owner, plays huge pots; Dmitri Volkov, a chess master, plays cold and exact; Siobhan Kearney, an Irish bookmaker, plays by gut. Rules: four hole cards (use exactly two), five shared cards, pot-limit betting.
+- **10, The Boom (2003), online Hold'em.** Jamie Avery, a college student, plays on a fictional site, RiverCard, against avatars from Sweden, Brazil, Canada and Korea. A new kind of tell: **timing**, how fast a player acts, replaces faces. The rival "N0rthStar" is revealed at the end to be a Crane. The scene is a dorm room at night lit by a laptop, with the early-2000s game window painted into the scene.
+- **11, The Last Table (today), the Mix.** The finale returns to people at a real table: a private room in Macau, where the last of the Cranes, Victor, challenges the player for the deck. The game rotates every few hands through games from across the story (straight poker, stud, draw, lowball, Hold'em, Omaha), so the player uses everything they have learned. The other seats are Mei Lin Chau, a quiet local legend, and Arjun Mehta, a young online pro. Ending: the feud ends for good and the deck's case is full.
+
+### Why Part Two is affordable
+
+- **Rules:** seven-card stud, lowball draw, Hold'em, Omaha and a mixed rotation are all in the RSDP Live engine already. Only the online timing tell and tournament blinds are new systems.
+- **Art:** each chapter still needs a background, three characters on green and props, the same pipeline as Part One. That is the main work.
+- **Story:** the same deck and the same Avery and Crane families, so it builds on Part One without changing it.
+
+Other settings to swap in if one doesn't land: a Monte Carlo-style casino on the Riviera, a 1950s Havana casino, a postwar California card club, an Australian card room, or a Seoul game today.
+
 ## Progression and unlocks
 
 The story runs in a straight line, one chapter unlocking the next, and every chapter stays replayable once unlocked.
@@ -232,6 +264,7 @@ The story runs in a straight line, one chapter unlocking the next, and every cha
 1. Winning it unlocks **The Painted Deck (1543)**, then **The North Road (1763)**.
 1. Finishing both flashbacks returns the story to the Averys and unlocks **The Camp (1863)**, then **The Last Hand (1876)**.
 1. Finishing the finale unlocks the bonus, **The Gaming House (1817)**, and **Free Play**.
+  In the later release, finishing Part One unlocks **Part Two**, played in order from The Left Bank (1925) to The Last Table (today).
 
 ### How a chapter plays
 
@@ -317,6 +350,8 @@ The build follows the roadmap agreed in the project chat, with one change: five-
 1. **Forward:** The Camp (five-card stud), then the finale, The Last Hand (five-card draw). Then the Poque bonus.
 1. **Polish:** title screen, deck-case chapter select, almanac, difficulty levels, Free Play, final GitHub Pages publish.
 
+**After the first release:** Part Two, one chapter at a time from The Left Bank (1925) to The Last Table (today). It adds the online timing tell and tournament blinds as new systems; the rest reuses the engine's existing games.
+
 Art for each chapter can be generated in parallel with the build; code uses placeholders until it arrives.
 
 ### Open questions
@@ -327,3 +362,5 @@ Art for each chapter can be generated in parallel with the build; code uses plac
 - [ ] Betting limits for each game (no limit, pot limit or fixed), to settle while play-testing chapter 1.
 - [ ] Poque's rules need a short research pass before that chapter is built.
 - [ ] History notes need checking against sources before they appear in the game.
+
+- [ ] Which Part Two settings to keep: Paris, Atlantic City, Las Vegas, London, online and Macau, or swap one for a Monte Carlo-style casino, Havana or a California card club?

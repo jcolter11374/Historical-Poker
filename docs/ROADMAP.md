@@ -11,18 +11,17 @@ The full plan, every chapter, and the open questions are in [GAME_OUTLINE.md](GA
 
 That is **Part One, the first release**. Then:
 
-5. **Part Two, to the present day (a later release).** Eight chapters and an epilogue, built in order after Part One ships. Each one teaches RSDP Live games inside the story, through a character, the first time the game appears, so John's friends can learn them here before playing for money:
-   - 6 The Left Bank (Paris 1925): Seven Card Stud
-   - 7 The Boardwalk (Atlantic City 1929): Razz
-   - 8 The Desert Classic (Las Vegas 1972): Limit, then No-Limit Hold'em
-   - 9 The Mayfair Club (London 1988): Pot-Limit Omaha, then Omaha Hi-Lo
-   - 10 The Lucky Bend (Mississippi riverboat casino 1994): Stud Hi-Lo
-   - 11 The Boom (online 2005): 2-7 Triple Draw, then Badugi
-   - 12 The Rooftop Game (Seoul 2019): 5- and 6-Card Omaha, then their Hi-Lo versions
-   - 13 The Last Table (Macau today): HORSE, then 8-Game
+5. **Part Two, to the present day (a later release).** Seven chapters and an epilogue, built in order after Part One ships. Each one teaches RSDP Live games inside the story, through a character, in a place and time where the game was really played, so John's friends can learn them here before playing for money:
+   - 6 The Back Room (Chicago speakeasy, 1926): Seven Card Stud, then Razz
+   - 7 The Desert Classic (Las Vegas, 1972): Limit, then No-Limit Hold'em
+   - 8 The Boardwalk (Atlantic City casino poker room, 1985): Stud Hi-Lo
+   - 9 The Cercle (Paris private card club, 1992): Pot-Limit Omaha, then Omaha Hi-Lo
+   - 10 The Boom (2005): an internet café qualifier at 3 a.m. through to a televised Las Vegas final table, with 2-7 Triple Draw and Badugi taught mid-chapter
+   - 11 The Big O (English Midlands card room, 2019): 5- and 6-Card Omaha, then their Hi-Lo versions
+   - 12 The Last Table (Macau, today): HORSE, then 8-Game
    - Epilogue, The Kitchen Table (a home game today): bomb pots, double board, 7-2 bounty
 
-   The engine already runs all of these games; the new systems are tournament blinds and an online "timing" tell. Every person, venue and website in Part Two is fictional, with generic names: no real trademarks or living people. The outline's "Part Two" and "Teaching inside the story" sections have the details: a guided first hand per game, rules cards as era objects, teacher hints built on the engine's `advice.ts`, and replay as practice.
+   The engine already runs all of these games; the new systems are tournament blinds and an online "timing" tell. Every person, venue and website in Part Two is fictional, with generic names: no real trademarks or living people. Its history claims are marked in the outline as sourced (with links) or "to verify". The outline's "Part Two" and "Teaching inside the story" sections have the details: a guided first hand per game, rules cards as era objects, teacher hints built on the engine's `advice.ts`, and replay as practice.
 
 Art for each chapter can be made in parallel; the code uses placeholders until it arrives.
 

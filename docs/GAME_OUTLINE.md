@@ -8,7 +8,7 @@ Historical Poker is a single-player story game in the browser: you follow one he
 
 - **Platform:** static website, played in any modern browser, hosted free on GitHub Pages. No server, no accounts; progress saves in the browser.
 - **Engine:** a copy of the RSDP Live poker engine (pure TypeScript), extended with the historical games. RSDP Live itself is never changed.
-- **Length:** Part One has five main chapters plus one bonus chapter, roughly 20 to 40 minutes each, and is the first release. Part Two adds eight chapters and an epilogue, from 1925 to today, in a later release.
+- **Length:** Part One has five main chapters plus one bonus chapter, roughly 20 to 40 minutes each, and is the first release. Part Two adds seven chapters and an epilogue, from 1926 to today, in a later release.
 - **Audience:** casual players and history fans. Every game is taught in play, so no poker knowledge is needed. By the end of Part Two the story has taught every game RSDP Live offers, so friends can learn a game here before playing it for money.
 - **Feel:** a painted, narrative card game, not a poker client. People at the table, dialogue in the lower third, controls that look like objects on the table.
 - **Credit:** a small "Powered by RSDP Live" mark with the RSDP Live chip logo, linking to the live site.
@@ -226,40 +226,40 @@ Every chapter below lists the same things: setting, rules as the game will run t
 
 ## Part Two: to the present day (a later release)
 
-Part Two carries the deck from 1925 to today and teaches every game RSDP Live offers, each one inside the story, so John's friends can learn a game here before playing it for money. It has eight chapters and a short epilogue, built after Part One ships. The engine already runs all of these games, so the main work is art and story.
+Part Two carries the deck from 1926 to today and teaches every game RSDP Live offers, each one inside the story, in a place and time where that game was really played. It has seven chapters and a short epilogue, built after Part One ships. The engine already runs all of these games, so the main work is art and story.
 
 | # | Chapter | Year | Place | Games, in the order taught | Rival | You play as |
 | --- | --- | --- | --- | --- | --- | --- |
-| 6 | The Left Bank | 1925 | A private card club, Paris | Seven Card Stud | Lord Peregrine Vane | Edith Avery, Clara's daughter |
-| 7 | The Boardwalk | 1929 | A speakeasy back room, Atlantic City | Razz | Nora Shea | Ray Avery, Edith's brother |
-| 8 | The Desert Classic | 1972 | A casino tournament, Las Vegas | Limit Hold'em, then No-Limit Hold'em | "Tex" Dawson Pruitt | Lou Avery |
-| 9 | The Mayfair Club | 1988 | A private gaming club, London | Pot-Limit Omaha, then Omaha Hi-Lo | Desmond Hale | Anna Avery |
-| 10 | The Lucky Bend | 1994 | A riverboat casino on the Mississippi | Stud Hi-Lo | Margot Arceneaux | Ben Avery |
-| 11 | The Boom | 2005 | Online, from a college dorm | 2-7 Triple Draw, then Badugi | A player known only as "N0rthStar" | Jamie Avery |
-| 12 | The Rooftop Game | 2019 | A private rooftop game, Seoul | 5-Card Omaha, then 6-Card Omaha, then their Hi-Lo versions | Seo Min-jun | Sophie Avery |
-| 13 | The Last Table | Today | A private high-stakes room, Macau | HORSE, then 8-Game | Victor Crane | You |
+| 6 | The Back Room | 1926 | A speakeasy, Chicago | Seven Card Stud, then Razz | Nora Shea | Edith Avery, Clara's daughter |
+| 7 | The Desert Classic | 1972 | A casino tournament, Las Vegas | Limit Hold'em, then No-Limit Hold'em | "Tex" Dawson Pruitt | Lou Avery |
+| 8 | The Boardwalk | 1985 | A casino poker room, Atlantic City | Stud Hi-Lo | Margot Arceneaux | Ray Avery |
+| 9 | The Cercle | 1992 | A private card club, Paris | Pot-Limit Omaha, then Omaha Hi-Lo | Comte Lucien Varenne | Anna Avery |
+| 10 | The Boom | 2005 | An internet café at 3 a.m., then a final table in Las Vegas | Online Hold'em, then 2-7 Triple Draw and Badugi | A player known only as "N0rthStar" | Jamie Avery |
+| 11 | The Big O | 2019 | A big card room in the English Midlands | 5-Card Omaha, then 6-Card Omaha, then their Hi-Lo versions | Gaz Whitlock | Sophie Avery |
+| 12 | The Last Table | Today | A private high-stakes room, Macau | HORSE, then 8-Game | Victor Crane | You |
 | Epilogue | The Kitchen Table | Today | A home game with friends | Hold'em with home-game extras: bomb pots, double board, 7-2 bounty | None: friends | You |
 
-All people, clubs, events and websites in Part Two are fictional, with generic venue names. No real trademarks or real living people appear; real places and history stay in the background and in the history notes (to verify).
+All people, clubs, events and websites in Part Two are fictional, with generic venue names. No real trademarks or real living people appear.
 
 ### The chapters in brief
 
-- **6, The Left Bank (1925).** Edith Avery has taken the deck to jazz-age Paris, where American expatriates brought their card games. Colette Marchand, a French aviator, teaches Edith seven-card stud on the first hand. Lord Peregrine Vane, a ruined English aristocrat, bluffs with style; Rafael Ibarra, an Argentine bandleader, plays loose.
-- **7, The Boardwalk (1929).** The last summer before the crash, in a boardwalk speakeasy. Sal Moretti, a bootlegger's bookkeeper, teaches Razz, stud where the lowest hand wins. Nora Shea, the owner, reads everyone; Gus Lindqvist, a Swedish-born rum-runner, gambles happily.
-- **8, The Desert Classic (1972).** A fictional early championship in Las Vegas, where Hold'em had just arrived from Texas. Professor Milton Weiss teaches limit Hold'em in the side game the night before; the tournament itself is no limit, with blinds that rise. "Tex" Pruitt plays every hand fast; Lorraine Fisk, a former showgirl, has an iron poker face.
-- **9, The Mayfair Club (1988).** Anna Avery, a translator, brings the deck to London. Siobhan Kearney, an Irish bookmaker, teaches pot-limit Omaha; late in the night the club switches to Omaha Hi-Lo and she explains split pots. Desmond Hale, the owner, plays huge pots; Dmitri Volkov, a chess master, plays cold and exact.
-- **10, The Lucky Bend (1994).** Riverboat casinos have just come back to the Mississippi, a callback to chapter 1. Margot Arceneaux, Delphine's descendant and the boat's card-room manager, teaches Stud Hi-Lo and challenges Ben Avery for the deck the two families once shared.
-- **11, The Boom (2005).** Jamie Avery plays on a fictional site, RiverCard, at the height of the online boom. A Swedish player, "DeuceSeven", teaches 2-7 Triple Draw; a Korean player, "Hanbit", teaches Badugi. A new kind of tell: **timing**, how fast a player acts. "N0rthStar" turns out to be a Crane.
-- **12, The Rooftop Game (2019).** A private game above the city, where big Omaha games with five and six cards are the fashion. Hanbit, now met in person, teaches 5-Card and then 6-Card Omaha; the host, Seo Min-jun, switches the last round to the Hi-Lo versions.
-- **13, The Last Table (today).** The finale in a private room in Macau. Victor Crane, the last of the Cranes, challenges you for the deck in HORSE, five games in turn, and then the 8-Game mix, so you use almost everything you have learned. Mei Lin Chau, a quiet local legend, explains each switch. The feud ends for good and the deck's case is full.
+- **6, The Back Room (1926).** Prohibition Chicago, behind a fake florist's shop. Seven-card stud is the coming American game. Sal Moretti, a bootlegger's bookkeeper, teaches it on the first hand; after midnight Nora Shea, the owner, switches to Razz, "stud for losers", and teaches it with a grin. Gus Lindqvist, a Swedish-born truck driver, gambles happily. *Fit:* stud was a mainstay of American home games for most of the century (sourced); Razz's exact start date is not recorded (to verify).
+- **7, The Desert Classic (1972).** A fictional early championship in Las Vegas, where Hold'em had recently arrived from Texas. Professor Milton Weiss teaches limit Hold'em in the side game the night before; the tournament itself is no limit, with blinds that rise. "Tex" Pruitt plays every hand fast; Lorraine Fisk, a former showgirl, has an iron poker face. *Fit:* Hold'em reached Las Vegas in the late 1960s (to verify).
+- **8, The Boardwalk (1985).** Casinos are new to Atlantic City, and stud is the game of East Coast poker rooms. Margot Arceneaux, Delphine's descendant and the room's manager, teaches Stud Hi-Lo and challenges Ray Avery for the deck the two families once shared. *Fit:* seven-card stud was the main casino game in the eastern US before Hold'em (sourced); casinos opened in Atlantic City in 1978 (to verify); when the 8-or-better rule appeared is not recorded (to verify).
+- **9, The Cercle (1992).** Omaha was born in Las Vegas in the 1980s, but pot-limit Omaha took hold in Europe. In a private Paris card club, Anna Avery, a translator, learns it from Siobhan Kearney, an Irish pro; late in the night Comte Lucien Varenne, the club's president, switches to Omaha Hi-Lo. Dmitri Volkov, a chess master, plays cold and exact. *Fit:* Omaha was introduced at a downtown Las Vegas casino in the 1980s, and pot-limit Omaha is especially popular in Europe (sourced).
+- **10, The Boom (2005).** The most dramatic chapter, not a quiet one. Jamie Avery, broke and studying at night, plays a $5 online qualifier in a cramped internet café at 3 a.m. The screen is the table: a painted monitor glow, avatars, a scrolling chat full of trash talk, four tables at once, and a new tell, **timing**, how fast each player acts. Jamie wins seat after seat and lands at the televised final table of a big live championship in Las Vegas, with lights, cameras and a crowd, where the rival "N0rthStar" is revealed in person as a Crane. Between rounds of the qualifier, two online pros teach the high-stakes games of the moment: "DeuceSeven" teaches 2-7 Triple Draw, and "Hanbit", from Seoul, teaches Badugi. *Fit:* the online boom of the mid-2000s turned amateurs into champions (to verify); Badugi has been played since the 1980s, in South Korea among other places, and became known in the US around 2004 (sourced).
+- **11, The Big O (2019).** A huge, noisy card room in the English Midlands, where big Omaha games with five and six cards are the fashion. Gaz Whitlock, a regular who has seen everything, teaches 5-Card and then 6-Card Omaha; on the last round the table switches to the Hi-Lo versions. *Fit:* six-card Omaha is found in many UK casinos, and five-card Omaha ("Big O") spread in American card rooms from about 2008 (sourced; the 2008 date is uncited on its source).
+- **12, The Last Table (today).** The finale in a private room in Macau. Victor Crane, the last of the Cranes, challenges you for the deck in HORSE, five games in turn, then the 8-Game mix, so you use almost everything you have learned. Mei Lin Chau, a quiet local legend, explains each switch. The feud ends for good and the deck's case is full.
 - **Epilogue, The Kitchen Table (today).** You bring the deck home to a game with friends, the kind RSDP Live was made for. Your friends teach the house extras: bomb pots, double board and the 7-2 bounty. The last screen is the "Powered by RSDP Live" mark, inviting players to start their own game.
+
+Sources for the facts marked sourced: [Seven-card stud](https://en.wikipedia.org/wiki/7_Card_Stud), [Stud poker](https://en.wikipedia.org/wiki/Stud_poker), [Omaha hold 'em](https://en.wikipedia.org/wiki/Omaha_Hi-Lo), [Robert Turner](https://en.wikipedia.org/wiki/Robert_Turner_(poker_player)), [Omaha, at pagat.com](https://pagat.com/poker/variants/omaha.html), [Badugi, at pagat.com](https://pagat.com/poker/variants/badugi.html). Items marked "to verify" still need a source.
 
 ## Teaching inside the story
 
 Every game, old or modern, is taught by a character at the moment it first appears in the story. There is no separate school or tutorial mode.
 
 - **Guided first hand.** The first hand of each new game is a short scripted hand where that chapter's teacher walks through each step: what you were dealt, when to bet, and why the winner won. It is the only place deals are set up in advance.
-- **Rules card as a story object.** Each game's rules are an object from its era that the player can open any time: a parchment page in 1543, a printed card-room notice in 1925, a tournament program in 1972, a help screen in 2005. Each shows the deal, the betting rounds, what wins, and a hand-ranking strip (or low rankings for low games).
+- **Rules card as a story object.** Each game's rules are an object from its era that the player can open any time: a parchment page in 1543, a matchbook in 1926, a tournament program in 1972, a help screen in 2005. Each shows the deal, the betting rounds, what wins, and a hand-ranking strip (or low rankings for low games).
 - **Hints from the teacher.** An optional hint button where the teacher suggests an action in one line, built on the engine's existing advice code. On by default at Story level, off at Gambler level.
 - **Your hand, explained.** A small label always shows your current best hand (and your best low, in split games).
 - **Showdown summary.** After each hand, one line: who won, with what, and why it beat yours.
@@ -269,17 +269,17 @@ Every game, old or modern, is taught by a character at the moment it first appea
 
 | RSDP Live game | Chapter | Teacher |
 | --- | --- | --- |
-| Hold'em, limit | 8, The Desert Classic | Professor Milton Weiss |
-| Hold'em, no limit and pot limit | 8, The Desert Classic | Professor Milton Weiss |
-| Omaha (pot limit) | 9, The Mayfair Club | Siobhan Kearney |
-| Omaha Hi-Lo (8 or better) | 9, The Mayfair Club | Siobhan Kearney |
-| 5-Card and 6-Card Omaha, and their Hi-Lo versions | 12, The Rooftop Game | Hanbit and Seo Min-jun |
-| Seven Card Stud | 6, The Left Bank | Colette Marchand |
-| Razz | 7, The Boardwalk | Sal Moretti |
-| Stud Hi-Lo (8 or better) | 10, The Lucky Bend | Margot Arceneaux |
-| 2-7 Triple Draw | 11, The Boom | DeuceSeven |
-| Badugi | 11, The Boom | Hanbit |
-| HORSE and 8-Game | 13, The Last Table | Mei Lin Chau |
+| Hold'em, limit | 7, The Desert Classic | Professor Milton Weiss |
+| Hold'em, no limit and pot limit | 7, The Desert Classic | Professor Milton Weiss |
+| Omaha (pot limit) | 9, The Cercle | Siobhan Kearney |
+| Omaha Hi-Lo (8 or better) | 9, The Cercle | Comte Lucien Varenne |
+| 5-Card and 6-Card Omaha, and their Hi-Lo versions | 11, The Big O | Gaz Whitlock |
+| Seven Card Stud | 6, The Back Room | Sal Moretti |
+| Razz | 6, The Back Room | Nora Shea |
+| Stud Hi-Lo (8 or better) | 8, The Boardwalk | Margot Arceneaux |
+| 2-7 Triple Draw | 10, The Boom | DeuceSeven |
+| Badugi | 10, The Boom | Hanbit |
+| HORSE and 8-Game | 12, The Last Table | Mei Lin Chau |
 | Bomb pots, double board, 7-2 bounty | Epilogue, The Kitchen Table | Your friends |
 
 ## Progression and unlocks
@@ -290,7 +290,7 @@ The story runs in a straight line, one chapter unlocking the next, and every cha
 1. Winning it unlocks **The Painted Deck (1543)**, then **The North Road (1763)**.
 1. Finishing both flashbacks returns the story to the Averys and unlocks **The Camp (1863)**, then **The Last Hand (1876)**.
 1. Finishing the finale unlocks the bonus, **The Gaming House (1817)**, and **Free Play**.
-  In the later release, finishing Part One unlocks **Part Two**, played in order from The Left Bank (1925) to the Epilogue, The Kitchen Table.
+  In the later release, finishing Part One unlocks **Part Two**, played in order from The Back Room (1926) to the Epilogue, The Kitchen Table.
 
 ### How a chapter plays
 
@@ -376,7 +376,7 @@ The build follows the roadmap agreed in the project chat, with one change: five-
 1. **Forward:** The Camp (five-card stud), then the finale, The Last Hand (five-card draw). Then the Poque bonus.
 1. **Polish:** title screen, deck-case chapter select, almanac, difficulty levels, Free Play, final GitHub Pages publish.
 
-**After the first release:** Part Two in order, from The Left Bank (1925) to the Epilogue. By its end every RSDP Live game is taught in the story. New systems are only the online timing tell and tournament blinds; the games themselves already run in the engine.
+**After the first release:** Part Two in order, from The Back Room (1926) to the Epilogue. By its end every RSDP Live game is taught in the story. New systems are only the online timing tell and tournament blinds; the games themselves already run in the engine.
 
 Art for each chapter can be generated in parallel with the build; code uses placeholders until it arrives.
 

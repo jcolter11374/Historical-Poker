@@ -30,7 +30,7 @@ John found boxed layouts looked generic. Controls are painted chips on the felt,
 Everything is placed in stage pixels and the stage scales to the window, so art placement in chapter files is simple and the scene looks the same at any size.
 
 ### Part Two, to the present day, is a later release (2026-11-19)
-John wants the story to reach today. The first release is Part One only (through Deadwood, plus the Poque bonus), so it ships sooner. Part Two's six chapters (1925 to today) come after, and use only fictional people, venues and websites, with no real trademarks or living people.
+John wants the story to reach today. The first release is Part One only (through Deadwood, plus the Poque bonus), so it ships sooner. Part Two (1926 to today) come after, and use only fictional people, venues and websites, with no real trademarks or living people.
 
 ### Every RSDP Live game is taught inside the story (2026-11-19)
-John wants his friends to learn RSDP Live's games here, for free, before playing for money, but without a separate "school" mode. Each game is taught by a character in the chapter where it first appears, with a guided first hand. Part Two grew to eight chapters plus an epilogue so every game has a place; chapter 7 is Razz.
+John wants his friends to learn RSDP Live's games here, for free, before playing for money, but without a separate "school" mode. Each game is taught by a character in the chapter where it first appears, with a guided first hand. Part Two is seven chapters plus an epilogue, each set where its games were really played (re-checked for historical fit on 2026-11-19, which cut a 1994 riverboat casino chapter).

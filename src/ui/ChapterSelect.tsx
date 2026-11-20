@@ -16,11 +16,13 @@ export function ChapterSelect({
   progress,
   onPick,
   onHints,
+  onOption,
   onReset,
 }: {
   progress: Progress;
   onPick: (c: Chapter) => void;
   onHints: (on: boolean) => void;
+  onOption: (option: 'sound' | 'music', on: boolean) => void;
   onReset: () => void;
 }) {
   const won = new Set(Object.keys(progress.won));
@@ -73,6 +75,12 @@ export function ChapterSelect({
         </button>
         <label className="toggle">
           <input type="checkbox" checked={progress.hints} onChange={(e) => onHints(e.target.checked)} /> Teacher hints at the table
+        </label>
+        <label className="toggle">
+          <input type="checkbox" checked={progress.sound} onChange={(e) => onOption('sound', e.target.checked)} /> Sound
+        </label>
+        <label className="toggle">
+          <input type="checkbox" checked={progress.music} onChange={(e) => onOption('music', e.target.checked)} /> Music
         </label>
         {confirmReset ? (
           <span className="reset">

@@ -9,3 +9,5 @@
 | Fonts: Rye, IM Fell English, Alegreya Sans | Google Fonts, loaded in `index.html` | SIL Open Font License |
 | Art in `public/art` | Made for this game by John Colter with an AI image tool, from the prompts in [ART.md](ART.md) | Part of this project |
 | RSDP Live chip logo (the "Powered by" badge) | RSDP Live | John's own mark |
+| Sound effects (cards, chips, knocks, bells) | Made in code with the Web Audio API (`src/ui/sound.ts`); no recordings | Part of this project |
+| Music | None yet. Any track added must be free to use and listed here ([ART.md](ART.md), "Music") | |

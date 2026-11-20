@@ -1,0 +1,12 @@
+{
+  "name": "Historical Poker",
+  "short_name": "Hist. Poker",
+  "description": "A card game through the history of poker.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "background_color": "#160b06",
+  "theme_color": "#160b06",
+  "icons": []
+}

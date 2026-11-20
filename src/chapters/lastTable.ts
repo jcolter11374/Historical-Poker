@@ -94,7 +94,7 @@ export const LAST_TABLE: Chapter = {
         name: 'Mei Lin',
         fullName: 'Mei Lin Chau',
         role: 'A quiet local legend who has played every game',
-        personality: { valueAt: 1.5, bluff: 0.08, caution: 0.04, betSize: 0.65 },
+        personality: { valueAt: 1.5, bluff: 0.08, caution: 0.04, betSize: 0.65, respect: 0.6, reads: 1 },
         tell: { text: 'She sips her tea.', signals: 'weak', showsWhenTrue: 0.5, showsWhenFalse: 0.15 },
         lines: lines({
           bet: ['Bet.', 'Raise, please.'],
@@ -116,7 +116,7 @@ export const LAST_TABLE: Chapter = {
         name: 'Victor',
         fullName: 'Victor Crane',
         role: 'The last of the Cranes',
-        personality: { valueAt: 1.3, bluff: 0.2, caution: 0.0, betSize: 0.75, trap: 0.25 },
+        personality: { valueAt: 1.3, bluff: 0.2, caution: 0.0, betSize: 0.75, trap: 0.25, respect: 0.5, reads: 0.7, tilt: 0.1 },
         tell: { text: 'He straightens his cufflinks: little gold riverboats.', signals: 'bluffing', showsWhenTrue: 0.65, showsWhenFalse: 0.25 },
         lines: lines({
           bet: ['Raise.', 'Bet.', 'Let’s see if the deck still works.'],
@@ -138,7 +138,7 @@ export const LAST_TABLE: Chapter = {
         name: 'Rafael',
         fullName: 'Rafael Duarte',
         role: 'A shipping heir who plays for fun, and loudly',
-        personality: { valueAt: 1.2, bluff: 0.22, caution: -0.05, betSize: 0.75 },
+        personality: { valueAt: 1.2, bluff: 0.22, caution: -0.05, betSize: 0.75, respect: 0.3, reads: 0.2, tilt: 0.1 },
         tell: { text: 'He hums along to music only he can hear.', signals: 'strong', showsWhenTrue: 0.5, showsWhenFalse: 0.25 },
         lines: lines({
           bet: ['Raise! Why not?', 'Bet, my friend.'],

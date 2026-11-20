@@ -197,7 +197,7 @@ Every chapter below lists the same things: setting, rules as the game will run t
 
 **History notes (checked).** Draw poker is first described in print in 1850, and *The American Hoyle* of 1875 lists draw, stud and jackpots (jacks or better to open). On August 2, 1876, Wild Bill Hickok was shot at a poker table in Nuttal & Mann's Saloon No. 10, Deadwood; accounts differ on whether the game was stud or draw. The hand he is said to have held, aces and eights, is known as the dead man's hand, though nobody tied it to him until the 1920s. Note: the chapter's draw limit (three cards, four with an ace) is a modern house rule; in 1876 players could draw up to five.
 
-**Art needed.** Saloon background, Ruby, Jasper and Doc seated on green, 1870s indexed cards, coins and gold dust, a title card, an epilogue painting of the full case.
+**Art needed.** Saloon background (done), Ruby, Jasper and Doc seated on green (Doc done), 1870s indexed cards, coins and gold dust, a title card, an epilogue painting of the full case.
 
 ### Bonus: The Gaming House (1817), Poque
 

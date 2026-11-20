@@ -92,7 +92,7 @@ Each chapter needs: a **background** (the empty room and table, first-person fro
 | 2 The Painted Deck | done (a round oak table with red cloth) | all done | Tudor hand-painted card faces, shillings, the leather case stamped "M.A. 1543" (title painting done) |
 | 3 The North Road | done | all done (one Sorrel, not masked) | Georgian cards, coins, the coach's strongbox (title painting done) |
 | 4 The Camp | done | all done (Toby is cut off at the chest; the table hides the rest) | greenbacks, the silver presentation watch (title painting done) |
-| 5 The Last Hand | Deadwood saloon: plank walls, dusty light, oil lamps | Ruby Calloway, Jasper Crane, "Doc" Abel Whitcomb | gold-dust pouch, 1870s indexed cards; an epilogue painting of the full case |
+| 5 The Last Hand | done | Doc done; Ruby Calloway, Jasper Crane still needed | title painting, gold-dust pouch, 1870s indexed cards; an epilogue painting of the full case |
 | Bonus The Gaming House | New Orleans gaming house: candlelight, iron balconies | Madame Élodie Fontaine, Henri Avery, Captain Lacroix | piquet cards, Spanish silver, a payout board |
 | 6 The Back Room | speakeasy behind a florist's shop: one green lamp, brick, crates of flowers | Nora Shea, Sal Moretti, Gus Lindqvist | a matchbook, chips in a flowerpot |
 | 7 The Desert Classic | 1970s casino tournament room: low ceiling, smoke, patterned carpet | "Tex" Dawson Pruitt, Professor Milton Weiss, Lorraine Fisk | clay chips, a tournament program |

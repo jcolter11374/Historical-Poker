@@ -2,10 +2,15 @@
  * Chapter 5, "The Last Hand": five-card draw at the Lucky Nugget saloon,
  * Deadwood, August 1876. The finale of Part One: the Crane feud ends.
  * (docs/GAME_OUTLINE.md, Chapter 5.)
+ *
+ * Art: the saloon and Doc are painted; Ruby and Jasper are placeholders
+ * until they are painted on green, and there is no title painting yet.
  */
 import { DRAW5_ID } from '../games/fiveCardDraw';
-import { lines, rival, say } from './cast';
+import { cutout, lines, rival, say } from './cast';
 import type { Chapter } from './types';
+
+const art = (file: string) => `${import.meta.env.BASE_URL}art/last-hand/${file}`;
 
 export const LAST_HAND: Chapter = {
   id: 'last-hand',
@@ -64,28 +69,31 @@ export const LAST_HAND: Chapter = {
     'Be the last one at Ruby’s table with money, and the feud is settled.',
   ],
   rivals: [
-    rival(
-      {
-        id: 'doc',
-        name: 'Doc',
-        fullName: '“Doc” Abel Whitcomb',
-        role: 'A prospector who has never been a doctor',
-        personality: { valueAt: 1.4, bluff: 0.12, caution: -0.08, betSize: 0.5, respect: 0.4, reads: 0.3 },
-        tell: { text: 'He shakes his pouch of gold dust.', signals: 'strong', showsWhenTrue: 0.6, showsWhenFalse: 0.2 },
-        lines: lines({
-          bet: ['A pinch of dust says I’m good.', 'Bet! Feelin’ lucky.', 'Raise, on a hunch.'],
-          call: ['I’ll ride along.', 'Call, I s’pose.'],
-          fold: ['Nope.', 'That’s a dry claim.'],
-          check: ['Check.'],
-          win: ['Hee hee! Pay dirt!', 'Knew it in my knees.'],
-          bust: 'Dry as my last claim. Did I ever tell you about the time I found a nugget big as a horse?',
-          draw: ['Three, and make ’em pretty.', 'Gimme two.', 'One. Just one.'],
-          pat: ['I’ll play these, thank you kindly.'],
-        }),
-      },
-      'left',
-      '#6b4a2b',
-    ),
+    {
+      ...rival(
+        {
+          id: 'doc',
+          name: 'Doc',
+          fullName: '“Doc” Abel Whitcomb',
+          role: 'A prospector who has never been a doctor',
+          personality: { valueAt: 1.4, bluff: 0.12, caution: -0.08, betSize: 0.5, respect: 0.4, reads: 0.3 },
+          tell: { text: 'He shakes his pouch of gold dust.', signals: 'strong', showsWhenTrue: 0.6, showsWhenFalse: 0.2 },
+          lines: lines({
+            bet: ['A pinch of dust says I’m good.', 'Bet! Feelin’ lucky.', 'Raise, on a hunch.'],
+            call: ['I’ll ride along.', 'Call, I s’pose.'],
+            fold: ['Nope.', 'That’s a dry claim.'],
+            check: ['Check.'],
+            win: ['Hee hee! Pay dirt!', 'Knew it in my knees.'],
+            bust: 'Dry as my last claim. Did I ever tell you about the time I found a nugget big as a horse?',
+            draw: ['Three, and make ’em pretty.', 'Gimme two.', 'One. Just one.'],
+            pat: ['I’ll play these, thank you kindly.'],
+          }),
+        },
+        'left',
+        '#6b4a2b',
+      ),
+      art: cutout(art('doc.webp'), 1.0444, { x: 345, bottom: 565, height: 440 }),
+    },
     rival(
       {
         id: 'ruby',
@@ -136,7 +144,11 @@ export const LAST_HAND: Chapter = {
   ],
   nemesisId: 'ruby',
   narratorId: 'ruby',
-  scene: { palette: { wall: '#21170f', light: '#f0b75e', felt: '#3b4a2a', rim: '#5b3b20' } },
+  scene: {
+    background: art('background.webp'),
+    tableFront: art('table-front.webp'),
+    palette: { wall: '#21170f', light: '#f0b75e', felt: '#3b4a2a', rim: '#5b3b20' },
+  },
   playerPlate: { x: 800, y: 760 },
   keepsake: { name: 'Ruby Calloway', line: 'The Last Hand, 1876. The best in the territory, until you.' },
   story: {

@@ -162,6 +162,12 @@ export interface ChapterScene {
   /** The same picture with everything but the table transparent, drawn over the characters. See docs/ART.md. */
   tableFront?: string;
   palette: Palette;
+  /**
+   * Music that loops while at this table: a path under public/music/, e.g.
+   * 'music/riverboat.mp3'. Must be free to use; list it in docs/CREDITS.md.
+   * Omit for no music. See src/ui/sound.ts.
+   */
+  music?: string;
 }
 
 export interface Chapter {

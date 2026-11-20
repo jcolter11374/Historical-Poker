@@ -32,7 +32,7 @@ import {
   type SeatIndex,
 } from '@rsdp/engine/core';
 import { cryptoRng, shuffle, type Rng } from '@rsdp/engine';
-import { decide, type Personality } from '../bots/personality';
+import { decide, READS, RESPECT, type Decision, type Personality } from '../bots/personality';
 import { seeded, type Random } from '../bots/random';
 import { equity } from '../bots/strength';
 import type { Chapter, Character, GamePlay, SceneLine, Stage, Story } from '../chapters/types';
@@ -155,6 +155,21 @@ export interface SessionOptions {
   skipTutorial?: boolean;
   /** Override how many deals a bot simulates per decision (tests use few, for speed). */
   simTrials?: number;
+  /** Called after every rival decision with what they did and why. For tests and tools/bot-lab.ts. */
+  onBotDecision?: (info: BotDecisionInfo) => void;
+}
+
+/** What a rival decided, and the numbers behind it (see SessionOptions.onBotDecision). */
+export interface BotDecisionInfo {
+  seat: SeatIndex;
+  id: string;
+  street: number;
+  action: Action['type'];
+  equity: number;
+  bluffing: boolean;
+  tilted: boolean;
+  /** Facing a bet (could not check). */
+  facingBet: boolean;
 }
 
 /** A careful player's numbers: what the teacher would do. Used for hints. */
@@ -177,7 +192,16 @@ export class Session {
   private readonly rnd: Random;
   private readonly dealRng: Rng;
   private readonly simTrials?: number;
+  private readonly onBotDecision?: (info: BotDecisionInfo) => void;
   private boughtIn = 0;
+
+  // What the rivals have learned about the player tonight (see pressureOn).
+  private humanDecisions = 0;
+  private humanAggressive = 0;
+  // Temper: hands left on tilt, by seat, and stacks at the start of the hand.
+  private tiltLeft: Record<SeatIndex, number> = {};
+  private handStartStacks: number[] = [];
+  private lastNet: number[] = [];
 
   // Teaching: which games have been taught, and whether this hand is a guided one.
   private taught = new Set<string>();
@@ -204,6 +228,7 @@ export class Session {
     this.rnd = seeded(opts.seed ?? Math.floor(Math.random() * 2 ** 31));
     this.dealRng = opts.dealRng ?? cryptoRng;
     this.simTrials = opts.simTrials;
+    this.onBotDecision = opts.onBotDecision;
     const stack = chapter.startingStack;
     this.seats = [
       { seat: HUMAN, name: 'You', character: null, stack, out: false, left: null },
@@ -238,6 +263,11 @@ export class Session {
       boughtIn: this.boughtIn,
       outcome: this.outcome,
     };
+  }
+
+  /** Money each seat won (+) or lost (-) in the last finished hand, by seat (before any fine or buy-back). */
+  get lastHandNet(): readonly number[] {
+    return this.lastNet;
   }
 
   /** The seat whose turn it is (to bet or to draw), or null (between hands, hand over, or a scene is playing). */
@@ -286,6 +316,13 @@ export class Session {
     this.redeal = false;
     this.handNumber++;
     this.tells = {};
+    this.handStartStacks = this.seats.map((x) => x.stack);
+    for (const seat of this.seats) {
+      const left = this.tiltLeft[seat.seat] ?? 0;
+      if (left <= 0) continue;
+      this.tiltLeft[seat.seat] = left - 1;
+      if (!seat.out && seat.character) this.noticeTell(seat.seat, `${seat.character.name} is still smarting from that last pot.`);
+    }
     this.cheatingThisHand = false;
     this.accusedThisHand = false;
     this.guidedStreets = new Set();
@@ -355,6 +392,10 @@ export class Session {
   /** The human bets. Throws if it isn't their turn or the move is illegal. */
   act(action: Action): void {
     if (!this.state || this.toAct !== HUMAN || this.state.phase !== 'betting') throw new Error('not your turn');
+    if (action.type !== 'bring-in') {
+      this.humanDecisions++;
+      if (action.type === 'bet' || action.type === 'raise') this.humanAggressive++;
+    }
     engine.act(this.state, HUMAN, action);
     this.afterAction();
   }
@@ -428,9 +469,10 @@ export class Session {
     const legal = engine.legalActions(s, seat)!;
     const eq = this.equityFor(seat);
     const opponents = s.seats.filter((x) => !x.folded && x.seat !== seat).length;
+    const tilted = (this.tiltLeft[seat] ?? 0) > 0;
     const decision = decide(
       character.personality,
-      { legal, equity: eq, opponents, pot: s.seats.reduce((n, x) => n + x.total, 0), currentBet: s.currentBet },
+      { legal, equity: eq, opponents, pot: s.seats.reduce((n, x) => n + x.total, 0), currentBet: s.currentBet, tilted },
       this.rnd,
     );
     // Stud's low card must bring in (or complete with a strong hand); it can't check or fold.
@@ -438,6 +480,16 @@ export class Session {
       decision.action = { type: 'bring-in' };
     }
     engine.act(s, seat, decision.action);
+    this.onBotDecision?.({
+      seat,
+      id: character.id,
+      street: s.street,
+      action: decision.action.type,
+      equity: eq,
+      bluffing: decision.bluffing,
+      tilted,
+      facingBet: !legal.canCheck && !legal.canBringIn,
+    });
 
     const kind = decision.action.type;
     const aggressive = kind === 'bet' || kind === 'raise';
@@ -463,6 +515,22 @@ export class Session {
   }
 
   /**
+   * What the teacher would do in the human's seat right now (betting only),
+   * with the numbers behind it. hint() puts it into words; tools/bot-lab.ts
+   * plays with it.
+   */
+  teacherAdvice(): { decision: Decision; equity: number; opponents: number; pot: number } | null {
+    const s = this.state;
+    if (!s || this.toAct !== HUMAN || s.phase !== 'betting') return null;
+    const legal = engine.legalActions(s, HUMAN)!;
+    const eq = this.equityFor(HUMAN);
+    const opponents = s.seats.filter((x) => !x.folded && x.seat !== HUMAN).length;
+    const pot = s.seats.reduce((n, x) => n + x.total, 0);
+    const decision = decide(TEACHER, { legal, equity: eq, opponents, pot, currentBet: s.currentBet }, seeded(this.handNumber * 101 + s.events.length));
+    return { decision, equity: eq, opponents, pot };
+  }
+
+  /**
    * The teacher's advice for the human's current decision, in one line, or
    * null when there is nothing to decide. Built from the same simulation the
    * bots use, played by a careful, honest player.
@@ -483,10 +551,7 @@ export class Session {
       return { name, seat: teacher, text };
     }
     const legal = engine.legalActions(s, HUMAN)!;
-    const eq = this.equityFor(HUMAN);
-    const opponents = s.seats.filter((x) => !x.folded && x.seat !== HUMAN).length;
-    const pot = s.seats.reduce((n, x) => n + x.total, 0);
-    const d = decide(TEACHER, { legal, equity: eq, opponents, pot, currentBet: s.currentBet }, seeded(this.handNumber * 101 + s.events.length));
+    const { decision: d, equity: eq, opponents, pot } = this.teacherAdvice()!;
     const pct = Math.round(eq * 100);
     const odds = legal.canCheck ? '' : ` It costs ${this.money(legal.callAmount)} to win ${this.money(pot)}.`;
     const verb =
@@ -508,6 +573,8 @@ export class Session {
       return;
     }
     for (const hs of s.seats) this.seats[hs.seat].stack = hs.stack;
+    this.lastNet = this.seats.map((x) => x.stack - (this.handStartStacks[x.seat] ?? x.stack));
+    this.checkTempers();
     const nemesis = this.nemesisSeat();
 
     // A wrong accusation is paid for once the hand is over (money can't move mid-hand).
@@ -714,10 +781,56 @@ export class Session {
   }
 
   /** A seat's share of the pot by simulation, knowing only what that seat can see. */
+  /**
+   * How hard each live opponent's betting this hand leans on `seat`'s
+   * estimate (strength.ts, `pressure`): 1 + respect x their bets and raises
+   * this hand x how believable they are. The player's bets are believed less
+   * the more often they bet tonight (if this rival reads people); a rival's
+   * are believed less the more that rival bluffs.
+   */
+  private pressureOn(seat: SeatIndex, opponents: SeatIndex[]): number[] {
+    const s = this.state!;
+    const p: Personality = this.seats[seat].character?.personality ?? TEACHER;
+    const respect = p.respect ?? RESPECT;
+    const bets: Record<number, number> = {};
+    for (const e of s.events) {
+      if (e.t === 'action' && (e.action === 'bet' || e.action === 'raise' || e.action === 'complete')) bets[e.seat] = (bets[e.seat] ?? 0) + 1;
+    }
+    return opponents.map((o) => {
+      const n = Math.min(3, bets[o] ?? 0);
+      if (!n) return 1;
+      // Below 1 means "they're probably bluffing": deals where they're ahead count for less.
+      return Math.max(0.4, 1 + respect * n * this.credibility(o, p));
+    });
+  }
+
+  /** How far `seat`'s bets are believed by a player with personality `by`. 1 = normal. */
+  private credibility(seat: SeatIndex, by: Personality): number {
+    const c = this.seats[seat].character;
+    if (c) return 1 - Math.min(0.6, c.personality.bluff * 2);
+    // The player: a normal player bets or raises about a quarter of the time.
+    // Five imagined decisions at that rate start every evening.
+    const rate = (this.humanAggressive + 1.25) / (this.humanDecisions + 5);
+    // 1 at a normal rate, 0 at about 60%, -1 (bets mean little) for a player who bets nearly every time.
+    const read = Math.max(-1, Math.min(1.3, (0.6 - rate) / 0.35));
+    return 1 + (by.reads ?? READS) * (read - 1);
+  }
+
+  /** After a hand: a rival with a temper who lost a big pot goes on tilt for three hands. */
+  private checkTempers() {
+    for (const seat of this.seats) {
+      const tilt = seat.character?.personality.tilt ?? 0;
+      if (!tilt || seat.out) continue;
+      const lost = (this.handStartStacks[seat.seat] ?? seat.stack) - seat.stack;
+      if (lost >= this.chapter.startingStack * 0.25) this.tiltLeft[seat.seat] = 3;
+    }
+  }
+
   private equityFor(seat: SeatIndex): number {
     const s = this.state!;
     const me = s.seats.find((x) => x.seat === seat)!;
     const others = s.seats.filter((x) => x.seat !== seat);
+    const live = others.filter((x) => !x.folded);
     return equity(
       {
         game: this.game,
@@ -727,6 +840,7 @@ export class Session {
         dead: others.filter((x) => x.folded).flatMap((x) => x.cards.filter((c) => c.up).map((c) => c.card)),
         street: s.street,
         drawPending: s.phase === 'drawing',
+        pressure: this.pressureOn(seat, live.map((x) => x.seat)),
       },
       this.rnd,
       this.simTrials,

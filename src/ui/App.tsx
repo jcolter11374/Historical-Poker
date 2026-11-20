@@ -8,15 +8,16 @@
  * Progress (chapters won, hints on or off) is saved in the browser after each
  * chapter (src/progress/save.ts).
  */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CHAPTERS, followingChapter, isUnlocked, nextChapter } from '../chapters';
 import type { Chapter } from '../chapters/types';
-import { loadProgress, record, resetProgress, setHints, type Progress } from '../progress/save';
+import { loadProgress, record, resetProgress, setHints, setOption, type Progress } from '../progress/save';
 import { Session } from '../table/session';
 import { ChapterSelect } from './ChapterSelect';
 import { PoweredBy } from './PoweredBy';
 import { Face, SceneBack } from './Scene';
 import { Stage } from './Stage';
+import { playMusic, setMusicOn, setSoundOn, unlock } from './sound';
 import { TableScreen } from './TableScreen';
 
 type Screen =
@@ -29,6 +30,23 @@ export function App() {
   const [progress, setProgress] = useState<Progress>(() => loadProgress());
   const won = new Set(Object.keys(progress.won));
   const [screen, setScreen] = useState<Screen>(() => (Object.keys(progress.played).length ? { name: 'select' } : { name: 'intro', chapter: nextChapter(won) }));
+
+  // Sound: browsers only allow it after a press, so start audio on the first one.
+  useEffect(() => {
+    window.addEventListener('pointerdown', unlock);
+    window.addEventListener('keydown', unlock);
+    return () => {
+      window.removeEventListener('pointerdown', unlock);
+      window.removeEventListener('keydown', unlock);
+    };
+  }, []);
+  useEffect(() => setSoundOn(progress.sound), [progress.sound]);
+  useEffect(() => setMusicOn(progress.music), [progress.music]);
+  // The table picks its own music (a stage can change it); story screens play the chapter's.
+  const storyMusic = screen.name === 'intro' || screen.name === 'end' ? (screen.chapter.scene.music ?? null) : null;
+  useEffect(() => {
+    if (screen.name !== 'table') playMusic(storyMusic);
+  }, [screen.name, storyMusic]);
 
   const sit = (chapter: Chapter) => {
     setProgress(record(progress, chapter.id, 'started'));
@@ -47,6 +65,7 @@ export function App() {
           progress={progress}
           onPick={(chapter) => setScreen({ name: 'intro', chapter })}
           onHints={(on) => setProgress(setHints(progress, on))}
+          onOption={(option, on) => setProgress(setOption(progress, option, on))}
           onReset={() => setProgress(resetProgress())}
         />
       )}
@@ -54,7 +73,12 @@ export function App() {
         <IntroScreen chapter={screen.chapter} jumping={!isUnlocked(screen.chapter.id, won)} onStart={() => sit(screen.chapter)} onBack={() => setScreen({ name: 'select' })} />
       )}
       {screen.name === 'table' && (
-        <TableScreen session={screen.session} hints={progress.hints} onFinished={() => finished(screen.session)} onLeave={() => setScreen({ name: 'select' })} />
+        <TableScreen
+          session={screen.session}
+          hints={progress.hints}
+          sound={progress.sound}
+          onSound={(on) => setProgress(setOption(progress, 'sound', on))}
+          onFinished={() => finished(screen.session)} onLeave={() => setScreen({ name: 'select' })} />
       )}
       {screen.name === 'end' && (
         <EndScreen

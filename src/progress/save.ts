@@ -16,9 +16,13 @@ export interface Progress {
   played: Record<string, string>;
   /** Teacher hints on the table (on by default). */
   hints: boolean;
+  /** Sound effects (on by default). */
+  sound: boolean;
+  /** Music, where a chapter has some (on by default). */
+  music: boolean;
 }
 
-const empty = (): Progress => ({ version: VERSION, won: {}, played: {}, hints: true });
+const empty = (): Progress => ({ version: VERSION, won: {}, played: {}, hints: true, sound: true, music: true });
 
 /** Somewhere to keep progress. The browser's localStorage, or a stand-in in tests. */
 export interface Store {
@@ -66,7 +70,12 @@ export function record(p: Progress, chapterId: string, event: 'started' | 'won',
 }
 
 export function setHints(p: Progress, hints: boolean, s: Store | null = store()): Progress {
-  const next = { ...p, hints };
+  return setOption(p, 'hints', hints, s);
+}
+
+/** Turns a setting (hints, sound, music) on or off and saves. */
+export function setOption(p: Progress, option: 'hints' | 'sound' | 'music', on: boolean, s: Store | null = store()): Progress {
+  const next = { ...p, [option]: on };
   saveProgress(next, s);
   return next;
 }

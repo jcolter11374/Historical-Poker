@@ -26,9 +26,20 @@ export interface SimInput {
   street: number;
   /** The draw on this street hasn't happened yet (we are in the drawing phase). */
   drawPending: boolean;
+  /**
+   * Optional, one per opponent: how much to believe that opponent's bets.
+   * 1 = they could hold anything; 2 = deals where they beat us count twice,
+   * because a player who bets is more likely to be ahead. Built from their
+   * bets this hand and the bot's read on them (session.ts, `pressureOn`).
+   */
+  pressure?: number[];
 }
 
-/** Share of the pot (0 to 1) this hand wins on average. */
+/**
+ * Share of the pot (0 to 1) this hand wins on average. With `pressure`, each
+ * simulated deal is weighted by how likely the opponents' betting was given
+ * their cards there (a simple Bayes update), so a bet is read as strength.
+ */
 export function equity(input: SimInput, rnd: Random, trials?: number): number {
   const { game, me, board, opponents } = input;
   if (opponents.length === 0) return 1;
@@ -45,7 +56,9 @@ export function equity(input: SimInput, rnd: Random, trials?: number): number {
   const unseen = game.deck().filter((c) => !known.has(c));
   const seats = [0, ...opponents.map((_, i) => i + 1)];
   const POT = 1200;
+  const pressure = input.pressure ?? [];
   let won = 0;
+  let weights = 0;
   for (let t = 0; t < n; t++) {
     const pool = rnd.shuffle(unseen);
     let k = 0;
@@ -67,7 +80,14 @@ export function equity(input: SimInput, rnd: Random, trials?: number): number {
     const holeBySeat: Record<number, Card[]> = {};
     hands.forEach((h, i) => (holeBySeat[i] = h));
     const awards = game.rules.awardPortion(game.spec, POT, seats, holeBySeat, b);
-    for (const a of awards) if (a.seat === 0) won += a.amount;
+    const share: number[] = seats.map(() => 0);
+    for (const a of awards) share[a.seat] += a.amount;
+    let w = 1;
+    pressure.forEach((f, i) => {
+      if (f !== 1 && share[i + 1] > share[0]) w *= f;
+    });
+    won += w * share[0];
+    weights += w;
   }
-  return won / (POT * n);
+  return won / (POT * weights);
 }

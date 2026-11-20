@@ -141,3 +141,71 @@ A home game with friends. No-Limit Hold'em, $1/$2, $200 each, blinds rise every 
 - **House extras:** every 4th hand is a **bomb pot** (everyone puts in 3 units, no betting before the flop) dealt with a **double board** (half the pot for each board); winning a pot with **7-2** and showing it collects a **bounty** of 2 units from everyone. Taught by Marcus, Dee and Priya before the first deal.
 - **Cast:** Priya (loves chaos, can't stop smiling when strong), Marcus (the host, re-stacks his chips by colour when strong), Dee (always says it's seven-deuce, drums the table when bluffing).
 - **Beats:** before hand 6 your friends ask for the whole story. Finale: Priya or Dee bows out. Win: the case is full, and the ending links to RSDP Live.
+
+## How the rivals play
+
+Every rival's numbers, from their chapter file (what each number means: [GAME_DESIGN.md](GAME_DESIGN.md), "How the bots think"), and how they actually played in the bot lab (`tools/bot-lab.ts`, 2026-11-20, 300 hands per stand-in in Part One, 200 to 300 in Part Two). "Plays" is the share of hands they put money in on the first round by choice; "bets" the share of their decisions that were bets or raises. In multi-game chapters these mix every game.
+
+| Chapter | Rival | valueAt | bluff | caution | betSize | trap | respect | reads | tilt | plays % | bets % | folds to a bet % |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| riverboat | Delphine | 1.6 | 0.07 | 0.03 | 0.6 | 0.5 | 0.6 | 0.9 |  | 33 | 17 | 54 |
+| riverboat | Silas | 1.3 | 0.24 | -0.02 | 0.75 |  | 0.35 | 0.6 | 0.12 | 53 | 39 | 37 |
+| riverboat | Ezra | 2.0 | 0.0 | 0.1 | 0.4 |  | 0.95 | 0.1 |  | 28 | 14 | 64 |
+| painted-deck | Sir Roland | 1.1 | 0.3 | -0.06 | 0.8 |  | 0.25 | 0.1 | 0.15 | 44 | 37 | 35 |
+| painted-deck | Lady Margery | 1.45 | 0.08 | 0.04 | 0.7 |  | 0.6 | 0.9 |  | 17 | 19 | 40 |
+| painted-deck | Brother Anselm | 1.7 | 0.03 | 0.08 | 0.5 |  | 0.85 | 0.3 |  | 6 | 5 | 73 |
+| north-road | Hannah | 1.7 | 0.04 | 0.06 | 0.7 |  | 0.8 | 0.4 |  | 29 | 16 | 61 |
+| north-road | Captain Pike | 1.15 | 0.32 | -0.04 | 0.85 |  | 0.3 | 0.2 | 0.1 | 57 | 43 | 36 |
+| north-road | Mr. Sorrel | 1.35 | 0.18 | 0.0 | 0.65 | 0.35 | 0.5 | 0.9 |  | 47 | 28 | 41 |
+| camp | Toby | 1.5 | 0.04 | -0.12 | 0.45 |  | 0.4 | 0.1 |  | 58 | 15 | 27 |
+| camp | Sergeant Reed | 1.9 | 0.02 | 0.1 | 0.75 |  | 0.9 | 0.6 |  | 12 | 7 | 43 |
+| camp | Hattie | 1.35 | 0.22 | 0.02 | 0.7 |  | 0.5 | 0.6 | 0.08 | 40 | 23 | 30 |
+| last-hand | Doc | 1.4 | 0.12 | -0.08 | 0.5 |  | 0.4 | 0.3 |  | 31 | 24 | 38 |
+| last-hand | Ruby | 1.4 | 0.14 | 0.03 | 0.7 | 0.3 | 0.6 | 1 |  | 25 | 27 | 34 |
+| last-hand | Jasper | 1.3 | 0.25 | -0.02 | 0.8 |  | 0.35 | 0.4 | 0.15 | 40 | 40 | 27 |
+| gaming-house | Henri | 1.5 | 0.08 | 0.03 | 0.6 |  | 0.7 | 0.5 | 0.1 | 32 | 27 | 54 |
+| gaming-house | Madame Élodie | 1.45 | 0.12 | 0.04 | 0.7 | 0.4 | 0.6 | 1 |  | 38 | 25 | 47 |
+| gaming-house | Lacroix | 1.15 | 0.3 | -0.06 | 0.85 |  | 0.25 | 0.2 | 0.12 | 57 | 40 | 34 |
+| back-room | Sal | 1.55 | 0.05 | 0.05 | 0.6 |  | 0.75 | 0.7 |  | 30 | 20 | 38 |
+| back-room | Nora | 1.35 | 0.15 | 0.02 | 0.7 | 0.25 | 0.6 | 0.8 |  | 40 | 27 | 23 |
+| back-room | Gus | 1.3 | 0.1 | -0.08 | 0.5 |  | 0.4 | 0.1 |  | 52 | 22 | 10 |
+| desert-classic | Professor Weiss | 1.5 | 0.06 | 0.04 | 0.6 |  | 0.7 | 0.7 |  | 23 | 14 | 47 |
+| desert-classic | Tex | 1.2 | 0.28 | -0.03 | 0.8 |  | 0.35 | 0.5 | 0.1 | 48 | 31 | 21 |
+| desert-classic | Lorraine | 1.45 | 0.12 | 0.03 | 0.7 | 0.4 | 0.6 | 0.9 |  | 35 | 15 | 26 |
+| boardwalk | Benny | 1.3 | 0.14 | -0.04 | 0.6 |  | 0.5 | 0.6 |  | 51 | 22 | 15 |
+| boardwalk | Margot | 1.45 | 0.1 | 0.04 | 0.7 | 0.3 | 0.6 | 0.9 |  | 26 | 14 | 21 |
+| boardwalk | Ruth | 1.9 | 0.0 | 0.1 | 0.5 |  | 0.95 | 0.2 |  | 17 | 3 | 51 |
+| cercle | Siobhan | 1.4 | 0.14 | 0.02 | 0.75 |  | 0.6 | 0.9 |  | 27 | 16 | 42 |
+| cercle | Comte Varenne | 1.4 | 0.1 | 0.03 | 0.75 | 0.3 | 0.6 | 0.7 |  | 25 | 13 | 45 |
+| cercle | Dmitri | 1.6 | 0.06 | 0.06 | 0.6 |  | 0.7 | 0.8 |  | 29 | 8 | 44 |
+| boom | DeuceSeven | 1.35 | 0.16 | 0.01 | 0.7 |  | 0.5 | 0.8 |  | 30 | 30 | 31 |
+| boom | N0rthStar | 1.25 | 0.22 | -0.01 | 0.8 | 0.2 | 0.6 | 1 |  | 39 | 35 | 23 |
+| boom | Hanbit | 1.5 | 0.08 | 0.04 | 0.6 |  | 0.6 | 0.7 |  | 29 | 21 | 33 |
+| big-o | Kerry-Ann | 1.3 | 0.15 | -0.03 | 0.7 |  | 0.5 | 0.3 | 0.08 | 34 | 19 | 41 |
+| big-o | Gaz | 1.35 | 0.14 | 0.0 | 0.75 | 0.25 | 0.6 | 0.9 |  | 28 | 16 | 41 |
+| big-o | Mr. Okafor | 1.7 | 0.04 | 0.07 | 0.6 |  | 0.8 | 0.4 |  | 29 | 6 | 52 |
+| last-table | Mei Lin | 1.5 | 0.08 | 0.04 | 0.65 |  | 0.6 | 1 |  | 33 | 22 | 28 |
+| last-table | Victor | 1.3 | 0.2 | 0.0 | 0.75 | 0.25 | 0.5 | 0.7 | 0.1 | 40 | 28 | 17 |
+| last-table | Rafael | 1.2 | 0.22 | -0.05 | 0.75 |  | 0.3 | 0.2 | 0.1 | 47 | 30 | 13 |
+| kitchen-table | Priya | 1.2 | 0.22 | -0.06 | 0.7 |  | 0.3 | 0.2 |  | 30 | 28 | 43 |
+| kitchen-table | Marcus | 1.45 | 0.1 | 0.03 | 0.65 | 0.3 | 0.6 | 0.7 | 0.08 | 22 | 15 | 43 |
+| kitchen-table | Dee | 1.35 | 0.18 | -0.02 | 0.6 |  | 0.45 | 0.3 |  | 47 | 24 | 33 |
+
+Stand-ins in your seat, in betting units won per 100 hands (negative means the rivals beat them):
+
+| Chapter | station | maniac | aggro | teacher |
+| --- | --- | --- | --- | --- |
+| riverboat | -82 | -695 | -644 | -43 |
+| painted-deck | -203 | -82 | -472 | -41 |
+| north-road | -181 | -918 | -846 | 61 |
+| camp | -264 | -402 | -678 | 13 |
+| last-hand | -234 | -516 | -574 | 35 |
+| gaming-house | -353 | -1281 | -980 | 10 |
+| back-room | -188 | -306 | -361 | 14 |
+| desert-classic | -364 | -139 | -407 | 37 |
+| boardwalk | -125 | -143 | -121 | -11 |
+| cercle | -347 | -163 | -441 | -2 |
+| boom | -319 | -160 | -108 | 43 |
+| big-o | -247 | -275 | -344 | 5 |
+| last-table | -197 | -206 | -431 | -23 |
+| kitchen-table | -738 | -594 | -433 | 110 |

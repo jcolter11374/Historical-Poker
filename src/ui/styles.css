@@ -244,6 +244,9 @@ button:disabled { opacity: 0.4; cursor: default; }
 /* ---------------------------------------------------------------- placeholder art */
 .cast-placeholder { display: grid; place-items: center; font-family: var(--display); font-size: 30px; color: rgba(255, 244, 220, 0.85); text-shadow: 0 2px 4px #000; }
 .story-shade { position: absolute; inset: 0; background: rgba(8, 4, 2, 0.55); }
+/* With a title painting: the text moves left onto a shaded side and the painting shows on the right. */
+.story-titled .story-shade { background: linear-gradient(90deg, rgba(8, 4, 2, 0.86) 0%, rgba(8, 4, 2, 0.72) 42%, rgba(8, 4, 2, 0.15) 70%, rgba(8, 4, 2, 0) 100%); }
+.story-titled .story-card { left: 70px; transform: translateY(-50%); width: 820px; }
 .recap { border-left: 3px solid var(--brass); padding-left: 18px; margin: 4px 0 8px; }
 .recap h3 { margin: 0 0 4px; }
 .recap p { font-size: 20px; color: var(--muted); }

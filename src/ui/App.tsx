@@ -96,8 +96,8 @@ export function App() {
 function IntroScreen({ chapter, jumping, onStart, onBack }: { chapter: Chapter; jumping: boolean; onStart: () => void; onBack: () => void }) {
   const first = CHAPTERS[0].chapter.id === chapter.id;
   return (
-    <div className="story-screen">
-      <SceneBack scene={chapter.scene} />
+    <div className={`story-screen ${chapter.scene.title ? 'story-titled' : ''}`}>
+      {chapter.scene.title ? <img className="layer" src={chapter.scene.title} alt="" /> : <SceneBack scene={chapter.scene} />}
       <div className="story-shade" />
       <PoweredBy />
       <div className="story-card">

@@ -2,10 +2,15 @@
  * Chapter 3, "The North Road": three-card Brag at the Pewter Lamb, a
  * snowbound coaching inn on the Great North Road, 1763. The second
  * flashback: how the deck crossed to America. (docs/GAME_OUTLINE.md, Chapter 3.)
+ *
+ * Art: the taproom, the title painting and the three rivals (cut out from
+ * green) are painted (docs/ART.md).
  */
 import { BRAG_ID } from '../games/brag';
-import { lines, rival, say } from './cast';
+import { cutout, lines, rival, say } from './cast';
 import type { Chapter } from './types';
+
+const art = (file: string) => `${import.meta.env.BASE_URL}art/north-road/${file}`;
 
 export const NORTH_ROAD: Chapter = {
   id: 'north-road',
@@ -64,71 +69,85 @@ export const NORTH_ROAD: Chapter = {
     'Once Captain Pike stakes his ship’s passage, take his last shilling and you sail with him for free.',
   ],
   rivals: [
-    rival(
-      {
-        id: 'hannah',
-        name: 'Hannah',
-        fullName: 'Hannah Pell',
-        role: 'Keeper of the Pewter Lamb',
-        personality: { valueAt: 1.7, bluff: 0.04, caution: 0.06, betSize: 0.7, respect: 0.8, reads: 0.4 },
-        tell: { text: 'She polishes a tankard, slowly.', signals: 'strong', showsWhenTrue: 0.6, showsWhenFalse: 0.15 },
-        lines: lines({
-          bet: ['I’ll put some in.', 'Wager.', 'Raise, and I’ll not apologise.'],
-          call: ['I’ll stay.', 'Go on, then.'],
-          fold: ['Not worth my bread.', 'I’m out.'],
-          check: ['I’ll wait.'],
-          win: ['House always wins, love.', 'That’ll pay for the firewood.'],
-          bust: 'Well. That’s the takings gone. Back to the kitchen with me.',
-        }),
-      },
-      'left',
-      '#5a3b22',
-    ),
-    rival(
-      {
-        id: 'pike',
-        name: 'Captain Pike',
-        fullName: 'Captain Josiah Pike',
-        role: 'A retired sea captain bound for the colonies',
-        personality: { valueAt: 1.15, bluff: 0.32, caution: -0.04, betSize: 0.85, respect: 0.3, reads: 0.2, tilt: 0.1 },
-        // The louder his boast, the weaker his hand: shows on 75% of his bluffs, 25% of his honest bets.
-        tell: { text: 'He boasts, loudly, about the hand he holds.', signals: 'bluffing', showsWhenTrue: 0.75, showsWhenFalse: 0.25 },
-        lines: lines({
-          bet: ['A prial, lad, I’d wager my ship on it!', 'Raise! I’ve sailed through worse storms than you.', 'More! The sea favours the bold.'],
-          call: ['I’ll see you, landlubber.', 'Aye.'],
-          fold: ['Strike the colours. Fold.', 'Not worth the powder.'],
-          check: ['Steady as she goes.'],
-          win: ['Ha! Into the hold with it!', 'Fair winds and full pockets.'],
-          bust: 'Sunk. Holed below the waterline. I’ll pay my debts, lad; a captain’s word is good.',
-        }),
-      },
-      'across',
-      '#1f3550',
-    ),
-    rival(
-      {
-        id: 'sorrel',
-        name: 'Mr. Sorrel',
-        fullName: 'Mr. Jack Sorrel',
-        role: 'A well-dressed gentleman. Too well dressed',
-        personality: { valueAt: 1.35, bluff: 0.18, caution: 0.0, betSize: 0.65, trap: 0.35, respect: 0.5, reads: 0.9 },
-        tell: { text: 'His hand drifts to his coat pocket.', signals: 'weak', showsWhenTrue: 0.55, showsWhenFalse: 0.12 },
-        lines: lines({
-          bet: ['I believe I shall wager.', 'Shall we make it interesting?'],
-          call: ['Delighted.', 'I’ll come along.'],
-          fold: ['Another time.', 'Your hand, sir.'],
-          check: ['After you, I insist.'],
-          win: ['Too kind.', 'Most generous.'],
-          bust: 'Robbed! And by a coach guard, of all people. There’s a joke in that somewhere.',
-        }),
-      },
-      'right',
-      '#2b4a3a',
-    ),
+    {
+      ...rival(
+        {
+          id: 'hannah',
+          name: 'Hannah',
+          fullName: 'Hannah Pell',
+          role: 'Keeper of the Pewter Lamb',
+          personality: { valueAt: 1.7, bluff: 0.04, caution: 0.06, betSize: 0.7, respect: 0.8, reads: 0.4 },
+          tell: { text: 'She polishes a tankard, slowly.', signals: 'strong', showsWhenTrue: 0.6, showsWhenFalse: 0.15 },
+          lines: lines({
+            bet: ['I’ll put some in.', 'Wager.', 'Raise, and I’ll not apologise.'],
+            call: ['I’ll stay.', 'Go on, then.'],
+            fold: ['Not worth my bread.', 'I’m out.'],
+            check: ['I’ll wait.'],
+            win: ['House always wins, love.', 'That’ll pay for the firewood.'],
+            bust: 'Well. That’s the takings gone. Back to the kitchen with me.',
+          }),
+        },
+        'left',
+        '#5a3b22',
+      ),
+      art: cutout(art('hannah.webp'), 1.0911, { x: 320, bottom: 560, height: 450 }),
+    },
+    {
+      ...rival(
+        {
+          id: 'pike',
+          name: 'Captain Pike',
+          fullName: 'Captain Josiah Pike',
+          role: 'A retired sea captain bound for the colonies',
+          personality: { valueAt: 1.15, bluff: 0.32, caution: -0.04, betSize: 0.85, respect: 0.3, reads: 0.2, tilt: 0.1 },
+          // The louder his boast, the weaker his hand: shows on 75% of his bluffs, 25% of his honest bets.
+          tell: { text: 'He boasts, loudly, about the hand he holds.', signals: 'bluffing', showsWhenTrue: 0.75, showsWhenFalse: 0.25 },
+          lines: lines({
+            bet: ['A prial, lad, I’d wager my ship on it!', 'Raise! I’ve sailed through worse storms than you.', 'More! The sea favours the bold.'],
+            call: ['I’ll see you, landlubber.', 'Aye.'],
+            fold: ['Strike the colours. Fold.', 'Not worth the powder.'],
+            check: ['Steady as she goes.'],
+            win: ['Ha! Into the hold with it!', 'Fair winds and full pockets.'],
+            bust: 'Sunk. Holed below the waterline. I’ll pay my debts, lad; a captain’s word is good.',
+          }),
+        },
+        'across',
+        '#1f3550',
+      ),
+      art: cutout(art('pike.webp'), 1.4144, { x: 800, bottom: 510, height: 400 }),
+    },
+    {
+      ...rival(
+        {
+          id: 'sorrel',
+          name: 'Mr. Sorrel',
+          fullName: 'Mr. Jack Sorrel',
+          role: 'A well-dressed gentleman. Too well dressed',
+          personality: { valueAt: 1.35, bluff: 0.18, caution: 0.0, betSize: 0.65, trap: 0.35, respect: 0.5, reads: 0.9 },
+          tell: { text: 'His hand drifts to his coat pocket.', signals: 'weak', showsWhenTrue: 0.55, showsWhenFalse: 0.12 },
+          lines: lines({
+            bet: ['I believe I shall wager.', 'Shall we make it interesting?'],
+            call: ['Delighted.', 'I’ll come along.'],
+            fold: ['Another time.', 'Your hand, sir.'],
+            check: ['After you, I insist.'],
+            win: ['Too kind.', 'Most generous.'],
+            bust: 'Robbed! And by a coach guard, of all people. There’s a joke in that somewhere.',
+          }),
+        },
+        'right',
+        '#2b4a3a',
+      ),
+      art: cutout(art('sorrel.webp'), 1.1433, { x: 1290, bottom: 560, height: 450 }),
+    },
   ],
   nemesisId: 'pike',
   narratorId: 'hannah',
-  scene: { palette: { wall: '#151719', light: '#f0a24a', felt: '#3d3226', rim: '#8a8f94' } },
+  scene: {
+    background: art('background.webp'),
+    tableFront: art('table-front.webp'),
+    title: art('title.webp'),
+    palette: { wall: '#151719', light: '#f0a24a', felt: '#3d3226', rim: '#8a8f94' },
+  },
   playerPlate: { x: 800, y: 760 },
   keepsake: { name: 'Captain Josiah Pike', line: 'The North Road, 1763. He bragged; you called.' },
   story: {

@@ -85,7 +85,7 @@ Every chapter below lists the same things: setting, rules as the game will run t
 
 **History notes (checked).** The earliest accounts of "poker" (Joseph Cowell, in New Orleans in 1829; Jonathan Green, on a steamboat bound for New Orleans in 1833) describe this 20-card game for four players, five cards each, with no draw. Professional riverboat gamblers worked the boats in this era. Between about 1830 and 1845 the full 52-card deck took over, so more people could play, and it brought in the flush; the straight came later (listed in 1864). A knife with a buckhorn handle, the "buck", marked the dealer, which is where "passing the buck" comes from; the phrase is in print by 1857.
 
-**Art needed.** Background (done), Silas (done), Delphine and Ezra seated on green (done as portraits; cutouts needed), period card faces with no corner numbers, silver dollars, the buckhorn knife, a chapter title card.
+**Art needed.** Background (done), Silas (done), Delphine and Ezra seated on green (done), period card faces with no corner numbers, silver dollars, the buckhorn knife, a chapter title card (done).
 
 ### Chapter 2: The Painted Deck (1543), Primero
 
@@ -113,7 +113,7 @@ Every chapter below lists the same things: setting, rules as the game will run t
 
 **History notes (checked).** Primero (Italian *primiera*, Spanish *primera*) was popular across Europe in the 1500s and was one of the fashionable games of Henry VIII's reign. Shakespeare mentions it, in *Henry VIII* (the king at primero with the Duke of Suffolk) and *The Merry Wives of Windsor* (Falstaff). It is played with 40 cards; its hands, including a flush and four of a kind, foreshadow poker's. Henry VIII closed England's monasteries between 1536 and 1541.
 
-**Art needed.** Great hall background, Margery, Roland and Anselm seated on green, Tudor-style hand-painted card faces, shillings, a title card.
+**Art needed.** Great hall background (done), Margery, Roland and Anselm seated on green (done), Tudor-style hand-painted card faces, shillings, a title card (done).
 
 ### Chapter 3: The North Road (1763), Brag
 
@@ -141,7 +141,7 @@ Every chapter below lists the same things: setting, rules as the game will run t
 
 **History notes (checked).** Brag descends from post and pair, recorded from 1528. Its rules were printed in *The Compleat Gamester* (1721) and by Hoyle (1751), with a wild "bragger", the jack of clubs. Betting blind, bluffing and "bragging" about a hand are all ideas poker kept. Three-card brag is still a popular British gambling game. The chapter plays modern three-card brag rankings (prials, runs), not the 1700s scoring; the rules card says so.
 
-**Art needed.** Inn taproom background, Pike, Hannah and Sorrel seated on green, Georgian-style cards, coins, a title card.
+**Art needed.** Inn taproom background (done), Pike, Hannah and Sorrel seated on green (done), Georgian-style cards, coins, a title card (done).
 
 ### Chapter 4: The Camp (1863), five-card stud
 
@@ -169,7 +169,7 @@ Every chapter below lists the same things: setting, rules as the game will run t
 
 **History notes (checked).** Five-card stud first appears in print in *The American Hoyle* of 1864 and was much played by soldiers on both sides. The flush had come in with the 52-card deck; the straight is first listed in that same 1864 book. The first American cards with corner indices were patented in February 1864 and caught on in the 1870s and 1880s, so the cards in this 1863 camp have none. The battles for Chattanooga ran from November 23 to 25, 1863, so the chapter opens on November 22.
 
-**Art needed.** Tent background, Reed, Toby and Hattie seated on green, 1860s cards, greenbacks and coins, a title card.
+**Art needed.** Tent background (done), Reed, Toby and Hattie seated on green (done), 1860s cards, greenbacks and coins, a title card (done).
 
 ### Chapter 5: The Last Hand (1876), five-card draw, the finale
 
@@ -197,7 +197,7 @@ Every chapter below lists the same things: setting, rules as the game will run t
 
 **History notes (checked).** Draw poker is first described in print in 1850, and *The American Hoyle* of 1875 lists draw, stud and jackpots (jacks or better to open). On August 2, 1876, Wild Bill Hickok was shot at a poker table in Nuttal & Mann's Saloon No. 10, Deadwood; accounts differ on whether the game was stud or draw. The hand he is said to have held, aces and eights, is known as the dead man's hand, though nobody tied it to him until the 1920s. Note: the chapter's draw limit (three cards, four with an ace) is a modern house rule; in 1876 players could draw up to five.
 
-**Art needed.** Saloon background, Ruby, Jasper and Doc seated on green, 1870s indexed cards, coins and gold dust, a title card, an epilogue painting of the full case.
+**Art needed.** Saloon background (done), Ruby, Jasper and Doc seated on green (Doc done), 1870s indexed cards, coins and gold dust, a title card, an epilogue painting of the full case.
 
 ### Bonus: The Gaming House (1817), Poque
 
@@ -336,7 +336,7 @@ Every screen should look like a painted scene you are sitting in, not a poker ap
 
 | Chapter | Background | Characters on green | Props |
 | --- | --- | --- | --- |
-| 1 The River | Done | Silas done; Delphine and Ezra need cutouts | 20-card deck, silver dollars, buckhorn knife |
+| 1 The River | Done | All done | 20-card deck, silver dollars, buckhorn knife |
 | 2 The Painted Deck | Needed | Margery, Roland, Anselm | Tudor cards, shillings |
 | 3 The North Road | Needed | Pike, Hannah, Sorrel | Georgian cards, coins |
 | 4 The Camp | Needed | Reed, Toby, Hattie | 1860s cards, greenbacks |

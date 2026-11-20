@@ -23,6 +23,11 @@ export function placeholder(color: string, seat: SeatPos): CharacterArt {
   return { src: '', kind: 'placeholder', color, aspect: 0.8, place: ART[seat] };
 }
 
+/** Painted art cut out from green, placed on the 1600 x 900 stage. `aspect` is the image's width / height. */
+export function cutout(src: string, aspect: number, place: { x: number; bottom: number; height: number }): CharacterArt {
+  return { src, kind: 'cutout', aspect, place };
+}
+
 /** A rival with placeholder art in a standard seat. */
 export function rival(c: Omit<Character, 'art' | 'plate'>, seat: SeatPos, color: string): Character {
   return { ...c, art: placeholder(color, seat), plate: PLATE[seat] };

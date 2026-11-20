@@ -2,7 +2,14 @@ import { describe, expect, it } from 'vitest';
 import { RIVERBOAT } from '../src/chapters/riverboat';
 import { evaluate1836 } from '../src/games/straightPoker';
 import { HUMAN, Session } from '../src/table/session';
+import { seeded } from '../src/bots/random';
 import { playOut } from './helpers';
+
+/** A seeded shuffle, so a test deals the same cards every run (the game itself deals with crypto). */
+const dealFrom = (seed: number) => {
+  const deal = seeded(seed * 7919 + 17);
+  return (n: number) => deal.int(n);
+};
 
 const skip = (s: Session) => {
   while (s.inScene) s.advanceScene();
@@ -43,7 +50,7 @@ describe('chapter 1 story', () => {
   });
 
   it('puts the deck on the table after a few hands', () => {
-    const s = new Session(RIVERBOAT, { seed: 4, skipTutorial: true });
+    const s = new Session(RIVERBOAT, { seed: 4, dealRng: dealFrom(4), skipTutorial: true });
     playUntil(s, () => s.snapshot().stakeHolder !== null);
     const snap = s.snapshot();
     if (!snap.outcome) expect(snap.seats[snap.stakeHolder!].character?.id).toBe('silas');
@@ -52,7 +59,7 @@ describe('chapter 1 story', () => {
   it('calls off the hand and gives the money back when the player catches Silas cheating', () => {
     let caught = 0;
     for (let seed = 1; seed <= 30 && caught < 3; seed++) {
-      const s = new Session(RIVERBOAT, { seed, skipTutorial: true });
+      const s = new Session(RIVERBOAT, { seed, dealRng: dealFrom(seed), skipTutorial: true });
       // Play until Silas deals himself four aces (or the game ends).
       playUntil(s, () => {
         const tells = s.snapshot().tells[2] ?? [];
@@ -75,7 +82,7 @@ describe('chapter 1 story', () => {
 
   it('fines the player for accusing an honest deal', () => {
     for (let seed = 1; seed <= 40; seed++) {
-      const s = new Session(RIVERBOAT, { seed, skipTutorial: true });
+      const s = new Session(RIVERBOAT, { seed, dealRng: dealFrom(seed), skipTutorial: true });
       playUntil(s, () => s.canAccuse() && !(s.snapshot().tells[2] ?? []).includes(RIVERBOAT.story!.cheat!.tell));
       if (!s.canAccuse()) continue;
       s.accuse();

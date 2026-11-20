@@ -141,7 +141,7 @@ Every chapter below lists the same things: setting, rules as the game will run t
 
 **History notes (checked).** Brag descends from post and pair, recorded from 1528. Its rules were printed in *The Compleat Gamester* (1721) and by Hoyle (1751), with a wild "bragger", the jack of clubs. Betting blind, bluffing and "bragging" about a hand are all ideas poker kept. Three-card brag is still a popular British gambling game. The chapter plays modern three-card brag rankings (prials, runs), not the 1700s scoring; the rules card says so.
 
-**Art needed.** Inn taproom background, Pike, Hannah and Sorrel seated on green, Georgian-style cards, coins, a title card.
+**Art needed.** Inn taproom background (done), Pike, Hannah and Sorrel seated on green (done), Georgian-style cards, coins, a title card (done).
 
 ### Chapter 4: The Camp (1863), five-card stud
 

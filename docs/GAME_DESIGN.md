@@ -158,7 +158,7 @@ Chapter 1 numbers (every other chapter's are in its file; [CHAPTERS.md](CHAPTERS
 
 - **station** checks and calls everything; **maniac** raises the most it can every time; **aggro** bets about the pot whenever it can; **teacher** follows the hint.
 
-The aim (2026-11-20 tuning, 300 hands a chapter): every reckless style loses steadily in every chapter (station about 80 to 360 units per 100 hands, maniac and aggro 80 to 1,300), and a careful player following the hints comes out roughly even (-70 to +60). Beating a chapter takes more than playing safe: watching tells, catching a rival on tilt and changing gear. `test/bots.test.ts` checks the reckless styles lose in chapters 1 and 4 and that Silas, Delphine and Ezra stay recognisably themselves. Run the lab after changing any personality or anything in `src/bots/`, and update the numbers here.
+The aim (2026-11-20 tuning, 300 hands a chapter): every reckless style loses steadily in every chapter (station about 80 to 740 units per 100 hands, maniac and aggro 80 to 1,300), and a careful player following the hints comes out roughly even (-45 to +60; +110 at the kitchen table, the easy-going epilogue). The full table is in [CHAPTERS.md](CHAPTERS.md), "How the rivals play". Beating a chapter takes more than playing safe: watching tells, catching a rival on tilt and changing gear. `test/bots.test.ts` checks the reckless styles lose in chapters 1 and 4 and that Silas, Delphine and Ezra stay recognisably themselves. Run the lab after changing any personality or anything in `src/bots/`, and update the numbers here.
 
 Bots use a seeded random generator (`src/bots/random.ts`) so tests can replay games. The deal itself uses the engine's crypto random source in the game.
 

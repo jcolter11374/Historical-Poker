@@ -3,11 +3,11 @@
  * Kent, on Twelfth Night 1543. The first flashback: how the deck was made
  * and how its legend began. (docs/GAME_OUTLINE.md, Chapter 2.)
  *
- * Art: the great hall is painted; the three rivals are placeholders until
- * they are painted on green (docs/ART.md, "Art needed, per chapter").
+ * Art: the great hall, the title painting and the three rivals (cut out
+ * from green) are painted (docs/ART.md).
  */
 import { PRIMERO_ID } from '../games/primero';
-import { lines, rival, say } from './cast';
+import { cutout, lines, rival, say } from './cast';
 import type { Chapter } from './types';
 
 const art = (file: string) => `${import.meta.env.BASE_URL}art/painted-deck/${file}`;
@@ -71,78 +71,88 @@ export const PAINTED_DECK: Chapter = {
     'Take Lady Margery’s last shilling once she stakes the deck, and it is paid for.',
   ],
   rivals: [
-    rival(
-      {
-        id: 'roland',
-        name: 'Sir Roland',
-        fullName: 'Sir Roland Fettiplace',
-        role: 'A reckless young knight with a new horse',
-        personality: { valueAt: 1.1, bluff: 0.3, caution: -0.06, betSize: 0.8, respect: 0.25, reads: 0.1, tilt: 0.15 },
-        tell: { text: 'He drains his cup in one long swallow.', signals: 'bluffing', showsWhenTrue: 0.7, showsWhenFalse: 0.15 },
-        lines: lines({
-          bet: ['Have at thee!', 'More silver! Fortune loves the bold.', 'I raise, by Saint George.'],
-          call: ['I’ll not be frightened off.', 'Aye, I’ll see it.'],
-          fold: ['Bah. Take it.', 'A tactical retreat.'],
-          check: ['I’ll hold, for now.'],
-          win: ['Ha! Did I not say so?', 'Fortune is a lady, and she loves me.'],
-          bust: 'Out of silver, and the horse is already gone. I shall walk home to Oxfordshire.',
-          draw: ['Two fresh ones, and quickly!', 'Give me one. A good one.'],
-          pat: ['I keep them all. Tremble.'],
-        }),
-      },
-      'left',
-      '#7a1f1f',
-    ),
-    rival(
-      {
-        id: 'margery',
-        name: 'Lady Margery',
-        fullName: 'Lady Margery Ashcombe',
-        role: 'Mistress of Ashcombe Hall, who never shows her hand',
-        personality: { valueAt: 1.45, bluff: 0.08, caution: 0.04, betSize: 0.7, respect: 0.6, reads: 0.9 },
-        tell: { text: 'She turns the signet ring on her finger.', signals: 'strong', showsWhenTrue: 0.6, showsWhenFalse: 0.2 },
-        lines: lines({
-          bet: ['I wager.', 'Let us raise the stakes, Mistress Avery.', 'Twice that.'],
-          call: ['I will see it.', 'As you wish.'],
-          fold: ['No.', 'Not this one.'],
-          check: ['I pass.'],
-          win: ['As expected.', 'My hall, my fortune.'],
-          bust: 'Enough. I am beaten fairly, and I pay my debts. Eventually.',
-          draw: ['One card.', 'Two, if you please.'],
-          pat: ['I am content.'],
-        }),
-      },
-      'across',
-      '#3b2a5c',
-    ),
-    rival(
-      {
-        id: 'anselm',
-        name: 'Brother Anselm',
-        fullName: 'Brother Anselm',
-        role: 'A monk turned out of his abbey, now the hall’s steward',
-        personality: { valueAt: 1.7, bluff: 0.03, caution: 0.08, betSize: 0.5, respect: 0.85, reads: 0.3 },
-        tell: { text: 'He mutters a prayer under his breath.', signals: 'weak', showsWhenTrue: 0.65, showsWhenFalse: 0.1 },
-        lines: lines({
-          bet: ['A modest wager.', 'The numbers favour me, I think.'],
-          call: ['I will follow.', 'Very well.'],
-          fold: ['Not with these.', 'Lord, forgive my poor cards.'],
-          check: ['I pass, gladly.'],
-          win: ['Deo gratias.', 'Arithmetic, my lady. Only arithmetic.'],
-          bust: 'I have lost an abbey once already. A few shillings, I can bear.',
-          draw: ['Two, by your leave.', 'One, I think.'],
-          pat: ['These will serve.'],
-        }),
-      },
-      'right',
-      '#4a3a26',
-    ),
+    {
+      ...rival(
+        {
+          id: 'roland',
+          name: 'Sir Roland',
+          fullName: 'Sir Roland Fettiplace',
+          role: 'A reckless young knight with a new horse',
+          personality: { valueAt: 1.1, bluff: 0.3, caution: -0.06, betSize: 0.8, respect: 0.25, reads: 0.1, tilt: 0.15 },
+          tell: { text: 'He drains his cup in one long swallow.', signals: 'bluffing', showsWhenTrue: 0.7, showsWhenFalse: 0.15 },
+          lines: lines({
+            bet: ['Have at thee!', 'More silver! Fortune loves the bold.', 'I raise, by Saint George.'],
+            call: ['I’ll not be frightened off.', 'Aye, I’ll see it.'],
+            fold: ['Bah. Take it.', 'A tactical retreat.'],
+            check: ['I’ll hold, for now.'],
+            win: ['Ha! Did I not say so?', 'Fortune is a lady, and she loves me.'],
+            bust: 'Out of silver, and the horse is already gone. I shall walk home to Oxfordshire.',
+            draw: ['Two fresh ones, and quickly!', 'Give me one. A good one.'],
+            pat: ['I keep them all. Tremble.'],
+          }),
+        },
+        'left',
+        '#7a1f1f',
+      ),
+      art: cutout(art('roland.webp'), 1038 / 900, { x: 330, bottom: 560, height: 470 }),
+    },
+    {
+      ...rival(
+        {
+          id: 'margery',
+          name: 'Lady Margery',
+          fullName: 'Lady Margery Ashcombe',
+          role: 'Mistress of Ashcombe Hall, who never shows her hand',
+          personality: { valueAt: 1.45, bluff: 0.08, caution: 0.04, betSize: 0.7, respect: 0.6, reads: 0.9 },
+          tell: { text: 'She turns the signet ring on her finger.', signals: 'strong', showsWhenTrue: 0.6, showsWhenFalse: 0.2 },
+          lines: lines({
+            bet: ['I wager.', 'Let us raise the stakes, Mistress Avery.', 'Twice that.'],
+            call: ['I will see it.', 'As you wish.'],
+            fold: ['No.', 'Not this one.'],
+            check: ['I pass.'],
+            win: ['As expected.', 'My hall, my fortune.'],
+            bust: 'Enough. I am beaten fairly, and I pay my debts. Eventually.',
+            draw: ['One card.', 'Two, if you please.'],
+            pat: ['I am content.'],
+          }),
+        },
+        'across',
+        '#3b2a5c',
+      ),
+      art: cutout(art('margery.webp'), 851 / 900, { x: 800, bottom: 520, height: 470 }),
+    },
+    {
+      ...rival(
+        {
+          id: 'anselm',
+          name: 'Brother Anselm',
+          fullName: 'Brother Anselm',
+          role: 'A monk turned out of his abbey, now the hall’s steward',
+          personality: { valueAt: 1.7, bluff: 0.03, caution: 0.08, betSize: 0.5, respect: 0.85, reads: 0.3 },
+          tell: { text: 'He mutters a prayer under his breath.', signals: 'weak', showsWhenTrue: 0.65, showsWhenFalse: 0.1 },
+          lines: lines({
+            bet: ['A modest wager.', 'The numbers favour me, I think.'],
+            call: ['I will follow.', 'Very well.'],
+            fold: ['Not with these.', 'Lord, forgive my poor cards.'],
+            check: ['I pass, gladly.'],
+            win: ['Deo gratias.', 'Arithmetic, my lady. Only arithmetic.'],
+            bust: 'I have lost an abbey once already. A few shillings, I can bear.',
+            draw: ['Two, by your leave.', 'One, I think.'],
+            pat: ['These will serve.'],
+          }),
+        },
+        'right',
+        '#4a3a26',
+      ),
+      art: cutout(art('anselm.webp'), 784 / 900, { x: 1270, bottom: 560, height: 470 }),
+    },
   ],
   nemesisId: 'margery',
   narratorId: 'anselm',
   scene: {
     background: art('background.webp'),
     tableFront: art('table-front.webp'),
+    title: art('title.webp'),
     palette: { wall: '#1a120c', light: '#f5c56a', felt: '#7a2420', rim: '#6e4a22' },
   },
   playerPlate: { x: 800, y: 760 },

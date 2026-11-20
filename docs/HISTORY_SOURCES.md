@@ -4,7 +4,7 @@ Every history fact the game states (chapter intros, "From the history book" note
 
 How to use it: when you add or change history text in a chapter file (`src/chapters/*.ts`) or a rules card (`src/games/catalog.ts`), add the claim here with a source. Prefer David Parlett's histories (pagat.com, parlettgames.uk), The World of Playing Cards (wopc.co.uk) and Wikipedia articles with citations. If a fact can't be sourced, soften it or cut it.
 
-Verdicts: **OK** (sources agree), **Fixed** (the game text was wrong or too strong and has been corrected), **Story** (needs a story decision; see [DECISIONS.md](DECISIONS.md)).
+Verdicts: **OK** (sources agree), **Fixed** (the game text was wrong or too strong and has been corrected), **Story** (needed a story decision; see [DECISIONS.md](DECISIONS.md)).
 
 ## Main sources
 
@@ -26,8 +26,8 @@ Every other source is in the list at the end.
 | Bonus, The Gaming House | Poque, 1817, New Orleans | Yes: Parlett places poker's birth in New Orleans between about 1810 and 1825 [P1]. |
 | 6, The Back Room | Seven-card stud and Razz, 1926, Chicago | Yes: Razz since the start of the 1900s; seven-card stud followed five-card stud [W-Razz][W-Stud]. Prohibition ran 1920 to 1933 [W-Prohibition]. |
 | 7, The Desert Classic | Limit and no-limit Hold'em, 1972, Las Vegas | Yes: Hold'em in Vegas from 1963, championship from 1970 [W-Holdem]. |
-| 8, The Boardwalk | Stud Hi-Lo, 1985, Atlantic City | **No.** Poker was banned in Atlantic City casinos until June 25, 1993 [AC1][AC2]. Needs a story decision. |
-| 9, The Cercle | PLO and Omaha Hi-Lo, 1992, Paris | Yes (already sourced in the outline). |
+| 8, The Cercle | PLO and Omaha Hi-Lo, 1992, Paris | Yes (already sourced in the outline). |
+| 9, The Boardwalk | Stud Hi-Lo, 1995, Atlantic City | Yes, after the fix: it was set in 1985, but poker was banned in Atlantic City casinos until June 25, 1993 [AC1][AC2]. Moved to 1995, when stud ruled its poker rooms [AC2]. |
 | 10, The Boom | Online Hold'em, 2-7 Triple Draw, Badugi, 2005 | Yes [W-Moneymaker][W-Draw][pagat Badugi]. |
 | 11, The Big O | 5- and 6-card Omaha, 2019, English Midlands | Yes (already sourced in the outline). |
 | 12, The Last Table | HORSE and 8-Game, today, Macau | Yes [W-HORSE][W-Macau]. |
@@ -110,17 +110,17 @@ Every other source is in the list at the end.
 | Hold'em came from Texas to Las Vegas in the late 1960s | **Fixed** | First dealt in Las Vegas in 1963 (California Club); for several years the Golden Nugget was the only casino offering it [W-Holdem]; Texans such as Crandell Addington played it in Vegas in the late 1960s, when no-limit Hold'em "was still a bit of a novelty" [Addington]. |
 | Tournaments grew up around it in the early 1970s | **Fixed** (made exact) | The championship began in 1970; from the next year its main event was no-limit Hold'em [W-Holdem]. |
 
-### Chapter 8, The Boardwalk (1985)
+### Chapter 8, The Cercle (1992)
+
+Already sourced in the outline (Omaha at a downtown Las Vegas casino in the 1980s; PLO popular in Europe). Omaha Hi-Lo is the O in HORSE [W-HORSE]. OK.
+
+### Chapter 9, The Boardwalk (1995)
 
 | Claim | Verdict | Sources |
 | --- | --- | --- |
-| Casinos opened in Atlantic City in 1978, "and its poker rooms followed" | **Story** | Resorts opened in 1978, but "for the first 15 years of legal casinos, the game was banned by state law"; the first legal hand was dealt June 25, 1993 [AC1][AC2]. A 1985 casino poker room can't have existed. Left unchanged until John decides (DECISIONS.md). |
+| Casinos opened in Atlantic City in 1978, "and its poker rooms followed" (chapter set in 1985) | **Fixed** (story moved) | Resorts opened in 1978, but "for the first 15 years of legal casinos, the game was banned by state law"; the first legal hand was dealt June 25, 1993 [AC1][AC2]. A 1985 casino poker room can't have existed, so John moved the chapter to 1995 and after Paris. The history note now says poker was banned until 1993. |
 | Stud was the game of East Coast poker rooms | OK, for 1993 to 2003 | "During Atlantic City's first ten years (1993-2003), Seven-Card Stud was the most popular poker game by a wide margin" [AC2]. |
 | When eight-or-better appeared is not recorded | OK | No source found gives a date. |
-
-### Chapter 9, The Cercle (1992)
-
-Already sourced in the outline (Omaha at a downtown Las Vegas casino in the 1980s; PLO popular in Europe). Omaha Hi-Lo is the O in HORSE [W-HORSE]. OK.
 
 ### Chapter 10, The Boom (2005)
 

@@ -1,6 +1,6 @@
 /**
- * Chapter 8, "The Boardwalk": Seven Card Stud Hi-Lo in an Atlantic City
- * casino poker room, 1985. The Arceneaux and Avery families meet again. All
+ * Chapter 9, "The Boardwalk": Seven Card Stud Hi-Lo in an Atlantic City
+ * casino poker room, 1995. The Arceneaux and Avery families meet again. All
  * people and places are fictional.
  */
 import { lines, rival, say } from './cast';
@@ -8,10 +8,10 @@ import type { Chapter } from './types';
 
 export const BOARDWALK: Chapter = {
   id: 'boardwalk',
-  numeral: '8',
+  numeral: '9',
   part: 2,
   title: 'The Boardwalk',
-  year: 1985,
+  year: 1995,
   place: 'A casino poker room, Atlantic City',
   youAre: 'Ray Avery',
   teaches: 'Seven Card Stud Hi-Lo (8 or better)',
@@ -46,17 +46,17 @@ export const BOARDWALK: Chapter = {
   levelEvery: 9,
   levelLines: [say('narration', 'The dealers change shifts. The floor man moves the game up to bigger limits.')],
   intro: [
-    'Atlantic City, 1985. The casinos are new here, and the poker room of the Seaview Palace is full every night with players from New York and Philadelphia. The game is stud.',
-    'Ray Avery, Lou’s son, has the old deck in his jacket. He came because of a letter from the room’s manager, a woman named Margot Arceneaux.',
-    '“My great-great-grandmother’s diary says our families shared a deck once,” she wrote. “I’d like to see it. And I’d like to play you for it.”',
+    'Atlantic City, 1995. Poker has been legal in the casinos here for only two years, and the poker room of the Seaview Palace is full every night with players from New York and Philadelphia. The game is stud.',
+    'Ray Avery, Lou’s son, has the old deck in his jacket, back from Paris with his daughter Anna. He came because of a letter from the room’s manager, a woman named Margot Arceneaux.',
+    '“An old diary in my family says our families shared a deck once,” she wrote. “I’d like to see it. And I’d like to play you for it.”',
   ],
   recap: [
     'The Ashcombe deck has been in the Avery family since 1543. In 1836 Kit Avery won it back on a steamboat, with help from a widow named Delphine Arceneaux, who knew its whole story.',
-    'In 1972 Lou Avery won a Las Vegas Hold’em tournament with it in his pocket. Now his son Ray has it.',
+    'In 1972 Lou Avery won a Las Vegas Hold’em tournament with it in his pocket. In 1992 his granddaughter Anna took it to a Paris card club and brought it home. Now Lou’s son Ray has it.',
   ],
   history: [
     'Seven-card stud was the main poker game in the casinos of the eastern United States before Hold’em took over.',
-    'Casinos opened in Atlantic City in 1978, and its poker rooms followed.',
+    'Casinos opened in Atlantic City in 1978, but poker was banned there until June 1993. For the next ten years, stud ruled its new poker rooms.',
     'When the “eight or better” rule for split pots first appeared is not recorded.',
   ],
   howToWin: [
@@ -129,7 +129,7 @@ export const BOARDWALK: Chapter = {
   narratorId: 'margot',
   scene: { palette: { wall: '#151218', light: '#f2d39a', felt: '#2a3a5a', rim: '#3a2a20' } },
   playerPlate: { x: 800, y: 760 },
-  keepsake: { name: 'Margot Arceneaux', line: 'The Boardwalk, 1985. Two families, one deck, half a pot each.' },
+  keepsake: { name: 'Margot Arceneaux', line: 'The Boardwalk, 1995. Two families, one deck, half a pot each.' },
   story: {
     stake: {
       afterPlayerWins: 2,

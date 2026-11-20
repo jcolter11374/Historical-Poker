@@ -7,6 +7,7 @@ Expects in <originals-folder>:
   background.jpg          the empty room and table (16:9, no people)
   <name>.png              each character already cut out (see greenscreen-cutout.py)
   <name>-portrait.jpg     optional: a portrait with its own background (placeholder art)
+  title.jpg               optional: the chapter's title painting (shown behind the intro)
 
 Writes WebP files about a tenth of the size, plus table-front.webp: the table
 cut out of the background so it can sit in front of the characters.
@@ -42,6 +43,10 @@ for p in src.glob('*.png'):
     im = im.resize((round(im.width * 900 / im.height), 900), Image.LANCZOS)
     im.save(out / (p.stem + '.webp'), quality=85)
     print(p.stem, 'aspect', round(im.width / im.height, 4))
+
+if (src / 'title.jpg').exists():
+    t = Image.open(src / 'title.jpg').convert('RGB')
+    t.resize((1920, round(1920 * t.height / t.width)), Image.LANCZOS).save(out / 'title.webp', quality=82)
 
 for p in src.glob('*-portrait.jpg'):
     im = Image.open(p).convert('RGB')

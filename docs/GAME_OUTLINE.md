@@ -85,7 +85,7 @@ Every chapter below lists the same things: setting, rules as the game will run t
 
 **History notes (checked).** The earliest accounts of "poker" (Joseph Cowell, in New Orleans in 1829; Jonathan Green, on a steamboat bound for New Orleans in 1833) describe this 20-card game for four players, five cards each, with no draw. Professional riverboat gamblers worked the boats in this era. Between about 1830 and 1845 the full 52-card deck took over, so more people could play, and it brought in the flush; the straight came later (listed in 1864). A knife with a buckhorn handle, the "buck", marked the dealer, which is where "passing the buck" comes from; the phrase is in print by 1857.
 
-**Art needed.** Background (done), Silas (done), Delphine and Ezra seated on green (done as portraits; cutouts needed), period card faces with no corner numbers, silver dollars, the buckhorn knife, a chapter title card.
+**Art needed.** Background (done), Silas (done), Delphine and Ezra seated on green (done), period card faces with no corner numbers, silver dollars, the buckhorn knife, a chapter title card (done).
 
 ### Chapter 2: The Painted Deck (1543), Primero
 
@@ -336,7 +336,7 @@ Every screen should look like a painted scene you are sitting in, not a poker ap
 
 | Chapter | Background | Characters on green | Props |
 | --- | --- | --- | --- |
-| 1 The River | Done | Silas done; Delphine and Ezra need cutouts | 20-card deck, silver dollars, buckhorn knife |
+| 1 The River | Done | All done | 20-card deck, silver dollars, buckhorn knife |
 | 2 The Painted Deck | Needed | Margery, Roland, Anselm | Tudor cards, shillings |
 | 3 The North Road | Needed | Pike, Hannah, Sorrel | Georgian cards, coins |
 | 4 The Camp | Needed | Reed, Toby, Hattie | 1860s cards, greenbacks |

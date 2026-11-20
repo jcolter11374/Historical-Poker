@@ -20,6 +20,7 @@ Each chapter's table scene is built from separate pictures, so characters can di
 | Table front: the table only, cut from the background | `table-front.webp` | `tools/prepare-art.py` |
 | Each character, waist up, transparent around them | `<name>.webp` | Prompt 2, then `tools/greenscreen-cutout.py` |
 | Placeholder: a character portrait with its own background | `<name>-portrait.webp` | Used until a cutout exists; the UI fades its edges |
+| Title painting: shown behind the chapter's intro screen | `title.webp` | The title prompt in ART_PROMPTS.md. Keep its left side quiet (sky, shadow): the intro text sits there on a shade that fades out to the right |
 
 ## Prompts
 
@@ -43,8 +44,8 @@ The character descriptions are in the outline's cast tables.
 
 You need Python 3 with `pip install pillow numpy`.
 
-1. Put the originals in a folder: `background.jpg`, and each character as `<name>.png` (cut out) or `<name>-portrait.jpg` (placeholder).
-2. If a character came on green, cut it out: `python3 tools/greenscreen-cutout.py silas-green.png silas.png`. Check the edges; the thresholds are in the script.
+1. Put the originals in a folder: `background.jpg`, optionally `title.jpg`, and each character as `<name>.png` (cut out) or `<name>-portrait.jpg` (placeholder).
+2. If a character came on green, cut it out: `python3 tools/greenscreen-cutout.py silas-green.png silas.png`. Check the edges over a dark and a light colour; the thresholds are in the script. For see-through parts, give the script their place in the original picture's pixels: `--lace x0,y0,x1,y1` boxes lace or mesh so the holes go clear with no green cast, and `--glass cx,cy,rx,ry` covers a lens so the green behind it becomes a faint glass sheen, not a hole. Chapter 1 used `--lace 1370,570,2000,1040` for Delphine's fan and `--glass 1626,508,43,44` for Ezra's right lens.
 3. Run `python3 tools/prepare-art.py <originals-folder> <chapter>`. It writes WebP files into `public/art/<chapter>/` and makes `table-front.webp`.
 4. The table front is an ellipse matching the table's rim, set per chapter in `TABLE_ELLIPSE` in `prepare-art.py` as shares of the picture's width and height. For a new background, adjust it until the rim lines up (look at the table screen: characters should disappear behind the rim, not in front of it).
 5. Place each character in the chapter file (`art.place`: centre x, bottom y and height, in stage pixels on the 1600 x 900 stage), and their name plate (`plate`). Check in `npm run dev`.
@@ -63,7 +64,7 @@ Every chapter is playable with no art at all:
 
 1. Make the pictures from the prompts above, using the chapter's setting and cast from [CHAPTERS.md](CHAPTERS.md) and the outline.
 2. Run the tools as in "From picture to game art", into `public/art/<chapter-id>/` (for example `public/art/painted-deck/`), and add the chapter's `TABLE_ELLIPSE` to `prepare-art.py`.
-3. In the chapter file, set `scene.background` and `scene.tableFront` (see `riverboat.ts`: `art('background.webp')`), and give each rival real art instead of `rival(..., seat, colour)`: `art: { src, kind: 'cutout', aspect, place }` with `aspect` the image's width / height. The standard seat positions in `cast.ts` are a good start; nudge `place` and `plate` until they sit right.
+3. In the chapter file, set `scene.background`, `scene.tableFront` and (if painted) `scene.title` (see `riverboat.ts`: `art('background.webp')`), and give each rival real art instead of `rival(..., seat, colour)`: `art: { src, kind: 'cutout', aspect, place }` with `aspect` the image's width / height. The standard seat positions in `cast.ts` are a good start; nudge `place` and `plate` until they sit right.
 4. Check every stage of the chapter in `npm run dev` (some stages change the lighting, like the Boom's final table), and update the list below.
 
 ## Music
@@ -87,7 +88,7 @@ Each chapter needs: a **background** (the empty room and table, first-person fro
 
 | Chapter | Background | Characters (on green) | Props worth painting |
 | --- | --- | --- | --- |
-| 1 The River | done | Silas done; Delphine, Ezra (portraits now) | silver dollars, buckhorn knife, title card |
+| 1 The River | done | all done | silver dollars, buckhorn knife (title painting done) |
 | 2 The Painted Deck | Tudor great hall, Twelfth Night: candlelight, oak trestle table, tapestries, hearth | Lady Margery Ashcombe, Sir Roland Fettiplace, Brother Anselm | Tudor hand-painted card faces, shillings, the leather case stamped "M.A. 1543" |
 | 3 The North Road | snowbound coaching-inn taproom: low beams, pewter, frosted windows, fire | Captain Josiah Pike, Hannah Pell, Jack Sorrel (gentleman's coat; masked version optional) | Georgian cards, coins, the coach's strongbox |
 | 4 The Camp | lantern-lit army tent, hardtack-crate table, rain on canvas | Sergeant Amos Reed, Private Toby Finch, Hattie Bloom | greenbacks, the silver presentation watch |
@@ -107,6 +108,6 @@ The player is never shown, so no art is needed for the Averys. Faces on the chap
 ## Current state, chapter 1
 
 - Background and table front: done.
-- Silas: done, cut out from green.
-- Delphine and Ezra: placeholders (portraits with backgrounds, faded at the edges). Needed: each seated on solid green, for proper cutouts.
-- Still to make: a chapter title card, silver dollars, the buckhorn knife. The cards and the buck are drawn in code for now.
+- Silas, Delphine and Ezra: done, cut out from green. Delphine's lace fan is see-through; Ezra's right lens keeps a faint glass sheen where the backdrop showed through.
+- Title painting (the Magnolia Queen at night): done, behind the intro screen.
+- Still to make: silver dollars, the buckhorn knife. The cards and the buck are drawn in code for now.

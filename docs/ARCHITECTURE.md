@@ -29,7 +29,7 @@ How the code fits together. Read the README first.
 `App.tsx` switches between four screens:
 
 1. **Chapter select** (`ChapterSelect.tsx`): the deck case.
-2. **Intro** (`IntroScreen` in `App.tsx`): story, "the story so far" when jumping ahead, the cast.
+2. **Intro** (`IntroScreen` in `App.tsx`): story, "the story so far" when jumping ahead, the cast. Behind it: the chapter's title painting (`scene.title`) with the text on a left-hand shade, or the table room if there is no painting.
 3. **Table** (`TableScreen.tsx`): a `Session` for the chapter.
 4. **Ending** (`EndScreen` in `App.tsx`): outro, keepsake, history, next chapter.
 

@@ -161,6 +161,12 @@ export interface ChapterScene {
   background?: string;
   /** The same picture with everything but the table transparent, drawn over the characters. See docs/ART.md. */
   tableFront?: string;
+  /**
+   * The chapter's title painting, shown behind its intro screen (the table
+   * room is shown when it is missing). Its left side should be quiet sky or
+   * shadow: the intro text sits there. See docs/ART.md.
+   */
+  title?: string;
   palette: Palette;
   /**
    * Music that loops while at this table: a path under public/music/, e.g.

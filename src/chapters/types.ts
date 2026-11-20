@@ -75,7 +75,7 @@ export interface Character {
 
 export interface Chapter {
   id: string;
-  /** "IV": the chapter's place in the full story. */
+  /** "1": the chapter's place in the full story. */
   numeral: string;
   title: string;
   year: number;
@@ -104,4 +104,72 @@ export interface Chapter {
   /** Where the player's own cards sit. */
   playerPlate: { x: number; y: number };
   outro: { won: string[]; lost: string[] };
+  /** Scripted story moments at the table. Optional: a chapter without one is plain play. */
+  story?: Story;
+}
+
+/** One line of a story scene. `who` is a rival's id, or 'narration' for plain description. */
+export interface SceneLine {
+  who: string;
+  text: string;
+}
+
+/**
+ * The story beats played at the table (docs/GAME_DESIGN.md, "Story beats").
+ * The Session decides WHEN each one happens; the chapter file says WHAT is
+ * said. Every field is optional, so a chapter can use only some beats.
+ */
+export interface Story {
+  /** The first hand is dealt from a set deck, and a rival explains the game. */
+  tutorial?: {
+    /** Shown before the first card is dealt. */
+    before: SceneLine[];
+    /** Each seat's five cards, by character id ('you' for the player). Must use the whole deck exactly once. */
+    hands: Record<string, string[]>;
+    /** Whose tell is pointed out. It shows the first time they act in the tutorial hand. */
+    tellOf: string;
+    /** Said right after that tell first shows. */
+    afterTell: SceneLine[];
+  };
+  /** The nemesis puts the chapter's prize on the table. */
+  stake?: {
+    /** After the player has won this many pots... */
+    afterPlayerWins: number;
+    /** ...or this many hands have been played, whichever comes first. */
+    orAfterHands: number;
+    lines: SceneLine[];
+    /** Told when the nemesis loses their last chips to a rival instead of the player; the prize passes to that rival. `{name}` is replaced. */
+    passes: SceneLine[];
+  };
+  /**
+   * The nemesis cheats once per sitting, on one of the hands they deal after
+   * the stake is up, by dealing themselves `hand`. The player may accuse them
+   * on any hand they deal until the cheat is caught or has happened.
+   */
+  cheat?: {
+    hand: string[];
+    /** Chance of cheating on each hand they deal; they always cheat by the `latestDeal`-th deal. */
+    chance: number;
+    latestDeal: number;
+    /** Tell shown when they cheat. */
+    tell: string;
+    /** A harmless habit shown on some honest deals, so the real tell has to be told apart. */
+    decoy: string;
+    decoyChance: number;
+    /** Accused while cheating: the hand is called off and redealt. */
+    caught: SceneLine[];
+    /** Accused while dealing straight: the player pays `fine`. */
+    wrong: SceneLine[];
+    fine: number;
+    /** The cheat hand ended without an accusation. */
+    missed: SceneLine[];
+  };
+  /** When only the player, the nemesis and one other rival are left (after the stake), that rival leaves with their money. */
+  finale?: {
+    bowOut: Record<string, SceneLine[]>;
+    /** Said as the heads-up match begins. */
+    headsUp: SceneLine[];
+  };
+  /** Extra lines after a rival loses their last chips, by character id (after their usual bust line). */
+  exits?: Record<string, SceneLine[]>;
 }

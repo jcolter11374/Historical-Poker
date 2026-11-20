@@ -100,6 +100,87 @@ export const RIVERBOAT: Chapter = {
   narratorId: 'delphine',
   scene: { background: art('background.webp'), tableFront: art('table-front.webp') },
   playerPlate: { x: 800, y: 760 },
+  story: {
+    tutorial: {
+      before: [
+        { who: 'delphine', text: 'Sit, darling, sit. You know the twenty-card game? Aces down to tens, four of each. Four of us, five cards apiece: every card is dealt.' },
+        { who: 'delphine', text: 'Best hands first: four of a kind, a full house, three of a kind, two pairs, one pair. Straights and flushes don’t count here.' },
+        { who: 'delphine', text: 'And since every card is out, your own five tell you what the rest of us cannot hold. One round of betting, then we show.' },
+        { who: 'delphine', text: 'Above all, watch faces. The cards only tell you half of it.' },
+      ],
+      // Deal order is left of the buck (Delphine): Silas, Ezra, you, Delphine.
+      hands: {
+        you: ['Ks', 'Kh', 'Qc', 'Qd', 'As'],
+        silas: ['Js', 'Jh', 'Ah', 'Tc', 'Qs'],
+        ezra: ['Ad', 'Kc', 'Qh', 'Td', 'Jc'],
+        delphine: ['Ts', 'Th', 'Ac', 'Kd', 'Jd'],
+      },
+      tellOf: 'ezra',
+      afterTell: [
+        { who: 'delphine', text: 'Do you see Mr. Hollis mopping his brow? He does that when his cards are poor. Nine times in ten, I’d say.' },
+        { who: 'ezra', text: 'It is very warm in here. That is all.' },
+      ],
+    },
+    stake: {
+      afterPlayerWins: 2,
+      orAfterHands: 5,
+      lines: [
+        { who: 'silas', text: 'You play like your father, friend. He sat right where you’re sitting.' },
+        { who: 'narration', text: 'Silas sets a worn leather case on the felt beside his money.' },
+        { who: 'silas', text: 'The Ashcombe deck. Take my last dollar and it goes home with you.' },
+        { who: 'delphine', text: 'Mind his hands when he deals, darling. Not his face. His hands.' },
+      ],
+      passes: [
+        { who: 'narration', text: 'Silas is broke. The leather case slides across the felt to {name}.' },
+        { who: 'delphine', text: 'The deck is still at this table, darling. Win it from whoever holds it.' },
+      ],
+    },
+    cheat: {
+      hand: ['As', 'Ah', 'Ad', 'Ac', 'Kh'],
+      chance: 0.5,
+      latestDeal: 3,
+      tell: 'His thumb lingers on the top card as he deals...',
+      decoy: 'He shuffles with a showman’s flourish.',
+      decoyChance: 0.5,
+      caught: [
+        { who: 'delphine', text: 'Mr. Crane. That card came from second in the deck, and we both saw it.' },
+        { who: 'silas', text: 'A slip of the thumb, madam. Nothing more.' },
+        { who: 'narration', text: 'The hand is called off and the antes go back. Silas gathers the cards and deals again, slowly.' },
+        { who: 'silas', text: 'Straight as the river, friend. From here on.' },
+      ],
+      wrong: [
+        { who: 'silas', text: 'Calling me a cheat, friend? On an honest deal? That’ll cost you five dollars for my trouble.' },
+        { who: 'delphine', text: 'Not that one, darling. Watch the thumb, not the flourish.' },
+      ],
+      fine: 5,
+      missed: [
+        { who: 'delphine', text: 'Did you see his thumb on that deal? He was dealing seconds, darling: four aces don’t come from a fair deck.' },
+        { who: 'silas', text: 'Luck of the river, madam.' },
+        { who: 'delphine', text: 'He won’t risk it twice with me watching. Now win it back honestly.' },
+      ],
+    },
+    finale: {
+      bowOut: {
+        delphine: [
+          { who: 'delphine', text: 'I believe I’ll keep what I have and watch. This is between you and Mr. Crane now.' },
+          { who: 'narration', text: 'Delphine gathers her money and turns her chair to face the table.' },
+        ],
+        ezra: [
+          { who: 'ezra', text: 'I, ah. I believe I shall retire while my employer still has some money left. Good luck to you both. Mostly to you.' },
+          { who: 'narration', text: 'Ezra stuffs his money into his hat and backs away from the table.' },
+        ],
+      },
+      headsUp: [
+        { who: 'silas', text: 'Just you and me, friend. For the deck.' },
+      ],
+    },
+    exits: {
+      ezra: [
+        { who: 'narration', text: 'Ezra knocks over his chair, rights it, apologizes to it, and leaves.' },
+        { who: 'delphine', text: 'Poor man. He’ll be writing letters about tonight all the way to New Orleans.' },
+      ],
+    },
+  },
   outro: {
     won: [
       'The last of the money is in front of you. Silas Crane tips his hat and slides a worn leather case across the felt.',

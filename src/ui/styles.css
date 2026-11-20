@@ -125,7 +125,7 @@ button:disabled { opacity: 0.4; cursor: default; }
 .speaker { font-family: var(--display); font-size: 22px; color: var(--gold); }
 .dialogue p { margin: 4px 0 0; font-family: var(--story); font-size: 26px; line-height: 1.3; }
 
-.controls { position: absolute; right: 36px; bottom: 36px; display: flex; justify-content: flex-end; }
+.controls { position: absolute; right: 36px; bottom: 36px; display: flex; justify-content: flex-end; align-items: flex-end; gap: 18px; }
 .waiting { font-family: var(--story); font-style: italic; font-size: 22px; color: var(--muted); padding: 40px 10px; }
 .chip-row { display: flex; gap: 18px; align-items: flex-end; }
 .raise-group { display: flex; flex-direction: column; align-items: center; gap: 8px; }
@@ -198,4 +198,17 @@ button:disabled { opacity: 0.4; cursor: default; }
 
 @media (prefers-reduced-motion: reduce) {
   .chip, .rival { transition: none; }
+}
+
+/* ---------------------------------------------------------------- story */
+.dialogue-narration p { font-style: italic; color: var(--muted); }
+.tell-line { display: block; }
+.tell-line + .tell-line { margin-top: 6px; }
+.deck-case { position: absolute; right: -54px; top: -6px; filter: drop-shadow(0 3px 4px #000a); }
+.chip-accuse {
+  color: #f6e9d0; font-size: 18px; border-color: #2a0d08;
+  background:
+    radial-gradient(circle, transparent 52%, rgba(0, 0, 0, 0.25) 53%, transparent 56%),
+    repeating-conic-gradient(from 0deg, rgba(255, 255, 255, 0.08) 0 12deg, transparent 12deg 30deg),
+    radial-gradient(circle at 35% 30%, #b0503f, #7d2b20 60%, #4e1812);
 }

@@ -9,7 +9,7 @@
  * shows session.snapshot() and calls session methods; `version` is bumped
  * after each call to re-render.
  */
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { Action, LegalActions, SeatIndex } from '@rsdp/engine/core';
 import type { Chapter, Character } from '../chapters/types';
 import { HUMAN, type Session, type Snapshot } from '../table/session';
@@ -27,16 +27,14 @@ export function TableScreen({ session, onFinished }: { session: Session; onFinis
   const chapter = session.chapter;
   const snap = session.snapshot();
 
-  // Deal the first hand when the table opens.
-  const started = useRef(false);
+  // Deal the first hand when the table opens, once any opening scene is over.
+  const inScene = session.inScene;
   useEffect(() => {
-    if (started.current) return;
-    started.current = true;
-    if (!session.handInProgress && session.snapshot().handNumber === 0) {
+    if (!inScene && !session.handInProgress && session.snapshot().handNumber === 0) {
       session.startHand();
       refresh();
     }
-  }, [session]);
+  }, [session, inScene]);
 
   // Rivals act on their own, one at a time, after a short pause.
   const toAct = session.toAct;
@@ -47,10 +45,18 @@ export function TableScreen({ session, onFinished }: { session: Session; onFinis
       refresh();
     }, BOT_DELAY);
     return () => window.clearTimeout(t);
-  }, [toAct, snap.hand?.pot, session]);
+  }, [toAct, snap.hand?.pot, snap.scene, session]);
 
   const act = (a: Action) => {
     session.act(a);
+    refresh();
+  };
+  const accuse = () => {
+    session.accuse();
+    refresh();
+  };
+  const advance = () => {
+    session.advanceScene();
     refresh();
   };
   const next = () => {
@@ -63,12 +69,14 @@ export function TableScreen({ session, onFinished }: { session: Session; onFinis
 
   const hand = snap.hand;
   const speaker = snap.speech ? snap.seats[snap.speech.seat] : null;
+  const scene = snap.scene;
+  const betweenHands = (!hand || hand.complete) && snap.handNumber > 0;
 
   return (
     <div className="table-screen">
       <img className="layer" src={chapter.scene.background} alt="" />
       {chapter.rivals.map((c, i) => (
-        <Rival key={c.id} character={c} out={snap.seats[i + 1].out} folded={!!hand?.players[i + 1]?.folded && !hand.complete} />
+        <Rival key={c.id} character={c} left={snap.seats[i + 1].left} folded={!!hand?.players[i + 1]?.folded && !hand.complete} />
       ))}
       <img className="layer" src={chapter.scene.tableFront} alt="" />
 
@@ -85,7 +93,7 @@ export function TableScreen({ session, onFinished }: { session: Session; onFinis
         <SeatPlate key={c.id} character={c} seat={i + 1} snap={snap} />
       ))}
 
-      {snap.hand && Object.entries(snap.tells).map(([seat, text]) => <TellNote key={seat} character={chapter.rivals[Number(seat) - 1]} text={text} />)}
+      {snap.hand && Object.entries(snap.tells).map(([seat, texts]) => <TellNote key={seat} character={chapter.rivals[Number(seat) - 1]} texts={texts} />)}
 
       {hand && (
         <div className="pot" style={{ left: 800, top: 612 }}>
@@ -100,20 +108,43 @@ export function TableScreen({ session, onFinished }: { session: Session; onFinis
 
       {hand && <PlayerHand snap={snap} />}
 
-      {snap.speech && speaker && (
-        <div className="dialogue" aria-live="polite">
-          <div className="speaker">{speaker.name}</div>
-          <p>“{snap.speech.text}”</p>
+      {scene ? (
+        <div className={`dialogue${scene.name ? '' : ' dialogue-narration'}`} aria-live="polite">
+          {scene.name && <div className="speaker">{scene.name}</div>}
+          <p>{scene.name ? `“${scene.text}”` : scene.text}</p>
         </div>
+      ) : (
+        snap.speech &&
+        speaker && (
+          <div className="dialogue" aria-live="polite">
+            <div className="speaker">{speaker.name}</div>
+            <p>“{snap.speech.text}”</p>
+          </div>
+        )
       )}
 
       <div className="controls">
-        {hand && !hand.complete && hand.legal && <ChipControls legal={hand.legal} pot={hand.pot} minBet={chapter.stakes.minBet} onAct={act} />}
-        {hand && !hand.complete && !hand.legal && <div className="waiting">{snap.seats[hand.toAct ?? 0]?.name} is thinking…</div>}
-        {hand?.complete && (
-          <button type="button" className="chip chip-raise chip-wide" onClick={next}>
-            {snap.outcome ? 'Continue' : 'Next hand'}
+        {scene ? (
+          <button type="button" className="chip chip-call chip-wide" onClick={advance} autoFocus>
+            Continue
           </button>
+        ) : (
+          <>
+            {hand && !hand.complete && hand.legal && <ChipControls legal={hand.legal} pot={hand.pot} minBet={chapter.stakes.minBet} onAct={act} />}
+            {hand && !hand.complete && !hand.legal && hand.toAct !== null && <div className="waiting">{snap.seats[hand.toAct]?.name} is thinking…</div>}
+            {snap.canAccuse && (
+              <button type="button" className="chip chip-accuse" onClick={accuse} title="Accuse the dealer of cheating">
+                Call out
+                <br />
+                the deal
+              </button>
+            )}
+            {betweenHands && (
+              <button type="button" className="chip chip-raise chip-wide" onClick={next}>
+                {snap.outcome ? 'Continue' : snap.redeal ? 'Deal again' : 'Next hand'}
+              </button>
+            )}
+          </>
         )}
       </div>
 
@@ -122,13 +153,14 @@ export function TableScreen({ session, onFinished }: { session: Session; onFinis
   );
 }
 
-function Rival({ character, out, folded }: { character: Character; out: boolean; folded: boolean }) {
-  if (out) return null;
+function Rival({ character, left, folded }: { character: Character; left: 'broke' | 'bowed' | null; folded: boolean }) {
+  // A rival who went broke leaves; one who bowed out stays to watch, dimmed.
+  if (left === 'broke') return null;
   const { place, src, kind, aspect } = character.art;
   const width = place.height * aspect;
   return (
     <img
-      className={`rival rival-${kind}${folded ? ' rival-folded' : ''}`}
+      className={`rival rival-${kind}${folded || left === 'bowed' ? ' rival-folded' : ''}`}
       src={src}
       alt={character.fullName}
       style={{ left: place.x - width / 2, top: place.bottom - place.height, width, height: place.height }}
@@ -139,7 +171,9 @@ function Rival({ character, out, folded }: { character: Character; out: boolean;
 function SeatPlate({ character, seat, snap }: { character: Character; seat: SeatIndex; snap: Snapshot }) {
   const s = snap.seats[seat];
   const p = snap.hand?.players[seat];
-  const status = s.out
+  const status = s.left === 'bowed'
+    ? 'watching'
+    : s.out
     ? 'left the table'
     : !snap.hand
       ? ''
@@ -152,6 +186,7 @@ function SeatPlate({ character, seat, snap }: { character: Character; seat: Seat
   return (
     <div className={`plate${s.out || p?.folded ? ' plate-dim' : ''}`} style={{ left: character.plate.x, top: character.plate.y }}>
       {snap.button === seat && <Buck />}
+      {snap.stakeHolder === seat && <DeckCase />}
       <div className="plate-name">{character.name}</div>
       <div className="plate-stack">
         ${s.stack}
@@ -181,7 +216,18 @@ function Buck() {
   );
 }
 
-function TellNote({ character, text }: { character: Character; text: string }) {
+/** The leather case holding the Ashcombe deck, set on the felt when it is staked. */
+function DeckCase() {
+  return (
+    <svg className="deck-case" width="46" height="34" viewBox="0 0 46 34" role="img" aria-label="The Ashcombe deck is staked here">
+      <rect x="2" y="4" width="42" height="28" rx="4" fill="#6b3f1f" stroke="#2e1a0b" strokeWidth="2" />
+      <rect x="2" y="4" width="42" height="9" rx="4" fill="#82502a" stroke="#2e1a0b" strokeWidth="2" />
+      <rect x="19" y="10" width="8" height="6" rx="1" fill="#d9b25a" stroke="#6e5420" />
+    </svg>
+  );
+}
+
+function TellNote({ character, texts }: { character: Character; texts: string[] }) {
   const { place } = character.art;
   return (
     <div className="tell" style={{ left: place.x + 70, top: place.bottom - place.height + 70 }}>
@@ -189,7 +235,13 @@ function TellNote({ character, text }: { character: Character; text: string }) {
         <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z" />
         <circle cx="12" cy="12" r="3" />
       </svg>
-      <span>{text}</span>
+      <span>
+        {texts.map((t) => (
+          <span key={t} className="tell-line">
+            {t}
+          </span>
+        ))}
+      </span>
     </div>
   );
 }

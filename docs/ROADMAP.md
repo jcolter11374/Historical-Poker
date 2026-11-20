@@ -34,12 +34,12 @@ Done:
 - [x] Table screen with layered painted art, chip controls, dialogue, rules sheet, "Powered by RSDP Live" badge.
 - [x] Intro and ending screens.
 - [x] Publishing to GitHub Pages on every push to `main`.
+- [x] Scripted tutorial hand with Delphine explaining the deck, and pointing out Ezra's tell.
+- [x] Silas puts the Ashcombe deck on the table as a stake after Kit wins a few pots.
+- [x] Silas deals seconds once; catching his tell lets Delphine call him out.
+- [x] Ezra's comic exit, and the heads-up finale with Silas.
 
-To do (story beats from the outline):
-- [ ] Scripted tutorial hand with Delphine explaining the deck, and pointing out Ezra's tell.
-- [ ] Silas puts the Ashcombe deck on the table as a stake after Kit wins a few pots.
-- [ ] Silas deals seconds once; catching his tell lets Delphine call him out.
-- [ ] Ezra's comic exit, and the heads-up finale with Silas.
+To do:
 - [ ] Delphine and Ezra cutouts (John to make them on green), title card, coins and buck art.
 - [ ] Optional "tell spotted" hint, saving progress, difficulty levels.
 - [ ] History notes checked against sources.

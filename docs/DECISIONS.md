@@ -14,8 +14,8 @@ The steamboat game is the first one actually called poker, so the story starts t
 ### Pot-limit betting in chapter 1 (2026-11-19)
 With no-limit, simulated games often ended in one all-in hand, which is short and swingy for a story chapter. Pot-limit keeps hands meaningful but lets a sitting last. Revisit while play-testing (an open question in the outline).
 
-### Win by being the last at the table (2026-11-19)
-The first version ended the chapter when Silas went broke, which could hand the player a win while folding every hand. The chapter now needs the player to win all the money. The outline's heads-up finale with Silas for the deck will be staged on top of this.
+### Win by taking the deck (2026-11-19, revised 2026-11-20)
+The first version ended the chapter when Silas went broke, which could hand the player a win while folding every hand. Then it needed the player to win all the money. Now the chapter is won by taking the last chips of whoever has the deck staked, usually Silas heads-up, after the other remaining rival bows out with their money. That matches the outline's finale and keeps the ending about Silas. Being last at the table still wins if the deck was never staked.
 
 ### Tells have two chances, not one (2026-11-19)
 A tell that only fires when true would be a free win. Each tell has a chance to show when true and when false; the ratio is its reliability, which matches the outline's percentages and lets Delphine's tell be a deliberate coin flip.
@@ -34,3 +34,6 @@ John wants the story to reach today. The first release is Part One only (through
 
 ### Every RSDP Live game is taught inside the story (2026-11-19)
 John wants his friends to learn RSDP Live's games here, for free, before playing for money, but without a separate "school" mode. Each game is taught by a character in the chapter where it first appears, with a guided first hand. Part Two is seven chapters plus an epilogue, each set where its games were really played (re-checked for historical fit on 2026-11-19, which cut a 1994 riverboat casino chapter).
+
+### Silas's cheat is a read, not a quick-time event (2026-11-20)
+The outline says catching Silas's tell lets Delphine call him out. Calling out is a chip the player can press on any hand Silas deals until the cheat is settled, so it is a decision rather than a reflex. His cheat has its own tell, and a harmless decoy shows on some honest deals. A wrong call costs $5, so guessing every time has a price. The cheat hand is the only rigged deal outside the tutorial, and it is part of the story (CLAUDE.md allows story moments, not hidden rigging).

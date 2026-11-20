@@ -13,11 +13,26 @@ Code: `src/chapters/riverboat.ts` (story, rivals, tells, lines, art placement) a
 - **Each hand:** everyone puts in a $1 ante, all 20 cards are dealt five each, one betting round starts left of the buck, then the best hand still in takes the pot. There is no draw.
 - **Hand ranks, best first:** four of a kind, full house, three of a kind, two pairs, one pair, high card. No straights or flushes. Ties are broken by the ranks that make the hand, then kickers (`evaluate1836`).
 - **Betting:** pot-limit, minimum bet $2, everyone starts with $100. No-limit was tried first; simulated games often ended in one all-in hand, so pot-limit was chosen (see [DECISIONS.md](DECISIONS.md)).
-- **Winning the chapter:** be the last player with money. **Losing:** run out of money. Rivals who run out leave the table with a parting line.
+- **Winning the chapter:** take the Ashcombe deck: win the last chips of whoever has it staked (normally Silas, heads-up at the end). If the deck is never staked, being the last player with money also wins. **Losing:** run out of money. Rivals who run out leave the table with a parting line.
+
+### Story beats
+
+The words are in `story` in `src/chapters/riverboat.ts`; when each beat happens is decided in `src/table/session.ts` (`Session`). While a scene plays, nobody acts and the player clicks Continue through it. The beats, in the order a player usually meets them:
+
+1. **Tutorial hand.** Before the first deal Delphine explains the 20-card deck and the hand ranks. The first hand is dealt from a set deck (`story.tutorial.hands`): you get two pairs, kings and queens; Ezra gets ace high. Ezra's tell always shows the first time he acts in that hand, and Delphine points it out. This is the only hand dealt from a set deck that the player isn't told about.
+2. **The stake.** After the player has won 2 pots, or after hand 5, whichever is first, Silas puts the deck on the table. A leather case sits beside his name from then on. Delphine hints: watch his hands when he deals.
+3. **The cheat.** On each hand Silas deals after the stake, there is a 50% chance he deals himself four aces; by his 3rd deal he always does. When he cheats, the tell "His thumb lingers on the top card as he deals..." shows. On half his honest deals a decoy shows instead ("He shuffles with a showman's flourish."), so the player has to tell them apart.
+   - On any hand Silas deals, until the cheat is settled, a red **Call out the deal** chip appears.
+   - Right call: Delphine backs you, the hand is called off (everyone's money goes back, antes included) and Silas deals again. He plays straight from then on.
+   - Wrong call: Silas takes a $5 fine from you when the hand ends. One accusation per hand.
+   - Missed: if the cheat hand finishes without a call, Delphine explains what happened afterwards, and he doesn't try again.
+4. **Exits.** A rival who goes broke says their bust line; Ezra also gets a comic exit.
+5. **Heads-up finale.** Once the deck is staked and only you, Silas and one other remain, that rival (Delphine or Ezra) bows out with their money and watches, dimmed. You play Silas heads-up for the deck.
+6. **If the deck changes hands.** If Silas goes broke to another rival, the deck passes to them and you win it by taking their last chips. If Silas goes broke before staking it, it goes to whoever took his last chips.
 
 ### Not built yet
 
-From the outline's story beats: the scripted tutorial hand, Silas putting the deck on the table as a stake, Silas dealing seconds and Delphine calling it out, the heads-up finale with special staging, keepsake cards, saving progress, and the two difficulty levels. They are listed in [ROADMAP.md](ROADMAP.md).
+Keepsake cards, saving progress, the two difficulty levels and an optional "tell spotted" hint. They are listed in [ROADMAP.md](ROADMAP.md).
 
 ## How the bots think
 

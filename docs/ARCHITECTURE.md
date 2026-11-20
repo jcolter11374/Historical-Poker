@@ -17,9 +17,9 @@ How the code fits together. Read the README first.
 
 - **The engine** plays one hand at a time: deals, enforces betting rules, works out pots and side pots, and settles the showdown. It knows nothing about chapters, stories or bots. It is a copy of RSDP Live's engine; see [ENGINE.md](ENGINE.md).
 - **A game** (`src/games/`) tells the engine what a historical game is: its deck, how many cards, how many betting rounds, and who wins a showdown. Straight poker is `straightPoker.ts`.
-- **The Session** (`src/table/session.ts`) is the table between hands. It holds the four seats and their money, moves the buck, builds each hand's input for the engine, asks bots to act, picks lines for the characters to say, and decides when the chapter is won or lost. It has no React in it, so tests can play whole games with it.
+- **The Session** (`src/table/session.ts`) is the table between hands. It holds the four seats and their money, moves the buck, builds each hand's input for the engine, asks bots to act, picks lines for the characters to say, runs the chapter's story beats (scenes, the stake, the cheat, the finale), and decides when the chapter is won or lost. It has no React in it, so tests can play whole games with it.
 - **Bots** (`src/bots/`) decide with two pieces: `strength.ts` simulates hundreds of deals to estimate how often a hand wins, and `personality.ts` turns that plus the pot odds into fold, call or raise, shaped by the character's numbers.
-- **A chapter** (`src/chapters/`) is data: story text, the three rivals (personality, tell, lines, art and where they sit), stakes and the ending text. `types.ts` documents every field.
+- **A chapter** (`src/chapters/`) is data: story text, the three rivals (personality, tell, lines, art and where they sit), stakes, the words of each story beat (`story`) and the ending text. `types.ts` documents every field.
 - **The UI** (`src/ui/`) shows `session.snapshot()` and calls session methods. It never changes game state itself.
 
 ## One hand, start to finish
@@ -51,10 +51,16 @@ Everything is laid out on a fixed 1600 x 900 stage (`Stage.tsx`) that scales to 
 4. **Session.** The session currently assumes four seats and one betting round with antes. A game with more rounds (stud, draw) works through the engine unchanged; a game with a draw also needs a draw control in the UI (`engine.draw`).
 5. **Docs.** Update GAME_DESIGN.md, ROADMAP.md and, for any choice that isn't obvious, DECISIONS.md.
 
+## Story scenes
+
+The Session keeps a queue of scene lines (`SceneLine`: who speaks and what). While the queue isn't empty, `toAct` is null, so bots wait and the UI shows the line with a Continue chip that calls `advanceScene()`. Beats add lines to the queue when something happens: before the first deal, when a tell shows in the tutorial, after a hand ends (stake, missed cheat, exits, finale) and when the player calls out the deal (`accuse()`). Set-up deals (the tutorial, Silas's cheat) are built by `arrangeDeck()`, which orders the deck so the engine's one-card-at-a-time deal gives each seat the chosen cards.
+
 ## Tests
 
 - `test/straightPoker.test.ts`: the deck and the 1836 hand rankings.
-- `test/session.test.ts`: plays many complete games with seeded dealing, checking that every dollar is accounted for after each hand and that the chapter ends.
+- `test/session.test.ts`: plays many complete games with seeded dealing (some calling out the dealer at random), checking that every dollar is accounted for after each hand and that the chapter ends.
+- `test/story.test.ts`: the story beats: the tutorial deal and tell, the stake, catching the cheat (the hand is called off and money returned), a wrong accusation, and the finale.
+- `test/helpers.ts`: `playOut()`, which plays a whole chapter with a simple player and clicks through scenes.
 - `npm run test:engine` runs the engine's own test suite.
 
 Random numbers: dealing uses the engine's `cryptoRng` in the game. Bots use a seeded generator (`src/bots/random.ts`), and tests pass a seeded deal so failures can be replayed.

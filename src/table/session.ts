@@ -823,13 +823,14 @@ export class Session {
       if (w) parts.push(`Everyone else folded. ${name(w.seat)} ${takes(w.seat)} ${this.money(w.amount)}.`);
     } else {
       for (const w of winners) {
-        const half = w.half === 'high' ? ' the high half,' : w.half === 'low' ? ' the low half,' : '';
-        parts.push(`${name(w.seat)} ${takes(w.seat)}${half} ${this.money(w.amount)}${w.handName ? ` with ${lowerFirst(w.handName)}` : ''}.`);
+        const split = this.game.spec.split === 'hi-lo';
+        const half = !split ? '' : w.half === 'high' ? ' the high half,' : w.half === 'low' ? ' the low half,' : '';
+        parts.push(`${name(w.seat)} ${takes(w.seat)}${half} ${this.money(w.amount)}${w.handName ? ` with ${w.handName}` : ''}.`);
       }
       const me = s.seats.find((x) => x.seat === HUMAN);
       if (me && !me.folded && !winners.some((w) => w.seat === HUMAN)) {
         const mine = this.game.describe(me.cards.map((c) => c.card), s.runs[0][0] ?? []);
-        if (mine) parts.push(`Your ${lowerFirst(mine)} wasn’t enough.`);
+        if (mine) parts.push(`Yours: ${mine}.`);
       }
     }
     const bounty = s.events.filter((e) => e.t === 'transfer' && e.kind === 'bounty-72');
@@ -910,4 +911,3 @@ const RANK_WORD: Record<string, string> = { A: 'ace', K: 'king', Q: 'queen', J: 
 const SUIT_WORD: Record<string, string> = { c: 'clubs', d: 'diamonds', h: 'hearts', s: 'spades' };
 const cardWord = (c: Card) => `the ${RANK_WORD[c[0]]} of ${SUIT_WORD[c[1]]}`;
 const listWords = (w: string[]) => (w.length <= 1 ? w.join('') : `${w.slice(0, -1).join(', ')} and ${w[w.length - 1]}`);
-const lowerFirst = (s: string) => s[0].toLowerCase() + s.slice(1);

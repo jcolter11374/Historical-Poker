@@ -1,48 +1,100 @@
 /**
- * Screens: the chapter's opening story, the table, and the ending.
- * Only one chapter exists so far; when there are more, a chapter map goes
- * here (docs/ROADMAP.md).
+ * Screens and the flow between them:
+ *
+ *   chapter select (the deck case) -> chapter intro (with "the story so far"
+ *   when jumping ahead) -> the table -> the ending -> next chapter or back
+ *   to the case.
+ *
+ * Progress (chapters won, hints on or off) is saved in the browser after each
+ * chapter (src/progress/save.ts).
  */
 import { useState } from 'react';
-import { RIVERBOAT } from '../chapters/riverboat';
+import { CHAPTERS, followingChapter, isUnlocked, nextChapter } from '../chapters';
 import type { Chapter } from '../chapters/types';
+import { loadProgress, record, resetProgress, setHints, type Progress } from '../progress/save';
 import { Session } from '../table/session';
+import { ChapterSelect } from './ChapterSelect';
 import { PoweredBy } from './PoweredBy';
+import { Face, SceneBack } from './Scene';
 import { Stage } from './Stage';
 import { TableScreen } from './TableScreen';
 
-type Screen = { name: 'intro' } | { name: 'table'; session: Session } | { name: 'end'; won: boolean };
+type Screen =
+  | { name: 'select' }
+  | { name: 'intro'; chapter: Chapter }
+  | { name: 'table'; session: Session }
+  | { name: 'end'; chapter: Chapter; won: boolean };
 
 export function App() {
-  const chapter = RIVERBOAT;
-  const [screen, setScreen] = useState<Screen>({ name: 'intro' });
-  const sit = () => setScreen({ name: 'table', session: new Session(chapter) });
+  const [progress, setProgress] = useState<Progress>(() => loadProgress());
+  const won = new Set(Object.keys(progress.won));
+  const [screen, setScreen] = useState<Screen>(() => (Object.keys(progress.played).length ? { name: 'select' } : { name: 'intro', chapter: nextChapter(won) }));
+
+  const sit = (chapter: Chapter) => {
+    setProgress(record(progress, chapter.id, 'started'));
+    setScreen({ name: 'table', session: new Session(chapter) });
+  };
+  const finished = (session: Session) => {
+    const didWin = session.snapshot().outcome === 'won';
+    if (didWin) setProgress((p) => record(p, session.chapter.id, 'won'));
+    setScreen({ name: 'end', chapter: session.chapter, won: didWin });
+  };
+
   return (
     <Stage>
-      {screen.name === 'intro' && <IntroScreen chapter={chapter} onStart={sit} />}
-      {screen.name === 'table' && (
-        <TableScreen session={screen.session} onFinished={() => setScreen({ name: 'end', won: screen.session.snapshot().outcome === 'won' })} />
+      {screen.name === 'select' && (
+        <ChapterSelect
+          progress={progress}
+          onPick={(chapter) => setScreen({ name: 'intro', chapter })}
+          onHints={(on) => setProgress(setHints(progress, on))}
+          onReset={() => setProgress(resetProgress())}
+        />
       )}
-      {screen.name === 'end' && <EndScreen chapter={chapter} won={screen.won} onAgain={sit} />}
+      {screen.name === 'intro' && (
+        <IntroScreen chapter={screen.chapter} jumping={!isUnlocked(screen.chapter.id, won)} onStart={() => sit(screen.chapter)} onBack={() => setScreen({ name: 'select' })} />
+      )}
+      {screen.name === 'table' && (
+        <TableScreen session={screen.session} hints={progress.hints} onFinished={() => finished(screen.session)} onLeave={() => setScreen({ name: 'select' })} />
+      )}
+      {screen.name === 'end' && (
+        <EndScreen
+          chapter={screen.chapter}
+          won={screen.won}
+          onAgain={() => sit(screen.chapter)}
+          onNext={(c) => setScreen({ name: 'intro', chapter: c })}
+          onCase={() => setScreen({ name: 'select' })}
+        />
+      )}
     </Stage>
   );
 }
 
-function IntroScreen({ chapter, onStart }: { chapter: Chapter; onStart: () => void }) {
+function IntroScreen({ chapter, jumping, onStart, onBack }: { chapter: Chapter; jumping: boolean; onStart: () => void; onBack: () => void }) {
+  const first = CHAPTERS[0].chapter.id === chapter.id;
   return (
     <div className="story-screen">
-      <img className="layer story-bg" src={chapter.scene.background} alt="" />
+      <SceneBack scene={chapter.scene} />
+      <div className="story-shade" />
       <PoweredBy />
       <div className="story-card">
         <div className="eyebrow">
-          Chapter {chapter.numeral} · {chapter.place}, {chapter.year}
+          {chapter.numeral === 'Bonus' || chapter.numeral === 'Epilogue' ? chapter.numeral : `Chapter ${chapter.numeral}`} · {chapter.place}, {chapter.year}
         </div>
         <h1>{chapter.title}</h1>
+        {jumping && !first && (
+          <div className="recap">
+            <h3>The story so far</h3>
+            {chapter.recap.map((p) => <p key={p}>{p}</p>)}
+          </div>
+        )}
         {chapter.intro.map((p) => <p key={p}>{p}</p>)}
+        <p className="you-are">
+          You play {chapter.youAre}. Taught here: {chapter.teaches}.
+        </p>
         <ul className="cast">
           {chapter.rivals.map((c) => (
             <li key={c.id}>
-              <img src={c.art.src} alt="" className={`cast-face cast-${c.art.kind}`} />
+              <Face character={c} />
               <div>
                 <div className="cast-name">{c.fullName}</div>
                 <div className="cast-role">{c.role}</div>
@@ -50,27 +102,69 @@ function IntroScreen({ chapter, onStart }: { chapter: Chapter; onStart: () => vo
             </li>
           ))}
         </ul>
-        <button type="button" className="chip chip-raise chip-wide" onClick={onStart} autoFocus>
-          Take a seat
-        </button>
+        <div className="story-buttons">
+          <button type="button" className="chip chip-raise chip-wide" onClick={onStart} autoFocus>
+            Take a seat
+          </button>
+          <button type="button" className="text-link" onClick={onBack}>
+            All chapters
+          </button>
+        </div>
       </div>
     </div>
   );
 }
 
-function EndScreen({ chapter, won, onAgain }: { chapter: Chapter; won: boolean; onAgain: () => void }) {
+function EndScreen({ chapter, won, onAgain, onNext, onCase }: { chapter: Chapter; won: boolean; onAgain: () => void; onNext: (c: Chapter) => void; onCase: () => void }) {
+  const next = won ? followingChapter(chapter.id) : null;
+  const nemesis = chapter.rivals.find((r) => r.id === chapter.nemesisId)!;
+  const last = chapter.id === CHAPTERS[CHAPTERS.length - 1].chapter.id;
   return (
     <div className="story-screen">
-      <img className="layer story-bg" src={chapter.scene.background} alt="" />
+      <SceneBack scene={chapter.scene} />
+      <div className="story-shade" />
+      <PoweredBy />
       <div className="story-card">
-        <div className="eyebrow">{won ? 'Chapter complete' : 'The deck stays aboard'}</div>
-        <h1>{won ? 'The deck is yours' : 'Busted'}</h1>
+        <div className="eyebrow">{won ? 'Chapter complete' : 'Not this time'}</div>
+        <h1>{won ? chapter.title : 'Busted'}</h1>
         {(won ? chapter.outro.won : chapter.outro.lost).map((p) => <p key={p}>{p}</p>)}
+        {won && (
+          <div className="keepsake">
+            <Face character={nemesis} className="keepsake-face" />
+            <div>
+              <div className="keepsake-title">A keepsake for the deck’s case: {chapter.keepsake.name}</div>
+              <div className="keepsake-line">{chapter.keepsake.line}</div>
+            </div>
+          </div>
+        )}
         <h3>From the history book</h3>
         {chapter.history.map((p) => <p key={p} className="history">{p}</p>)}
-        <button type="button" className="chip chip-raise chip-wide" onClick={onAgain} autoFocus>
-          {won ? 'Play again' : 'Try again'}
-        </button>
+        <div className="story-buttons">
+          {next ? (
+            <button type="button" className="chip chip-raise chip-wide" onClick={() => onNext(next)} autoFocus>
+              On to {next.title}
+            </button>
+          ) : (
+            <button type="button" className="chip chip-raise chip-wide" onClick={won ? onCase : onAgain} autoFocus>
+              {won ? 'Back to the deck case' : 'Try again'}
+            </button>
+          )}
+          {won && last && (
+            <a className="chip chip-call chip-wide" href="https://rsdp-poker-live.fly.dev" target="_blank" rel="noreferrer">
+              Start your own game on RSDP Live
+            </a>
+          )}
+          {(next || !won) && (
+            <button type="button" className="text-link" onClick={won ? onAgain : onCase}>
+              {won ? 'Play this chapter again' : 'All chapters'}
+            </button>
+          )}
+          {next && (
+            <button type="button" className="text-link" onClick={onCase}>
+              All chapters
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -2,28 +2,28 @@
 
 The full plan, every chapter, and the open questions are in [GAME_OUTLINE.md](GAME_OUTLINE.md). This page tracks what is built.
 
-## Order
+## Status (2026-11-20)
 
-1. **Chapter 1, The River (1836), straight poker.** In progress.
-2. **Flashbacks:** The Painted Deck (1543, Primero), then The North Road (1763, Brag).
-3. **Forward:** The Camp (1863, five-card stud), then the finale, The Last Hand (1876, five-card draw). Then the bonus, The Gaming House (1817, Poque).
-4. **Polish:** title screen, deck-case chapter select, almanac, difficulty levels, Free Play.
+**Every chapter is built and playable, with placeholder art.** All fourteen chapters (1 to 5, the Poque bonus, 6 to 12 and the epilogue) have their games, cast, lessons, story beats and endings, and every RSDP Live game is taught in the story. Part Two was built alongside Part One, at John's request, rather than as a later release. What's left is art, play-testing and polish.
 
-That is **Part One, the first release**. Then:
+Done:
+- [x] Chapter 1, The River, complete with its painted background and Silas (see below).
+- [x] The six historical games: Primero, Brag, Poque, straight poker, five-card stud, five-card draw.
+- [x] All RSDP Live games at the table: Hold'em (limit, pot-limit, no-limit), Omaha 4/5/6 and their Hi-Lo versions, Seven Card Stud, Razz, Stud Hi-Lo, 2-7 Triple Draw, Badugi, plus bomb pots, double board and the 7-2 bounty.
+- [x] Chapters 2 to 5 and the bonus; chapters 6 to 12 and the epilogue ([CHAPTERS.md](CHAPTERS.md)).
+- [x] Stages, game rotations (HORSE, 8-Game), lessons from a teacher the first time each game is dealt, rising stakes, buy-backs before the last stage, tournament restarts.
+- [x] Chapter select (the deck case), jump-ahead with "the story so far", keepsakes, saved progress, "Start over".
+- [x] Teacher hints (on by default, can be turned off), hand names, one-line showdown summaries, a rules card per game.
+- [x] Draw controls, stud up-cards and bring-in, two boards.
+- [x] Placeholder art drawn in code for every room and character.
 
-5. **Part Two, to the present day (a later release).** Seven chapters and an epilogue, built in order after Part One ships. Each one teaches RSDP Live games inside the story, through a character, in a place and time where the game was really played, so John's friends can learn them here before playing for money:
-   - 6 The Back Room (Chicago speakeasy, 1926): Seven Card Stud, then Razz
-   - 7 The Desert Classic (Las Vegas, 1972): Limit, then No-Limit Hold'em
-   - 8 The Boardwalk (Atlantic City casino poker room, 1985): Stud Hi-Lo
-   - 9 The Cercle (Paris private card club, 1992): Pot-Limit Omaha, then Omaha Hi-Lo
-   - 10 The Boom (2005): an internet café qualifier at 3 a.m. through to a televised Las Vegas final table, with 2-7 Triple Draw and Badugi taught mid-chapter
-   - 11 The Big O (English Midlands card room, 2019): 5- and 6-Card Omaha, then their Hi-Lo versions
-   - 12 The Last Table (Macau, today): HORSE, then 8-Game
-   - Epilogue, The Kitchen Table (a home game today): bomb pots, double board, 7-2 bounty
-
-   The engine already runs all of these games; the new systems are tournament blinds and an online "timing" tell. Every person, venue and website in Part Two is fictional, with generic names: no real trademarks or living people. Its history claims are marked in the outline as sourced (with links) or "to verify". The outline's "Part Two" and "Teaching inside the story" sections have the details: a guided first hand per game, rules cards as era objects, teacher hints built on the engine's `advice.ts`, and replay as practice.
-
-Art for each chapter can be made in parallel; the code uses placeholders until it arrives.
+To do:
+- [ ] **Art** for chapters 2 to 12 and the epilogue, and the rest of chapter 1 ([ART.md](ART.md), "Art needed, per chapter").
+- [ ] **Play-testing** every chapter: length, stakes, bot difficulty, and lesson wording.
+- [ ] Story choices made while building that John should confirm ([DECISIONS.md](DECISIONS.md), 2026-11-20 entries).
+- [ ] Outline features not built yet: difficulty levels, Free Play, the almanac, a "tell spotted" hint, adaptive bots (Ruby and Élodie reading the player), Brag's blind betting, Poque's payout board, jackpots in five-card draw, choices in scenes (giving Toby his pay back).
+- [ ] History notes checked against sources, in every chapter.
+- [ ] Sound.
 
 ## Chapter 1 status
 
@@ -41,9 +41,7 @@ Done:
 
 To do:
 - [ ] Delphine and Ezra cutouts (John to make them on green), title card, coins and buck art.
-- [ ] Optional "tell spotted" hint, saving progress, difficulty levels.
-- [ ] History notes checked against sources.
 
 ## Open questions
 
-Tracked in the outline's "Open questions". The one that matters for chapter 1: the betting limit (pot-limit for now). Two affect the build order: whether Part Two should come before the Part One flashbacks, so friends can learn the RSDP Live games sooner, and whether players can start any chapter straight away after a "story so far".
+Tracked in the outline's "Open questions". Two were answered by building: Part Two was built together with Part One, and any chapter can be started straight away after "the story so far". Betting limits per game are set (see CHAPTERS.md) and open to change after play-testing.

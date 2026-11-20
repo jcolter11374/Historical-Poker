@@ -2,8 +2,9 @@
  * The card table: the room, the rivals, the cards and the controls.
  *
  * Layers, back to front (see docs/ARCHITECTURE.md, "The table screen"):
- *   background art -> characters -> table-front art (hides their laps)
- *   -> things on the felt (cards, pot, names) -> dialogue and controls.
+ *   room (art or painted placeholder) -> characters -> table front (hides
+ *   their laps) -> things on the felt (cards, board, pot, names) -> dialogue
+ *   and controls.
  *
  * The Session (src/table/session.ts) holds the game. This component only
  * shows session.snapshot() and calls session methods; `version` is bumped
@@ -11,21 +12,30 @@
  */
 import { useEffect, useState } from 'react';
 import type { Action, LegalActions, SeatIndex } from '@rsdp/engine/core';
-import type { Chapter, Character } from '../chapters/types';
-import { HUMAN, type Session, type Snapshot } from '../table/session';
-import { Card } from './Card';
+import type { Character } from '../chapters/types';
+import { HUMAN, type SceneView, type Session, type Snapshot } from '../table/session';
+import { Card, type CardSize } from './Card';
 import { PoweredBy } from './PoweredBy';
 import { RulesPanel } from './RulesPanel';
+import { Rival, SceneBack, SceneFront } from './Scene';
 
 /** How long a rival "thinks" before acting, in ms. */
 const BOT_DELAY = 1100;
 
-export function TableScreen({ session, onFinished }: { session: Session; onFinished: () => void }) {
+export function TableScreen({ session, hints, onFinished, onLeave }: { session: Session; hints: boolean; onFinished: () => void; onLeave: () => void }) {
   const [, setVersion] = useState(0);
-  const refresh = () => setVersion((v) => v + 1);
+  const refresh = () => {
+    setHint(null);
+    setVersion((v) => v + 1);
+  };
   const [rulesOpen, setRulesOpen] = useState(false);
+  const [hint, setHint] = useState<SceneView | null>(null);
+  const [selected, setSelected] = useState<number[]>([]);
   const chapter = session.chapter;
   const snap = session.snapshot();
+  const stage = chapter.stages[snap.play.stageIndex];
+  const scene = stage.scene ?? chapter.scene;
+  const money = (n: number) => session.money(n);
 
   // Deal the first hand when the table opens, once any opening scene is over.
   const inScene = session.inScene;
@@ -45,10 +55,15 @@ export function TableScreen({ session, onFinished }: { session: Session; onFinis
       refresh();
     }, BOT_DELAY);
     return () => window.clearTimeout(t);
-  }, [toAct, snap.hand?.pot, snap.scene, session]);
+  }, [toAct, snap.hand?.pot, snap.hand?.street, snap.hand?.phase, snap.scene, session]);
 
   const act = (a: Action) => {
     session.act(a);
+    refresh();
+  };
+  const draw = () => {
+    session.draw(selected);
+    setSelected([]);
     refresh();
   };
   const accuse = () => {
@@ -63,55 +78,93 @@ export function TableScreen({ session, onFinished }: { session: Session; onFinis
     if (snap.outcome) onFinished();
     else {
       session.startHand();
+      setSelected([]);
       refresh();
     }
   };
 
   const hand = snap.hand;
   const speaker = snap.speech ? snap.seats[snap.speech.seat] : null;
-  const scene = snap.scene;
+  const line = snap.scene ?? hint;
   const betweenHands = (!hand || hand.complete) && snap.handNumber > 0;
+  const flop = snap.play.family === 'flop';
+  const drawing = hand?.draw ?? null;
+  const drawProblem = drawing ? session.drawProblem(selected) : null;
 
   return (
-    <div className="table-screen">
-      <img className="layer" src={chapter.scene.background} alt="" />
+    <div className={`table-screen${flop ? ' table-flop' : ''}`}>
+      <SceneBack scene={scene} />
       {chapter.rivals.map((c, i) => (
-        <Rival key={c.id} character={c} left={snap.seats[i + 1].left} folded={!!hand?.players[i + 1]?.folded && !hand.complete} />
+        <Rival key={c.id} character={c} left={snap.seats[i + 1].left} folded={!!hand?.players[i + 1]?.folded && !hand.complete} light={scene.palette.light} />
       ))}
-      <img className="layer" src={chapter.scene.tableFront} alt="" />
+      <SceneFront scene={scene} />
 
       <header className="chapter-title">
-        <div className="eyebrow">Chapter {chapter.numeral} · {chapter.year}</div>
+        <div className="eyebrow">
+          {/^\d/.test(chapter.numeral) ? `Chapter ${chapter.numeral}` : chapter.numeral} · {chapter.year}
+        </div>
         <h1>{chapter.title}</h1>
+        <div className="game-name">
+          {snap.play.name}
+          {snap.play.bombPot ? ' · bomb pot' : ''}
+          {stage.label && stage.label !== snap.play.name ? <span className="stage-label"> · {stage.label}</span> : null}
+        </div>
       </header>
       <PoweredBy />
-      <button type="button" className="rules-button" onClick={() => setRulesOpen(true)}>
-        Rules of {chapter.year}
-      </button>
+      <nav className="corner-links">
+        <button type="button" onClick={() => setRulesOpen(true)}>
+          {chapter.rulesObject}
+        </button>
+        {hints && session.toAct === HUMAN && (
+          <button type="button" onClick={() => setHint(session.hint())}>
+            Ask for a hint
+          </button>
+        )}
+        <button type="button" onClick={onLeave}>
+          Leave the table
+        </button>
+      </nav>
 
       {chapter.rivals.map((c, i) => (
-        <SeatPlate key={c.id} character={c} seat={i + 1} snap={snap} />
+        <SeatPlate key={c.id} character={c} seat={i + 1} snap={snap} money={money} small={flop} />
       ))}
 
       {snap.hand && Object.entries(snap.tells).map(([seat, texts]) => <TellNote key={seat} character={chapter.rivals[Number(seat) - 1]} texts={texts} />)}
 
-      {hand && (
-        <div className="pot" style={{ left: 800, top: 612 }}>
-          <svg width="150" height="44" viewBox="0 0 150 44" aria-hidden="true">
-            {[0, 1, 2].map((i) => <ellipse key={`a${i}`} cx="40" cy={34 - i * 6} rx="22" ry="7" fill={i === 2 ? '#f4f1e6' : '#cfc9b8'} stroke="#6f6a5c" />)}
-            {[0, 1, 2, 3].map((i) => <ellipse key={`b${i}`} cx="80" cy={36 - i * 6} rx="22" ry="7" fill={i === 3 ? '#f4f1e6' : '#cfc9b8'} stroke="#6f6a5c" />)}
-            <ellipse cx="120" cy="36" rx="14" ry="5" fill="#e3b24c" stroke="#8a6420" />
-          </svg>
-          <div className="pot-amount">${hand.pot}</div>
+      {hand && hand.boards.some((b) => b.length) && (
+        <div className={`boards boards-${hand.boards.length}`}>
+          {hand.boards.map((b, i) => (
+            <div key={i} className="board">
+              {Array.from({ length: 5 }, (_, j) => (b[j] ? <Card key={j} card={b[j]} size={hand.boards.length > 1 ? 'small' : 'medium'} /> : <div key={j} className={`card-slot card-slot-${hand.boards.length > 1 ? 'small' : 'medium'}`} />))}
+            </div>
+          ))}
         </div>
       )}
 
-      {hand && <PlayerHand snap={snap} />}
+      {hand && (
+        <div className="pot" style={flop ? { left: 1170, top: 640 } : { left: 800, top: 640 }}>
+          <Coins />
+          <div className="pot-amount">{money(hand.pot)}</div>
+        </div>
+      )}
 
-      {scene ? (
-        <div className={`dialogue${scene.name ? '' : ' dialogue-narration'}`} aria-live="polite">
-          {scene.name && <div className="speaker">{scene.name}</div>}
-          <p>{scene.name ? `“${scene.text}”` : scene.text}</p>
+      {hand?.complete && hand.summary && <div className="summary">{hand.summary}</div>}
+
+      {hand && (
+        <PlayerHand
+          snap={snap}
+          money={money}
+          selectable={!!drawing && !snap.scene}
+          selected={selected}
+          onToggle={(i) => setSelected((s) => (s.includes(i) ? s.filter((x) => x !== i) : [...s, i]))}
+          lowered={flop}
+        />
+      )}
+
+      {line ? (
+        <div className={`dialogue${line.name ? '' : ' dialogue-narration'}`} aria-live="polite">
+          {line.name && <div className="speaker">{line.name}</div>}
+          <p>{line.name ? `“${line.text}”` : line.text}</p>
         </div>
       ) : (
         snap.speech &&
@@ -124,14 +177,38 @@ export function TableScreen({ session, onFinished }: { session: Session; onFinis
       )}
 
       <div className="controls">
-        {scene ? (
+        {snap.scene ? (
           <button type="button" className="chip chip-call chip-wide" onClick={advance} autoFocus>
             Continue
           </button>
         ) : (
           <>
-            {hand && !hand.complete && hand.legal && <ChipControls legal={hand.legal} pot={hand.pot} minBet={chapter.stakes.minBet} onAct={act} />}
-            {hand && !hand.complete && !hand.legal && hand.toAct !== null && <div className="waiting">{snap.seats[hand.toAct]?.name} is thinking…</div>}
+            {hand && !hand.complete && hand.legal && <ChipControls legal={hand.legal} pot={hand.pot} unit={snap.play.unit} money={money} onAct={act} />}
+            {drawing && (
+              <div className="draw-group">
+                <div className="draw-note">{drawProblem ?? (selected.length ? `Throw ${selected.length}, draw ${selected.length}.` : `Click the cards to throw away (up to ${drawing.max}).`)}</div>
+                <button type="button" className="chip chip-raise" onClick={draw} disabled={!!drawProblem}>
+                  {selected.length ? (
+                    <>
+                      Draw
+                      <br />
+                      {selected.length}
+                    </>
+                  ) : (
+                    <>
+                      Stand
+                      <br />
+                      pat
+                    </>
+                  )}
+                </button>
+              </div>
+            )}
+            {hand && !hand.complete && !hand.legal && !drawing && hand.toAct !== null && (
+              <div className="waiting">
+                {snap.seats[hand.toAct]?.name} is {hand.phase === 'drawing' ? 'drawing' : 'thinking'}…
+              </div>
+            )}
             {snap.canAccuse && (
               <button type="button" className="chip chip-accuse" onClick={accuse} title="Accuse the dealer of cheating">
                 Call out
@@ -140,7 +217,7 @@ export function TableScreen({ session, onFinished }: { session: Session; onFinis
               </button>
             )}
             {betweenHands && (
-              <button type="button" className="chip chip-raise chip-wide" onClick={next}>
+              <button type="button" className="chip chip-raise chip-wide" onClick={next} autoFocus>
                 {snap.outcome ? 'Continue' : snap.redeal ? 'Deal again' : 'Next hand'}
               </button>
             )}
@@ -148,62 +225,58 @@ export function TableScreen({ session, onFinished }: { session: Session; onFinis
         )}
       </div>
 
-      {rulesOpen && <RulesPanel chapter={chapter} onClose={() => setRulesOpen(false)} />}
+      {rulesOpen && <RulesPanel chapter={chapter} game={session.currentGame} playName={snap.play.name} onClose={() => setRulesOpen(false)} />}
     </div>
   );
 }
 
-function Rival({ character, left, folded }: { character: Character; left: 'broke' | 'bowed' | null; folded: boolean }) {
-  // A rival who went broke leaves; one who bowed out stays to watch, dimmed.
-  if (left === 'broke') return null;
-  const { place, src, kind, aspect } = character.art;
-  const width = place.height * aspect;
-  return (
-    <img
-      className={`rival rival-${kind}${folded || left === 'bowed' ? ' rival-folded' : ''}`}
-      src={src}
-      alt={character.fullName}
-      style={{ left: place.x - width / 2, top: place.bottom - place.height, width, height: place.height }}
-    />
-  );
-}
-
-function SeatPlate({ character, seat, snap }: { character: Character; seat: SeatIndex; snap: Snapshot }) {
+function SeatPlate({ character, seat, snap, money, small }: { character: Character; seat: SeatIndex; snap: Snapshot; money: (n: number) => string; small: boolean }) {
   const s = snap.seats[seat];
   const p = snap.hand?.players[seat];
-  const status = s.left === 'bowed'
-    ? 'watching'
-    : s.out
-    ? 'left the table'
-    : !snap.hand
-      ? ''
-      : p?.folded
-        ? 'folded'
-        : p?.lastAction
-          ? `${p.lastAction.toLowerCase()}${p.bet > 0 ? ` $${p.bet}` : ''}`
-          : '';
-  const showCards = snap.hand && !s.out && !p?.folded;
+  const status =
+    s.left === 'bowed'
+      ? 'watching'
+      : s.out
+        ? 'left the table'
+        : !snap.hand
+          ? ''
+          : p?.folded
+            ? 'folded'
+            : p?.lastAction
+              ? `${p.lastAction.toLowerCase()}${p.bet > 0 ? ` ${money(p.bet)}` : ''}`
+              : '';
+  const inHand = snap.hand && !s.out && p && !p.folded;
+  const won = snap.hand?.complete ? snap.hand.winners.filter((w) => w.seat === seat).reduce((n, w) => n + w.amount, 0) : 0;
+  const size: CardSize = small && !(p?.handName) ? 'tiny' : 'small';
   return (
     <div className={`plate${s.out || p?.folded ? ' plate-dim' : ''}`} style={{ left: character.plate.x, top: character.plate.y }}>
       {snap.button === seat && <Buck />}
       {snap.stakeHolder === seat && <DeckCase />}
       <div className="plate-name">{character.name}</div>
       <div className="plate-stack">
-        ${s.stack}
+        {money(s.stack)}
         {status ? ` · ${status}` : ''}
       </div>
-      {showCards && (
-        <div className="plate-cards">
-          {(p?.shown ?? [null, null, null, null, null]).map((c, i) => (
-            <Card key={i} card={c} size="small" />
+      {inHand && (
+        <div className={`plate-cards plate-cards-${size}`}>
+          {p.cards.map((c, i) => (
+            <Card key={i} card={c} size={size} />
           ))}
         </div>
       )}
-      {p?.handName && <div className="plate-hand">{p.handName}</div>}
-      {snap.hand?.complete && snap.hand.winners.some((w) => w.seat === seat) && (
-        <div className="plate-win">wins ${snap.hand.winners.find((w) => w.seat === seat)!.amount}</div>
-      )}
+      {p?.handName && !p.folded && <div className="plate-hand">{p.handName}</div>}
+      {won > 0 && <div className="plate-win">wins {money(won)}</div>}
     </div>
+  );
+}
+
+function Coins() {
+  return (
+    <svg width="150" height="44" viewBox="0 0 150 44" aria-hidden="true">
+      {[0, 1, 2].map((i) => <ellipse key={`a${i}`} cx="40" cy={34 - i * 6} rx="22" ry="7" fill={i === 2 ? '#f4f1e6' : '#cfc9b8'} stroke="#6f6a5c" />)}
+      {[0, 1, 2, 3].map((i) => <ellipse key={`b${i}`} cx="80" cy={36 - i * 6} rx="22" ry="7" fill={i === 3 ? '#f4f1e6' : '#cfc9b8'} stroke="#6f6a5c" />)}
+      <ellipse cx="120" cy="36" rx="14" ry="5" fill="#e3b24c" stroke="#8a6420" />
+    </svg>
   );
 }
 
@@ -216,10 +289,10 @@ function Buck() {
   );
 }
 
-/** The leather case holding the Ashcombe deck, set on the felt when it is staked. */
+/** The chapter's prize, set on the felt when it is staked. */
 function DeckCase() {
   return (
-    <svg className="deck-case" width="46" height="34" viewBox="0 0 46 34" role="img" aria-label="The Ashcombe deck is staked here">
+    <svg className="deck-case" width="46" height="34" viewBox="0 0 46 34" role="img" aria-label="The stake is in front of this player">
       <rect x="2" y="4" width="42" height="28" rx="4" fill="#6b3f1f" stroke="#2e1a0b" strokeWidth="2" />
       <rect x="2" y="4" width="42" height="9" rx="4" fill="#82502a" stroke="#2e1a0b" strokeWidth="2" />
       <rect x="19" y="10" width="8" height="6" rx="1" fill="#d9b25a" stroke="#6e5420" />
@@ -246,34 +319,61 @@ function TellNote({ character, texts }: { character: Character; texts: string[] 
   );
 }
 
-function PlayerHand({ snap }: { snap: Snapshot }) {
+function PlayerHand({
+  snap,
+  money,
+  selectable,
+  selected,
+  onToggle,
+  lowered,
+}: {
+  snap: Snapshot;
+  money: (n: number) => string;
+  selectable: boolean;
+  selected: number[];
+  onToggle: (i: number) => void;
+  lowered: boolean;
+}) {
   const hand = snap.hand!;
   const me = snap.seats[HUMAN];
   const folded = hand.players[HUMAN]?.folded;
-  const won = hand.complete ? hand.winners.find((w) => w.seat === HUMAN) : undefined;
+  const won = hand.complete ? hand.winners.filter((w) => w.seat === HUMAN).reduce((n, w) => n + w.amount, 0) : 0;
+  const n = hand.myCards.length;
+  const mid = (n - 1) / 2;
+  const tilt = n > 5 ? 4 : 7;
   return (
-    <div className="my-hand">
-      <div className={`my-cards${folded ? ' my-cards-folded' : ''}`}>
-        {hand.myCards.map((c, i) => (
-          <Card key={c} card={c} style={{ transform: `rotate(${(i - 2) * 7}deg) translateY(${Math.abs(i - 2) * 10}px)` }} />
-        ))}
+    <div className={`my-hand${lowered ? ' my-hand-low' : ''}`}>
+      <div className={`my-cards${folded ? ' my-cards-folded' : ''}${n > 5 ? ' my-cards-many' : ''}`}>
+        {hand.myCards.map((c, i) => {
+          const lift = selected.includes(i) ? -48 : 0;
+          const style = { transform: `rotate(${(i - mid) * tilt}deg) translateY(${Math.abs(i - mid) * 8 + lift}px)` };
+          const card = <Card card={c.card} className={c.up ? 'card-up' : ''} style={style} />;
+          return selectable ? (
+            <button key={c.card} type="button" className="card-button" onClick={() => onToggle(i)} aria-pressed={selected.includes(i)}>
+              {card}
+            </button>
+          ) : (
+            <div key={c.card}>{card}</div>
+          );
+        })}
       </div>
       <div className="my-line">
         {folded ? 'You folded' : hand.myHandName}
-        {' · '}your purse ${me.stack}
+        {' · '}your purse {money(me.stack)}
         {snap.button === HUMAN ? ' · you hold the buck' : ''}
-        {won ? ` · you win $${won.amount}` : ''}
+        {won ? ` · you win ${money(won)}` : ''}
       </div>
     </div>
   );
 }
 
-function ChipControls({ legal, pot, minBet, onAct }: { legal: LegalActions; pot: number; minBet: number; onAct: (a: Action) => void }) {
+function ChipControls({ legal, pot, unit, money, onAct }: { legal: LegalActions; pot: number; unit: number; money: (n: number) => string; onAct: (a: Action) => void }) {
   const [to, setTo] = useState(legal.minTo);
   // Reset the raise amount whenever the situation changes.
   useEffect(() => setTo(Math.min(legal.maxTo, Math.max(legal.minTo, Math.round(pot / 2)))), [legal.minTo, legal.maxTo, pot]);
   const clamp = (n: number) => Math.max(legal.minTo, Math.min(legal.maxTo, n));
-  const verb = legal.raiseKind === 'bet' ? 'Bet' : 'Raise to';
+  const verb = legal.canBringIn ? 'Complete to' : legal.raiseKind === 'bet' ? 'Bet' : 'Raise to';
+  const fixed = legal.minTo === legal.maxTo;
   return (
     <div className="chip-row">
       {legal.canFold && !legal.canCheck && (
@@ -281,32 +381,40 @@ function ChipControls({ legal, pot, minBet, onAct }: { legal: LegalActions; pot:
           Fold
         </button>
       )}
-      {legal.canCheck ? (
+      {legal.canBringIn ? (
+        <button type="button" className="chip chip-call" onClick={() => onAct({ type: 'bring-in' })}>
+          Bring in
+        </button>
+      ) : legal.canCheck ? (
         <button type="button" className="chip chip-call" onClick={() => onAct({ type: 'check' })}>
           Check
         </button>
       ) : (
         <button type="button" className="chip chip-call" onClick={() => onAct({ type: 'call' })}>
           Call
-          <br />${legal.callAmount}
+          <br />
+          {money(legal.callAmount)}
         </button>
       )}
       {legal.canRaise && (
         <div className="raise-group">
-          <div className="raise-adjust">
-            <button type="button" aria-label="Less" onClick={() => setTo(clamp(to - minBet))} disabled={to <= legal.minTo}>
-              −
-            </button>
-            <button type="button" aria-label="More" onClick={() => setTo(clamp(to + minBet))} disabled={to >= legal.maxTo}>
-              +
-            </button>
-            <button type="button" onClick={() => setTo(legal.maxTo)} disabled={to >= legal.maxTo}>
-              Max
-            </button>
-          </div>
-          <button type="button" className="chip chip-raise" onClick={() => onAct({ type: legal.raiseKind, to })}>
+          {!fixed && (
+            <div className="raise-adjust">
+              <button type="button" aria-label="Less" onClick={() => setTo(clamp(to - unit))} disabled={to <= legal.minTo}>
+                −
+              </button>
+              <button type="button" aria-label="More" onClick={() => setTo(clamp(to + unit))} disabled={to >= legal.maxTo}>
+                +
+              </button>
+              <button type="button" onClick={() => setTo(legal.maxTo)} disabled={to >= legal.maxTo}>
+                Max
+              </button>
+            </div>
+          )}
+          <button type="button" className="chip chip-raise" onClick={() => onAct({ type: legal.raiseKind, to: fixed ? legal.minTo : to })}>
             {verb}
-            <br />${to}
+            <br />
+            {money(fixed ? legal.minTo : to)}
           </button>
         </div>
       )}

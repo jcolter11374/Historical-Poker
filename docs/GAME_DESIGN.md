@@ -1,6 +1,80 @@
 # Game design: what is built
 
-[GAME_OUTLINE.md](GAME_OUTLINE.md) is the full design of the game and the source of truth for story, chapters and characters. This page describes how the chapters that exist actually play, as coded, and the tuning numbers behind them. When the code and this page disagree, fix one of them.
+[GAME_OUTLINE.md](GAME_OUTLINE.md) is the full design of the game and the source of truth for story, chapters and characters. This page describes how the game actually plays, as coded, and the tuning numbers behind it. Each chapter's cast and story beats are in [CHAPTERS.md](CHAPTERS.md). When the code and these pages disagree, fix one of them.
+
+## The shape of the game
+
+- **Chapter select** (the Ashcombe deck's leather case): one card per chapter in two rows, Part One and Part Two. Won chapters show the beaten rival's face (the keepsake); the next chapter glows; later ones say "Jump ahead". A first-time visitor goes straight to chapter 1's intro.
+- **Intro:** the setting, who you play, what game is taught, the cast. If you jumped ahead, "The story so far" comes first.
+- **The table:** one sitting of the chapter's games (below).
+- **Ending:** the chapter's won or lost text, the keepsake, a "From the history book" note, and "On to" the next chapter. Losing offers "Try again". The last chapter links to RSDP Live.
+- **Saved progress:** which chapters were started and won, and whether teacher hints are on, are kept in the browser's local storage (`src/progress/save.ts`). "Start over" clears them.
+
+## How a chapter plays
+
+Everything here is shared by every chapter and lives in `src/table/session.ts`. A chapter file only supplies data (`src/chapters/types.ts`).
+
+### Four seats
+
+Seat 0 is the player; seats 1 to 3 are the three rivals, sitting left, across and right. Everyone starts with the chapter's `startingStack`.
+
+### Stages and games
+
+A chapter is a list of **stages**, each starting at a hand number (`fromHand`). A stage lists one or more **games**, each a game id with a betting kind (no-limit, pot-limit or fixed-limit). With one game, every hand is that game. With several, they rotate, `handsPerGame` hands each (HORSE, the 8-Game, the Big O's Hi-Lo round). A stage can have an `opening` scene, a `label` shown under the game name, its own lighting (`scene`), house `extras` (bomb pots and so on), and `resetStacks` to give everyone a fresh starting stack (a tournament starting).
+
+### Lessons
+
+Each game in a stage can carry a **lesson**: the teacher's lines before it is first dealt, and optionally lines on each street of that first hand (`streets`, keyed by street number). A lesson plays once per game and betting kind in a sitting (Limit Hold'em and No-Limit Hold'em are taught separately). Lesson hands are dealt fairly: the teaching is in the words, not a set-up deal. Chapter 1's scripted tutorial hand is the only set deal (plus the visible cheats).
+
+### Stakes, and the stakes going up
+
+Each stage has one number, the **unit**. Every game turns it into its forced bets (`src/table/stakes.ts`):
+
+| Forced bets | Used by | Ante | Blinds | Bring-in | Bets |
+| --- | --- | --- | --- | --- | --- |
+| Antes | Historical games, except stud | half a unit each | none | none | the unit is the minimum bet |
+| Blinds | Hold'em, Omaha, 2-7 Triple Draw, Badugi | none | half a unit and one unit | none | limit: one unit, then two |
+| Stud | Seven Card Stud, Razz, Stud Hi-Lo, five-card stud | a fifth of a unit | none | a third of a unit | limit: one unit, then two |
+
+If a chapter sets `levelEvery`, the unit rises by half every that many hands (rounded: 10, 15, 23, 34…), with the chapter's `levelLines` and "The stakes are now…". Money is shown with the chapter's `money` prefix or suffix ($, £, HK$, F, s).
+
+### Buy-backs, and when broke means out
+
+Until the chapter's **last stage** begins, a player who runs out of money buys back in for a fresh starting stack, so everyone reaches every lesson. This includes the player. From the last stage on, broke means out: rivals leave with their bust line, and if you run out, the chapter is lost. Chapters with one stage are played for keeps from the first hand. Money bought in is tracked (`boughtIn`) so tests can check every chip is accounted for.
+
+### The stake, the cheat and the finale
+
+- **The stake** (optional): after the player wins a few pots or after a set hand, the nemesis puts something on the table (the Ashcombe deck, a watch, a ship's berth, a diary). From then on you win the chapter by taking the last chips of whoever holds it. If the nemesis goes broke to another rival first, the stake passes to them.
+- **No stake:** you win by being the last player with chips.
+- **The cheat** (chapters 1 and 5): one rival deals themselves a set hand once, with a tell and a decoy. A "Call out the deal" chip appears on every hand they deal until it is settled. See chapter 1 below for the details, which chapter 5 shares.
+- **Moments:** scenes before a set hand ("orders arrive").
+- **The finale:** once the last stage has begun (and the stake is up, if there is one), and only you, the nemesis and one other rival remain, that rival bows out with their money if the chapter gives them a bow-out scene. Then it's heads-up.
+
+### House extras (the epilogue)
+
+Set per stage in `extras`: a **bomb pot** every N hands (everyone puts in N units, no betting before the flop), dealt on **two boards** if `doubleBoardOnBombPots` (half the pot per board), and the **7-2 bounty** (win a pot with seven-deuce and everyone pays you N units). These use RSDP Live's own engine options and modifiers.
+
+### Help at the table
+
+- **The rules object:** a corner link named for the era ("The tavern slate", "The help screen") opens the current game's rules card: the deal, the betting, what wins, plus how to win the chapter and a history note. Rules cards are in `src/games/catalog.ts`.
+- **Teacher hints:** "Ask for a hint" (on by default, can be turned off on the chapter select). The chapter's teacher suggests fold, call or raise in one line, with your chance of winning and the pot odds, from the same simulation the bots use.
+- **Your hand:** your best hand's name (and best low, in split games) shows under your cards.
+- **Showdown summary:** one line after each hand: who won, with what, and your hand if you lost. Split pots say who took the high and the low.
+- **Drawing:** in draw games, click cards to throw them (they lift), then "Draw N" or "Stand pat". The chip says what is not allowed (more than the limit).
+
+## The games
+
+| Game | Code | Deck | Deal and betting | What wins |
+| --- | --- | --- | --- | --- |
+| Primero (1543) | `src/games/primero.ts` | 40 (no 8s, 9s, 10s) | 2 down, bet, 2 down, bet, change up to 2 once, bet | chorus > fluxus > supremus > primero > numerus; points break ties |
+| Brag (1763) | `src/games/brag.ts` | 52 | 3 down, one betting round | prial (3s best) > running flush > run (A-2-3 best) > flush > pair > high |
+| Poque (1817) | `src/games/poque.ts` | 32 (7 to ace) | 5 down, one betting round | fours > triplets > two pairs > pair > nothing; no straights or flushes |
+| Straight poker (1836) | `src/games/straightPoker.ts` | 20 (10 to ace) | 5 down, one betting round | see chapter 1 |
+| Five-card stud (1863) | `src/games/fiveCardStud.ts` | 52 | 1 down 1 up, bet; then 3 more up, bet each | standard high hands; lowest card up brings in, best hand showing acts first |
+| Five-card draw (1876) | `src/games/fiveCardDraw.ts` | 52 | 5 down, bet, draw up to 3 (4 keeping an ace), bet | standard high hands |
+| RSDP Live's 12 games | `packages/engine` | 52 | as in RSDP Live | as in RSDP Live |
+
+The historical rules are our playable reconstructions; old sources disagree, and the rules cards say so. Every game, old or new, is registered in `src/games/catalog.ts`.
 
 ## Chapter 1: The River (1836)
 
@@ -32,7 +106,7 @@ The words are in `story` in `src/chapters/riverboat.ts`; when each beat happens 
 
 ### Not built yet
 
-Keepsake cards, saving progress, the two difficulty levels and an optional "tell spotted" hint. They are listed in [ROADMAP.md](ROADMAP.md).
+The two difficulty levels and an optional "tell spotted" hint. They are listed in [ROADMAP.md](ROADMAP.md).
 
 ## How the bots think
 
@@ -51,7 +125,9 @@ All rivals run the same code. What makes them different is a few numbers in thei
 
 Facing a bet, the bot raises when `relative ≥ 1.25 × valueAt`, calls when its equity beats the pot odds plus `caution`, sometimes bluff-raises, and otherwise folds.
 
-Chapter 1 numbers:
+Bots in every game also see the cards showing (stud up-cards, the board) and simulate the cards still to come and their own draws. A game's `simCost` sets how many deals are simulated, so slow games (many-card Omaha) stay fast.
+
+Chapter 1 numbers (every other chapter's are in its file, described in [CHAPTERS.md](CHAPTERS.md)):
 
 | Rival | valueAt | bluff | caution | betSize | trap | Plays like |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -77,6 +153,8 @@ The two chances together are the tell's reliability: when a tell shows, how like
 | Silas | Smooths his mustache | bluffing | 0.7 | 0.3 | About 70% reliable |
 | Delphine | Her fan snaps shut | strong | 0.4 | 0.4 | A coin flip: she fakes it |
 
+Every chapter's rivals and tells are in its file and summarised in [CHAPTERS.md](CHAPTERS.md). The Boom's online tells are about timing and chat, as the outline asks, but they work the same way.
+
 ## History notes
 
-The history text in `riverboat.ts` (the intro, the "history" sheet and the rules panel) is written from general knowledge and must be checked against sources before release. Items to verify are listed in the outline's "History notes (to verify)" for each chapter.
+The history text in every chapter (the intro, the "From the history book" notes and the rules cards) is written from general knowledge and must be checked against sources before release. Items to verify are listed in the outline's "History notes (to verify)" for each chapter.

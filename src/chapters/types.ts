@@ -3,6 +3,7 @@
  * makes a chapter different (story, people, art, tells, stakes) is data in a
  * file like riverboat.ts; the table code and the screens are shared.
  */
+import type { BettingKind } from '@rsdp/engine/core';
 import type { Personality } from '../bots/personality';
 
 /** Where something sits on the 1600 x 900 stage, in stage pixels. */
@@ -15,13 +16,17 @@ export interface Placement {
 }
 
 export interface CharacterArt {
+  /** Image file. Empty for 'placeholder'. */
   src: string;
   /**
    * 'cutout': a transparent PNG cut from a green-screen image (the finished look).
    * 'portrait': a picture with its own dark background, faded in at the edges.
-   * Portraits are placeholders until the cutout exists; see docs/ART.md.
+   * 'placeholder': no art yet; the table draws a painted silhouette in `color`.
+   * Portraits and placeholders stand in until the cutout exists; see docs/ART.md.
    */
-  kind: 'cutout' | 'portrait';
+  kind: 'cutout' | 'portrait' | 'placeholder';
+  /** Placeholder silhouette colour (their clothes), e.g. '#6b2a2a'. */
+  color?: string;
   /** Width / height of the image file, so the stage can size it without loading it first. */
   aspect: number;
   place: Placement;
@@ -56,6 +61,9 @@ export interface Lines {
   win: string[];
   /** Said when they lose their last dollar and leave the table. */
   bust: string;
+  /** Draw games: said when they change cards, and when they keep them all. Optional; plain words are used otherwise. */
+  draw?: string[];
+  pat?: string[];
 }
 
 export interface Character {
@@ -73,37 +81,134 @@ export interface Character {
   plate: { x: number; y: number };
 }
 
+/** The colours of a chapter's room, used to paint a placeholder scene until its art exists. */
+export interface Palette {
+  /** The walls and the dark around the table. */
+  wall: string;
+  /** The light falling on the table (lamp, candle, neon, monitor). */
+  light: string;
+  felt: string;
+  rim: string;
+}
+
+/**
+ * How big the bets are, in one number. The table derives every forced bet
+ * from it (src/table/stakes.ts): antes games ante half a unit and bet at
+ * least a unit; blinds are half a unit and a unit; limit bets are one and two
+ * units; stud antes a fifth of a unit and brings in a third.
+ */
+export interface Structure {
+  unit: number;
+}
+
+/** One game played in a stage, and the lesson given the first time it is dealt in the chapter. */
+export interface GamePlay {
+  /** A game id from src/games/catalog.ts. */
+  game: string;
+  betting: BettingKind;
+  lesson?: Lesson;
+}
+
+/**
+ * Teaching a game inside the story (docs/GAME_DESIGN.md, "Teaching"). Shown
+ * the first time this game is dealt in the chapter: `before` ahead of the
+ * deal, then `streets[i]` as street i begins on that first hand (a guided
+ * hand, dealt fairly).
+ */
+export interface Lesson {
+  /** The character who teaches it; also gives hints while it is played. */
+  teacher: string;
+  before: SceneLine[];
+  streets?: Record<number, SceneLine[]>;
+}
+
+/** Optional house extras from RSDP Live (the epilogue). */
+export interface Extras {
+  /** Every Nth hand is a bomb pot: everyone posts this many units and the flop comes at once. */
+  bombPotEvery?: number;
+  bombPotUnits?: number;
+  /** Bomb pots are dealt with two boards, each worth half the pot. */
+  doubleBoardOnBombPots?: boolean;
+  /** Win a pot with 7-2 and show it, and everyone else pays you this many units. */
+  bounty72Units?: number;
+}
+
+/**
+ * A stretch of the chapter played with one game, or a rotation of games
+ * (HORSE). Stages start at fixed hand numbers.
+ */
+export interface Stage {
+  /** First hand of the stage (1 for the first stage). */
+  fromHand: number;
+  /** One game, or several played in turn. */
+  games: GamePlay[];
+  /** In a rotation, hands of each game before the next one. */
+  handsPerGame?: number;
+  structure: Structure;
+  /** Said as the stage begins (before its first lesson). */
+  opening?: SceneLine[];
+  extras?: Extras;
+  /** A new room for this stage (the Boom's final table). */
+  scene?: ChapterScene;
+  /** Everyone starts this stage with the chapter's starting stack again (a tournament after a side game). */
+  resetStacks?: boolean;
+  /** What the chapter title strip says during this stage ("The qualifier"). */
+  label?: string;
+}
+
+export interface ChapterScene {
+  /** The empty room, drawn over the whole stage. Omit until the art exists: the palette paints a placeholder. */
+  background?: string;
+  /** The same picture with everything but the table transparent, drawn over the characters. See docs/ART.md. */
+  tableFront?: string;
+  palette: Palette;
+}
+
 export interface Chapter {
   id: string;
-  /** "1": the chapter's place in the full story. */
+  /** "1", "Bonus", "Epilogue": the chapter's place in the full story. */
   numeral: string;
+  /** 1 = 1543 to 1876 (the first release), 2 = 1926 to today. */
+  part: 1 | 2;
   title: string;
-  year: number;
+  /** Display year ("Today" for the present). */
+  year: number | 'Today';
   place: string;
-  /** Engine game id, registered in src/games. */
-  gameId: string;
-  stakes: { ante: number; minBet: number; startingStack: number };
+  /** Who the player is in this chapter: "Kit Avery". */
+  youAre: string;
+  /** The games taught, for the chapter select: "Seven Card Stud, then Razz". */
+  teaches: string;
+  /** The rules card's era object: "a parchment page", "a matchbook". Shown as the button label. */
+  rulesObject: string;
+  /** The stages of play, in order. The last one is the showdown: before it starts, nobody is knocked out (they buy back in). */
+  stages: Stage[];
+  startingStack: number;
+  /** How money is written: '$5' (the default), '5s' for shillings, '£5'. */
+  money?: { prefix?: string; suffix?: string };
+  /** The stakes rise by half every this many hands ("the night wears on"). Omit for steady stakes. */
+  levelEvery?: number;
+  /** Said when the stakes rise. */
+  levelLines?: SceneLine[];
   /** Story shown before the first hand, one paragraph per entry. */
   intro: string[];
-  /** The short history lesson shown on the intro screen and in the rules panel. */
+  /** "The story so far", shown when a player jumps to this chapter without playing the ones before. */
+  recap: string[];
+  /** The short history lesson shown on the intro screen and in the rules. */
   history: string[];
-  /** The rules panel's explanation of how a hand goes. */
-  howToPlay: string[];
+  /** Extra lines for the rules card about this chapter (how to win it). */
+  howToWin: string[];
   /** The three rivals, in seat order: left, across, right. */
   rivals: [Character, Character, Character];
   /** The chapter's main rival, for the story and the intro screen. */
   nemesisId: string;
-  /** Which rival narrates the hand (announces bets, deals). */
+  /** Which rival narrates the hand (announces bets, deals) and gives hints when no lesson is running. */
   narratorId: string;
-  /**
-   * background: the empty room, drawn over the whole stage.
-   * tableFront: the same picture with everything but the table transparent,
-   * drawn over the characters so they sit behind the table. See docs/ART.md.
-   */
-  scene: { background: string; tableFront: string };
+  scene: ChapterScene;
   /** Where the player's own cards sit. */
   playerPlate: { x: number; y: number };
   outro: { won: string[]; lost: string[] };
+  /** The painted keepsake card won here: who is on it and the line under it. */
+  keepsake: { name: string; line: string };
   /** Scripted story moments at the table. Optional: a chapter without one is plain play. */
   story?: Story;
 }
@@ -142,11 +247,17 @@ export interface Story {
     passes: SceneLine[];
   };
   /**
-   * The nemesis cheats once per sitting, on one of the hands they deal after
-   * the stake is up, by dealing themselves `hand`. The player may accuse them
-   * on any hand they deal until the cheat is caught or has happened.
+   * A rival cheats once per sitting, on one of the hands they deal after the
+   * stake is up (or after hand `afterHand` when there is no stake), by
+   * dealing themselves `hand`. The player may accuse them on any hand they
+   * deal until the cheat is caught or has happened. Only for games whose
+   * first deal gives each player all their cards (straight poker, draw).
    */
   cheat?: {
+    /** Who cheats: a rival's id. Defaults to the nemesis. */
+    by?: string;
+    /** With no stake in the chapter: the cheat can start from this hand. */
+    afterHand?: number;
     hand: string[];
     /** Chance of cheating on each hand they deal; they always cheat by the `latestDeal`-th deal. */
     chance: number;
@@ -164,7 +275,11 @@ export interface Story {
     /** The cheat hand ended without an accusation. */
     missed: SceneLine[];
   };
-  /** When only the player, the nemesis and one other rival are left (after the stake), that rival leaves with their money. */
+  /**
+   * When only the player, the nemesis and one other rival are left (after the
+   * stake, if there is one, and once the last stage has begun), that rival
+   * leaves with their money, if they have a bow-out scene.
+   */
   finale?: {
     bowOut: Record<string, SceneLine[]>;
     /** Said as the heads-up match begins. */
@@ -172,4 +287,8 @@ export interface Story {
   };
   /** Extra lines after a rival loses their last chips, by character id (after their usual bust line). */
   exits?: Record<string, SceneLine[]>;
+  /** Scenes before a given hand is dealt ("orders arrive"). */
+  moments?: { beforeHand: number; lines: SceneLine[] }[];
+  /** What the narrator says as each hand is dealt. Defaults to plain words for the game. */
+  dealer?: string[];
 }

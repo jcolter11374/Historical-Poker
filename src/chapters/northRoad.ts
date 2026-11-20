@@ -1,0 +1,181 @@
+/**
+ * Chapter 3, "The North Road": three-card Brag at the Pewter Lamb, a
+ * snowbound coaching inn on the Great North Road, 1763. The second
+ * flashback: how the deck crossed to America. (docs/GAME_OUTLINE.md, Chapter 3.)
+ */
+import { BRAG_ID } from '../games/brag';
+import { lines, rival, say } from './cast';
+import type { Chapter } from './types';
+
+export const NORTH_ROAD: Chapter = {
+  id: 'north-road',
+  numeral: '3',
+  part: 1,
+  title: 'The North Road',
+  year: 1763,
+  place: 'The Pewter Lamb, Great North Road, England',
+  youAre: 'Will Avery, guard on the York stagecoach',
+  teaches: 'Brag, the bluffing game of English inns',
+  rulesObject: 'The tavern slate',
+  money: { suffix: 's' },
+  stages: [
+    {
+      fromHand: 1,
+      structure: { unit: 2 },
+      games: [
+        {
+          game: BRAG_ID,
+          betting: 'pot-limit',
+          lesson: {
+            teacher: 'hannah',
+            before: [
+              say('hannah', 'Brag, is it? It’s the only game in this house, love. Simple as bread: three cards each, one round of wagering, best hand wins.'),
+              say('hannah', 'Three of a kind is a prial, and that’s the top of it. Three threes beat even three aces; don’t ask me why, it’s always been so.'),
+              say('hannah', 'Then a running flush, three in a row of one suit. Then a run, three in a row. Then a flush. Then a pair. Then just your highest card.'),
+              say('hannah', 'And it’s called brag for a reason. Half these men wager like they hold a prial when they hold a pair of fours. Watch them, not your cards.'),
+            ],
+            streets: {
+              0: [say('hannah', 'There’s your three. A pair is a fair hand at this table; a run or better is a strong one. Ace-high and nothing else? Let it go, unless you’re sure they’re bragging.')],
+            },
+          },
+        },
+      ],
+    },
+  ],
+  startingStack: 100,
+  levelEvery: 10,
+  levelLines: [say('narration', 'The snow piles against the windows. Hannah stokes the fire, and Captain Pike calls for higher stakes.')],
+  intro: [
+    'January 1763. Snow has closed the Great North Road, and the York coach is stuck at the Pewter Lamb until it thaws.',
+    'The Ashcombe deck has passed down the Avery family for two hundred years. Now it rides in your coat: you, Will Avery, guard of the York coach and of the strongbox in its boot.',
+    'A retired sea captain has heard of the lucky deck. He wants it for his voyage to the colonies. And the well-dressed stranger by the fire has asked about the strongbox twice.',
+  ],
+  recap: [
+    'In 1836, Kit Avery won back the family’s old hand-painted deck from a riverboat gambler. Delphine Arceneaux is telling its story.',
+    'In 1543, Nan Avery won it at Primero from Lady Margery Ashcombe, who stamped “M.A. 1543” in its case and started a legend: whoever holds it never loses. The deck stayed with the Averys.',
+  ],
+  history: [
+    'Brag grew out of the 1500s game of post and pair, and was described in English card books of the 1700s, often with wild cards called “braggers”.',
+    'Betting blind, bluffing, and bragging about a hand you may not hold are all ideas poker kept.',
+    'Three-card brag is still played in Britain today.',
+  ],
+  howToWin: [
+    'Everyone antes 1s; the smallest wager is 2s, and no wager may be larger than the pot.',
+    'Once Captain Pike stakes his ship’s passage, take his last shilling and you sail with him for free.',
+  ],
+  rivals: [
+    rival(
+      {
+        id: 'hannah',
+        name: 'Hannah',
+        fullName: 'Hannah Pell',
+        role: 'Keeper of the Pewter Lamb',
+        personality: { valueAt: 1.7, bluff: 0.04, caution: 0.06, betSize: 0.7 },
+        tell: { text: 'She polishes a tankard, slowly.', signals: 'strong', showsWhenTrue: 0.6, showsWhenFalse: 0.15 },
+        lines: lines({
+          bet: ['I’ll put some in.', 'Wager.', 'Raise, and I’ll not apologise.'],
+          call: ['I’ll stay.', 'Go on, then.'],
+          fold: ['Not worth my bread.', 'I’m out.'],
+          check: ['I’ll wait.'],
+          win: ['House always wins, love.', 'That’ll pay for the firewood.'],
+          bust: 'Well. That’s the takings gone. Back to the kitchen with me.',
+        }),
+      },
+      'left',
+      '#5a3b22',
+    ),
+    rival(
+      {
+        id: 'pike',
+        name: 'Captain Pike',
+        fullName: 'Captain Josiah Pike',
+        role: 'A retired sea captain bound for the colonies',
+        personality: { valueAt: 1.15, bluff: 0.32, caution: -0.04, betSize: 0.85 },
+        // The louder his boast, the weaker his hand: shows on 75% of his bluffs, 25% of his honest bets.
+        tell: { text: 'He boasts, loudly, about the hand he holds.', signals: 'bluffing', showsWhenTrue: 0.75, showsWhenFalse: 0.25 },
+        lines: lines({
+          bet: ['A prial, lad, I’d wager my ship on it!', 'Raise! I’ve sailed through worse storms than you.', 'More! The sea favours the bold.'],
+          call: ['I’ll see you, landlubber.', 'Aye.'],
+          fold: ['Strike the colours. Fold.', 'Not worth the powder.'],
+          check: ['Steady as she goes.'],
+          win: ['Ha! Into the hold with it!', 'Fair winds and full pockets.'],
+          bust: 'Sunk. Holed below the waterline. I’ll pay my debts, lad; a captain’s word is good.',
+        }),
+      },
+      'across',
+      '#1f3550',
+    ),
+    rival(
+      {
+        id: 'sorrel',
+        name: 'Mr. Sorrel',
+        fullName: 'Mr. Jack Sorrel',
+        role: 'A well-dressed gentleman. Too well dressed',
+        personality: { valueAt: 1.35, bluff: 0.18, caution: 0.0, betSize: 0.65, trap: 0.35 },
+        tell: { text: 'His hand drifts to his coat pocket.', signals: 'weak', showsWhenTrue: 0.55, showsWhenFalse: 0.12 },
+        lines: lines({
+          bet: ['I believe I shall wager.', 'Shall we make it interesting?'],
+          call: ['Delighted.', 'I’ll come along.'],
+          fold: ['Another time.', 'Your hand, sir.'],
+          check: ['After you, I insist.'],
+          win: ['Too kind.', 'Most generous.'],
+          bust: 'Robbed! And by a coach guard, of all people. There’s a joke in that somewhere.',
+        }),
+      },
+      'right',
+      '#2b4a3a',
+    ),
+  ],
+  nemesisId: 'pike',
+  narratorId: 'hannah',
+  scene: { palette: { wall: '#151719', light: '#f0a24a', felt: '#3d3226', rim: '#8a8f94' } },
+  playerPlate: { x: 800, y: 760 },
+  keepsake: { name: 'Captain Josiah Pike', line: 'The North Road, 1763. He bragged; you called.' },
+  story: {
+    stake: {
+      afterPlayerWins: 2,
+      orAfterHands: 5,
+      lines: [
+        say('pike', 'You’ve a lucky deck in that coat, lad. I can smell it. A ship’s captain knows luck.'),
+        say('narration', 'Captain Pike slaps a folded paper on the table: a berth on the brig Constance, sailing from Bristol to Philadelphia in March.'),
+        say('pike', 'Passage to the colonies, cabin and board. Take my last shilling and it’s yours. Lose, and that deck sails with me.'),
+        say('hannah', 'He shouts loudest when he’s got least, love. Remember that.'),
+      ],
+      passes: [
+        say('narration', 'Captain Pike is out of silver. His berth on the Constance goes to {name}.'),
+        say('hannah', 'The passage is still at this table. Win it back.'),
+      ],
+    },
+    moments: [
+      {
+        beforeHand: 5,
+        lines: [
+          say('narration', 'A gust blows the door open. As Mr. Sorrel reaches to steady his cards, his coat falls open: a pistol, and a black silk mask.'),
+          say('hannah', 'Well, well. Gentleman Jack of the North Road, at my table. There’s a reward for you in York.'),
+          say('sorrel', 'There is no road tonight, madam, and no constable. I suggest we all simply keep playing. I find honest money is still money.'),
+          say('hannah', 'Then you play with your hands on the table, sir. Both of them.'),
+        ],
+      },
+    ],
+    finale: {
+      bowOut: {
+        hannah: [say('hannah', 'I’ve more sense than to sit between those two. I’ll pour, and watch.'), say('narration', 'Hannah gathers her coins and goes back behind the bar.')],
+        sorrel: [say('sorrel', 'I believe I shall retire before the constable thaws out. My compliments, Mr. Avery.'), say('narration', 'Mr. Sorrel sweeps his winnings into his hat and is gone into the snow.')],
+      },
+      headsUp: [say('pike', 'Just you and me, lad. Your deck against my ship.')],
+    },
+    exits: {
+      sorrel: [say('narration', 'Mr. Sorrel bows, steps out into the snow, and is never seen on the North Road again.')],
+    },
+  },
+  outro: {
+    won: [
+      'Captain Pike roars with laughter and claps you on the back. “A captain’s word is good, lad. The Constance sails in March, and you’re on her.”',
+      'In the spring of 1763, Will Avery and the Ashcombe deck cross the Atlantic. The Averys will be Americans now.',
+    ],
+    lost: [
+      'Your last shilling goes to the captain. He tucks the deck into his sea chest with a wink.',
+      '“He boasts when he’s weak, love. Call him,” Hannah says, pouring you a small beer. “The road’s still closed. Sit down again.”',
+    ],
+  },
+};

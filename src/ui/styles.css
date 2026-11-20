@@ -56,11 +56,14 @@ button:disabled { opacity: 0.4; cursor: default; }
 }
 .powered-by strong { color: #fff; }
 
-.rules-button {
-  position: absolute; right: 22px; top: 56px; padding: 6px 4px; border: 0; background: none;
+.corner-links { position: absolute; right: 22px; top: 52px; display: flex; flex-direction: column; align-items: flex-end; gap: 2px; z-index: 2; }
+.corner-links button, .text-link {
+  padding: 4px 4px; border: 0; background: none;
   font-family: var(--story); font-style: italic; font-size: 18px; color: #e6c27a; text-decoration: underline; text-underline-offset: 4px;
   text-shadow: 0 2px 6px #000;
 }
+.game-name { margin-top: 4px; font-family: var(--ui); font-weight: 800; font-size: 18px; color: var(--gold); }
+.stage-label { font-weight: 500; color: var(--muted); }
 
 /* ---------------------------------------------------------------- the felt */
 
@@ -70,6 +73,7 @@ button:disabled { opacity: 0.4; cursor: default; }
 .plate-stack { font-weight: 700; font-size: 15px; color: var(--gold); white-space: nowrap; }
 .plate-cards { display: flex; margin-top: 6px; }
 .plate-cards .card + .card { margin-left: -14px; }
+.plate-cards-tiny .card + .card { margin-left: -8px; }
 .plate-hand { font-weight: 800; font-size: 15px; color: var(--text); margin-top: 4px; white-space: nowrap; }
 .plate-win { font-family: var(--display); font-size: 18px; color: var(--gold); }
 .buck { position: absolute; left: -84px; top: 8px; }
@@ -103,6 +107,15 @@ button:disabled { opacity: 0.4; cursor: default; }
 .card-small { width: 46px; height: 66px; border-radius: 5px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); }
 .card-small .card-rank { font-size: 19px; }
 .card-small .card-suit { font-size: 17px; }
+.card-medium { width: 70px; height: 100px; border-radius: 7px; }
+.card-medium .card-rank { font-size: 30px; }
+.card-medium .card-suit { font-size: 26px; }
+.card-tiny { width: 30px; height: 44px; border-radius: 4px; box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5); }
+.card-tiny .card-rank { font-size: 13px; }
+.card-tiny .card-suit { font-size: 12px; }
+.card-slot { border-radius: 7px; border: 2px dashed rgba(255, 244, 220, 0.18); }
+/* Stud: your face-up cards sit a little apart, with a gold edge, so you know what the table can see. */
+.card-up { outline: 3px solid var(--gold); outline-offset: -3px; }
 .card-back {
   background: repeating-linear-gradient(45deg, #7a2b22 0 4px, #8f3a2e 4px 8px);
   border: 2px solid var(--paper);
@@ -110,7 +123,20 @@ button:disabled { opacity: 0.4; cursor: default; }
 
 .my-hand { position: absolute; left: 800px; top: 668px; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 12px; }
 .my-cards { display: flex; }
-.my-cards .card + .card { margin-left: -30px; }
+.my-cards > * + * { margin-left: -30px; }
+.my-cards-many > * + * { margin-left: -46px; }
+.my-hand-low { top: 672px; gap: 8px; }
+.card-button { padding: 0; border: 0; background: none; border-radius: 10px; }
+.card-button .card { transition: transform 0.12s; }
+.card-button:hover .card { filter: brightness(1.08); }
+.boards { position: absolute; left: 800px; top: 562px; transform: translateX(-50%); display: flex; flex-direction: column; gap: 6px; z-index: 1; }
+.board { display: flex; gap: 8px; }
+.summary {
+  position: absolute; left: 800px; top: 388px; transform: translateX(-50%); width: 760px; text-align: center; z-index: 2;
+  font-family: var(--story); font-size: 22px; line-height: 1.3; color: var(--text); text-shadow: 0 2px 8px #000, 0 0 18px #000;
+}
+.draw-group { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.draw-note { max-width: 300px; text-align: center; font-family: var(--story); font-style: italic; font-size: 19px; color: var(--muted); text-shadow: 0 2px 6px #000; }
 .my-cards-folded { filter: brightness(0.5); }
 .my-line { font-weight: 700; font-size: 17px; color: var(--gold); text-shadow: 0 2px 6px #000; white-space: nowrap; }
 
@@ -212,3 +238,71 @@ button:disabled { opacity: 0.4; cursor: default; }
     repeating-conic-gradient(from 0deg, rgba(255, 255, 255, 0.08) 0 12deg, transparent 12deg 30deg),
     radial-gradient(circle at 35% 30%, #b0503f, #7d2b20 60%, #4e1812);
 }
+
+/* ---------------------------------------------------------------- placeholder art */
+.cast-placeholder { display: grid; place-items: center; font-family: var(--display); font-size: 30px; color: rgba(255, 244, 220, 0.85); text-shadow: 0 2px 4px #000; }
+.story-shade { position: absolute; inset: 0; background: rgba(8, 4, 2, 0.55); }
+.recap { border-left: 3px solid var(--brass); padding-left: 18px; margin: 4px 0 8px; }
+.recap h3 { margin: 0 0 4px; }
+.recap p { font-size: 20px; color: var(--muted); }
+.you-are { font-style: italic; color: var(--gold); }
+.story-buttons { display: flex; align-items: center; gap: 24px; margin-top: 8px; }
+.story-buttons .chip { margin-top: 0; text-decoration: none; }
+.keepsake { display: flex; gap: 16px; align-items: center; margin: 6px 0; }
+.keepsake-face { width: 90px; height: 120px; border-radius: 8px; border: 3px solid var(--gold); }
+.keepsake-title { font-family: var(--display); font-size: 20px; color: var(--gold); }
+.keepsake-line { font-family: var(--story); font-style: italic; font-size: 20px; }
+
+/* ---------------------------------------------------------------- chapter select: the deck case */
+.select-screen {
+  position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; padding: 34px 40px 26px;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(240, 180, 90, 0.25), transparent 60%),
+    radial-gradient(ellipse at 50% 120%, rgba(0, 0, 0, 0.8), transparent 60%),
+    #24140b;
+}
+.select-head { text-align: center; text-shadow: 0 3px 10px #000; }
+.select-head h1 { margin: 0; font-family: var(--display); font-weight: 400; font-size: 64px; line-height: 1; }
+.select-head p { margin: 6px 0 0; font-family: var(--story); font-size: 21px; color: var(--muted); }
+/* The open leather case: a worn, stitched lining the chapter cards sit in. */
+.case {
+  margin-top: 18px; padding: 18px 26px 20px; border-radius: 22px; display: flex; flex-direction: column; gap: 10px;
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(255, 220, 160, 0.08), transparent 55%),
+    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.06) 0 2px, transparent 2px 7px),
+    #5a2e17;
+  box-shadow: inset 0 0 0 3px #2e170a, inset 0 0 0 7px #7a4524, inset 0 0 0 9px rgba(0, 0, 0, 0.3), 0 24px 50px rgba(0, 0, 0, 0.7);
+}
+.case-part h2 { margin: 0 0 8px; font-family: var(--story); font-style: italic; font-weight: 400; font-size: 20px; color: #e6c27a; }
+.case-row { display: flex; gap: 12px; }
+.case-card {
+  position: relative; width: 166px; height: 232px; padding: 12px 10px; border-radius: 10px; border: 2px solid #3a2a18;
+  display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--ink); text-align: center;
+  background:
+    radial-gradient(ellipse at 30% 15%, rgba(255, 255, 255, 0.5), transparent 60%),
+    radial-gradient(ellipse at 80% 90%, rgba(120, 90, 40, 0.25), transparent 55%),
+    var(--paper);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.55); transition: transform 0.12s;
+}
+.case-card:hover { transform: translateY(-6px) rotate(-1deg); }
+.case-next { box-shadow: 0 0 0 3px var(--gold), 0 0 26px rgba(255, 209, 102, 0.55), 0 8px 16px rgba(0, 0, 0, 0.55); }
+.case-locked {
+  color: #f0e2c4;
+  background: repeating-linear-gradient(45deg, #6b2a20 0 5px, #7d3428 5px 10px);
+  border-color: var(--paper);
+}
+.case-numeral { font-family: var(--display); font-size: 15px; opacity: 0.8; }
+.case-title { font-family: var(--display); font-size: 19px; line-height: 1.05; min-height: 40px; display: grid; place-items: center; }
+.case-year { font-family: var(--story); font-style: italic; font-size: 16px; }
+.case-seal { font-size: 40px; line-height: 1; margin: 6px 0; opacity: 0.75; }
+.case-face { width: 56px; height: 56px; font-size: 22px; margin: 2px 0; }
+.case-game { font-family: var(--ui); font-size: 13px; line-height: 1.2; font-weight: 700; }
+.case-badge { position: absolute; top: 8px; right: 8px; font-family: var(--ui); font-weight: 800; font-size: 11px; color: #fff; background: #3c6b3a; border-radius: 6px; padding: 2px 6px; }
+.case-badge-jump { background: rgba(0, 0, 0, 0.45); }
+.select-foot { margin-top: auto; display: flex; align-items: center; gap: 28px; }
+.toggle { font-family: var(--story); font-size: 19px; color: var(--muted); display: flex; align-items: center; gap: 8px; }
+.reset { font-family: var(--story); font-size: 18px; color: var(--muted); }
+.card-button[aria-pressed='true'] .card { box-shadow: 0 0 0 4px var(--gold), 0 14px 24px rgba(0, 0, 0, 0.6); }
+.boards-2 { flex-direction: row; gap: 36px; }
+.card-slot-medium { width: 70px; height: 100px; }
+.card-slot-small { width: 46px; height: 66px; }

@@ -1,40 +1,35 @@
-/** A parchment sheet with the chapter's rules, hand rankings and history. */
-import type { Chapter } from '../chapters/types';
-import { CATEGORY_NAMES, RANKING_ORDER } from '../games/straightPoker';
+/** The rules card: the current game's rules and hand rankings, how to win the chapter, and its history. */
 import { useEffect, useRef } from 'react';
+import type { Chapter } from '../chapters/types';
+import type { GameDef } from '../games/catalog';
 
-const EXAMPLES: Record<number, string> = {
-  5: 'K K K K A',
-  4: 'Q Q Q 10 10',
-  3: 'J J J A K',
-  2: 'A A 10 10 Q',
-  1: 'K K A Q J',
-  0: 'A K Q J 10',
-};
-
-export function RulesPanel({ chapter, onClose }: { chapter: Chapter; onClose: () => void }) {
+export function RulesPanel({ chapter, game, playName, onClose }: { chapter: Chapter; game: GameDef; playName: string; onClose: () => void }) {
   const close = useRef<HTMLButtonElement>(null);
   useEffect(() => close.current?.focus(), []);
+  const card = game.card;
   return (
     <div className="sheet-backdrop" onClick={onClose}>
       <div className="sheet" role="dialog" aria-modal="true" aria-labelledby="rules-title" onClick={(e) => e.stopPropagation()} onKeyDown={(e) => e.key === 'Escape' && onClose()}>
-        <h2 id="rules-title">Rules of {chapter.year}</h2>
+        <div className="sheet-eyebrow">{chapter.rulesObject}</div>
+        <h2 id="rules-title">{game.historical ? card.title : playName}</h2>
         <div className="sheet-columns">
           <section>
             <h3>How a hand goes</h3>
-            {chapter.howToPlay.map((t) => <p key={t}>{t}</p>)}
+            {card.howToPlay.map((t) => <p key={t}>{t}</p>)}
+            <h3>This chapter</h3>
+            {chapter.howToWin.map((t) => <p key={t}>{t}</p>)}
           </section>
           <section>
-            <h3>Hands, best first</h3>
+            <h3>{card.rankingsTitle}</h3>
             <ol className="rankings">
-              {RANKING_ORDER.map((c) => (
-                <li key={c}>
-                  <span>{CATEGORY_NAMES[c]}</span>
-                  <span className="example">{EXAMPLES[c]}</span>
+              {card.rankings.map((r) => (
+                <li key={r.name}>
+                  <span>{r.name}</span>
+                  <span className="example">{r.example}</span>
                 </li>
               ))}
             </ol>
-            <p className="note">No straights or flushes yet. A tie goes to the higher pair or triplets, then the higher odd cards.</p>
+            {card.note && <p className="note">{card.note}</p>}
           </section>
         </div>
         <section>

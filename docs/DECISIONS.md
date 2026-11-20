@@ -37,3 +37,38 @@ John wants his friends to learn RSDP Live's games here, for free, before playing
 
 ### Silas's cheat is a read, not a quick-time event (2026-11-20)
 The outline says catching Silas's tell lets Delphine call him out. Calling out is a chip the player can press on any hand Silas deals until the cheat is settled, so it is a decision rather than a reflex. His cheat has its own tell, and a harmless decoy shows on some honest deals. A wrong call costs $5, so guessing every time has a price. The cheat hand is the only rigged deal outside the tutorial, and it is part of the story (CLAUDE.md allows story moments, not hidden rigging).
+
+### All chapters built at once, with placeholder art (2026-11-20)
+John asked for every chapter, the progression and the story now, with art later. So Part Two was built together with Part One instead of as a later release, and every room and character has a placeholder drawn in code from a palette and a colour. Swapping in art is a data change in the chapter file ([ART.md](ART.md)).
+
+### Chapters are data; one Session plays them all (2026-11-20)
+Fourteen chapters with twenty games would be unmanageable as fourteen bits of code. Each chapter is a data file (stages, games, lessons, cast, story beats) and one `Session` runs any of them. New behaviour goes into the Session behind an optional chapter field, so older chapters don't change.
+
+### One "unit" sets every stake (2026-11-20)
+Each stage gives one number, and every game derives its antes, blinds, bring-in and bet sizes from it (`src/table/stakes.ts`). That keeps rotations like HORSE consistent (limit hold'em and stud cost about the same per hand) and makes tuning one number per chapter.
+
+### Rising stakes and buy-backs (2026-11-20)
+Without rising stakes, four careful bots could play for hours. The unit rises by half every `levelEvery` hands, in the story's words ("The pizza arrives…"). And with several games in a chapter, someone going broke early would skip lessons, so until the last stage a broke player, you included, buys back in. From the last stage on, broke means out. Chapter 7 and the Boom's final table start everyone again from the same stack, like a real tournament.
+
+### Lessons are words, not set-up deals (2026-11-20)
+The outline asks for a guided first hand per game. Chapter 1's tutorial is a set deal, but doing that for twenty games would be a lot of rigged hands. Instead the teacher speaks before the first deal and on each street of that hand, which is dealt fairly, and teacher hints can be asked for at any time. CLAUDE.md's "deals must be fair" stays true for everything but chapter 1's tutorial and the two cheats.
+
+### Historical games use pot-limit; modern games use their usual limit (2026-11-20)
+The old games use pot-limit, as chapter 1 does, for the same reason (no-limit ends sittings in one hand). The modern games use the betting they are usually played with: stud games, Razz, 2-7 Triple Draw and Badugi limit; Omaha pot-limit; Hold'em limit then no-limit as the outline says. HORSE is all limit, and the 8-Game adds No-Limit Hold'em and Pot-Limit Omaha.
+
+### Reconstructed rules for the old games (2026-11-20)
+- **Primero:** as in the outline. A hand of numerus is described by its points and suit ("Numerus, 39 points in hearts").
+- **Brag:** no blind betting yet. The engine has no "play blind" option, and adding one means changing the engine. Pike still bets loose and loud. The optional "braggers" wild cards are not used.
+- **Poque:** 32 cards, five each, one betting round, and only fours, triplets, two pairs and pairs count. No payout board yet. The rules card says this is a reconstruction.
+- **Five-card draw:** draw up to three, or four keeping an ace; no jackpots (needs an opening rule the engine doesn't have).
+
+### Story choices made while building, for John to confirm (2026-11-20)
+The outline left some story details open. These were filled in and are easy to change in the chapter files:
+- Stakes: Margery puts the deck itself on the table; Pike stakes a berth to Philadelphia (his promise to pay Will's passage); Reed stakes a silver watch against the deck; Margot stakes Delphine's diary.
+- Chapter 5 has no stake: the deck is Clara's and the sitting settles it. Jasper's cheat works like Silas's (four kings, with a tell and a decoy), and Ruby is teacher, narrator and the real opponent.
+- The bonus: Élodie has just won the deck from Henri; young Delphine wins it back for him.
+- Part Two's teachers and stakes follow the outline; the Boom's tournament is played to the last player with no bow-outs, and the Desert Classic too.
+- The players in Part Two are named Averys as in the outline; in chapter 12 and the epilogue you play yourself.
+
+### Any chapter can be started at once (2026-11-20)
+The outline's open question, answered as John asked: every chapter can be opened from the deck case; a chapter you haven't reached shows "the story so far" first. Winning still unlocks the next chapter in order, and the case shows which ones you've won.

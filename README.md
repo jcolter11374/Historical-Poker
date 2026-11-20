@@ -1,10 +1,10 @@
 # Historical Poker
 
-A single-player card game that tells the history of poker, one chapter per era. You follow one heirloom deck, the Ashcombe deck, from table to table: a Mississippi steamboat in 1836, then flashbacks to a Tudor hall and a coaching inn, then forward to a Civil War camp and a Deadwood saloon. A later release carries it on to the present day. It teaches every game RSDP Live offers inside the story, so friends can learn one here before playing it for money. Each chapter is played with the poker of its time, against painted rivals with their own personalities and tells.
+A single-player card game that tells the history of poker, one chapter per era. You follow one heirloom deck, the Ashcombe deck, from table to table: a Mississippi steamboat in 1836, then flashbacks to a Tudor hall and a coaching inn, forward to a Civil War camp and a Deadwood saloon, and on through a Chicago speakeasy, Las Vegas, Atlantic City, Paris, the online boom, an English card room and Macau, to a kitchen table today. It teaches every game RSDP Live offers inside the story, so friends can learn one here before playing it for money. Each chapter is played with the poker of its time, against painted rivals with their own personalities and tells.
 
-**Chapter 1, "The River"** (20-card straight poker aboard the *Magnolia Queen*, 1836) is the first one built. The whole game is designed in [docs/GAME_OUTLINE.md](docs/GAME_OUTLINE.md); what's built and what's next is in [docs/ROADMAP.md](docs/ROADMAP.md).
+**All fourteen chapters are built and playable.** Chapter 1, "The River", has its painted art; the others use placeholders drawn in code until their art is made. The whole game is designed in [docs/GAME_OUTLINE.md](docs/GAME_OUTLINE.md); what's built and what's next is in [docs/ROADMAP.md](docs/ROADMAP.md).
 
-It runs entirely in the browser: no server, no accounts, nothing stored. It is hosted for free on GitHub Pages.
+It runs entirely in the browser: no server, no accounts. Progress is saved in the browser's local storage. It is hosted for free on GitHub Pages.
 
 Powered by the poker engine from [RSDP Live](https://rsdp-poker-live.fly.dev), used under its MIT license (see [docs/ENGINE.md](docs/ENGINE.md)).
 
@@ -15,8 +15,9 @@ New to the project? Read these, in order:
 1. **This page**: what it is and how to run it.
 2. **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)**: how the code fits together, and how to add a chapter.
 3. **[docs/GAME_OUTLINE.md](docs/GAME_OUTLINE.md)**: the full design of the game, every chapter and character. The source of truth for story and design.
-4. **[docs/GAME_DESIGN.md](docs/GAME_DESIGN.md)**: how the built chapters actually play: rules as coded, bots, tells and tuning.
-5. **[docs/ART.md](docs/ART.md)**: the art style, the prompts used to make it, and how a picture becomes game art.
+4. **[docs/GAME_DESIGN.md](docs/GAME_DESIGN.md)**: how the game actually plays: stages, lessons, stakes, the games' rules as coded, bots, tells and tuning.
+5. **[docs/CHAPTERS.md](docs/CHAPTERS.md)**: each chapter as built: its games, teacher, cast and story beats, and which file it's in.
+6. **[docs/ART.md](docs/ART.md)**: the art style, the prompts, how a picture becomes game art, and the art each chapter still needs.
 
 For looking things up:
 
@@ -45,11 +46,12 @@ npm run test:engine  # the copied RSDP engine's own tests
 
 ```
 packages/engine   The RSDP Live poker engine, copied unchanged (docs/ENGINE.md).
-src/games         Each historical game's rules for the engine (straightPoker.ts).
-src/table         The table between hands: seats, money, the buck, chapter win/loss.
+src/games         The game catalog: every game's rules card, and the historical games' rules.
+src/table         The table between hands: seats, money, stages, stakes, story beats, win/loss.
 src/bots          How rivals decide: hand strength by simulation, plus a personality.
-src/chapters      Each chapter's story, characters, tells, lines and art placement.
-src/ui            React screens: intro, table, ending, rules sheet.
+src/chapters      One file per chapter: story, stages, lessons, characters; index.ts sets the order.
+src/progress      Saved progress (chapters won, hints on or off).
+src/ui            React screens: chapter select, intro, table, ending, rules sheet.
 public/art        Game-ready art, one folder per chapter.
 tools             Scripts that turn original art into game art (docs/ART.md).
 test              Unit tests and whole-game simulations.

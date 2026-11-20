@@ -51,13 +51,8 @@ button:disabled { opacity: 0.4; cursor: default; }
 .eyebrow { font-family: var(--story); font-style: italic; font-size: 19px; color: #e6c27a; }
 .chapter-title h1 { margin: 0; font-family: var(--display); font-weight: 400; font-size: 36px; line-height: 1.05; }
 
-.powered-by {
-  position: absolute; right: 22px; top: 18px; display: flex; align-items: center; gap: 7px;
-  text-decoration: none; color: var(--muted); font-family: Arial, Helvetica, sans-serif; font-size: 12px; opacity: 0.9;
-  filter: drop-shadow(0 2px 4px #000);
-}
-.powered-by-chip { width: 22px; height: 22px; }
-.powered-by-wordmark { height: 17px; width: auto; }
+.powered-by { position: absolute; right: 22px; top: 18px; display: flex; text-decoration: none; filter: drop-shadow(0 2px 4px #000); }
+.powered-by-wordmark { height: 20px; width: auto; }
 
 .corner-links { position: absolute; right: 22px; top: 52px; display: flex; flex-direction: column; align-items: flex-end; gap: 2px; z-index: 2; }
 .corner-links button, .text-link {

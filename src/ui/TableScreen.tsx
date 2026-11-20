@@ -10,7 +10,7 @@
  * shows session.snapshot() and calls session methods; `version` is bumped
  * after each call to re-render.
  */
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type CSSProperties } from 'react';
 import type { Action, LegalActions, SeatIndex } from '@rsdp/engine/core';
 import type { Character } from '../chapters/types';
 import { HUMAN, type SceneView, type Session, type Snapshot } from '../table/session';
@@ -18,11 +18,28 @@ import { Card, type CardSize } from './Card';
 import { PoweredBy } from './PoweredBy';
 import { RulesPanel } from './RulesPanel';
 import { Rival, SceneBack, SceneFront } from './Scene';
+import { playMusic } from './sound';
+import { useCompact } from './Stage';
+import { PLAYER_SPOT, potSpot, seatSpot, useTableFx, type Flight, type Point } from './useTableFx';
 
 /** How long a rival "thinks" before acting, in ms. */
 const BOT_DELAY = 1100;
 
-export function TableScreen({ session, hints, onFinished, onLeave }: { session: Session; hints: boolean; onFinished: () => void; onLeave: () => void }) {
+export function TableScreen({
+  session,
+  hints,
+  sound,
+  onSound,
+  onFinished,
+  onLeave,
+}: {
+  session: Session;
+  hints: boolean;
+  sound: boolean;
+  onSound: (on: boolean) => void;
+  onFinished: () => void;
+  onLeave: () => void;
+}) {
   const [, setVersion] = useState(0);
   const refresh = () => {
     setHint(null);
@@ -36,6 +53,13 @@ export function TableScreen({ session, hints, onFinished, onLeave }: { session: 
   const stage = chapter.stages[snap.play.stageIndex];
   const scene = stage.scene ?? chapter.scene;
   const money = (n: number) => session.money(n);
+  const compact = useCompact();
+  const flights = useTableFx(chapter, snap, compact);
+  useEffect(() => playMusic(scene.music ?? null), [scene.music]);
+  const flop = snap.play.family === 'flop';
+  // Cards fly in from whoever holds the buck.
+  const dealer = seatSpot(chapter, snap.button);
+  const from = (to: Point): CSSProperties => ({ '--dx': `${dealer.x - to.x}px`, '--dy': `${dealer.y - to.y}px` }) as CSSProperties;
 
   // Deal the first hand when the table opens, once any opening scene is over.
   const inScene = session.inScene;
@@ -87,7 +111,6 @@ export function TableScreen({ session, hints, onFinished, onLeave }: { session: 
   const speaker = snap.speech ? snap.seats[snap.speech.seat] : null;
   const line = snap.scene ?? hint;
   const betweenHands = (!hand || hand.complete) && snap.handNumber > 0;
-  const flop = snap.play.family === 'flop';
   const drawing = hand?.draw ?? null;
   const drawProblem = drawing ? session.drawProblem(selected) : null;
 
@@ -120,13 +143,16 @@ export function TableScreen({ session, hints, onFinished, onLeave }: { session: 
             Ask for a hint
           </button>
         )}
+        <button type="button" onClick={() => onSound(!sound)} aria-pressed={sound}>
+          {sound ? 'Sound on' : 'Sound off'}
+        </button>
         <button type="button" onClick={onLeave}>
           Leave the table
         </button>
       </nav>
 
       {chapter.rivals.map((c, i) => (
-        <SeatPlate key={c.id} character={c} seat={i + 1} snap={snap} money={money} small={flop} />
+        <SeatPlate key={c.id} character={c} seat={i + 1} snap={snap} money={money} small={flop} dealFrom={from({ x: c.plate.x, y: c.plate.y + 40 })} />
       ))}
 
       {snap.hand && Object.entries(snap.tells).map(([seat, texts]) => <TellNote key={seat} character={chapter.rivals[Number(seat) - 1]} texts={texts} />)}
@@ -135,15 +161,23 @@ export function TableScreen({ session, hints, onFinished, onLeave }: { session: 
         <div className={`boards boards-${hand.boards.length}`}>
           {hand.boards.map((b, i) => (
             <div key={i} className="board">
-              {Array.from({ length: 5 }, (_, j) => (b[j] ? <Card key={j} card={b[j]} size={hand.boards.length > 1 ? 'small' : 'medium'} /> : <div key={j} className={`card-slot card-slot-${hand.boards.length > 1 ? 'small' : 'medium'}`} />))}
+              {Array.from({ length: 5 }, (_, j) =>
+                b[j] ? (
+                  <span key={`${j}${b[j]}`} className="deal-in" style={{ ...from({ x: 800, y: 600 }), '--delay': `${(j < 3 ? j : 0) * 0.09}s` } as CSSProperties}>
+                    <Card card={b[j]} size={hand.boards.length > 1 ? 'small' : 'medium'} className="flip-in" />
+                  </span>
+                ) : (
+                  <div key={j} className={`card-slot card-slot-${hand.boards.length > 1 ? 'small' : 'medium'}`} />
+                ),
+              )}
             </div>
           ))}
         </div>
       )}
 
-      {hand && (
-        <div className="pot" style={flop ? { left: 1170, top: 640 } : { left: 800, top: 640 }}>
-          <Coins />
+      {hand && !hand.complete && (
+        <div className="pot" style={{ left: potSpot(flop, compact).x, top: potSpot(flop, compact).y }}>
+          <Coins key={hand.pot > 0 ? 'full' : 'empty'} />
           <div className="pot-amount">{money(hand.pot)}</div>
         </div>
       )}
@@ -158,18 +192,23 @@ export function TableScreen({ session, hints, onFinished, onLeave }: { session: 
           selected={selected}
           onToggle={(i) => setSelected((s) => (s.includes(i) ? s.filter((x) => x !== i) : [...s, i]))}
           lowered={flop}
+          dealFrom={from(PLAYER_SPOT)}
         />
       )}
 
+      {flights.map((f) => (
+        <ChipFlight key={f.id} flight={f} />
+      ))}
+
       {line ? (
-        <div className={`dialogue${line.name ? '' : ' dialogue-narration'}`} aria-live="polite">
+        <div key={line.text} className={`dialogue${line.name ? '' : ' dialogue-narration'}`} aria-live="polite">
           {line.name && <div className="speaker">{line.name}</div>}
           <p>{line.name ? `“${line.text}”` : line.text}</p>
         </div>
       ) : (
         snap.speech &&
         speaker && (
-          <div className="dialogue" aria-live="polite">
+          <div key={snap.speech.text} className="dialogue" aria-live="polite">
             <div className="speaker">{speaker.name}</div>
             <p>“{snap.speech.text}”</p>
           </div>
@@ -230,7 +269,21 @@ export function TableScreen({ session, hints, onFinished, onLeave }: { session: 
   );
 }
 
-function SeatPlate({ character, seat, snap, money, small }: { character: Character; seat: SeatIndex; snap: Snapshot; money: (n: number) => string; small: boolean }) {
+function SeatPlate({
+  character,
+  seat,
+  snap,
+  money,
+  small,
+  dealFrom,
+}: {
+  character: Character;
+  seat: SeatIndex;
+  snap: Snapshot;
+  money: (n: number) => string;
+  small: boolean;
+  dealFrom: CSSProperties;
+}) {
   const s = snap.seats[seat];
   const p = snap.hand?.players[seat];
   const status =
@@ -260,13 +313,30 @@ function SeatPlate({ character, seat, snap, money, small }: { character: Charact
       {inHand && (
         <div className={`plate-cards plate-cards-${size}`}>
           {p.cards.map((c, i) => (
-            <Card key={i} card={c} size={size} />
+            <span key={i} className="deal-in" style={{ ...dealFrom, '--delay': `${Math.min(i, 4) * 0.1 + seat * 0.03}s` } as CSSProperties}>
+              {/* Re-mounts when the card turns over, so it flips. */}
+              <Card key={c ?? 'back'} card={c} size={size} className={c ? 'flip-in' : ''} />
+            </span>
           ))}
         </div>
       )}
       {p?.handName && !p.folded && <div className="plate-hand">{p.handName}</div>}
-      {won > 0 && <div className="plate-win">wins {money(won)}</div>}
+      {won > 0 && <div className="plate-win pop-in">wins {money(won)}</div>}
     </div>
+  );
+}
+
+/** A little stack of chips sliding across the felt (a bet into the pot, or the pot to a winner). */
+function ChipFlight({ flight }: { flight: Flight }) {
+  const { from, to, delay, big } = flight;
+  const style = { left: from.x, top: from.y, '--fx': `${to.x - from.x}px`, '--fy': `${to.y - from.y}px`, animationDelay: `${delay}ms` } as CSSProperties;
+  const n = big ? 5 : 3;
+  return (
+    <svg className="flight" style={style} width="60" height="50" viewBox="0 0 60 50" aria-hidden="true">
+      {Array.from({ length: n }, (_, i) => (
+        <ellipse key={i} cx={30 + (i % 2 ? 3 : -2)} cy={40 - i * 6} rx="20" ry="7" fill={i === n - 1 ? '#f4f1e6' : i % 2 ? '#e3b24c' : '#cfc9b8'} stroke="#5e5646" />
+      ))}
+    </svg>
   );
 }
 
@@ -302,8 +372,12 @@ function DeckCase() {
 
 function TellNote({ character, texts }: { character: Character; texts: string[] }) {
   const { place } = character.art;
+  const top = place.bottom - place.height + 70;
+  // Beside the head, on the side away from the stage's edge.
+  const right = place.x > 1100;
+  const style: CSSProperties = right ? { right: 1600 - (place.x - 70), top } : { left: place.x + 70, top };
   return (
-    <div className="tell" style={{ left: place.x + 70, top: place.bottom - place.height + 70 }}>
+    <div className={`tell${right ? ' tell-left' : ''}`} style={style}>
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
         <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z" />
         <circle cx="12" cy="12" r="3" />
@@ -326,6 +400,7 @@ function PlayerHand({
   selected,
   onToggle,
   lowered,
+  dealFrom,
 }: {
   snap: Snapshot;
   money: (n: number) => string;
@@ -333,6 +408,7 @@ function PlayerHand({
   selected: number[];
   onToggle: (i: number) => void;
   lowered: boolean;
+  dealFrom: CSSProperties;
 }) {
   const hand = snap.hand!;
   const me = snap.seats[HUMAN];
@@ -348,12 +424,15 @@ function PlayerHand({
           const lift = selected.includes(i) ? -48 : 0;
           const style = { transform: `rotate(${(i - mid) * tilt}deg) translateY(${Math.abs(i - mid) * 8 + lift}px)` };
           const card = <Card card={c.card} className={c.up ? 'card-up' : ''} style={style} />;
+          const deal = { ...dealFrom, '--delay': `${Math.min(i, 4) * 0.1}s` } as CSSProperties;
           return selectable ? (
-            <button key={c.card} type="button" className="card-button" onClick={() => onToggle(i)} aria-pressed={selected.includes(i)}>
+            <button key={c.card} type="button" className="card-button deal-in" style={deal} onClick={() => onToggle(i)} aria-pressed={selected.includes(i)}>
               {card}
             </button>
           ) : (
-            <div key={c.card}>{card}</div>
+            <div key={c.card} className="deal-in" style={deal}>
+              {card}
+            </div>
           );
         })}
       </div>

@@ -72,3 +72,12 @@ The outline left some story details open. These were filled in and are easy to c
 
 ### Any chapter can be started at once (2026-11-20)
 The outline's open question, answered as John asked: every chapter can be opened from the deck case; a chapter you haven't reached shows "the story so far" first. Winning still unlocks the next chapter in order, and the case shows which ones you've won.
+
+### Rivals read the betting and size you up (2026-11-20)
+Before this, a bot judged its hand against random cards whatever had been bet, so it paid off big bets far too often, and a player who just bet big every time got paid. Now a bet counts as strength (by how much a rival respects bets), and the sharp rivals notice a player who bets nearly every time and stop believing them. The outline's "adaptive bots" for Ruby and Élodie is this `reads` number, given to every rival in a dose that fits them. Hot-headed rivals also get a temper (`tilt`) that the table can see. Tuned with stand-in players (`tools/bot-lab.ts`) so reckless play loses everywhere and careful play by the hints is about even; beating a chapter takes reading the table.
+
+### Sound is made in code; music is a hook (2026-11-20)
+Recorded sound effects need licences tracked and files hosted. Cards, chips and knocks are short noises that Web Audio makes well, so they're generated in code: nothing to license, nothing to download. Generated music sounds cheap, so music is left as a per-chapter hook for free-to-use tracks John picks ([ART.md](ART.md), "Music").
+
+### Phones play sideways (2026-11-20)
+The table is a wide painting with characters in it, and an upright layout would mean shrinking or cropping the people, which is the point of the look. So phones play sideways like most console-style games, with words and controls enlarged on small screens, and an upright phone is asked to turn (it can carry on upright). An upright layout could come later if play-testers want it.

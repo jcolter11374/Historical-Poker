@@ -62,6 +62,19 @@ Set per stage in `extras`: a **bomb pot** every N hands (everyone puts in N unit
 - **Showdown summary:** one line after each hand: who won, with what, and your hand if you lost. Split pots say who took the high and the low.
 - **Drawing:** in draw games, click cards to throw them (they lift), then "Draw N" or "Stand pat". The chip says what is not allowed (more than the limit).
 
+### Sound and motion
+
+- **Motion:** cards fly in from whoever holds the buck, one at a time, and turn over when shown; antes and bets slide from the seat to the pot; the pot slides to the winner when the hand ends, and "wins $N" pops up. Lines of dialogue fade in. Anyone whose system asks for reduced motion gets none of this.
+- **Sound effects:** a swish per card dealt, a flip for board cards, a riffle when you draw, a clack of chips for a bet (a bigger one for all in), two knocks for a check, a soft swish for a fold, chips gathering for a pot, a flourish with a little bell when you take a good pot, a low two-note sigh when you lose a showdown, and a quiet bell when it's your turn. All made in code (`src/ui/sound.ts`), no recordings.
+- **Music:** each chapter (or stage) can name a looping music file; none are in the game yet ([ART.md](ART.md), "Music").
+- **Switches:** "Sound on/off" in the table's corner links; Sound and Music boxes on the chapter select. Saved with your progress.
+
+### Phones and tablets
+
+- **Sideways:** the table is a wide painting, so on a phone it's played sideways. Held upright, the phone shows "Turn your phone sideways" (with "Play upright anyway").
+- **Bigger words and chips:** when the screen draws the table at less than three quarters size, names, money, dialogue, links and chips are enlarged (up to 1.6 times) while the painting stays the same. The pot then sits up between the left and middle seats in every game (it always does in flop games, where the board has the middle of the felt).
+- **Full screen:** added to the home screen, the game opens full screen and sideways (`public/manifest.webmanifest`).
+
 ## The games
 
 | Game | Code | Deck | Deal and betting | What wins |
@@ -113,27 +126,39 @@ The two difficulty levels and an optional "tell spotted" hint. They are listed i
 All rivals run the same code. What makes them different is a few numbers in their chapter file.
 
 1. **Hand strength** (`src/bots/strength.ts`): the bot deals the unseen cards out at random a few hundred times and counts how often its hand wins (ties count as shares). This is its *equity*, 0 to 1.
-2. **Decision** (`src/bots/personality.ts`, `decide()`): equity is compared with an average hand. `relative = equity × players in the hand`, so 1 is an average hand and 2 is twice as good.
+2. **Reading the betting** (also `strength.ts`, `pressure`): a player who bets is more likely to be ahead, so each simulated deal where an opponent who bet this hand beats the bot counts extra. How much extra is `1 + respect × (their bets and raises this hand, up to 3) × how believable they are`. A bet from a rival who bluffs a lot is believed less. Your bets are believed less the more often you bet tonight, but only by rivals who read people (`reads`). Against someone who bets nearly every time, a rival who reads well counts your bets as *weaker* than a random hand, and calls you down.
+3. **Decision** (`src/bots/personality.ts`, `decide()`): equity is compared with an average hand. `relative = equity × players in the hand`, so 1 is an average hand and 2 is twice as good.
 
 | Number | Meaning |
 | --- | --- |
 | `valueAt` | How strong (`relative`) a hand must be to bet or raise for value. Lower is looser. |
-| `bluff` | Chance to bet a hand that isn't strong when nobody has bet. Half of it is the chance to raise as a bluff when facing a bet. |
+| `bluff` | Chance to bet a hand that isn't strong when nobody has bet, heads-up against two players. It's 1.4 times that against one player, about half against three. Half of it is the chance to raise as a bluff when facing a bet. |
 | `caution` | Extra equity, above the pot odds, demanded before calling. Negative means the bot calls too much. |
 | `betSize` | Bet size as a share of the pot (bluffs are 80% of that). |
 | `trap` | Optional. Chance to check a strong hand when nobody has bet, hoping to raise later. |
+| `respect` | Optional, 0 to 1 (default 0.6). How much a bet scares them. Timid players near 1, reckless ones near 0.3. |
+| `reads` | Optional, 0 to 1 (default 0.5). How fast they size you up. The sharp players are 0.9 to 1; the naive ones 0.1 to 0.3. |
+| `tilt` | Optional temper, 0 to 0.3 (default none). After losing a quarter of a starting stack in one hand, for three hands they add `tilt` to `bluff`, take it from `valueAt` and half of it from `caution`. A line appears by them ("Silas is still smarting from that last pot."), so you can punish it. |
 
 Facing a bet, the bot raises when `relative ≥ 1.25 × valueAt`, calls when its equity beats the pot odds plus `caution`, sometimes bluff-raises, and otherwise folds.
 
-Bots in every game also see the cards showing (stud up-cards, the board) and simulate the cards still to come and their own draws. A game's `simCost` sets how many deals are simulated, so slow games (many-card Omaha) stay fast.
+Bots in every game also see the cards showing (stud up-cards, the board) and simulate the cards still to come and their own draws. A game's `simCost` sets how many deals are simulated, so slow games (many-card Omaha) stay fast. The teacher's hints use the same reading of the betting.
 
-Chapter 1 numbers (every other chapter's are in its file, described in [CHAPTERS.md](CHAPTERS.md)):
+Chapter 1 numbers (every other chapter's are in its file; [CHAPTERS.md](CHAPTERS.md), "How the rivals play", lists them all with measured play):
 
-| Rival | valueAt | bluff | caution | betSize | trap | Plays like |
-| --- | --- | --- | --- | --- | --- | --- |
-| Silas Crane | 1.3 | 0.24 | -0.02 | 0.75 | | Loose and aggressive, bluffs often |
-| Delphine Arceneaux | 1.6 | 0.07 | 0.03 | 0.6 | 0.5 | Tricky: traps strong hands, bluffs rarely |
-| Ezra Hollis | 2.0 | 0 | 0.1 | 0.4 | | Tight and passive, never bluffs |
+| Rival | valueAt | bluff | caution | betSize | trap | respect | reads | tilt | Plays like |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Silas Crane | 1.3 | 0.24 | -0.02 | 0.75 | | 0.35 | 0.6 | 0.12 | Loose and aggressive, bluffs often, steams after a big loss |
+| Delphine Arceneaux | 1.6 | 0.07 | 0.03 | 0.6 | 0.5 | 0.6 | 0.9 | | Tricky: traps strong hands, bluffs rarely, sees through a bully |
+| Ezra Hollis | 2.0 | 0 | 0.1 | 0.4 | | 0.95 | 0.1 | | Tight and passive, never bluffs, folds to any bet |
+
+### Is it too easy? The bot lab
+
+`npx vite-node tools/bot-lab.ts [chapter-id] [hands]` plays each chapter with four stand-ins in your seat and prints how they did and how each rival played (`test/standIns.ts` has the stand-ins):
+
+- **station** checks and calls everything; **maniac** raises the most it can every time; **aggro** bets about the pot whenever it can; **teacher** follows the hint.
+
+The aim (2026-11-20 tuning, 300 hands a chapter): every reckless style loses steadily in every chapter (station about 80 to 360 units per 100 hands, maniac and aggro 80 to 1,300), and a careful player following the hints comes out roughly even (-70 to +60). Beating a chapter takes more than playing safe: watching tells, catching a rival on tilt and changing gear. `test/bots.test.ts` checks the reckless styles lose in chapters 1 and 4 and that Silas, Delphine and Ezra stay recognisably themselves. Run the lab after changing any personality or anything in `src/bots/`, and update the numbers here.
 
 Bots use a seeded random generator (`src/bots/random.ts`) so tests can replay games. The deal itself uses the engine's crypto random source in the game.
 

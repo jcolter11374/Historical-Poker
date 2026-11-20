@@ -157,4 +157,4 @@ Every chapter's rivals and tells are in its file and summarised in [CHAPTERS.md]
 
 ## History notes
 
-The history text in every chapter (the intro, the "From the history book" notes and the rules cards) is written from general knowledge and must be checked against sources before release. Items to verify are listed in the outline's "History notes (to verify)" for each chapter.
+The history text in every chapter (the intro, the "From the history book" notes and the rules cards) was checked against sources on 2026-11-20. Each claim, its source and any correction is in [HISTORY_SOURCES.md](HISTORY_SOURCES.md). Add any new history text there with a source.

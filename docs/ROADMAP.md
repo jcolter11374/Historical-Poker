@@ -22,7 +22,7 @@ To do:
 - [ ] **Play-testing** every chapter: length, stakes, bot difficulty, and lesson wording.
 - [ ] Story choices made while building that John should confirm ([DECISIONS.md](DECISIONS.md), 2026-11-20 entries).
 - [ ] Outline features not built yet: difficulty levels, Free Play, the almanac, a "tell spotted" hint, adaptive bots (Ruby and Élodie reading the player), Brag's blind betting, Poque's payout board, jackpots in five-card draw, choices in scenes (giving Toby his pay back).
-- [ ] History notes checked against sources, in every chapter.
+- [x] History notes checked against sources, in every chapter ([HISTORY_SOURCES.md](HISTORY_SOURCES.md)). The Atlantic City chapter moved to 1995, after Paris, because poker was illegal there until 1993.
 - [ ] Sound.
 
 ## Chapter 1 status

@@ -204,7 +204,7 @@ export const BIG_O: Chapter = {
   },
   outro: {
     won: [
-      'Gaz pushes his last chips over and shakes his head, grinning. “Two hundred years in America, and the first night it’s back in England it cleans me out.”',
+      'Gaz pushes his last chips over and shakes his head, grinning. “Two hundred and fifty years in America, and the first night it’s back in England it cleans me out.”',
       'He buys you a drink at the bar, and tells you about every big hand he has ever seen. It takes a while.',
     ],
     lost: [

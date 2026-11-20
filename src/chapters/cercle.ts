@@ -1,5 +1,5 @@
 /**
- * Chapter 9, "The Cercle": Pot-Limit Omaha, then Omaha Hi-Lo, in a private
+ * Chapter 8, "The Cercle": Pot-Limit Omaha, then Omaha Hi-Lo, in a private
  * Paris card club, 1992. All people and places are fictional.
  */
 import { lines, rival, say } from './cast';
@@ -7,7 +7,7 @@ import type { Chapter } from './types';
 
 export const CERCLE: Chapter = {
   id: 'cercle',
-  numeral: '9',
+  numeral: '8',
   part: 2,
   title: 'The Cercle',
   year: 1992,
@@ -75,12 +75,12 @@ export const CERCLE: Chapter = {
   levelLines: [say('narration', 'A waiter in a white jacket refills the coffee. The Comte nods, and the blinds double.')],
   intro: [
     'Paris, 1992. Behind a plain door near the Champs-Élysées is the Cercle Varenne, a private card club with velvet chairs, cigar smoke and portraits of members long dead.',
-    'Anna Avery, Ray’s daughter, is in Paris translating for a publisher. She has brought the old deck, because Delphine’s diary says it once belonged to a Frenchwoman in New Orleans.',
+    'Anna Avery, Ray’s daughter, is in Paris translating for a publisher. She has brought the old deck, painted in England and carried across two centuries of American card tables.',
     'The club’s president, the Comte Lucien Varenne, collects antique cards. He has invited her to play. He would very much like to see the deck.',
   ],
   recap: [
     'The Ashcombe deck, painted in England in 1543, has passed down the American Avery family for two centuries.',
-    'In 1985, Ray Avery won Delphine Arceneaux’s diary at an Atlantic City stud table: the whole story of the deck, including a night in 1817 at a New Orleans gaming house.',
+    'In 1972 Lou Avery won a Las Vegas Hold’em tournament with it in his pocket. His son Ray has lent it to his daughter Anna for her year in Paris.',
   ],
   history: [
     'Omaha was introduced at a downtown Las Vegas casino in the 1980s: Hold’em with four cards, and the strict two-and-three rule.',

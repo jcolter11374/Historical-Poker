@@ -55,7 +55,7 @@ export const NORTH_ROAD: Chapter = {
     'In 1543, Nan Avery won it at Primero from Lady Margery Ashcombe, who stamped “M.A. 1543” in its case and started a legend: whoever holds it never loses. The deck stayed with the Averys.',
   ],
   history: [
-    'Brag grew out of the 1500s game of post and pair, and was described in English card books of the 1700s, often with wild cards called “braggers”.',
+    'Brag grew out of post and pair, a game recorded in the 1500s. English card books described it from 1721, with a wild card called a “bragger”: the jack of clubs, later joined by the nine of diamonds.',
     'Betting blind, bluffing, and bragging about a hand you may not hold are all ideas poker kept.',
     'Three-card brag is still played in Britain today.',
   ],

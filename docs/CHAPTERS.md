@@ -14,8 +14,8 @@ One section per chapter: what you play, who teaches it, the cast as coded, and t
 | Bonus | The Gaming House | `gamingHouse.ts` | 1817 | Poque | young Delphine | Madame Élodie Fontaine | 5 |
 | 6 | The Back Room | `backRoom.ts` | 1926 | Seven Card Stud, then Razz | Edith Avery | Nora Shea | 5 |
 | 7 | The Desert Classic | `desertClassic.ts` | 1972 | Limit, then No-Limit Hold'em | Lou Avery | "Tex" Dawson Pruitt | 6 |
-| 8 | The Boardwalk | `boardwalk.ts` | 1985 | Stud Hi-Lo | Ray Avery | Margot Arceneaux | 7 |
-| 9 | The Cercle | `cercle.ts` | 1992 | Pot-Limit Omaha, then Omaha Hi-Lo | Anna Avery | Comte Lucien Varenne | 8 |
+| 8 | The Cercle | `cercle.ts` | 1992 | Pot-Limit Omaha, then Omaha Hi-Lo | Anna Avery | Comte Lucien Varenne | 7 |
+| 9 | The Boardwalk | `boardwalk.ts` | 1995 | Stud Hi-Lo | Ray Avery | Margot Arceneaux | 8 |
 | 10 | The Boom | `boom.ts` | 2005 | No-Limit Hold'em, 2-7 Triple Draw, Badugi | Jamie Avery | "N0rthStar" (Nate Crane) | 9 |
 | 11 | The Big O | `bigO.ts` | 2019 | 5- and 6-Card Omaha, then their Hi-Lo versions | Sophie Avery | Gaz Whitlock | 10 |
 | 12 | The Last Table | `lastTable.ts` | Today | HORSE, then the 8-Game | You | Victor Crane | 11 |
@@ -94,21 +94,21 @@ A fictional early championship in Las Vegas. Lou Avery.
 - **Cast:** Professor Weiss (careful, polishes his glasses when weak), Tex Pruitt (loose and fast, tips his hat back when bluffing), Lorraine Fisk (former showgirl, her face never moves: a coin flip).
 - **Beats:** no finale bow-out: it's a tournament, played to the last player.
 
-### 8. The Boardwalk (1985), Stud Hi-Lo
-
-An Atlantic City poker room. Ray Avery.
-
-- **Game:** Seven Card Stud Hi-Lo (eight or better), limit, $10 unit, $400 each, rising every 9 hands. Taught by Margot Arceneaux.
-- **Cast:** Benny "the Book" Russo (loose, shuffles his chips faster when strong), Margot (Delphine's descendant and the room manager, twists a pearl earring when strong), Ruth Goldfarb (very tight, adjusts her glasses when weak).
-- **Beats:** Margot stakes Delphine's diary, which tells how the two families shared the deck. Finale: Benny or Ruth bows out.
-
-### 9. The Cercle (1992), Pot-Limit Omaha then Omaha Hi-Lo
+### 8. The Cercle (1992), Pot-Limit Omaha then Omaha Hi-Lo
 
 A private card club in Paris. Anna Avery, a translator. Money in francs ("1,000 F").
 
 - **Stages:** hands 1 to 6, Pot-Limit Omaha, taught by Siobhan Kearney; from hand 7, "Omaha Hi-Lo, after two in the morning", taught by the Comte. 20 F unit, 1,000 F each, rising every 8 hands.
 - **Cast:** Siobhan (Irish pro, drums her fingers when bluffing), the Comte Lucien Varenne (club president, tricky, relights a lit cigar when strong), Dmitri Volkov (chess master, perfectly still when weak).
 - **Beats:** before hand 4 the Comte asks to look at the old deck. Finale: Siobhan or Dmitri bows out.
+
+### 9. The Boardwalk (1995), Stud Hi-Lo
+
+An Atlantic City poker room, two years after poker became legal there (it was banned in the casinos until 1993; see HISTORY_SOURCES.md). Ray Avery, after his daughter Anna's Paris chapter.
+
+- **Game:** Seven Card Stud Hi-Lo (eight or better), limit, $10 unit, $400 each, rising every 9 hands. Taught by Margot Arceneaux.
+- **Cast:** Benny "the Book" Russo (loose, shuffles his chips faster when strong), Margot (Delphine's descendant and the room manager, twists a pearl earring when strong), Ruth Goldfarb (very tight, adjusts her glasses when weak).
+- **Beats:** Margot stakes Delphine's diary, which tells how the two families shared the deck. Finale: Benny or Ruth bows out.
 
 ### 10. The Boom (2005), online Hold'em, 2-7 Triple Draw, Badugi, then a final table
 

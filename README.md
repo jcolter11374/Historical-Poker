@@ -1,6 +1,6 @@
 # Historical Poker
 
-A single-player card game that tells the history of poker, one chapter per era. You follow one heirloom deck, the Ashcombe deck, from table to table: a Mississippi steamboat in 1836, then flashbacks to a Tudor hall and a coaching inn, forward to a Civil War camp and a Deadwood saloon, and on through a Chicago speakeasy, Las Vegas, Atlantic City, Paris, the online boom, an English card room and Macau, to a kitchen table today. It teaches every game RSDP Live offers inside the story, so friends can learn one here before playing it for money. Each chapter is played with the poker of its time, against painted rivals with their own personalities and tells.
+A single-player card game that tells the history of poker, one chapter per era. You follow one heirloom deck, the Ashcombe deck, from table to table: a Mississippi steamboat in 1836, then flashbacks to a Tudor hall and a coaching inn, forward to a Civil War camp and a Deadwood saloon, and on through a Chicago speakeasy, Las Vegas, Paris, Atlantic City, the online boom, an English card room and Macau, to a kitchen table today. It teaches every game RSDP Live offers inside the story, so friends can learn one here before playing it for money. Each chapter is played with the poker of its time, against painted rivals with their own personalities and tells.
 
 **All fourteen chapters are built and playable.** Chapter 1, "The River", has its painted art; the others use placeholders drawn in code until their art is made. The whole game is designed in [docs/GAME_OUTLINE.md](docs/GAME_OUTLINE.md); what's built and what's next is in [docs/ROADMAP.md](docs/ROADMAP.md).
 
@@ -26,6 +26,7 @@ For looking things up:
 | See what's done and what's next | [docs/ROADMAP.md](docs/ROADMAP.md) |
 | Make art for a chapter (copy-ready image prompts) | [docs/ART_PROMPTS.md](docs/ART_PROMPTS.md) |
 | Know why something is the way it is | [docs/DECISIONS.md](docs/DECISIONS.md) |
+| Check a history fact, or add one with its source | [docs/HISTORY_SOURCES.md](docs/HISTORY_SOURCES.md) |
 | Understand or update the copied RSDP engine | [docs/ENGINE.md](docs/ENGINE.md) |
 | See the software, fonts and art this uses | [docs/CREDITS.md](docs/CREDITS.md) |
 | Know the rules AI coding sessions follow | [CLAUDE.md](CLAUDE.md) |

@@ -50,7 +50,7 @@ export const KITCHEN_TABLE: Chapter = {
     'Your friends want to hear the whole story. First, they want your money.',
   ],
   recap: [
-    'The Ashcombe deck was painted in 1543 and has been played for at every kind of poker table since: a Tudor hall, an English inn, a steamboat, an army camp, a gold town, a speakeasy, Las Vegas, Atlantic City, Paris, the internet and Macau.',
+    'The Ashcombe deck was painted in 1543 and has been played for at every kind of poker table since: a Tudor hall, an English inn, a steamboat, an army camp, a gold town, a speakeasy, Las Vegas, Paris, Atlantic City, the internet and Macau.',
     'In Macau, the last of the Cranes finally let it go. Now it is home.',
   ],
   history: [

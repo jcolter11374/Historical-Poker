@@ -127,12 +127,12 @@ export const BOOM: Chapter = {
     'At the table: two online pros, DeuceSeven and Hanbit, and a mysterious player called N0rthStar who never types in the chat.',
   ],
   recap: [
-    'The Ashcombe deck, painted in 1543, has stayed with the American Avery family for two hundred years, through steamboats, wars, speakeasies and casinos.',
+    'The Ashcombe deck, painted in 1543, has stayed with the American Avery family for more than two hundred years, through steamboats, wars, speakeasies and casinos.',
     'The Cranes have wanted it back ever since Kit Avery caught Silas Crane cheating on the Mississippi in 1836.',
   ],
   history: [
     'In the mid-2000s, online poker boomed. Amateurs who qualified online for a few dollars went on to win the biggest live tournaments, and poker was on television every night.',
-    '2-7 Triple Draw was a favourite of high-stakes players, part of the mixed games they played among themselves.',
+    '2-7 Triple Draw, a lowball game with three draws, was a game for serious players; the biggest series added a championship event for it in 2004.',
     'Badugi has been played since the 1980s, in South Korea among other places, and became known in the United States around 2004.',
   ],
   howToWin: [

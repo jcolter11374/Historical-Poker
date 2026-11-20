@@ -181,7 +181,7 @@ const historical: GameDef[] = ([
         { name: 'Pair', example: 'Q Q 5' },
         { name: 'High card', example: 'A J 7' },
       ],
-      note: 'With only three cards, a run is harder than a flush, so it ranks higher.',
+      note: 'With only three cards, a run is harder than a flush, so it ranks higher. These are today’s rankings; the 1700s game was scored differently.',
     },
   },
   {
@@ -203,7 +203,7 @@ const historical: GameDef[] = ([
       ],
       rankingsTitle: 'Hands, best first',
       rankings: HIGH_RANKINGS,
-      note: 'Straights and flushes are new in this era, and they count.',
+      note: 'The flush came in with the full pack, and the straight is new in this era. Both count.',
     },
   },
   {

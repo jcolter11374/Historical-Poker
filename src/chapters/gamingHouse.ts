@@ -54,7 +54,7 @@ export const GAMING_HOUSE: Chapter = {
     'The deck had come to America with Will Avery in 1763. By 1817 it belonged to his grandson Henri, Kit Avery’s grandfather.',
   ],
   history: [
-    'Poque was a French bluffing game, related to the German Pochen, played in Louisiana by French settlers. Players bet, and bragged, on pairs, triplets and fours.',
+    'Poque was the French form of the German game Pochen, played with a 32-card pack, and French speakers brought it to New Orleans. Players bet, and bragged, on pairs, triplets and fours.',
     'It is the most likely source of the word “poker”: the English-speaking newcomers to New Orleans would have heard “poque” across the table.',
     'Its exact rules were never written down well. This chapter is our reconstruction.',
   ],
@@ -135,7 +135,7 @@ export const GAMING_HOUSE: Chapter = {
       orAfterHands: 3,
       lines: [
         say('narration', 'Henri pushes the leather case into the middle. Your aunt calls, and wins it with three queens.'),
-        say('elodie', 'A pretty thing. Painted in England, two hundred years ago. It will look well in my cabinet.'),
+        say('elodie', 'A pretty thing. Painted in England, nearly three hundred years ago. It will look well in my cabinet.'),
         say('henri', 'It was my grandfather’s. Will Avery, who won it at Brag on the North Road.'),
         say('narration', 'You look at Henri’s face, and decide. If you win the deck from your aunt, it goes back to him.'),
         say('elodie', 'Ah, chérie, you want it? Then take my last dollar. I fan my cards when I am strong; everyone knows it. But do I always?'),

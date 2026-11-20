@@ -2,6 +2,8 @@
 
 John makes the art with an image tool from the prompts below. This page covers the style, the prompts, and how a picture becomes game art.
 
+**Ready-to-paste prompts for every chapter** (backgrounds, every rival on green, title paintings, props) are in [ART_PROMPTS.md](ART_PROMPTS.md). The two below are the general templates.
+
 ## Style
 
 The style target is John's painted riverboat scene: painted and hand-inked, worn textures, warm lamplight against blue moonlight. Every chapter matches its finish with its own era palette (see the outline's "Art and UI direction"). No boxes or panels in the UI: controls are chips on the table, dialogue is plain text on a shaded strip across the bottom.
@@ -66,7 +68,7 @@ Every chapter is playable with no art at all:
 
 ## Art needed, per chapter
 
-Each chapter needs: a **background** (the empty room and table, first-person from the player's seat, 16:9, no people), the **three rivals** seated waist-up on solid green, and optionally a **title card** and a prop or two. The setting and cast descriptions are in the outline. Everything not listed as done is a placeholder now.
+Each chapter needs: a **background** (the empty room and table, first-person from the player's seat, 16:9, no people), the **three rivals** seated waist-up on solid green, and optionally a **title card** and a prop or two. The setting and cast descriptions are in the outline. Everything not listed as done is a placeholder now. The prompts for each are in [ART_PROMPTS.md](ART_PROMPTS.md). Young Delphine needs no picture: you play her in the bonus, and the player is never shown. The Camp's table is drawn round (a barrelhead under an army blanket) rather than a crate, because `prepare-art.py` cuts the table front along an oval rim.
 
 | Chapter | Background | Characters (on green) | Props worth painting |
 | --- | --- | --- | --- |

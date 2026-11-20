@@ -24,6 +24,7 @@ For looking things up:
 | If you want to… | Read |
 | --- | --- |
 | See what's done and what's next | [docs/ROADMAP.md](docs/ROADMAP.md) |
+| Make art for a chapter (copy-ready image prompts) | [docs/ART_PROMPTS.md](docs/ART_PROMPTS.md) |
 | Know why something is the way it is | [docs/DECISIONS.md](docs/DECISIONS.md) |
 | Understand or update the copied RSDP engine | [docs/ENGINE.md](docs/ENGINE.md) |
 | See the software, fonts and art this uses | [docs/CREDITS.md](docs/CREDITS.md) |

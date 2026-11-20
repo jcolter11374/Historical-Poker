@@ -14,11 +14,16 @@ const art = (file: string) => `${import.meta.env.BASE_URL}art/riverboat/${file}`
 export const RIVERBOAT: Chapter = {
   id: 'riverboat',
   numeral: '1',
+  part: 1,
   title: 'The River',
   year: 1836,
   place: 'The Magnolia Queen, Mississippi River',
-  gameId: GAME_ID,
-  stakes: { ante: 1, minBet: 2, startingStack: 100 },
+  youAre: 'Kit Avery',
+  teaches: 'Straight poker, the first game called poker',
+  rulesObject: 'Rules of 1836',
+  // One unit of $2: a $1 ante and a $2 minimum bet.
+  stages: [{ fromHand: 1, games: [{ game: GAME_ID, betting: 'pot-limit' }], structure: { unit: 2 } }],
+  startingStack: 100,
   intro: [
     'Your father lost the family’s old deck at cards, to a gambler named Silas Crane. People called it the Ashcombe deck, and swore that whoever held it never lost.',
     'Tonight, Kit Avery, you have found him: in the card room of the Magnolia Queen, steaming downriver from Natchez to New Orleans. Two other passengers already sit at his green table.',
@@ -29,12 +34,12 @@ export const RIVERBOAT: Chapter = {
     'There was one round of betting and no draw. Straights and flushes did not count yet; they arrived with the 52-card deck.',
     'A knife, or “buck”, marked whose turn it was to deal. Handing it on is where “passing the buck” comes from.',
   ],
-  howToPlay: [
-    'Everyone puts in a $1 ante. Each player is dealt five cards from the 20-card deck.',
-    'One round of betting, starting left of the buck. Check, bet, call, raise or fold.',
-    'If more than one player is left, the best hand takes the pot.',
-    'Win every dollar at the table to finish the chapter. Lose all of yours and the deck stays on the boat.',
+  recap: ['This is where the story begins.'],
+  howToWin: [
+    'Everyone antes $1; the smallest bet is $2, and no bet may be bigger than the pot.',
+    'Take every dollar of whoever holds the Ashcombe deck to win it. Lose all of yours and the deck stays on the boat.',
   ],
+  keepsake: { name: '“Gentleman” Silas Crane', line: 'The River, 1836. He dealt seconds; you dealt with him.' },
   rivals: [
     {
       id: 'delphine',
@@ -98,7 +103,11 @@ export const RIVERBOAT: Chapter = {
   ],
   nemesisId: 'silas',
   narratorId: 'delphine',
-  scene: { background: art('background.webp'), tableFront: art('table-front.webp') },
+  scene: {
+    background: art('background.webp'),
+    tableFront: art('table-front.webp'),
+    palette: { wall: '#1d1410', light: '#f2b45a', felt: '#2f5a3a', rim: '#8a6a2a' },
+  },
   playerPlate: { x: 800, y: 760 },
   story: {
     tutorial: {

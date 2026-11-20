@@ -33,7 +33,7 @@ describe('chapter 1 story', () => {
     const s = new Session(RIVERBOAT, { seed: 1 });
     skip(s);
     s.startHand();
-    expect(evaluate1836(s.snapshot().hand!.myCards).name).toBe('Two pairs, kings and queens');
+    expect(evaluate1836(s.snapshot().hand!.myCards.map((c) => c.card)).name).toBe('Two pairs, kings and queens');
     // Silas acts first, then Ezra; his tell shows and Delphine explains it.
     while (!s.inScene && s.toAct !== HUMAN) s.botStep();
     const snap = s.snapshot();

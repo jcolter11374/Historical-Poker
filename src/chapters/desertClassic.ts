@@ -84,8 +84,8 @@ export const DESERT_CLASSIC: Chapter = {
     'In 1926 Edith Avery kept it at a Chicago speakeasy table, learning seven-card stud and Razz from the people who played them.',
   ],
   history: [
-    'Texas Hold’em came from Texas to Las Vegas in the late 1960s, and quickly became the game of the city’s card rooms.',
-    'Tournaments, where everyone starts with the same chips and plays until one player has them all, grew up around it in the early 1970s.',
+    'Texas Hold’em was first dealt in Las Vegas in 1963. In the late 1960s Texas players made it a big game there, and for years the Golden Nugget was the only casino that spread it.',
+    'The first championship was held in 1970. From the next year its main event was a tournament of no-limit Hold’em, where everyone starts with the same chips and plays until one player has them all.',
     'No-limit, where any bet can be everything you have, made Hold’em famous.',
   ],
   howToWin: [

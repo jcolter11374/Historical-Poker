@@ -48,7 +48,7 @@ export const CAMP: Chapter = {
   levelEvery: 10,
   levelLines: [say('narration', 'The rain stops. Somewhere a bugle sounds for no reason, and the bets get bigger.')],
   intro: [
-    'November 23, 1863. Rain drums on the canvas of a lantern-lit tent outside Chattanooga. Tomorrow, the army attacks.',
+    'November 22, 1863. Rain drums on the canvas of a lantern-lit tent outside Chattanooga. Tomorrow, the army attacks.',
     'Kit Avery’s son Sam is a corporal now, and the Ashcombe deck rides in his knapsack, as it has all through the war. It was his father’s, and his father’s before that.',
     'It is payday. Sergeant Amos Reed has seen the old deck, and has heard the legend. Tonight, he wants it.',
   ],
@@ -57,9 +57,9 @@ export const CAMP: Chapter = {
     'In 1836, Kit Avery won it back from the riverboat gambler Silas Crane, who had cheated Kit’s father out of it. Kit kept it the rest of his life.',
   ],
   history: [
-    'Five-card stud appears in print around the time of the Civil War, and soldiers on both sides carried poker across the country.',
-    'The 52-card deck had replaced the old 20-card one, and the straight and the flush became standard hands around this time.',
-    'Cards with corner numbers, so you could fan them in one hand, appeared in the 1860s and 1870s.',
+    'Five-card stud first appears in print in The American Hoyle of 1864, and was much played by soldiers on both sides of the Civil War.',
+    'The 52-card deck had replaced the old 20-card one and brought in the flush. The straight was new: the same 1864 book lists it.',
+    'Cards with corner numbers, so you could fan them in one hand, were first patented in 1864, and caught on in the 1870s and 1880s. The cards in this tent have none.',
   ],
   howToWin: [
     'Everyone antes $1; the low card brings it in for $1. No bet may be larger than the pot.',

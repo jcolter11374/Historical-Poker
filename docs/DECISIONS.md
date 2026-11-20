@@ -72,3 +72,9 @@ The outline left some story details open. These were filled in and are easy to c
 
 ### Any chapter can be started at once (2026-11-20)
 The outline's open question, answered as John asked: every chapter can be opened from the deck case; a chapter you haven't reached shows "the story so far" first. Winning still unlocks the next chapter in order, and the case shows which ones you've won.
+
+### History fact check (2026-11-20)
+Every history claim in the game was checked against sources; the list, with sources and corrections, is [HISTORY_SOURCES.md](HISTORY_SOURCES.md). Only wording and dates in story text changed, no gameplay. Open points that need John:
+- **Atlantic City, 1985:** poker was illegal in Atlantic City casinos until June 25, 1993, so a 1985 casino poker room can't have existed. Recommended fix: move the chapter to 1995 (stud was the room's main game from 1993 to 2003) and play it after Paris 1992. Left unchanged until John decides.
+- **Five-card draw limit:** chapter 5 lets players draw up to three cards (four with an ace). That is a modern house rule; in 1876 a player could draw up to five. Changing it is a gameplay change, so it is left as is.
+- **The "buck" in 1836:** the rules cards say "left of the buck" in every chapter. The buck knife is attested from the 1850s, a little after chapter 1. Left as the game's word for the dealer marker.

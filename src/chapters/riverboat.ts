@@ -3,8 +3,7 @@
  * between Natchez and New Orleans, 1836. The story opens here
  * (docs/GAME_OUTLINE.md is the design this follows).
  *
- * History in this file is written from general knowledge and is marked for a
- * fact check in docs/GAME_DESIGN.md before release.
+ * History in this file was checked against sources; see docs/HISTORY_SOURCES.md.
  */
 import type { Chapter } from './types';
 import { GAME_ID } from '../games/straightPoker';
@@ -31,8 +30,8 @@ export const RIVERBOAT: Chapter = {
   ],
   history: [
     'Early players dealt only the twenty high cards: aces down to tens. Four players took five cards each, so the whole deck was in play.',
-    'There was one round of betting and no draw. Straights and flushes did not count yet; they arrived with the 52-card deck.',
-    'A knife, or “buck”, marked whose turn it was to deal. Handing it on is where “passing the buck” comes from.',
+    'There was one round of betting and no draw. Flushes did not count yet: they came with the full 52-card deck, between about 1830 and 1845. Straights came later still.',
+    'By the 1850s, players marked the dealer with a knife, often one with a buckhorn handle: the “buck”. Handing it on is where “passing the buck” comes from.',
   ],
   recap: ['This is where the story begins.'],
   howToWin: [

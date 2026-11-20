@@ -13,7 +13,7 @@ Historical Poker is a single-player story game in the browser: you follow one he
 - **Feel:** a painted, narrative card game, not a poker client. People at the table, dialogue in the lower third, controls that look like objects on the table.
 - **Credit:** a small "Powered by RSDP Live" mark with the RSDP Live chip logo, linking to the live site.
 
-This outline is the source of truth for the game's design. Facts marked "to verify" came from general knowledge and should be checked before they appear in the game.
+This outline is the source of truth for the game's design. History facts were checked against sources on 2026-11-20; each claim, its source and any correction is in [HISTORY_SOURCES.md](HISTORY_SOURCES.md).
 
 ## Premise and story
 
@@ -83,7 +83,7 @@ Every chapter below lists the same things: setting, rules as the game will run t
 1. Final showdown, heads-up with Silas for the deck.
 1. Win: Kit opens the case and finds "M.A. 1543" inside. Delphine begins the story, and the first flashback unlocks. Lose: Silas pockets the stake, Delphine gives a lesson, and the player can retry.
 
-**History notes (to verify).** The earliest written accounts of "poker", from around 1829 to the 1830s, describe this 20-card game on Mississippi steamboats and in New Orleans. Professional riverboat gamblers worked the boats in this era. A knife with a buckhorn handle often marked the dealer, which is where "passing the buck" comes from. Within a few years the full 52-card deck took over, so more people could play.
+**History notes (checked).** The earliest accounts of "poker" (Joseph Cowell, in New Orleans in 1829; Jonathan Green, on a steamboat bound for New Orleans in 1833) describe this 20-card game for four players, five cards each, with no draw. Professional riverboat gamblers worked the boats in this era. Between about 1830 and 1845 the full 52-card deck took over, so more people could play, and it brought in the flush; the straight came later (listed in 1864). A knife with a buckhorn handle, the "buck", marked the dealer, which is where "passing the buck" comes from; the phrase is in print by 1857.
 
 **Art needed.** Background (done), Silas (done), Delphine and Ezra seated on green (done as portraits; cutouts needed), period card faces with no corner numbers, silver dollars, the buckhorn knife, a chapter title card.
 
@@ -111,7 +111,7 @@ Every chapter below lists the same things: setting, rules as the game will run t
 
 **Story beats.** The feast and Lady Margery's challenge. Sir Roland wagers and loses his horse. Anselm talks about the abbey he lost. Final showdown with Margery. Win: she pays, and has the deck's leather case stamped with her initials, "M.A. 1543", as a mark of respect. Her parting quip, that whoever holds it never loses, starts the legend.
 
-**History notes (to verify).** Primero (Italian *primiera*, Spanish *primera*) was popular across Europe in the 1500s and was played at Henry VIII's court. Shakespeare mentions it. Its hands, including a flush and four of a kind, foreshadow poker's. Henry VIII closed England's monasteries between 1536 and 1541.
+**History notes (checked).** Primero (Italian *primiera*, Spanish *primera*) was popular across Europe in the 1500s and was one of the fashionable games of Henry VIII's reign. Shakespeare mentions it, in *Henry VIII* (the king at primero with the Duke of Suffolk) and *The Merry Wives of Windsor* (Falstaff). It is played with 40 cards; its hands, including a flush and four of a kind, foreshadow poker's. Henry VIII closed England's monasteries between 1536 and 1541.
 
 **Art needed.** Great hall background, Margery, Roland and Anselm seated on green, Tudor-style hand-painted card faces, shillings, a title card.
 
@@ -127,7 +127,7 @@ Every chapter below lists the same things: setting, rules as the game will run t
 - Players may bet **blind** (without looking, at half the stake) or **seen** (after looking, at full stake).
 - Betting goes round until only two players remain; then either may pay to **see** the other, and the better hand wins.
 - Hands, best first: **prial** (three of a kind; three threes is best, then aces down), running flush (straight flush), run (straight), flush, pair, high card.
-- Optional period rule, "braggers": the ace of diamonds, jack of clubs and nine of diamonds are wild, as in 1700s descriptions (to verify).
+- Optional period rule, "braggers": the jack of clubs is wild, as in the first printed rules (1721), with the nine of diamonds added later. (Checked: the often-repeated trio of ace of diamonds, jack of clubs and nine of diamonds comes from later books, and Parlett finds no evidence anyone played that way.)
 
 **Cast.**
 
@@ -139,7 +139,7 @@ Every chapter below lists the same things: setting, rules as the game will run t
 
 **Story beats.** The snowstorm strands the coach. Pike shows off and challenges Will. Hannah warns Will about Sorrel. Sorrel is unmasked mid-sitting, and the strongbox becomes a stake. Final showdown with Pike. Win: Pike pays Will's passage to America, and the deck crosses the Atlantic with the Averys.
 
-**History notes (to verify).** Brag descends from the 1500s game post and pair and was described in English card-game books of the 1700s, including with wild "braggers". Betting blind, bluffing and "bragging" about a hand are all ideas poker kept. Three-card brag is still played in Britain.
+**History notes (checked).** Brag descends from post and pair, recorded from 1528. Its rules were printed in *The Compleat Gamester* (1721) and by Hoyle (1751), with a wild "bragger", the jack of clubs. Betting blind, bluffing and "bragging" about a hand are all ideas poker kept. Three-card brag is still a popular British gambling game. The chapter plays modern three-card brag rankings (prials, runs), not the 1700s scoring; the rules card says so.
 
 **Art needed.** Inn taproom background, Pike, Hannah and Sorrel seated on green, Georgian-style cards, coins, a title card.
 
@@ -167,7 +167,7 @@ Every chapter below lists the same things: setting, rules as the game will run t
 
 **Story beats.** Payday and the card game. Toby loses his month's pay and Sam has a chance to give it back. Reed proposes the deck as a stake. Late in the night, orders arrive for the morning. Final showdown with Reed. Win: Sam keeps the deck and writes a letter home that becomes the chapter's ending. A quiet, more serious chapter.
 
-**History notes (to verify).** Five-card stud appears in print around the time of the Civil War, and soldiers on both sides spread poker across the country. The straight and the flush became standard hands around this period. Cards with corner indices appeared in the 1860s and 1870s.
+**History notes (checked).** Five-card stud first appears in print in *The American Hoyle* of 1864 and was much played by soldiers on both sides. The flush had come in with the 52-card deck; the straight is first listed in that same 1864 book. The first American cards with corner indices were patented in February 1864 and caught on in the 1870s and 1880s, so the cards in this 1863 camp have none. The battles for Chattanooga ran from November 23 to 25, 1863, so the chapter opens on November 22.
 
 **Art needed.** Tent background, Reed, Toby and Hattie seated on green, 1860s cards, greenbacks and coins, a title card.
 
@@ -195,7 +195,7 @@ Every chapter below lists the same things: setting, rules as the game will run t
 
 **Story beats.** Jasper arrives and makes his claim. Ruby sets the terms. Doc goes broke and tells a tall tale on his way out. Jasper's cheat is caught (the player has learned the family tell). Final showdown with Ruby, who has quietly been the real opponent all along. Win: the feud ends, Ruby toasts the deck, and an epilogue shows the case full of keepsake cards, "The Ashcombe Deck, 1543 to 1876".
 
-**History notes (to verify).** Draw poker was the dominant American game from the 1850s on. On August 2, 1876, Wild Bill Hickok was shot in Deadwood while playing; the hand he is said to have held, aces and eights, is known as the dead man's hand. Jackpots appeared in the 1870s.
+**History notes (checked).** Draw poker is first described in print in 1850, and *The American Hoyle* of 1875 lists draw, stud and jackpots (jacks or better to open). On August 2, 1876, Wild Bill Hickok was shot at a poker table in Nuttal & Mann's Saloon No. 10, Deadwood; accounts differ on whether the game was stud or draw. The hand he is said to have held, aces and eights, is known as the dead man's hand, though nobody tied it to him until the 1920s. Note: the chapter's draw limit (three cards, four with an ace) is a modern house rule; in 1876 players could draw up to five.
 
 **Art needed.** Saloon background, Ruby, Jasper and Doc seated on green, 1870s indexed cards, coins and gold dust, a title card, an epilogue painting of the full case.
 
@@ -220,7 +220,7 @@ Every chapter below lists the same things: setting, rules as the game will run t
 | Henri Avery | Kit's grandfather, a friendly rival | Solid and fair, a mentor at the table | Hums when happy with his hand |
 | Jean-Baptiste Lacroix | A privateer flush with prize money | Loose and aggressive, bets wildly | Laughs too loudly when bluffing |
 
-**History notes (to verify).** Poque, a French bluffing game related to German Pochen, came to Louisiana with French settlers and is the most likely source of the word "poker". Its exact rules are poorly recorded.
+**History notes (checked).** Poque, the French form of the German Pochen, was played by up to six players with a 32-card pack, and staked into a board of six pools ("poque" names one of them). Parlett places poker's birth in New Orleans between about 1810 and 1825, and poque, pronounced "poke", is the most likely source of the word. Its exact rules are poorly recorded.
 
 **Art needed.** Gaming-house background, Élodie, Henri, Lacroix and young Delphine on green, piquet cards, a payout board, a title card.
 
@@ -243,16 +243,16 @@ All people, clubs, events and websites in Part Two are fictional, with generic v
 
 ### The chapters in brief
 
-- **6, The Back Room (1926).** Prohibition Chicago, behind a fake florist's shop. Seven-card stud is the coming American game. Sal Moretti, a bootlegger's bookkeeper, teaches it on the first hand; after midnight Nora Shea, the owner, switches to Razz, "stud for losers", and teaches it with a grin. Gus Lindqvist, a Swedish-born truck driver, gambles happily. *Fit:* stud was a mainstay of American home games for most of the century (sourced); Razz's exact start date is not recorded (to verify).
-- **7, The Desert Classic (1972).** A fictional early championship in Las Vegas, where Hold'em had recently arrived from Texas. Professor Milton Weiss teaches limit Hold'em in the side game the night before; the tournament itself is no limit, with blinds that rise. "Tex" Pruitt plays every hand fast; Lorraine Fisk, a former showgirl, has an iron poker face. *Fit:* Hold'em reached Las Vegas in the late 1960s (to verify).
-- **8, The Boardwalk (1985).** Casinos are new to Atlantic City, and stud is the game of East Coast poker rooms. Margot Arceneaux, Delphine's descendant and the room's manager, teaches Stud Hi-Lo and challenges Ray Avery for the deck the two families once shared. *Fit:* seven-card stud was the main casino game in the eastern US before Hold'em (sourced); casinos opened in Atlantic City in 1978 (to verify); when the 8-or-better rule appeared is not recorded (to verify).
+- **6, The Back Room (1926).** Prohibition Chicago, behind a fake florist's shop. Seven-card stud is the coming American game. Sal Moretti, a bootlegger's bookkeeper, teaches it on the first hand; after midnight Nora Shea, the owner, switches to Razz, "stud for losers", and teaches it with a grin. Gus Lindqvist, a Swedish-born truck driver, gambles happily. *Fit:* stud was a mainstay of American home games for most of the century (sourced); Razz has been played since the start of the 1900s, though no exact start date is recorded (sourced).
+- **7, The Desert Classic (1972).** A fictional early championship in Las Vegas, where Hold'em had recently arrived from Texas. Professor Milton Weiss teaches limit Hold'em in the side game the night before; the tournament itself is no limit, with blinds that rise. "Tex" Pruitt plays every hand fast; Lorraine Fisk, a former showgirl, has an iron poker face. *Fit:* Hold'em was first dealt in Las Vegas in 1963 and caught on when Texas players brought it to the Golden Nugget in the late 1960s; the first championship was in 1970, with a no-limit Hold'em main event from the next year (sourced).
+- **8, The Boardwalk (1985).** Casinos are new to Atlantic City, and stud is the game of East Coast poker rooms. Margot Arceneaux, Delphine's descendant and the room's manager, teaches Stud Hi-Lo and challenges Ray Avery for the deck the two families once shared. *Fit:* seven-card stud was the main casino game in the eastern US before Hold'em (sourced); casinos opened in Atlantic City in 1978, **but poker was banned there until June 25, 1993** (sourced; the 1985 date needs a story decision, see DECISIONS.md); when the 8-or-better rule appeared is not recorded (checked: no source gives a date).
 - **9, The Cercle (1992).** Omaha was born in Las Vegas in the 1980s, but pot-limit Omaha took hold in Europe. In a private Paris card club, Anna Avery, a translator, learns it from Siobhan Kearney, an Irish pro; late in the night Comte Lucien Varenne, the club's president, switches to Omaha Hi-Lo. Dmitri Volkov, a chess master, plays cold and exact. *Fit:* Omaha was introduced at a downtown Las Vegas casino in the 1980s, and pot-limit Omaha is especially popular in Europe (sourced).
-- **10, The Boom (2005).** The most dramatic chapter, not a quiet one. Jamie Avery, broke and studying at night, plays a $5 online qualifier in a cramped internet café at 3 a.m. The screen is the table: a painted monitor glow, avatars, a scrolling chat full of trash talk, four tables at once, and a new tell, **timing**, how fast each player acts. Jamie wins seat after seat and lands at the televised final table of a big live championship in Las Vegas, with lights, cameras and a crowd, where the rival "N0rthStar" is revealed in person as a Crane. Between rounds of the qualifier, two online pros teach the high-stakes games of the moment: "DeuceSeven" teaches 2-7 Triple Draw, and "Hanbit", from Seoul, teaches Badugi. *Fit:* the online boom of the mid-2000s turned amateurs into champions (to verify); Badugi has been played since the 1980s, in South Korea among other places, and became known in the US around 2004 (sourced).
+- **10, The Boom (2005).** The most dramatic chapter, not a quiet one. Jamie Avery, broke and studying at night, plays a $5 online qualifier in a cramped internet café at 3 a.m. The screen is the table: a painted monitor glow, avatars, a scrolling chat full of trash talk, four tables at once, and a new tell, **timing**, how fast each player acts. Jamie wins seat after seat and lands at the televised final table of a big live championship in Las Vegas, with lights, cameras and a crowd, where the rival "N0rthStar" is revealed in person as a Crane. Between rounds of the qualifier, two online pros teach the high-stakes games of the moment: "DeuceSeven" teaches 2-7 Triple Draw, and "Hanbit", from Seoul, teaches Badugi. *Fit:* the online boom of the mid-2000s turned amateurs into champions: Chris Moneymaker won the 2003 world championship after qualifying through an $86 online satellite (sourced); Badugi has been played since the 1980s, in South Korea among other places, and became known in the US around 2004 (sourced).
 - **11, The Big O (2019).** A huge, noisy card room in the English Midlands, where big Omaha games with five and six cards are the fashion. Gaz Whitlock, a regular who has seen everything, teaches 5-Card and then 6-Card Omaha; on the last round the table switches to the Hi-Lo versions. *Fit:* six-card Omaha is found in many UK casinos, and five-card Omaha ("Big O") spread in American card rooms from about 2008 (sourced; the 2008 date is uncited on its source).
 - **12, The Last Table (today).** The finale in a private room in Macau. Victor Crane, the last of the Cranes, challenges you for the deck in HORSE, five games in turn, then the 8-Game mix, so you use almost everything you have learned. Mei Lin Chau, a quiet local legend, explains each switch. The feud ends for good and the deck's case is full.
 - **Epilogue, The Kitchen Table (today).** You bring the deck home to a game with friends, the kind RSDP Live was made for. Your friends teach the house extras: bomb pots, double board and the 7-2 bounty. The last screen is the "Powered by RSDP Live" mark, inviting players to start their own game.
 
-Sources for the facts marked sourced: [Seven-card stud](https://en.wikipedia.org/wiki/7_Card_Stud), [Stud poker](https://en.wikipedia.org/wiki/Stud_poker), [Omaha hold 'em](https://en.wikipedia.org/wiki/Omaha_Hi-Lo), [Robert Turner](https://en.wikipedia.org/wiki/Robert_Turner_(poker_player)), [Omaha, at pagat.com](https://pagat.com/poker/variants/omaha.html), [Badugi, at pagat.com](https://pagat.com/poker/variants/badugi.html). Items marked "to verify" still need a source.
+Sources for the facts marked sourced: [Seven-card stud](https://en.wikipedia.org/wiki/7_Card_Stud), [Stud poker](https://en.wikipedia.org/wiki/Stud_poker), [Omaha hold 'em](https://en.wikipedia.org/wiki/Omaha_Hi-Lo), [Robert Turner](https://en.wikipedia.org/wiki/Robert_Turner_(poker_player)), [Omaha, at pagat.com](https://pagat.com/poker/variants/omaha.html), [Badugi, at pagat.com](https://pagat.com/poker/variants/badugi.html). Sources for everything else, and the full fact check, are in [HISTORY_SOURCES.md](HISTORY_SOURCES.md).
 
 ## Teaching inside the story
 

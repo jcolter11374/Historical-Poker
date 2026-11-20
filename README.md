@@ -25,6 +25,7 @@ For looking things up:
 | --- | --- |
 | See what's done and what's next | [docs/ROADMAP.md](docs/ROADMAP.md) |
 | Know why something is the way it is | [docs/DECISIONS.md](docs/DECISIONS.md) |
+| Check a history fact, or add one with its source | [docs/HISTORY_SOURCES.md](docs/HISTORY_SOURCES.md) |
 | Understand or update the copied RSDP engine | [docs/ENGINE.md](docs/ENGINE.md) |
 | See the software, fonts and art this uses | [docs/CREDITS.md](docs/CREDITS.md) |
 | Know the rules AI coding sessions follow | [CLAUDE.md](CLAUDE.md) |

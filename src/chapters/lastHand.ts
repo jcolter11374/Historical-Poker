@@ -46,7 +46,7 @@ export const LAST_HAND: Chapter = {
   levelEvery: 10,
   levelLines: [say('narration', 'The lamps are lit. The piano player switches to something faster, and Ruby raises the ante.')],
   intro: [
-    'Deadwood, Dakota Territory, August 1876. A gold town three months old: plank walls, mud streets, and money everywhere.',
+    'Deadwood, Dakota Territory, August 1876. A gold town only a few months old: plank walls, mud streets, and money everywhere.',
     'Clara Avery, Kit’s granddaughter, has come west with the family deck. So has Jasper Crane, grandson of the gambler Kit beat on the river. He says it is the Crane deck, stolen from his family, and he means to take it back.',
     'Ruby Calloway, who owns the Lucky Nugget and is said to be the best player in the territory, will host the game that settles it. “Last one with money at my table keeps the deck,” she says. “And nobody draws a gun.”',
   ],
@@ -55,9 +55,9 @@ export const LAST_HAND: Chapter = {
     'In 1836, Kit Avery won it back from “Gentleman” Silas Crane, catching him dealing seconds. In 1863, Kit’s son Sam carried it through the Civil War.',
   ],
   history: [
-    'Draw poker was the dominant American game from the 1850s on, played in saloons from San Francisco to New York.',
-    'On August 2, 1876, Wild Bill Hickok was shot dead in Deadwood while playing poker. The hand he is said to have held, aces and eights, is still called the dead man’s hand.',
-    '“Jackpots”, where you need a pair of jacks or better to open the betting, appeared around this time.',
+    'Draw poker was first described in print in 1850. By 1875 The American Hoyle listed draw, stud and “jackpots”, and poker was played in saloons from San Francisco to New York.',
+    'On August 2, 1876, Wild Bill Hickok was shot dead at a poker table in Deadwood’s Saloon No. 10. The hand he is said to have held, aces and eights, is still called the dead man’s hand, though the story was first told in the 1920s.',
+    '“Jackpots”, where you need a pair of jacks or better to open the betting, were new: they first appear in print in 1875.',
   ],
   howToWin: [
     'Everyone antes $2; the smallest bet is $4, and no bet may be larger than the pot.',

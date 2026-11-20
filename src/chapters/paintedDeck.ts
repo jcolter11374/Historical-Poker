@@ -61,7 +61,7 @@ export const PAINTED_DECK: Chapter = {
   ],
   history: [
     'Primero (primiera in Italy, primera in Spain) was the fashionable gambling game of 1500s Europe, and was played at the court of Henry VIII.',
-    'Its hands foreshadow poker’s: four of a kind, a flush, and betting on a hand others can’t see. Shakespeare has Falstaff lose at it.',
+    'Its hands foreshadow poker’s: four of a kind, a flush, and betting on a hand others can’t see. Shakespeare mentions it: Falstaff grumbles that he has never prospered since he swore falsely at primero.',
     'Old books disagree on its exact rules. This chapter plays a reconstruction, and says so.',
   ],
   howToWin: [

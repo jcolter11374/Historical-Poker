@@ -169,7 +169,7 @@ Every chapter below lists the same things: setting, rules as the game will run t
 
 **History notes (checked).** Five-card stud first appears in print in *The American Hoyle* of 1864 and was much played by soldiers on both sides. The flush had come in with the 52-card deck; the straight is first listed in that same 1864 book. The first American cards with corner indices were patented in February 1864 and caught on in the 1870s and 1880s, so the cards in this 1863 camp have none. The battles for Chattanooga ran from November 23 to 25, 1863, so the chapter opens on November 22.
 
-**Art needed.** Tent background, Reed, Toby and Hattie seated on green, 1860s cards, greenbacks and coins, a title card.
+**Art needed.** Tent background (done), Reed, Toby and Hattie seated on green (done), 1860s cards, greenbacks and coins, a title card (done).
 
 ### Chapter 5: The Last Hand (1876), five-card draw, the finale
 

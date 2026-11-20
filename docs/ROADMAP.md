@@ -17,6 +17,7 @@ Done:
 - [x] Draw controls, stud up-cards and bring-in, two boards.
 - [x] Placeholder art drawn in code for every room and character.
 - [x] Chapter 1's own art: background, all three rivals cut out from green, and the title painting behind the intro (2026-11-20).
+- [x] Chapter 2's great hall background (2026-11-20); its rivals are still placeholders.
 - [x] Motion: cards dealt from the dealer and turned over, chips sliding to the pot and to the winner (2026-11-20).
 - [x] Sound effects made in code, with on/off switches; a music hook per chapter (2026-11-20).
 - [x] Phones and tablets: played sideways, with enlarged words and chips on small screens, a "turn sideways" card, and home-screen full screen (2026-11-20).

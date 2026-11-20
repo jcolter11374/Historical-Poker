@@ -19,7 +19,10 @@ import sys
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFilter
 
-TABLE_ELLIPSE = {'riverboat': (-0.007, 0.505, 1.007, 1.02)}
+TABLE_ELLIPSE = {
+    'riverboat': (-0.007, 0.505, 1.007, 1.02),
+    'painted-deck': (-0.005, 0.5, 1.005, 1.0),
+}
 
 src, chapter = Path(sys.argv[1]), sys.argv[2]
 out = Path(__file__).resolve().parent.parent / 'public' / 'art' / chapter

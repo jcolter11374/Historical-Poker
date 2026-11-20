@@ -3,12 +3,14 @@
  * Kent, on Twelfth Night 1543. The first flashback: how the deck was made
  * and how its legend began. (docs/GAME_OUTLINE.md, Chapter 2.)
  *
- * Art: placeholders until the great hall and the three rivals are painted
- * (docs/ART.md, "Art still needed").
+ * Art: the great hall is painted; the three rivals are placeholders until
+ * they are painted on green (docs/ART.md, "Art needed, per chapter").
  */
 import { PRIMERO_ID } from '../games/primero';
 import { lines, rival, say } from './cast';
 import type { Chapter } from './types';
+
+const art = (file: string) => `${import.meta.env.BASE_URL}art/painted-deck/${file}`;
 
 export const PAINTED_DECK: Chapter = {
   id: 'painted-deck',
@@ -138,7 +140,11 @@ export const PAINTED_DECK: Chapter = {
   ],
   nemesisId: 'margery',
   narratorId: 'anselm',
-  scene: { palette: { wall: '#1a120c', light: '#f5c56a', felt: '#4a2e1a', rim: '#6e4a22' } },
+  scene: {
+    background: art('background.webp'),
+    tableFront: art('table-front.webp'),
+    palette: { wall: '#1a120c', light: '#f5c56a', felt: '#7a2420', rim: '#6e4a22' },
+  },
   playerPlate: { x: 800, y: 760 },
   keepsake: { name: 'Lady Margery Ashcombe', line: 'The Painted Deck, 1543. She paid, and named it.' },
   story: {

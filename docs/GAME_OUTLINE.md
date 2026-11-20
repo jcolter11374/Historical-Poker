@@ -113,7 +113,7 @@ Every chapter below lists the same things: setting, rules as the game will run t
 
 **History notes (checked).** Primero (Italian *primiera*, Spanish *primera*) was popular across Europe in the 1500s and was one of the fashionable games of Henry VIII's reign. Shakespeare mentions it, in *Henry VIII* (the king at primero with the Duke of Suffolk) and *The Merry Wives of Windsor* (Falstaff). It is played with 40 cards; its hands, including a flush and four of a kind, foreshadow poker's. Henry VIII closed England's monasteries between 1536 and 1541.
 
-**Art needed.** Great hall background, Margery, Roland and Anselm seated on green, Tudor-style hand-painted card faces, shillings, a title card.
+**Art needed.** Great hall background (done), Margery, Roland and Anselm seated on green, Tudor-style hand-painted card faces, shillings, a title card.
 
 ### Chapter 3: The North Road (1763), Brag
 

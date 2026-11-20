@@ -50,7 +50,7 @@ You need Python 3 with `pip install pillow numpy`.
 4. The table front is an ellipse matching the table's rim, set per chapter in `TABLE_ELLIPSE` in `prepare-art.py` as shares of the picture's width and height. For a new background, adjust it until the rim lines up (look at the table screen: characters should disappear behind the rim, not in front of it).
 5. Place each character in the chapter file (`art.place`: centre x, bottom y and height, in stage pixels on the 1600 x 900 stage), and their name plate (`plate`). Check in `npm run dev`.
 
-Keep the originals out of the repo; only the WebP files in `public/art` are committed.
+Keep the originals out of the repo; only the WebP files in `public/art` are committed. Screenshots of each chapter with its art in place are in `docs/screenshots/`; replace them when the art changes.
 
 ## Placeholders: playing before the art exists
 
@@ -89,7 +89,7 @@ Each chapter needs: a **background** (the empty room and table, first-person fro
 | Chapter | Background | Characters (on green) | Props worth painting |
 | --- | --- | --- | --- |
 | 1 The River | done | all done | silver dollars, buckhorn knife (title painting done) |
-| 2 The Painted Deck | Tudor great hall, Twelfth Night: candlelight, oak trestle table, tapestries, hearth | Lady Margery Ashcombe, Sir Roland Fettiplace, Brother Anselm | Tudor hand-painted card faces, shillings, the leather case stamped "M.A. 1543" |
+| 2 The Painted Deck | done (a round oak table with red cloth) | Lady Margery Ashcombe, Sir Roland Fettiplace, Brother Anselm | Tudor hand-painted card faces, shillings, the leather case stamped "M.A. 1543" |
 | 3 The North Road | snowbound coaching-inn taproom: low beams, pewter, frosted windows, fire | Captain Josiah Pike, Hannah Pell, Jack Sorrel (gentleman's coat; masked version optional) | Georgian cards, coins, the coach's strongbox |
 | 4 The Camp | lantern-lit army tent, hardtack-crate table, rain on canvas | Sergeant Amos Reed, Private Toby Finch, Hattie Bloom | greenbacks, the silver presentation watch |
 | 5 The Last Hand | Deadwood saloon: plank walls, dusty light, oil lamps | Ruby Calloway, Jasper Crane, "Doc" Abel Whitcomb | gold-dust pouch, 1870s indexed cards; an epilogue painting of the full case |

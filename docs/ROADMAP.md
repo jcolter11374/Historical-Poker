@@ -36,7 +36,7 @@ Done:
 - [x] Repo set up, engine copied, tests and typecheck.
 - [x] The 1836 game: 20-card deck, hand ranks, one betting round, pot-limit.
 - [x] Three bots with personalities and tells (Silas, Delphine, Ezra).
-- [x] Table screen with layered painted art, chip controls, dialogue, rules sheet, "Powered by RSDP Live" badge.
+- [x] Table screen with layered painted art, chip controls, dialogue, rules sheet, "Powered by RSDP Live" badge (with RSDP Live's real chip and wordmark logo).
 - [x] Intro and ending screens.
 - [x] Publishing to GitHub Pages on every push to `main`.
 - [x] Scripted tutorial hand with Delphine explaining the deck, and pointing out Ezra's tell.

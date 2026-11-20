@@ -66,6 +66,17 @@ Every chapter is playable with no art at all:
 3. In the chapter file, set `scene.background` and `scene.tableFront` (see `riverboat.ts`: `art('background.webp')`), and give each rival real art instead of `rival(..., seat, colour)`: `art: { src, kind: 'cutout', aspect, place }` with `aspect` the image's width / height. The standard seat positions in `cast.ts` are a good start; nudge `place` and `plate` until they sit right.
 4. Check every stage of the chapter in `npm run dev` (some stages change the lighting, like the Boom's final table), and update the list below.
 
+## RSDP Live logo
+
+The "Powered by RSDP Live" credit in the top right corner (`src/ui/PoweredBy.tsx`) uses RSDP Live's real logo, copied from the RSDP Live repo (never edit that repo from here). The files are in `public/brand/`:
+
+| File | What it is | Where it came from |
+| --- | --- | --- |
+| `rsdp-live-chip.svg` | the red poker chip with an "R" | RSDP Live's favicon, `apps/web/public/favicon.svg`, copied as is |
+| `rsdp-live-wordmark.svg` | the "RSDP Live!" title: "RSDP" in off-white, "Live!" in red italic | drawn by `tools/make-rsdp-wordmark.cjs` to match RSDP Live's `.logo` style (Inter Black, the same colours), with the letters as outlines so it needs no font |
+
+If RSDP Live's logo ever changes, copy the new favicon over and re-run the script (instructions are at the top of it). Keep the credit small and quiet: it is a credit, not a banner.
+
 ## Music
 
 No music is in the game yet; the hook is ready. To add a loop for a chapter:

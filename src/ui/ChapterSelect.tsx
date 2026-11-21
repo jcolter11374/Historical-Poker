@@ -4,7 +4,9 @@
  * (the beaten rival); the next chapter glows; a chapter left part-way says
  * so ("Hand 12"); later ones are face down but every one can be opened,
  * after "the story so far", so a friend can jump right to the game they
- * want to learn. Each card names the game it teaches.
+ * want to learn. Each card names the game it teaches, and its year; a
+ * chapter that goes back in time is marked as a tale told in the story
+ * (Chapter.toldBy), because the story opens in 1836, not 1543.
  *
  * "Continue" sits you back down at the table you left most recently, or
  * opens the next chapter of the story.
@@ -59,6 +61,7 @@ export function ChapterSelect({
         <span className="case-numeral">{c.numeral}</span>
         <span className="case-title">{c.title}</span>
         <span className="case-year">{c.year}</span>
+        {c.toldBy && <span className="case-told">{c.toldBy}</span>}
         {isWon ? <Face character={nemesis} className="case-face" /> : <span className="case-seal" aria-hidden="true">{open || saved ? '♠' : '✦'}</span>}
         <span className="case-game">{c.teaches}</span>
         {saved ? <span className="case-badge case-badge-saved">At hand {saved.handNumber + 1}</span> : isWon && <span className="case-badge">Won</span>}
@@ -75,7 +78,7 @@ export function ChapterSelect({
       </header>
       <div className="case">
         <div className="case-part">
-          <h2>Part One · 1543 to 1876</h2>
+          <h2>Part One · It opens in 1836, looks back to 1543, and goes on to 1876</h2>
           <div className="case-row">{part(1).map(card)}</div>
         </div>
         <div className="case-part">

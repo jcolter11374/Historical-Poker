@@ -328,6 +328,9 @@ button:disabled { opacity: 0.4; cursor: default; }
 .case-numeral { font-family: var(--display); font-size: 15px; opacity: 0.8; }
 .case-title { font-family: var(--display); font-size: 19px; line-height: 1.05; min-height: 40px; display: grid; place-items: center; }
 .case-year { font-family: var(--story); font-style: italic; font-size: 16px; }
+/* "Delphine’s tale": a chapter that goes back in time (Chapter.toldBy). */
+.case-told { font-family: var(--story); font-style: italic; font-size: 14px; line-height: 1; margin-top: -4px; color: #8a2a1e; }
+.case-locked .case-told { color: #ffd98a; }
 .case-seal { font-size: 40px; line-height: 1; margin: 6px 0; opacity: 0.75; }
 .case-face { width: 56px; height: 56px; font-size: 22px; margin: 2px 0; }
 .case-game { font-family: var(--ui); font-size: 13px; line-height: 1.2; font-weight: 700; }

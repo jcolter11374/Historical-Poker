@@ -25,6 +25,7 @@ TABLE_ELLIPSE = {
     'north-road': (-0.005, 0.5, 1.0, 0.985),
     'camp': (-0.005, 0.5, 1.0, 0.985),
     'last-hand': (-0.005, 0.5, 1.0, 0.985),
+    'boardwalk': (-0.012, 0.492, 1.02, 1.03),
 }
 
 src, chapter = Path(sys.argv[1]), sys.argv[2]

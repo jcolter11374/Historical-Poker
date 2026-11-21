@@ -62,8 +62,8 @@ export const BOARDWALK: Chapter = {
   levelLines: [say('narration', 'The dealers change shifts. The floor man moves the game up to bigger limits.')],
   intro: [
     'Atlantic City, 1995. Poker has been legal in the casinos here for only two years, and the poker room of the Seaview Palace is full every night with players from New York and Philadelphia. The game is stud.',
-    'Ray Avery, Lou’s son, has the old deck in his jacket, back from Paris with his daughter Anna. He came because of a letter from the room’s manager, a woman named Margot Arceneaux.',
-    '“An old diary in my family says our families shared a deck once,” she wrote. “I’d like to see it. And I’d like to play you for it.”',
+    'Ray Avery, Lou’s son, has the old deck in his jacket again: his daughter Anna brought it home from Paris, as promised. He came because of a letter from the room’s manager, a woman named Margot Arceneaux.',
+    '“An old diary in my family says we held your deck once, for one night, and gave it back,” she wrote. “I’d like to win it the way Delphine did: one night in my hands, and then it goes home with you. Come and play me for it.”',
   ],
   recap: [
     'The Ashcombe deck has been in the Avery family since 1543. In 1836 Kit Avery won it back on a steamboat, with help from a widow named Delphine Arceneaux, who knew its whole story.',
@@ -150,7 +150,7 @@ export const BOARDWALK: Chapter = {
     palette: { wall: '#151218', light: '#f2d39a', felt: '#2a3a5a', rim: '#3a2a20' },
   },
   playerPlate: { x: 800, y: 760 },
-  keepsake: { name: 'Margot Arceneaux', line: 'The Boardwalk, 1995. Two families, one deck, half a pot each.' },
+  keepsake: { name: 'Margot Arceneaux', line: 'The Boardwalk, 1995. Delphine’s diary, and half a pot each.' },
   story: {
     stake: {
       afterPlayerWins: 2,
@@ -158,7 +158,7 @@ export const BOARDWALK: Chapter = {
       lines: [
         say('margot', 'You’re good, Mr. Avery. Let me show you something.'),
         say('narration', 'Margot sets a small leather book on the felt, its pages brown with age. On the first page: “Delphine Arceneaux, her diary, 1817.”'),
-        say('margot', 'Everything she knew about your deck is in here. The gaming house, the steamboat, all of it. Take my last chip and it’s yours.'),
+        say('margot', 'Everything she knew about your deck is in here. The gaming house, the steamboat, all of it. Take my last chip and it’s yours. Lose yours, and I hold the deck tonight, the way she did.'),
       ],
       passes: [
         say('narration', 'Margot is out of chips. The diary goes to {name}.'),
@@ -170,7 +170,7 @@ export const BOARDWALK: Chapter = {
         benny: [say('benny', 'Family business, huh? I know when to walk away. Sometimes.'), say('narration', 'Benny racks his chips and goes to watch from the rail.')],
         ruth: [say('ruth', 'I’ll stop while I still have bus money. Good luck, both of you.'), say('narration', 'Ruth cashes out and pulls up a chair behind the rail.')],
       },
-      headsUp: [say('margot', 'Just us, Mr. Avery. Like our families, a hundred and fifty years ago.')],
+      headsUp: [say('margot', 'Just us, Mr. Avery. An Arceneaux and an Avery at one table, like a hundred and sixty years ago. She was on your side then. Tonight I’m on mine.')],
     },
   },
   outro: {
@@ -179,7 +179,7 @@ export const BOARDWALK: Chapter = {
       'Ray reads Delphine’s diary on the bus home. On the last page, in her old hand: “The Averys keep the deck. The deck keeps the Averys.”',
     ],
     lost: [
-      'Your last chip is gone. Margot holds the old deck up to the light for a long moment, then sets it beside the diary.',
+      'Your last chip is gone. Margot holds the old deck up to the light for a long moment, then sets it beside the diary. “One night, as I promised. Come back tomorrow and win the diary.”',
       '“Go for both halves when you can, and fold when you’re fighting for a half you’ll have to share,” Ruth says kindly. Try again?',
     ],
   },

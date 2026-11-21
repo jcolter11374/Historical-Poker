@@ -4,13 +4,25 @@
 
 ## The shape of the game
 
+- **The opening** (first visit only): six paintings of the Avery and Crane feud, one wiping into the next, then the title and "Take a seat". See "The opening and the ending" below.
 - **Chapter select** (the Ashcombe deck's leather case): one card per chapter in two rows, Part One and Part Two. Every card names the game it teaches. Won chapters show the beaten rival's face (the keepsake) and a green "Won" ribbon; a chapter left part-way shows a red "At hand 12" ribbon; the chapter you'd continue glows; chapters you haven't reached are face down but open like any other (after "the story so far"). "Continue" goes straight back to the table you left most recently, or to the next chapter's intro if there is none. The game always opens here, first visit included ("Begin the story" opens chapter 1), so a friend can go straight to the game they want to learn.
 - **Intro:** the setting, who you play, what game is taught, the cast. If you jumped ahead, "The story so far" comes first.
 - **The table:** one sitting of the chapter's games (below).
-- **Ending:** the chapter's won or lost text, the keepsake, a "From the history book" note, and "On to" the next chapter. Losing offers "Try again". The last chapter links to RSDP Live.
+- **Ending:** the chapter's won or lost text, the keepsake, a "From the history book" note, and "On to" the next chapter. Losing offers "Try again". Winning the last chapter leads to "How it all ends": the ending pictures and the credits, which link to RSDP Live.
 - **Practice** ("Practice any game" on the chapter select): any game the story teaches, on its own, outside the story. See "Practice" below.
 - **Saved progress:** which chapters were started and won, and the hints, sound and music switches, are kept in the browser's local storage (`src/progress/save.ts`). No account: another browser or device starts fresh, and clearing the browser's data resets it.
 - **Leaving part-way:** after every hand the table is saved for that chapter: money, the buck, the stage and stakes, which lessons were given, story beats already played (the stake, the cheat, the finale), and any scene still to read. Leaving the table, closing the tab or reloading the page loses at most the hand in play. Opening that chapter again offers "Back to the table (hand 12)" or "Start the chapter over". Each chapter keeps its own table, so a friend can leave Brag half-way, try Omaha, and come back. Finishing a chapter (won or lost) or "Play this chapter again" clears its table. "Start over" on the case clears everything.
+
+### The opening and the ending
+
+The story is a family feud with a happy ending, and the game frames it in pictures at both ends (John asked for both, 2026-11-21). The slides and captions are data in `src/story/montages.ts`; `src/ui/Montage.tsx` shows them.
+
+- **The opening** plays before the chapter select on the first visit. Six moments of the feud, at its most bitter first: Silas Crane cheating an Avery out of the deck; Kit coming aboard to win it back; Jasper Crane riding into Deadwood; the lawyers' letters; a silent stranger at an Avery's table in 2005; and today. It names no Crane after 1876, so it does not give away who "N0rthStar" is. Its music is the riverboat's.
+- **The ending** plays after the epilogue is won ("How it all ends"). The same moments again, seen kindly: Silas, who told his grandchildren the luck had gone downriver; Jasper, raised on one story; the letters, politer every decade; Nate's handshake; then the wedding and the deck with two names in its lid. Then the credits: the title, "Powered by RSDP Live!", and a chip to start a game on RSDP Live. Its music is the kitchen table's.
+- **How it moves:** each painting is uncovered from the left over the one before (1.4 seconds), with its place and year and one caption on a shaded strip along the bottom. It moves on by itself after 8 seconds; a press, Space, Enter or the right arrow moves on at once; "Skip" (or Escape) jumps out. People who ask their device for less motion get the pictures without the wipe.
+- **Watching again:** "Watch the opening" is always under the chapter select; "Watch the ending" joins it once the epilogue is won. After "Start over", the opening plays by itself again on the next visit.
+- **Art:** every slide should end up with its own painting ([ART_PROMPTS.md](ART_PROMPTS.md), "The opening and the ending"). Until then a slide borrows a chapter painting that fits, or shows a lamplit empty table in the right colours.
+- **Every caption must match the chapters.** If a chapter's story changes, check the captions against it.
 
 ### The order of the story
 

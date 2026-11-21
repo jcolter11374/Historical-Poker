@@ -32,7 +32,7 @@ describe('practice', () => {
       const ids = new Set(c.rivals.map((r) => r.id));
       for (const g of c.stages[0].games) {
         expect(ids.has(g.lesson!.teacher)).toBe(true);
-        for (const l of [...g.lesson!.before, ...Object.values(g.lesson!.streets ?? {}).flat()]) expect(l.who === 'narration' || ids.has(l.who)).toBe(true);
+        for (const l of [...g.lesson!.before, ...Object.values(g.lesson!.streets ?? {}).flat()]) expect(l.who === 'narration' || ids.has(l.who) || !!c.bystanders?.[l.who]).toBe(true);
       }
       // A player who always folds goes broke many times over and is just bought back in.
       const { s, hands } = playChapter(c, 3, { maxHands: p.group === 'mixed' ? 20 : 12, policy: 'folds', trials: 8 });

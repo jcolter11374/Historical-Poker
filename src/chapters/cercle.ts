@@ -89,7 +89,7 @@ export const CERCLE: Chapter = {
   levelLines: [say('narration', 'A waiter in a white jacket refills the coffee. The Comte nods, and the blinds double.')],
   intro: [
     'Paris, 1992. Behind a plain door near the Champs-Élysées is the Cercle Varenne, a private card club with velvet chairs, cigar smoke and portraits of members long dead.',
-    'Anna Avery, Ray’s daughter, is in Paris translating for a publisher. She has brought the old deck, painted in England and carried across two centuries of American card tables.',
+    'Anna Avery, Ray’s daughter, is in Paris translating for a publisher. Her father has lent her the old deck for the year, painted in England and carried across two centuries of American card tables, on one condition: it comes home with her.',
     'The club’s president, the Comte Lucien Varenne, collects antique cards. He has invited her to play. He would very much like to see the deck.',
   ],
   recap: [
@@ -187,6 +187,8 @@ export const CERCLE: Chapter = {
           say('varenne', 'May I? Only to look.'),
           say('narration', 'The Comte turns one card of the Ashcombe deck over in his fingers, under the lamp: a queen, painted with a face from a Tudor household.'),
           say('varenne', 'Kent, 1540s. Hand-painted. There are perhaps three like it in the world. You carry it in a handbag, mademoiselle?'),
+          say('varenne', 'I should tell you: for years a lawyer in New York has written to every collector in Europe. If such a deck appears, his client will pay double, and asks only to be told. Most courteous letters. Never a name.'),
+          say('narration', 'Anna’s father keeps the ones sent to the family in a shoebox. The latest says “with respect” twice.'),
         ],
       },
     ],

@@ -249,6 +249,12 @@ export interface Chapter {
   history: string[];
   /** Extra lines for the rules card about this chapter (how to win it). */
   howToWin: string[];
+  /**
+   * People in the room who speak in scenes but hold no seat, as id -> name
+   * (the epilogue: Marcus deals, Priya watches from the sofa). Their lines
+   * show with their name, like a rival's.
+   */
+  bystanders?: Record<string, string>;
   /** The three rivals, in seat order: left, across, right. */
   rivals: [Character, Character, Character];
   /** The chapter's main rival, for the story and the intro screen. */
@@ -271,7 +277,7 @@ export interface Chapter {
   practice?: boolean;
 }
 
-/** One line of a story scene. `who` is a rival's id, or 'narration' for plain description. */
+/** One line of a story scene. `who` is a rival's id, a bystander's id (Chapter.bystanders), or 'narration' for plain description. */
 export interface SceneLine {
   who: string;
   text: string;

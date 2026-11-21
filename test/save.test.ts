@@ -137,3 +137,15 @@ describe('saved progress', () => {
     expect(loadTables(null)).toEqual({});
   });
 });
+
+describe('the opening is shown once', () => {
+  it('is remembered with progress, and an older save has not seen it', async () => {
+    const { sawOpening } = await import('../src/progress/save');
+    const store = memory();
+    expect(loadProgress(store).seenOpening).toBe(false);
+    sawOpening(loadProgress(store), store);
+    expect(loadProgress(store).seenOpening).toBe(true);
+    store.setItem('historical-poker/progress', JSON.stringify({ version: 1, won: { riverboat: 'x' }, played: {}, hints: true, sound: true, music: true, math: false, mathStars: 0 }));
+    expect(loadProgress(store)).toMatchObject({ won: { riverboat: 'x' }, seenOpening: false });
+  });
+});

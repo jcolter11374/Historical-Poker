@@ -57,7 +57,7 @@ export const GAMING_HOUSE: Chapter = {
     'An American named Henri Avery has lost almost everything to your aunt. Almost: he still has an old painted deck in a leather case, and he has just put it on the table.',
   ],
   recap: [
-    'This is the story Delphine Arceneaux never told on the riverboat: the night, nineteen years earlier, she first saw the Ashcombe deck.',
+    'This is the story Delphine Arceneaux only hinted at on the riverboat: the night, nineteen years earlier, she first saw the Ashcombe deck.',
     'The deck had come to America with Will Avery in 1763. By 1817 it belonged to his son Henri, Kit Avery’s grandfather.',
   ],
   history: [
@@ -178,7 +178,7 @@ export const GAMING_HOUSE: Chapter = {
   outro: {
     won: [
       'Your aunt laughs, and kisses you on both cheeks. “My own niece!” She slides the leather case across the table.',
-      'You put it in Henri Avery’s hands. When he can speak, he tells you all of it: the painter’s daughter, the inn in the snow. You write down every word. Nineteen years later, on a steamboat called the Magnolia Queen, you will see that deck again, in the hands of a man named Silas Crane, and you will know exactly whose it is.',
+      'You put it in Henri Avery’s hands. When he can speak, he tells you all of it: the painter’s daughter, the inn in the snow. You write down every word. Nineteen years later you will hear that a gambler named Silas Crane is showing an old painted deck on the river. You will know exactly whose it is, and you will buy passage on the Magnolia Queen.',
     ],
     lost: [
       'Your last dollar goes to your aunt. She sets the painted deck in her glass cabinet, beside the Spanish silver.',

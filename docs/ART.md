@@ -107,8 +107,9 @@ Each chapter needs: a **background** (the empty room and table, first-person fro
 | 9 The Boardwalk | done | all done | Delphine's diary (title painting done: the boardwalk at dusk) |
 | 10 The Boom | both done: the café's monitor with the online table on its screen, and the televised final table (red felt, black rail) | the three avatars done (shark, star, tiger cub); in person, DeuceSeven done; Nate Crane and Hanbit still needed | title painting, chat window, TV graphics |
 | 11 The Big O | big modern card room in the English Midlands: rows of tables, bright lights | Gaz Whitlock, Kerry-Ann Booth, Mr. Emeka Okafor | |
-| 12 The Last Table | private room over Macau harbour at night: one table, city lights | Victor Crane (riverboat cufflinks), Mei Lin Chau, Rafael Duarte | the tablet menu, tea set |
-| Epilogue The Kitchen Table | a kitchen at night: warm light, pizza box, mismatched chips | Marcus, Priya, Dee | the full leather case on the counter |
+| 12 The Last Table | private room over Macau harbour at night: one table, city lights | Mei Lin Chau, Elena Crane (the love interest, a top pro), Victor Crane (riverboat cufflinks, now in the right seat) | the tablet menu, tea set |
+| Epilogue The Kitchen Table | a kitchen at night, the evening after a wedding: warm light, wedding cake, mismatched chips | Dee only: Victor and Elena reuse their chapter 12 pictures (Marcus and Priya speak but are not seen) | the full leather case on the counter |
+| The opening and the ending | nine paintings in the style of the title paintings, one per slide (three more are optional) | none | see [ART_PROMPTS.md](ART_PROMPTS.md), "The opening and the ending" |
 
 The player is never shown, so no art is needed for the Averys. Faces on the chapter select and keepsakes are cropped from the character art, so no separate portraits are needed.
 

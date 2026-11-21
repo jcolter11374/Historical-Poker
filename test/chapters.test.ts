@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { CHAPTERS, isUnlocked, nextChapter } from '../src/chapters';
+import { CHAPTERS, chapterById, isUnlocked, nextChapter } from '../src/chapters';
+import { HUMAN, Session } from '../src/table/session';
+import { CLOSING, OPENING } from '../src/story/montages';
 import type { Chapter, SceneLine } from '../src/chapters/types';
 import { GAMES, getGame } from '../src/games/catalog';
 import { VARIANT_LIST } from '@rsdp/engine/variants';
@@ -30,7 +32,10 @@ describe('the chapters', () => {
   for (const { chapter: c } of CHAPTERS) {
     it(`${c.id}: every speaker, teacher and game exists`, () => {
       const ids = new Set(c.rivals.map((r) => r.id));
-      for (const l of allLines(c)) expect(l.who === 'narration' || ids.has(l.who), `${c.id}: unknown speaker ${l.who}`).toBe(true);
+      // Bystanders speak but hold no seat, so they can't share an id with a rival.
+      const bystanders = new Set(Object.keys(c.bystanders ?? {}));
+      for (const b of bystanders) expect(ids.has(b)).toBe(false);
+      for (const l of allLines(c)) expect(l.who === 'narration' || ids.has(l.who) || bystanders.has(l.who), `${c.id}: unknown speaker ${l.who}`).toBe(true);
       expect(ids.has(c.nemesisId)).toBe(true);
       expect(ids.has(c.narratorId)).toBe(true);
       for (const st of c.stages) for (const g of st.games) {
@@ -83,4 +88,59 @@ describe('every chapter plays to an end', () => {
       expect(reachedAll || games.length === 1).toBe(true);
     }, 120_000);
   }
+});
+
+describe('the last two chapters: Elena Crane, and the home game after the wedding', () => {
+  it('Elena is the last rival in both, and Victor sits in', () => {
+    for (const id of ['last-table', 'kitchen-table']) {
+      const c = chapterById(id)!;
+      expect(c.nemesisId).toBe('crane');
+      expect(c.rivals.find((r) => r.id === 'crane')!.fullName).toBe('Elena Crane');
+      expect(c.rivals.some((r) => r.id === 'victor')).toBe(true);
+    }
+  });
+
+  it('lets people in the room speak without a seat (Marcus deals, Priya watches)', () => {
+    const home = chapterById('kitchen-table')!;
+    const s = new Session(home, { seed: 2, skipTutorial: true });
+    const speakers: (string | null)[] = [];
+    while (s.inScene) {
+      const line = s.snapshot().scene!;
+      speakers.push(line.name);
+      if (line.name === 'Marcus' || line.name === 'Priya') expect(line.seat).toBeNull();
+      s.advanceScene();
+    }
+    expect(speakers).toContain('Marcus');
+    expect(speakers).toContain('Priya');
+    expect(s.snapshot().seats[HUMAN].stack).toBe(home.startingStack);
+  });
+
+  it('will not resume a table saved with a cast that has since changed', () => {
+    const home = chapterById('kitchen-table')!;
+    const saved = playChapter(home, 3, { maxHands: 2 }).s.saveTable()!;
+    expect(Session.resume(home, { ...saved, scene: [{ who: 'priya', text: 'Hi.' }] })).not.toBeNull();
+    expect(Session.resume(home, { ...saved, scene: [{ who: 'rafael', text: 'Champagne!' }] })).toBeNull();
+  });
+});
+
+describe('the opening and the ending', () => {
+  /** Every painting in public/art, as 'riverboat/title.webp'. */
+  const paintings = new Set(Object.keys(import.meta.glob('../public/art/**/*.webp')).map((f) => f.replace('../public/art/', '')));
+  it('have four to six pictures each, every one with a caption and a picture that exists or a placeholder', () => {
+    for (const slides of [OPENING, CLOSING]) {
+      expect(slides.length).toBeGreaterThanOrEqual(4);
+      expect(slides.length).toBeLessThanOrEqual(6);
+      for (const s of slides) {
+        expect(s.when.length).toBeGreaterThan(3);
+        expect(s.caption.length).toBeGreaterThan(20);
+        expect(!!s.image || !!s.palette).toBe(true);
+        if (s.image) expect(paintings.has(s.image), s.image).toBe(true);
+      }
+    }
+  });
+
+  it('the opening does not give away who N0rthStar is', () => {
+    const late = OPENING.filter((s) => /19\d\d|20\d\d|Today/.test(s.when));
+    for (const s of late) expect(s.caption).not.toMatch(/Nate|N0rthStar/);
+  });
 });

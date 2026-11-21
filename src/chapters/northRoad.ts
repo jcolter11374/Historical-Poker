@@ -194,7 +194,8 @@ export const NORTH_ROAD: Chapter = {
     won: [
       'Captain Pike roars with laughter and claps you on the back. “A captain’s word is good, lad. The Constance sails in March, and you’re on her.”',
       'In the spring of 1763, Will Avery and the Ashcombe deck cross the Atlantic. The Averys will be Americans now.',
-      'Delphine closes her fan. “And that is how an English deck came to an American river, darling. I have told you where it has been. Where it goes next is up to the Averys.”',
+      'Delphine closes her fan. “And that is how an English deck came to an American river, darling. I held it once myself, at nineteen, in my aunt’s house in New Orleans, and put it back in your grandfather’s hands. He told me all of this.”',
+      '“So when I heard that Silas Crane was showing a painted deck on the river, I bought passage. Where it goes next is up to the Averys.”',
     ],
     lost: [
       'Your last shilling goes to the captain. He tucks the deck into his sea chest with a wink.',

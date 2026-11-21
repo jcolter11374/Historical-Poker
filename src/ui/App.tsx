@@ -5,6 +5,11 @@
  *   when jumping ahead) -> the table -> the ending -> next chapter or back
  *   to the case.
  *
+ *   The first visit opens on the opening pictures (the feud, one painting
+ *   wiping into the next), and winning the epilogue leads to the ending
+ *   pictures and the credits (src/story/montages.ts, Montage.tsx). Both can
+ *   be skipped, and watched again from the chapter select.
+ *
  *   chapter select -> practice (pick any game) -> a practice table -> back
  *   to practice. Practice tables never end and are never saved.
  *
@@ -14,6 +19,7 @@
  */
 import { useEffect, useState, type ReactNode } from 'react';
 import { CHAPTERS, chapterById, followingChapter, isUnlocked } from '../chapters';
+import { CLOSING, OPENING } from '../story/montages';
 import type { Chapter } from '../chapters/types';
 import {
   addMathStar,
@@ -23,6 +29,7 @@ import {
   loadTables,
   record,
   resetProgress,
+  sawOpening,
   saveTable,
   setHints,
   setOption,
@@ -32,6 +39,7 @@ import {
 import { practiceChapter, type PracticeGame } from '../practice';
 import { Session } from '../table/session';
 import { ChapterSelect } from './ChapterSelect';
+import { Montage } from './Montage';
 import { PracticeScreen } from './PracticeScreen';
 import { PoweredBy } from './PoweredBy';
 import { Face, SceneBack } from './Scene';
@@ -44,14 +52,17 @@ type Screen =
   | { name: 'intro'; chapter: Chapter }
   | { name: 'table'; session: Session }
   | { name: 'end'; chapter: Chapter; won: boolean }
-  | { name: 'practice' };
+  | { name: 'practice' }
+  /** The feud in pictures, before the chapter select. */
+  | { name: 'opening' }
+  /** The ending pictures and the credits, after the epilogue. */
+  | { name: 'closing' };
 
 export function App() {
   const [progress, setProgress] = useState<Progress>(() => loadProgress());
   const [tables, setTables] = useState(() => loadTables());
   const won = new Set(Object.keys(progress.won));
-  const [screen, setScreen] = useState<Screen>({ name: 'select' });
-
+  const [screen, setScreen] = useState<Screen>(() => (loadProgress().seenOpening ? { name: 'select' } : { name: 'opening' }));
   // Sound: browsers only allow it after a press, so start audio on the first one.
   useEffect(() => {
     window.addEventListener('pointerdown', unlock);
@@ -64,7 +75,15 @@ export function App() {
   useEffect(() => setSoundOn(progress.sound), [progress.sound]);
   useEffect(() => setMusicOn(progress.music), [progress.music]);
   // The table picks its own music (a stage can change it); story screens play the chapter's.
-  const storyMusic = screen.name === 'intro' || screen.name === 'end' ? (screen.chapter.scene.music ?? null) : null;
+  // The opening plays the riverboat's tune (where the feud starts) and the ending the kitchen table's.
+  const storyMusic =
+    screen.name === 'intro' || screen.name === 'end'
+      ? (screen.chapter.scene.music ?? null)
+      : screen.name === 'opening'
+        ? (CHAPTERS[0].chapter.scene.music ?? null)
+        : screen.name === 'closing'
+          ? (CHAPTERS[CHAPTERS.length - 1].chapter.scene.music ?? null)
+          : null;
   useEffect(() => {
     if (screen.name !== 'table') playMusic(storyMusic);
   }, [screen.name, storyMusic]);
@@ -114,6 +133,8 @@ export function App() {
           progress={progress}
           tables={tables}
           onPick={(chapter) => setScreen({ name: 'intro', chapter })}
+          onOpening={() => setScreen({ name: 'opening' })}
+          onClosing={() => setScreen({ name: 'closing' })}
           onResume={() => resume(latestTable(tables))}
           onPractice={() => setScreen({ name: 'practice' })}
           onHints={(on) => setProgress(setHints(progress, on))}
@@ -122,6 +143,60 @@ export function App() {
             setProgress(resetProgress());
             setTables(loadTables());
           }}
+        />
+      )}
+      {screen.name === 'opening' && (
+        <Montage
+          slides={OPENING}
+          musicLink={musicLink}
+          onSkip={() => {
+            setProgress((p) => sawOpening(p));
+            setScreen({ name: 'select' });
+          }}
+          finish={
+            <>
+              <div className="eyebrow">The Ashcombe deck, 1543 to today</div>
+              <h1>Historical Poker</h1>
+              <p>One painted deck. Two families. Every table it was ever played on.</p>
+              <div className="story-buttons">
+                <button
+                  type="button"
+                  className="chip chip-raise chip-wide"
+                  ref={focusOnMount}
+                  onClick={() => {
+                    setProgress((p) => sawOpening(p));
+                    setScreen({ name: 'select' });
+                  }}
+                >
+                  Take a seat
+                </button>
+              </div>
+            </>
+          }
+        />
+      )}
+      {screen.name === 'closing' && (
+        <Montage
+          slides={CLOSING}
+          musicLink={musicLink}
+          onSkip={() => setScreen({ name: 'select' })}
+          finish={
+            <>
+              <div className="eyebrow">The Ashcombe deck, 1543 to today</div>
+              <h1>Historical Poker</h1>
+              <p>Every one of those games still has a table somewhere. Start your own.</p>
+              <PoweredBy />
+              <p className="credits">Story, paintings and music made for this game. Every chapter is dealt by the rules of its own year.</p>
+              <div className="story-buttons">
+                <a className="chip chip-raise chip-wide" href="https://rsdp-poker-live.fly.dev" target="_blank" rel="noreferrer">
+                  Start your own game on RSDP Live
+                </a>
+                <button type="button" className="chip chip-call chip-wide" onClick={() => setScreen({ name: 'select' })} ref={focusOnMount}>
+                  Back to the deck case
+                </button>
+              </div>
+            </>
+          }
         />
       )}
       {screen.name === 'intro' && (
@@ -158,6 +233,7 @@ export function App() {
         <EndScreen
           chapter={screen.chapter}
           won={screen.won}
+          onClosing={() => setScreen({ name: 'closing' })}
           onAgain={() => sit(screen.chapter, true)}
           onNext={(c) => setScreen({ name: 'intro', chapter: c })}
           onCase={() => setScreen({ name: 'select' })}
@@ -235,7 +311,7 @@ function IntroScreen({
   );
 }
 
-function EndScreen({ chapter, won, onAgain, onNext, onCase, musicLink }: { chapter: Chapter; won: boolean; onAgain: () => void; onNext: (c: Chapter) => void; onCase: () => void; musicLink: ReactNode }) {
+function EndScreen({ chapter, won, onAgain, onNext, onCase, onClosing, musicLink }: { chapter: Chapter; won: boolean; onAgain: () => void; onNext: (c: Chapter) => void; onCase: () => void; onClosing: () => void; musicLink: ReactNode }) {
   const next = won ? followingChapter(chapter.id) : null;
   const nemesis = chapter.rivals.find((r) => r.id === chapter.nemesisId)!;
   const last = chapter.id === CHAPTERS[CHAPTERS.length - 1].chapter.id;
@@ -264,15 +340,20 @@ function EndScreen({ chapter, won, onAgain, onNext, onCase, musicLink }: { chapt
             <button type="button" className="chip chip-raise chip-wide" onClick={() => onNext(next)} ref={focusOnMount}>
               On to {next.title}
             </button>
+          ) : won && last ? (
+            // The story is over: on to the ending pictures and the credits (which link to RSDP Live).
+            <button type="button" className="chip chip-raise chip-wide" onClick={onClosing} ref={focusOnMount}>
+              How it all ends
+            </button>
           ) : (
             <button type="button" className="chip chip-raise chip-wide" onClick={won ? onCase : onAgain} ref={focusOnMount}>
               {won ? 'Back to the deck case' : 'Try again'}
             </button>
           )}
           {won && last && (
-            <a className="chip chip-call chip-wide" href="https://rsdp-poker-live.fly.dev" target="_blank" rel="noreferrer">
-              Start your own game on RSDP Live
-            </a>
+            <button type="button" className="text-link" onClick={onCase}>
+              Back to the deck case
+            </button>
           )}
           {(next || !won) && (
             <button type="button" className="text-link" onClick={won ? onAgain : onCase}>

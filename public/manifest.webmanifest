@@ -1,7 +1,7 @@
 {
-  "name": "Historical Poker",
-  "short_name": "Hist. Poker",
-  "description": "A card game through the history of poker.",
+  "name": "Still Ours",
+  "short_name": "Still Ours",
+  "description": "Five hundred years, two families, one deck of cards. A story game through the history of poker.",
   "start_url": "./",
   "scope": "./",
   "display": "fullscreen",

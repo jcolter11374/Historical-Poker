@@ -98,7 +98,7 @@ A fictional early championship in Las Vegas. Lou Avery.
 
 ### 8. The Cercle (1992), Pot-Limit Omaha then Omaha Hi-Lo
 
-A private card club in Paris. Anna Avery, a translator. Money in francs ("1,000 F"). The panelled club room and the title painting (a Paris boulevard at night) and the Comte Varenne are in; Siobhan and Dmitri are still placeholders.
+A private card club in Paris. Anna Avery, a translator. Money in francs ("1,000 F"). Fully painted: the panelled club room, all three rivals, and a title painting of a Paris boulevard at night (`docs/screenshots/chapter-8-intro.jpg`, `chapter-8-table.jpg`).
 
 - **Stages:** hands 1 to 6, Pot-Limit Omaha, taught by Siobhan Kearney; from hand 7, "Omaha Hi-Lo, after two in the morning", taught by the Comte. 20 F unit, 1,000 F each, rising every 8 hands.
 - **Cast:** Siobhan (Irish pro, drums her fingers when bluffing), the Comte Lucien Varenne (club president, tricky, turns his signet ring when strong), Dmitri Volkov (chess master, perfectly still when weak).

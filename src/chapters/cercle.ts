@@ -2,9 +2,8 @@
  * Chapter 8, "The Cercle": Pot-Limit Omaha, then Omaha Hi-Lo, in a private
  * Paris card club, 1992. All people and places are fictional.
  *
- * Art: the panelled club room and the title painting (a Paris boulevard at
- * night) and the Comte Varenne are in. Siobhan and Dmitri are still
- * placeholders (docs/ART.md).
+ * Art: the panelled club room, its title painting (a Paris boulevard at
+ * night) and all three rivals are painted (docs/ART.md).
  */
 import { cutout, lines, music, rival, say } from './cast';
 import type { Chapter, Character, CharacterArt } from './types';
@@ -13,7 +12,9 @@ const art = (file: string) => `${import.meta.env.BASE_URL}art/cercle/${file}`;
 
 /** The painted rivals, by id: image, width / height, and place on the 1600 x 900 stage. */
 const PAINTED: Record<string, CharacterArt> = {
-  varenne: cutout(art('varenne.webp'), 0.9878, { x: 800, bottom: 488, height: 385 }),
+  siobhan: cutout(art('siobhan.webp'), 1.1533, { x: 340, bottom: 590, height: 450 }),
+  varenne: cutout(art('varenne.webp'), 0.9878, { x: 800, bottom: 490, height: 410 }),
+  dmitri: cutout(art('dmitri.webp'), 1.0678, { x: 1265, bottom: 590, height: 450 }),
 };
 const paint = (r: Character): Character => ({ ...r, art: PAINTED[r.id] ?? r.art });
 const painted = ([a, b, c]: Chapter['rivals']): Chapter['rivals'] => [paint(a), paint(b), paint(c)];

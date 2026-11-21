@@ -101,9 +101,9 @@ Each chapter needs: a **background** (the empty room and table, first-person fro
 | 4 The Camp | done | all done (Toby is cut off at the chest; the table hides the rest) | greenbacks, the silver presentation watch (title painting done) |
 | 5 The Last Hand | done | all done | gold-dust pouch, 1870s indexed cards; an epilogue painting of the full case (title painting done: Deadwood's main street) |
 | Bonus The Gaming House | New Orleans gaming house: candlelight, iron balconies | Madame Élodie Fontaine, Henri Avery, Captain Lacroix | piquet cards, Spanish silver, a payout board |
-| 6 The Back Room | speakeasy behind a florist's shop: one green lamp, brick, crates of flowers | Nora Shea, Sal Moretti, Gus Lindqvist | a matchbook, chips in a flowerpot |
-| 7 The Desert Classic | 1970s casino tournament room: low ceiling, smoke, patterned carpet | "Tex" Dawson Pruitt, Professor Milton Weiss, Lorraine Fisk | clay chips, a tournament program |
-| 8 The Cercle | private Paris card club: panelled salon, chandelier, cigar smoke | Comte Lucien Varenne, Siobhan Kearney, Dmitri Volkov | plaques (rectangular chips) |
+| 6 The Back Room | done | all done (Nora is cut off at her waistband, Gus above his lap; the table hides the rest) | a matchbook, chips in a flowerpot (title painting done: the florist's shop in the rain) |
+| 7 The Desert Classic | done | all done (Weiss's lap and Lorraine's knee are cut away; the table hides the cuts) | clay chips, a tournament program (title painting done: the strip at dusk) |
+| 8 The Cercle | done | all done (four cards each; Siobhan is cut off at her waist; the table hides the rest) | plaques (rectangular chips) (title painting done: a Paris boulevard at night, the tower across the river) |
 | 9 The Boardwalk | 1990s Atlantic City poker room: neon, mirrors, ocean at the window | Margot Arceneaux, Benny "the Book" Russo, Ruth Goldfarb | Delphine's diary |
 | 10 The Boom | both done: the café's monitor with the online table on its screen, and the televised final table (red felt, black rail) | the three avatars done (shark, star, tiger cub); in person, DeuceSeven done; Nate Crane and Hanbit still needed | title painting, chat window, TV graphics |
 | 11 The Big O | big modern card room in the English Midlands: rows of tables, bright lights | Gaz Whitlock, Kerry-Ann Booth, Mr. Emeka Okafor | |
@@ -124,3 +124,26 @@ The player is never shown, so no art is needed for the Averys. Faces on the chap
 - Silas, Delphine and Ezra: done, cut out from green. Delphine's lace fan is see-through; Ezra's right lens keeps a faint glass sheen where the backdrop showed through.
 - Title painting (the Magnolia Queen at night): done, behind the intro screen.
 - Still to make: silver dollars, the buckhorn knife. The cards and the buck are drawn in code for now.
+
+## Current state, chapter 6
+
+- Background (the brick back room under one green lamp), table front, title painting (the florist's shop in the rain): done. The background's wall calendar came with garbled lettering; the pen strokes of its heading and numbers were painted over with the paper colour and the grid lines kept, so nothing reads as text. Check every new picture for stray or nonsense lettering like this.
+- Sal, Nora and Gus: done, cut out from green, two cards each (seven-card stud starts with two cards down). Gus's picture had stray game text in the green, removed by keeping only the largest connected piece (the figure), and he is cut off above his lap. Nora's had a brownish haze along the bottom of the green, so she is cut off at her waistband first. Sal's green was darker than usual but keyed cleanly as it was.
+- `backRoom.ts` keeps its `rival(...)` blocks and swaps in the art by id (`PAINTED`), which is the same result as overriding `art` on each rival.
+- Still to make: a matchbook, chips in a flowerpot.
+
+## Current state, chapter 7
+
+- Background (the panelled tournament room under amber pendant lamps, a row of mechanical slot machines behind a rope), table front, title painting (the strip at dusk): done. A first version of the room was turned down for oil lanterns and modern video slot machines, which are wrong for 1972; check every new picture against its year.
+- The title painting's signs carry the plain word "CASINO" three times and some nonsense neon lettering (most plainly a teal upright sign on the right). No real casino is named. Left as painted; John to say if he wants it redone.
+- Weiss, Tex and Lorraine: done, cut out from green, two cards each (Hold'em). Tex's picture had a pale blurred blotch in the green, removed by keeping only the largest connected piece (the figure). Weiss was painted with his lap and knee, and Lorraine with a bare knee under her hand; both are cut away along the thigh or hand. A first Lorraine was turned down for blurred hands, stray game text and chips.
+- `desertClassic.ts` keeps its `rival(...)` blocks and swaps in the art by id (`PAINTED`), which is the same result as overriding `art` on each rival.
+- Still to make: clay chips, a tournament program.
+
+## Current state, chapter 8
+
+- Background (the cream and gold panelled club room), table front, title painting (a Paris boulevard at night): done. The first room was rejected because its baize came out stained and its walls peeling: a prompt for a smart room must say the felt and paint are clean, or the tool copies the wear of the reference picture.
+- The Comte Varenne: done, cut out from green. Redone at John's request without a cigar and match; one hand rests at his cravat with the signet ring, and his tell now reads "He turns the signet ring on his finger" to match.
+- Siobhan and Dmitri: done, cut out from green. Both were painted with a fan of five cards, twice, and Omaha is four, so the leftmost card of each fan was removed by hand from the green original (`cercle-fix.py`: the card's face is found between its ink lines and turned to green, and a fresh ink line is drawn along the next card and the hand). Siobhan was also painted on a chair with a knee raised; the chair back beside her jacket is painted out and she is cut off at the waist (`cercle-siobhan-chair.py`). Both scripts are with the originals, in the project's art folder under `layers/cleanup-scripts/`.
+- `cercle.ts` keeps its `rival(...)` blocks and swaps in the art by id (`PAINTED`).
+- Still to make: plaques (rectangular chips).

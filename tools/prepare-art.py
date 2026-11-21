@@ -30,9 +30,12 @@ TABLE_ELLIPSE = {
     'painted-deck': (-0.005, 0.5, 1.005, 1.0),
     'north-road': (-0.005, 0.5, 1.0, 0.985),
     'camp': (-0.005, 0.5, 1.0, 0.985),
+    'back-room': (-0.005, 0.495, 1.0, 0.985),
     'last-hand': (-0.005, 0.5, 1.0, 0.985),
     'boom-cafe': (0.124, 0.49, 0.876, 0.86),
     'boom-final': (0.0, 0.497, 0.993, 0.932),
+    'desert-classic': (-0.005, 0.5, 1.0, 0.985),
+    'cercle': (-0.005, 0.493, 1.005, 0.982),
 }
 # Left, top, right, bottom of the box the table front stays inside, as shares of the picture.
 TABLE_CLIP = {

@@ -197,6 +197,7 @@ export const RIVERBOAT: Chapter = {
     won: [
       'The last of the money is in front of you. Silas Crane tips his hat and slides a worn leather case across the felt.',
       'Inside the lid, in faded ink: “M.A. 1543”. Delphine leans closer. “That deck is older than this river’s name, darling. Let me tell you where it has been.”',
+      'She opens her fan. “It begins three hundred years ago, in an English hall, with a painter’s daughter named Avery…”',
     ],
     lost: [
       'Your last dollar crosses the table. Silas Crane pockets the leather case with a smile.',

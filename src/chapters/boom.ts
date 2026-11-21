@@ -127,7 +127,7 @@ export const BOOM: Chapter = {
       opening: [
         say('narration', 'Six weeks later. Las Vegas. Television lights, three cameras, a crowd behind the rail. Out of eight thousand qualifiers, four players are left, and you are one of them.'),
         say('narration', 'So are DeuceSeven and Hanbit, who flew in from Seoul. And the fourth seat belongs to the player who knocked out half the field online: N0rthStar.'),
-        say('northstar', 'Jamie Avery. I knew the name the minute I saw it. My great-great-great-grandfather lost a deck to yours on a riverboat.'),
+        say('northstar', 'Jamie Avery. I knew the name the minute I saw it. My family lost a deck to yours on a riverboat, a hundred and seventy years ago.'),
         say('northstar', 'Nate Crane. Nice to finally meet you. I want that deck back on national television.'),
       ],
       games: [
@@ -143,12 +143,12 @@ export const BOOM: Chapter = {
   levelLines: [say('narration', 'A message flashes across the screen: BLINDS ARE INCREASING.')],
   intro: [
     '2005. Everyone is playing poker on the internet, and anyone can become a champion: a $5 qualifier can win a seat at the biggest tournament in Las Vegas.',
-    'Jamie Avery is broke, studying at night, and playing in a cramped internet café at 3 a.m. because the dorm Wi-Fi is down. The old family deck sits next to the keyboard, for luck.',
+    'Jamie Avery, Ray’s youngest, is broke, studying at night, and playing in a cramped internet café at 3 a.m. because the dorm Wi-Fi is down. The old family deck sits next to the keyboard, for luck.',
     'At the table: two online pros, DeuceSeven and Hanbit, and a mysterious player called N0rthStar who never types in the chat.',
   ],
   recap: [
     'The Ashcombe deck, painted in 1543, has stayed with the American Avery family for more than two hundred years, through steamboats, wars, speakeasies and casinos.',
-    'The Cranes have wanted it back ever since Kit Avery caught Silas Crane cheating on the Mississippi in 1836.',
+    'In 1995 Ray Avery carried it to Atlantic City; now his youngest, Jamie, has it at college. The Cranes have wanted it back ever since Kit Avery caught Silas Crane cheating on the Mississippi in 1836, and nobody has heard from them since Deadwood in 1876.',
   ],
   history: [
     'In the mid-2000s, online poker boomed. Amateurs who qualified online for a few dollars went on to win the biggest live tournaments, and poker was on television every night.',

@@ -2,10 +2,24 @@
  * Chapter 6, "The Back Room": Seven Card Stud, then Razz, in a Chicago
  * speakeasy in 1926. The first chapter of Part Two. (docs/GAME_OUTLINE.md,
  * "Part Two".) All people and places are fictional.
+ *
+ * Art: the back room, its title painting (the florist's shop in the rain) and
+ * all three rivals are painted (docs/ART.md).
  */
-import { lines, music, rival, say } from './cast';
+import { cutout, lines, music, rival, say } from './cast';
 import { RAZZ_1926, STUD_1926 } from '../games/catalog';
-import type { Chapter } from './types';
+import type { Chapter, Character, CharacterArt } from './types';
+
+const art = (file: string) => `${import.meta.env.BASE_URL}art/back-room/${file}`;
+
+/** The painted rivals, by id: image, width / height, and place on the 1600 x 900 stage. */
+const PAINTED: Record<string, CharacterArt> = {
+  sal: cutout(art('sal.webp'), 0.9356, { x: 340, bottom: 590, height: 450 }),
+  nora: cutout(art('nora.webp'), 1.02, { x: 800, bottom: 505, height: 390 }),
+  gus: cutout(art('gus.webp'), 1.0156, { x: 1265, bottom: 590, height: 450 }),
+};
+const paint = (r: Character): Character => ({ ...r, art: PAINTED[r.id] ?? r.art });
+const painted = ([a, b, c]: Chapter['rivals']): Chapter['rivals'] => [paint(a), paint(b), paint(c)];
 
 export const BACK_ROOM: Chapter = {
   id: 'back-room',
@@ -29,7 +43,7 @@ export const BACK_ROOM: Chapter = {
           lesson: {
             teacher: 'sal',
             before: [
-              say('sal', 'Seven-card stud, Miss Avery. It’s the coming game: two more cards than your grandmother’s, and a lot more to think about.'),
+              say('sal', 'Seven-card stud, Miss Avery. It’s the coming game: two more cards than your mother’s game, and a lot more to think about.'),
               say('sal', 'Everybody antes. You get two cards down and one up. High card up talks first: he can bet or check. Then betting.'),
               say('sal', 'Then three more cards up, one at a time, a bet after each. Then the last card face down. Best five of your seven wins.'),
               say('sal', 'It’s a limit game: bets come in fixed sizes. Ten a bet on the early streets, twenty later. Nobody gets pushed out by one big bet; you get bled slowly. I keep books, I know.'),
@@ -96,7 +110,7 @@ export const BACK_ROOM: Chapter = {
     'Before midnight, a player who goes broke can buy back in. After midnight, in Razz, broke means out.',
     'Be the last one at Nora’s table with money.',
   ],
-  rivals: [
+  rivals: painted([
     rival(
       {
         id: 'sal',
@@ -157,10 +171,16 @@ export const BACK_ROOM: Chapter = {
       'right',
       '#4a5a6a',
     ),
-  ],
+  ]),
   nemesisId: 'nora',
   narratorId: 'nora',
-  scene: { music: music('back-room'), palette: { wall: '#16110f', light: '#e9b86a', felt: '#2a3a2e', rim: '#4a3020' } },
+  scene: {
+    music: music('back-room'),
+    background: art('background.webp'),
+    tableFront: art('table-front.webp'),
+    title: art('title.webp'),
+    palette: { wall: '#16110f', light: '#e9b86a', felt: '#2a3a2e', rim: '#4a3020' },
+  },
   playerPlate: { x: 800, y: 760 },
   keepsake: { name: 'Nora Shea', line: 'The Back Room, 1926. Stud for winners, after all.' },
   story: {

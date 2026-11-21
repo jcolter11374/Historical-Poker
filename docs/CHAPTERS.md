@@ -27,6 +27,12 @@ Each chapter's music (its own original tune, set in `scene.music`) is listed in 
 
 Every rival's personality numbers and tell chances are in the chapter file; the tables below give the character of each so you know what to expect. The numbers are explained in [GAME_DESIGN.md](GAME_DESIGN.md), "How the bots think".
 
+### Chapters that go back in time
+
+Play order is not date order in Part One: 1836, then 1543 and 1763, then 1863 and 1876, with the 1817 bonus last. The game makes that plain instead of hiding it. Chapters 2 and 3 and the bonus set `toldBy` ("Delphine's tale", "Delphine's own tale"), which is printed under the year on their card in the chapter select and on their intro screen; Part One's heading on the chapter select says "It opens in 1836, looks back to 1543, and goes on to 1876"; and the story text carries the frame: chapter 1's ending starts Delphine's telling, chapters 2 and 3 open and close on the riverboat with her, and chapter 4 opens "twenty-seven years" after the riverboat. Part Two runs in date order.
+
+Who is related to whom, with the dates that make it possible, is in [GAME_OUTLINE.md](GAME_OUTLINE.md), "The family lines". Check new story text against it.
+
 ## Part One
 
 ### 1. The River (1836), straight poker
@@ -40,7 +46,7 @@ Ashcombe Hall, Twelfth Night. Nan Avery plays Lady Margery for the deck Nan's fa
 - **Game:** Primero as reconstructed in `src/games/primero.ts` (40 cards, two down, bet, two down, bet, change up to two once, bet). Table stakes: wager any part of your "rest". 1s ante, 2s minimum wager, 200s each, stakes rise every 10 hands.
 - **Teacher:** Brother Anselm, before the first deal and on each street of the first hand.
 - **Cast:** Sir Roland (very loose, drains his cup before a bluff), Lady Margery (tight and strong, turns her signet ring when strong), Brother Anselm (careful, mutters a prayer when weak).
-- **Beats:** before hand 4 Roland wagers and loses his horse; before hand 7 Anselm talks about his abbey. Margery puts the deck on the table once Nan has won a few pots. Finale: Roland or Anselm bows out. Win: she has the case stamped "M.A. 1543".
+- **Beats:** before hand 4 Roland wagers and loses his horse; before hand 7 Anselm talks about his abbey. Margery puts the deck on the table once Nan has won a few pots. Finale: Roland or Anselm bows out. Win: she pays, gives the deck back to Nan, and writes "M.A. 1543" in its case. The intro opens, and the win ending closes, with Delphine telling the tale on the riverboat.
 
 ### 3. The North Road (1763), Brag
 
@@ -74,7 +80,7 @@ The Lucky Nugget, Deadwood. Clara Avery, Kit's granddaughter. The end of Part On
 Maison Fontaine, New Orleans. You play young Delphine, at her aunt's table.
 
 - **Game:** Poque as reconstructed in `src/games/poque.ts`: 32-card piquet deck, five cards each, one betting round, only sets count (fours, threes, a pair; a second pair only breaks ties). Table stakes, $1 ante, $2 minimum, $100 each. The other two parts of the game, and the payout board, are not built.
-- **Teacher:** Henri Avery, Kit's grandfather.
+- **Teacher:** Henri Avery, Will's son and Kit's grandfather.
 - **Cast:** Henri (solid, hums when strong), Madame Élodie (tricky, fans her cards slowly when strong), Captain Lacroix (privateer, loose, laughs too loudly when bluffing).
 - **Beats:** Élodie has won the Ashcombe deck from Henri, and stakes it; Delphine wins it back for him. Finale: Henri or Lacroix bows out.
 
@@ -82,7 +88,7 @@ Maison Fontaine, New Orleans. You play young Delphine, at her aunt's table.
 
 ### 6. The Back Room (1926), Seven Card Stud then Razz
 
-A Chicago speakeasy behind a florist's shop. Edith Avery, Clara's daughter.
+A Chicago speakeasy behind a florist's shop. Edith Avery, Clara's daughter. Fully painted: the brick back room under its green lamp, all three rivals, and a title painting of the shop on a rainy night (`docs/screenshots/chapter-6-intro.jpg`, `chapter-6-table.jpg`).
 
 - **Stages:** hands 1 to 6, Seven Card Stud, taught by Sal Moretti; from hand 7, "Razz, after midnight", taught by Nora Shea. Limit, $10 unit, $400 each, stakes rise every 8 hands. Both are dealt with no bring-in (`stud-1926`, `razz-1926`): everyone antes and the best hand showing (in Razz the lowest) opens every round and may check. The low card's forced bring-in is a later casino rule; chapters 9 and 12 have it.
 - **Cast:** Sal (bookkeeper, careful, taps his pencil when weak), Nora (owner, tricky, laughs and lights a cigarette when bluffing), Gus Lindqvist (truck driver, calls too much, hums a Swedish song when strong).
@@ -90,7 +96,7 @@ A Chicago speakeasy behind a florist's shop. Edith Avery, Clara's daughter.
 
 ### 7. The Desert Classic (1972), Limit then No-Limit Hold'em
 
-A fictional early championship in Las Vegas. Lou Avery.
+A fictional early championship in Las Vegas. Lou Avery. Fully painted: the tournament room under its amber lamps, all three rivals, and a title painting of the strip at dusk (`docs/screenshots/chapter-7-intro.jpg`, `chapter-7-table.jpg`).
 
 - **Stages:** hands 1 to 5, "The side game, the night before", Limit Hold'em; from hand 6, "The Desert Classic: no limit", a tournament where everyone starts again with $500 (`resetStacks`) and blinds rise every 5 hands. Both taught by Professor Weiss.
 - **Cast:** Professor Weiss (careful, polishes his glasses when weak), Tex Pruitt (loose and fast, tips his hat back when bluffing), Lorraine Fisk (former showgirl, her face never moves: a coin flip).
@@ -98,10 +104,10 @@ A fictional early championship in Las Vegas. Lou Avery.
 
 ### 8. The Cercle (1992), Pot-Limit Omaha then Omaha Hi-Lo
 
-A private card club in Paris. Anna Avery, a translator. Money in francs ("1,000 F").
+A private card club in Paris. Anna Avery, a translator. Money in francs ("1,000 F"). Fully painted: the panelled club room, all three rivals, and a title painting of a Paris boulevard at night (`docs/screenshots/chapter-8-intro.jpg`, `chapter-8-table.jpg`).
 
 - **Stages:** hands 1 to 6, Pot-Limit Omaha, taught by Siobhan Kearney; from hand 7, "Omaha Hi-Lo, after two in the morning", taught by the Comte. 20 F unit, 1,000 F each, rising every 8 hands.
-- **Cast:** Siobhan (Irish pro, drums her fingers when bluffing), the Comte Lucien Varenne (club president, tricky, relights a lit cigar when strong), Dmitri Volkov (chess master, perfectly still when weak).
+- **Cast:** Siobhan (Irish pro, drums her fingers when bluffing), the Comte Lucien Varenne (club president, tricky, turns his signet ring when strong), Dmitri Volkov (chess master, perfectly still when weak).
 - **Beats:** before hand 4 the Comte asks to look at the old deck. Finale: Siobhan or Dmitri bows out.
 
 ### 9. The Boardwalk (1995), Stud Hi-Lo

@@ -23,6 +23,7 @@ export const NORTH_ROAD: Chapter = {
   youAre: 'Will Avery, guard on the York stagecoach',
   teaches: 'Brag, the bluffing game of English inns',
   rulesObject: 'The tavern slate',
+  dealerMarker: 'none',
   money: { suffix: 's' },
   stages: [
     {

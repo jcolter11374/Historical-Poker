@@ -23,6 +23,7 @@ export const PAINTED_DECK: Chapter = {
   youAre: 'Nan Avery, a card-painter’s daughter',
   teaches: 'Primero, the courtly ancestor of poker',
   rulesObject: 'The parchment of rules',
+  dealerMarker: 'none',
   money: { suffix: 's' },
   stages: [
     {

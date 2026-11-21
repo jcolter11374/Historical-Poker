@@ -22,6 +22,7 @@ export const KITCHEN_TABLE: Chapter = {
   youAre: 'yourself, the last Avery',
   teaches: 'House extras: bomb pots, double board and the 7-2 bounty',
   rulesObject: 'House rules on the fridge',
+  dealerMarker: 'button',
   stages: [
     {
       fromHand: 1,

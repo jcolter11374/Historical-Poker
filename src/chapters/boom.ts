@@ -36,6 +36,8 @@ export const BOOM: Chapter = {
   youAre: 'Jamie Avery, a student',
   teaches: 'Online Hold’em, then 2-7 Triple Draw and Badugi',
   rulesObject: 'The help screen',
+  dealerMarker: 'online',
+  houseDeals: true,
   stages: [
     {
       fromHand: 1,
@@ -124,6 +126,7 @@ export const BOOM: Chapter = {
       },
       scene: { background: art('background-final.webp'), tableFront: art('table-front-final.webp'), palette: { wall: '#07070c', light: '#e8f0ff', felt: '#1d2c5a', rim: '#3a3a4a' } },
       structure: { unit: 10 },
+      dealerMarker: 'button',
       opening: [
         say('narration', 'Six weeks later. Las Vegas. Television lights, three cameras, a crowd behind the rail. Out of eight thousand qualifiers, four players are left, and you are one of them.'),
         say('narration', 'So are DeuceSeven and Hanbit, who flew in from Seoul. And the fourth seat belongs to the player who knocked out half the field online: N0rthStar.'),
@@ -242,7 +245,7 @@ export const BOOM: Chapter = {
   ],
   nemesisId: 'northstar',
   narratorId: 'deuceseven',
-  scene: { music: music('boom'), background: art('background-cafe.webp'), tableFront: art('table-front-cafe.webp'), pot: { x: 600, y: 500 }, palette: { wall: '#0b0f1a', light: '#6ad0ff', felt: '#1a3a6a', rim: '#2a2f3a' } },
+  scene: { music: music('boom'), background: art('background-cafe.webp'), tableFront: art('table-front-cafe.webp'), palette: { wall: '#0b0f1a', light: '#6ad0ff', felt: '#1a3a6a', rim: '#2a2f3a' } },
   playerPlate: { x: 800, y: 760 },
   keepsake: { name: '“N0rthStar”, Nate Crane', line: 'The Boom, 2005. From a $5 qualifier to the final table.' },
   story: {

@@ -53,12 +53,18 @@ button:disabled { opacity: 0.4; cursor: default; }
 
 .powered-by {
   position: absolute; right: 22px; top: 18px; display: flex; align-items: center; gap: 8px; text-decoration: none;
-  filter: drop-shadow(0 2px 4px #000);
+  filter: drop-shadow(0 2px 4px #000); z-index: 3;
 }
 .powered-by-label { font-family: Arial, Helvetica, sans-serif; font-size: 13px; color: #eef1f4; opacity: 0.85; }
 .powered-by-wordmark { height: 20px; width: auto; }
 
 .corner-links { position: absolute; right: 22px; top: 52px; display: flex; flex-direction: column; align-items: flex-end; gap: 2px; z-index: 2; }
+/* A soft shadow in the corner (no edges, not a panel) so the links read over lamps and bright art. */
+.corner-links::before {
+  content: ''; position: absolute; z-index: -1; pointer-events: none; top: -52px; right: -22px; bottom: -110px; left: -150px;
+  background: radial-gradient(ellipse 100% 100% at 100% 0%, rgba(10, 5, 2, 0.82) 0%, rgba(10, 5, 2, 0.66) 45%, rgba(10, 5, 2, 0) 100%);
+}
+.corner-links button { color: #f3d896; text-shadow: 0 1px 2px #000, 0 2px 8px #000; }
 .corner-links button, .text-link {
   padding: 4px 4px; border: 0; background: none;
   font-family: var(--story); font-style: italic; font-size: 18px; color: #e6c27a; text-decoration: underline; text-underline-offset: 4px;
@@ -79,7 +85,7 @@ button:disabled { opacity: 0.4; cursor: default; }
 .plate-cards-tiny > * + * { margin-left: -6px; }
 .plate-hand { font-weight: 800; font-size: 15px; color: var(--text); margin-top: 4px; white-space: nowrap; }
 .plate-win { font-family: var(--display); font-size: 18px; color: var(--gold); }
-.buck { position: absolute; left: -84px; top: 8px; }
+.buck { position: absolute; left: -84px; top: 32px; }
 
 /* Coins and amount side by side, so the pot is short enough to sit between the seat across and your cards. */
 .pot { position: absolute; transform: translate(-50%, -50%); display: flex; align-items: center; gap: 2px; }
@@ -138,6 +144,9 @@ button:disabled { opacity: 0.4; cursor: default; }
 .board { display: flex; gap: 8px; }
 /* Two boards (bomb pots) side by side, so they stay above your cards. */
 .boards-2 { flex-direction: row; gap: 28px; }
+/* Flop games: the pot sits between the seat across and the board (potSpot in useTableFx.ts), so the board is a little lower and your cards a little smaller. */
+.table-flop .boards { top: 618px; }
+.table-flop .my-hand-low { scale: 0.9; transform-origin: 0 100%; }
 .summary {
   position: absolute; left: 800px; top: 388px; transform: translateX(-50%); width: 760px; text-align: center; z-index: 2;
   font-family: var(--story); font-size: 22px; line-height: 1.3; color: var(--text); text-shadow: 0 2px 8px #000, 0 0 18px #000;
@@ -168,7 +177,9 @@ button:disabled { opacity: 0.4; cursor: default; }
 
 .controls { position: absolute; right: 36px; bottom: 36px; display: flex; justify-content: flex-end; align-items: flex-end; gap: 18px; }
 .waiting { font-family: var(--story); font-style: italic; font-size: 22px; color: var(--muted); padding: 40px 10px; }
-.chip-row { display: flex; gap: 18px; align-items: flex-end; }
+.chip-row { position: relative; display: flex; gap: 18px; align-items: flex-end; }
+/* Pot limit: the sum behind the biggest raise, on one line above the chips. */
+.limit-note { position: absolute; right: 0; bottom: calc(100% + 10px); white-space: nowrap; font-family: var(--story); font-style: italic; font-size: 18px; color: var(--muted); text-shadow: 0 2px 6px #000, 0 0 3px #000; }
 .raise-group { display: flex; flex-direction: column; align-items: center; gap: 8px; }
 .raise-adjust { display: flex; gap: 6px; }
 .raise-adjust button {
@@ -468,6 +479,7 @@ button:disabled { opacity: 0.4; cursor: default; }
 .stage-compact .dialogue-hint .aside { font-size: 16px; }
 .stage-compact .controls { scale: calc(var(--boost) * 0.72); transform-origin: bottom right; right: 18px; bottom: 18px; gap: 14px; }
 .stage-compact .chip-row { gap: 14px; }
+.stage-compact .limit-note { font-size: 21px; }
 /* Less, more and max stand in a column beside the raise chip, below the right-hand seat's cards. */
 .stage-compact .raise-group { flex-direction: row; align-items: center; }
 .stage-compact .raise-adjust { flex-direction: column; }

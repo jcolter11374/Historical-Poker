@@ -31,6 +31,7 @@ export const BACK_ROOM: Chapter = {
   youAre: 'Edith Avery, Clara’s daughter',
   teaches: 'Seven Card Stud, then Razz',
   rulesObject: 'Rules on a matchbook',
+  dealerMarker: 'buck',
   stages: [
     {
       fromHand: 1,

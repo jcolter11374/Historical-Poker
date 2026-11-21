@@ -21,6 +21,7 @@ export const RIVERBOAT: Chapter = {
   youAre: 'Kit Avery',
   teaches: 'Straight poker, the first game called poker',
   rulesObject: 'Rules of 1836',
+  dealerMarker: 'buck',
   // One unit of $2: a $1 ante and a $2 minimum bet.
   stages: [{ fromHand: 1, games: [{ game: GAME_ID, betting: 'no-limit' }], structure: { unit: 2 } }],
   startingStack: 100,

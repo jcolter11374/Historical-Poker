@@ -645,7 +645,7 @@ Match the attached image's art style exactly: painted, hand-inked lines, worn te
 
 ## The opening and the ending
 
-Paintings for the two picture sequences that frame the game: the feud at its most bitter before the chapter select, and the same people seen kindly after the epilogue (`src/story/montages.ts`; [GAME_DESIGN.md](GAME_DESIGN.md), "The opening and the ending"). **John has not yet approved the moments and captions: make no picture here until he has.**
+Paintings for the two picture sequences that frame the game: the feud at its most bitter before the chapter select, and the same people seen kindly after the epilogue (`src/story/montages.ts`; [GAME_DESIGN.md](GAME_DESIGN.md), "The opening and the ending"). John approved the moments and captions on 2026-11-21 ("go ahead and do it"), so these can be made, one picture at a time.
 
 Reference to attach to every one: `art/last-hand-title.jpg` (a finished title painting). These are scenes with people in them, seen from a little way off, like a film still. A caption sits along the bottom, so each prompt asks for a darker, quiet bottom quarter. Save each into `public/art/montage/` under the name given, then set that slide's `image` in `src/story/montages.ts` (and drop its `standIn`). Until a picture exists, the slide shows the stand-in named here.
 

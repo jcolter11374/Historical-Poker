@@ -29,25 +29,27 @@ export const LAST_HAND: Chapter = {
       games: [
         {
           game: DRAW5_ID,
-          betting: 'pot-limit',
+          betting: 'spread-limit',
           lesson: {
             teacher: 'ruby',
             before: [
-              say('ruby', 'House rules, honey, so nobody gets shot over a misunderstanding. We play draw. Everybody antes, everybody gets five cards, face down.'),
-              say('ruby', 'One round of betting. Then the draw: throw away up to three cards and I deal you new ones. Four, if the card you keep is an ace.'),
-              say('ruby', 'Then we bet again, and the best hand takes it. Straights and flushes count, same as anywhere civilized.'),
+              say('ruby', 'House rules, honey, so nobody gets shot over a misunderstanding. We play draw. The age, that’s whoever sits left of the dealer, puts up the ante blind. Two dollars. Then everybody gets five cards, face down.'),
+              say('ruby', 'To come in you put up double the ante, four dollars, or raise it. The age speaks last and makes his ante good, or lets it go.'),
+              say('ruby', 'Then the draw: throw away as many cards as you like and I deal you new ones. All five if you must, though I never saw it end well.'),
+              say('ruby', 'Then we bet again, man left of the age first, and the best hand takes it. Straights and flushes count, same as anywhere civilized.'),
+              say('ruby', 'My limit is twenty dollars: no bet and no raise bigger than that. Raise as often as you dare. And no jack pots in my house. That’s a fashion for men afraid to bet.'),
               say('ruby', 'And watch how many cards a man draws. A man who takes one card is chasing a straight or a flush. A man who takes none is either very good or very brave.'),
             ],
             streets: {
               0: [say('ruby', 'Look at your five. A pair of jacks or better is worth a bet. Less than that, you’re hoping the draw saves you.')],
-              1: [say('ruby', 'Time to draw. Click the cards you want to throw away, then draw. Keep your pairs, throw the rest. Four to a flush? Throw the odd one.')],
+              1: [say('ruby', 'Time to draw. Pick the cards you want to throw away, then draw. Keep your pairs, throw the rest. Four to a flush? Throw the odd one.')],
             },
           },
         },
       ],
     },
   ],
-  startingStack: 120,
+  startingStack: 240,
   levelEvery: 10,
   levelLines: [say('narration', 'The lamps are lit. The piano player switches to something faster, and Ruby raises the ante.')],
   intro: [
@@ -62,10 +64,10 @@ export const LAST_HAND: Chapter = {
   history: [
     'Draw poker was first described in print in 1850. By 1875 The American Hoyle listed draw, stud and “jackpots”, and poker was played in saloons from San Francisco to New York.',
     'On August 2, 1876, Wild Bill Hickok was shot dead at a poker table in Deadwood’s Saloon No. 10. The hand he is said to have held, aces and eights, is still called the dead man’s hand, though the story was first told in the 1920s.',
-    '“Jackpots”, where you need a pair of jacks or better to open the betting, were new: they first appear in print in 1875.',
+    '“Jackpots”, where you need a pair of jacks or better to open the betting, were new: they first appear in print in 1875. The plain game had no such rule, and you could draw as many as five cards.',
   ],
   howToWin: [
-    'Everyone antes $2; the smallest bet is $4, and no bet may be larger than the pot.',
+    'The player left of the dealer antes $2 blind; it costs $4 to come in. No bet or raise may be more than the limit, $20 to start, but there is no end to the raising. The ante and the limit go up as the night goes on.',
     'Be the last one at Ruby’s table with money, and the feud is settled.',
   ],
   rivals: [

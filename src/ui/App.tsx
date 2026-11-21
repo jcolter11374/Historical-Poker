@@ -34,7 +34,7 @@ import { ChapterSelect } from './ChapterSelect';
 import { PracticeScreen } from './PracticeScreen';
 import { PoweredBy } from './PoweredBy';
 import { Face, SceneBack } from './Scene';
-import { Stage } from './Stage';
+import { focusOnMount, Stage } from './Stage';
 import { playMusic, setMusicOn, setSoundOn, unlock } from './sound';
 import { TableScreen } from './TableScreen';
 
@@ -212,7 +212,7 @@ function IntroScreen({
           ))}
         </ul>
         <div className="story-buttons">
-          <button type="button" className="chip chip-raise chip-wide" onClick={() => onStart(false)} autoFocus>
+          <button type="button" className="chip chip-raise chip-wide" onClick={() => onStart(false)} ref={focusOnMount}>
             {saved ? `Back to the table (hand ${saved.handNumber + 1})` : 'Take a seat'}
           </button>
           {saved && (
@@ -256,11 +256,11 @@ function EndScreen({ chapter, won, onAgain, onNext, onCase, musicLink }: { chapt
         {chapter.history.map((p) => <p key={p} className="history">{p}</p>)}
         <div className="story-buttons">
           {next ? (
-            <button type="button" className="chip chip-raise chip-wide" onClick={() => onNext(next)} autoFocus>
+            <button type="button" className="chip chip-raise chip-wide" onClick={() => onNext(next)} ref={focusOnMount}>
               On to {next.title}
             </button>
           ) : (
-            <button type="button" className="chip chip-raise chip-wide" onClick={won ? onCase : onAgain} autoFocus>
+            <button type="button" className="chip chip-raise chip-wide" onClick={won ? onCase : onAgain} ref={focusOnMount}>
               {won ? 'Back to the deck case' : 'Try again'}
             </button>
           )}

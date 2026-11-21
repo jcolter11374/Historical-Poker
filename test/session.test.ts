@@ -1,5 +1,9 @@
 import { describe, expect, it } from 'vitest';
+import type { Card } from '@rsdp/engine/core';
+import { seeded } from '../src/bots/random';
+import { LAST_TABLE } from '../src/chapters/lastTable';
 import { RIVERBOAT } from '../src/chapters/riverboat';
+import { getGame } from '../src/games/catalog';
 import { HUMAN, Session } from '../src/table/session';
 import { playOut } from './helpers';
 
@@ -26,5 +30,41 @@ describe('a riverboat session', () => {
     const s = new Session(RIVERBOAT, { seed: 2, skipTutorial: true });
     s.startHand();
     if (s.toAct !== HUMAN) expect(() => s.act({ type: 'fold' })).toThrow();
+  });
+});
+
+describe('a finished hand in a rotation', () => {
+  it('is still described by its own game after the next game is set up', () => {
+    // HORSE changes game every few hands; between hands `play` is already the next game.
+    const deal = seeded(41);
+    const s = new Session(LAST_TABLE, { seed: 41, dealRng: (n) => deal.int(n), skipTutorial: true, simTrials: 16 });
+    let changes = 0;
+    for (let n = 0; n < 40 && !s.snapshot().outcome; n++) {
+      while (s.inScene) s.advanceScene();
+      s.startHand();
+      const play = s.snapshot().play;
+      const game = getGame(play.gameId);
+      while (s.handInProgress) {
+        while (s.inScene) s.advanceScene();
+        if (!s.handInProgress) break;
+        if (s.toAct === HUMAN) {
+          if (s.drawLimit() !== null) s.draw([]);
+          else {
+            const legal = s.legal()!;
+            s.act(legal.canBringIn ? { type: 'bring-in' } : legal.canCheck ? { type: 'check' } : { type: 'call' });
+          }
+        } else s.botStep();
+      }
+      const snap = s.snapshot();
+      if (snap.play.gameId !== play.gameId) changes++;
+      const hand = snap.hand!;
+      expect(hand.family).toBe(play.family);
+      const board = hand.boards[0] ?? [];
+      for (const p of Object.values(hand.players)) {
+        if (p.handName) expect(p.handName).toBe(game.describe(p.cards as Card[], board) || null);
+      }
+      if (hand.myCards.length) expect(hand.myHandName).toBe(game.describe(hand.myCards.map((c) => c.card), board));
+    }
+    expect(changes).toBeGreaterThan(2);
   });
 });

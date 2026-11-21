@@ -23,7 +23,7 @@ import { Rival, SceneBack, SceneFront } from './Scene';
 import { playMusic } from './sound';
 import { useCompact } from './Stage';
 import { potLimitWords } from '../table/stakes';
-import { PLAYER_SPOT, potSpot, seatSpot, useTableFx, type Flight, type Point } from './useTableFx';
+import { PLAYER_SPOT, betSpot, potSpot, seatSpot, useTableFx, type Flight, type Point } from './useTableFx';
 
 /** How long a rival "thinks" before acting, in ms. */
 const BOT_DELAY = 1100;
@@ -135,6 +135,7 @@ export function TableScreen({
   };
 
   const hand = snap.hand;
+  const swept = hand ? hand.pot - Object.values(hand.players).reduce((n, p) => n + p.bet, 0) : 0;
   const speaker = snap.speech ? snap.seats[snap.speech.seat] : null;
   const line = snap.scene ?? hint;
   const betweenHands = (!hand || hand.complete) && snap.handNumber > 0;
@@ -226,10 +227,19 @@ export function TableScreen({
 
       {hand && !hand.complete && (
         <div className="pot" style={{ left: potSpot(flop, compact).x, top: potSpot(flop, compact).y }}>
-          <Coins key={hand.pot > 0 ? 'full' : 'empty'} />
+          {/* Chips lie in the middle once a round's bets are swept in. The amount is the whole pot, bets in front of the players included (what pot limit and Math Mode count). */}
+          {swept > 0 && <Coins key={swept} />}
           <div className="pot-amount">{money(hand.pot)}</div>
         </div>
       )}
+
+      {/* Each seat's bets this round (the blinds first), in front of them until the round ends. */}
+      {hand &&
+        !hand.complete &&
+        Object.entries(hand.players).map(([k, p]) =>
+          // Yours sit beside your cards (PlayerHand).
+          p.bet > 0 && Number(k) !== HUMAN ? <BetChips key={`${k}/${hand.street}`} at={betSpot(rivals, Number(k), flop, compact)} amount={money(p.bet)} label={p.posted} /> : null,
+        )}
 
       {hand?.complete && hand.summary && <div className="summary">{hand.summary}</div>}
 
@@ -427,6 +437,24 @@ function ChipFlight({ flight }: { flight: Flight }) {
   );
 }
 
+/** A seat's bet this round, lying on the felt in front of it; for a blind, what it is. */
+function BetChips({ at, amount, label }: { at?: Point; amount: string; label: string | null }) {
+  return (
+    <div className={`bet${at ? '' : ' bet-mine'}`} style={at ? { left: at.x, top: at.y } : undefined}>
+      {/* Re-mounts when the amount changes, so it lands after the chips fly in. */}
+      <div key={amount} className="bet-in">
+        <svg width="44" height="30" viewBox="0 0 44 30" aria-hidden="true">
+          {[0, 1, 2].map((i) => (
+            <ellipse key={i} cx="22" cy={22 - i * 5} rx="18" ry="6" fill={i === 2 ? '#f4f1e6' : i % 2 ? '#e3b24c' : '#cfc9b8'} stroke="#5e5646" />
+          ))}
+        </svg>
+        <div className="bet-amount">{amount}</div>
+        {label && <div className="bet-label">{label}</div>}
+      </div>
+    </div>
+  );
+}
+
 function Coins() {
   return (
     <svg width="122" height="44" viewBox="16 0 122 44" aria-hidden="true">
@@ -528,27 +556,31 @@ function PlayerHand({
   const me = snap.seats[HUMAN];
   const folded = hand.players[HUMAN]?.folded;
   const won = hand.complete ? hand.winners.filter((w) => w.seat === HUMAN).reduce((n, w) => n + w.amount, 0) : 0;
+  const myBet = hand.players[HUMAN]?.bet ?? 0;
   const n = hand.myCards.length;
   const mid = (n - 1) / 2;
   const tilt = n > 5 ? 4 : 7;
   return (
     <div className={`my-hand${lowered ? ' my-hand-low' : ''}`}>
-      <div className={`my-cards${folded ? ' my-cards-folded' : ''}${n > 5 ? ' my-cards-many' : ''}${selectable ? ' my-cards-draw' : ''}`}>
-        {hand.myCards.map((c, i) => {
-          const lift = selected.includes(i) ? -48 : 0;
-          const style = { transform: `rotate(${(i - mid) * tilt}deg) translateY(${Math.abs(i - mid) * 8 + lift}px)` };
-          const card = <Card card={c.card} className={c.up ? 'card-up' : ''} style={style} />;
-          const deal = { ...dealFrom, '--delay': `${Math.min(i, 4) * 0.1}s` } as CSSProperties;
-          return selectable ? (
-            <button key={c.card} type="button" className="card-button deal-in" style={deal} onClick={() => onToggle(i)} aria-pressed={selected.includes(i)}>
-              {card}
-            </button>
-          ) : (
-            <div key={c.card} className="deal-in" style={deal}>
-              {card}
-            </div>
-          );
-        })}
+      <div className="my-cards-wrap">
+        <div className={`my-cards${folded ? ' my-cards-folded' : ''}${n > 5 ? ' my-cards-many' : ''}${selectable ? ' my-cards-draw' : ''}`}>
+          {hand.myCards.map((c, i) => {
+            const lift = selected.includes(i) ? -48 : 0;
+            const style = { transform: `rotate(${(i - mid) * tilt}deg) translateY(${Math.abs(i - mid) * 8 + lift}px)` };
+            const card = <Card card={c.card} className={c.up ? 'card-up' : ''} style={style} />;
+            const deal = { ...dealFrom, '--delay': `${Math.min(i, 4) * 0.1}s` } as CSSProperties;
+            return selectable ? (
+              <button key={c.card} type="button" className="card-button deal-in" style={deal} onClick={() => onToggle(i)} aria-pressed={selected.includes(i)}>
+                {card}
+              </button>
+            ) : (
+              <div key={c.card} className="deal-in" style={deal}>
+                {card}
+              </div>
+            );
+          })}
+        </div>
+        {myBet > 0 && !hand.complete && <BetChips amount={money(myBet)} label={hand.players[HUMAN]?.posted ?? null} />}
       </div>
       <div className="my-line">
         <span className="my-hand-name">{folded ? 'You folded' : hand.myHandName}</span>

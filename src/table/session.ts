@@ -152,6 +152,8 @@ export interface PlayerView {
   folded: boolean;
   /** Chips bet this round. */
   bet: number;
+  /** While the chips in front of them are only a blind they were made to post: 'small blind', 'big blind', 'blind ante'. */
+  posted: string | null;
   lastAction: string | null;
   /** Every card they hold, in order; null where it is face down to you. */
   cards: (Card | null)[];
@@ -1124,6 +1126,7 @@ export class Session {
       players[x.seat] = {
         folded: x.folded,
         bet: x.bet,
+        posted: x.bet > 0 && x.lastAction === null && s.street === 0 ? this.postedName(s, x.seat) : null,
         // A bring-in of nothing (stud with no bring-in) is a check.
         lastAction: x.lastAction === 'Bring-in' && s.input.stakes.bringIn === 0 ? 'Check' : x.lastAction,
         cards,
@@ -1151,6 +1154,15 @@ export class Session {
       legal: s.phase === 'betting' && myTurn ? this.legalFor(HUMAN) : null,
       draw: s.phase === 'drawing' && myTurn ? this.drawView(s, myCards.length) : null,
     };
+  }
+
+  /** The live forced bet a seat posted this hand, in words (the bet still in front of them). */
+  private postedName(s: HandState, seat: SeatIndex): string | null {
+    const post = s.events.find((e) => e.t === 'post' && e.seat === seat && e.live);
+    if (!post || post.t !== 'post') return null;
+    if (post.kind === 'small-blind') return 'small blind';
+    if (post.kind === 'big-blind') return this.handGame.forced === 'age' ? 'blind ante' : 'big blind';
+    return null;
   }
 
   private drawView(s: HandState, held: number): NonNullable<HandView['draw']> {

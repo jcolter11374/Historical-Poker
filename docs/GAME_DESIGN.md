@@ -122,7 +122,7 @@ Ideas not built yet are in [ROADMAP.md](ROADMAP.md).
 
 ### Sound and motion
 
-- **Motion:** cards fly in from whoever deals (the seat with the buck or the button), one at a time, and turn over when shown; antes and bets slide from the seat to the pot; the pot slides to the winner when the hand ends, and "wins $N" pops up. Lines of dialogue fade in. Anyone whose system asks for reduced motion gets none of this.
+- **Motion:** cards fly in from whoever deals (the seat with the buck or the button), one at a time, and turn over when shown; antes slide from the seat to the pot; blinds and bets slide onto the felt in front of the seat and stay there, with their amount (and "small blind", "big blind" or "blind ante" while a blind is untouched), until the betting round ends and they are swept into the pot; the pot slides to the winner when the hand ends, and "wins $N" pops up. Lines of dialogue fade in. Anyone whose system asks for reduced motion gets none of this.
 - **Sound effects:** a swish per card dealt, a flip for board cards, a riffle when you draw, a clack of chips for a bet (a bigger one for all in), two knocks for a check, a soft swish for a fold, chips gathering for a pot, a flourish with a little bell when you take a good pot, a low two-note sigh when you lose a showdown, and a quiet bell when it's your turn. All made in code (`src/ui/sound.ts`), no recordings.
 - **Music:** every chapter has its own original loop in the sound of its era (a steamboat waltz, a Tudor galliard, a speakeasy stomp, a Paris musette, a Macau night...), quiet under the table, fading between chapters ([MUSIC.md](MUSIC.md)).
 - **Switches:** "Sound on/off" and "Music on/off" in the table's corner links, "Music on/off" on the intro and ending, and Sound and Music boxes on the chapter select. Saved with your progress.
@@ -136,7 +136,7 @@ Ideas not built yet are in [ROADMAP.md](ROADMAP.md).
 - **Corner links:** the links in the top right sit on a soft shadow that fades into the painting (no edge, not a panel), so they read over lamps and bright art.
 - **Bigger words and chips:** when the screen draws the table at less than three quarters size, names, money, dialogue, links and chips are enlarged (up to 1.6 times) while the painting stays the same. The pot stays on the felt (see "Where things sit on the felt" below).
 - **Room for your cards:** on small screens your hand name and your purse sit on two lines under your cards, the raise's "−, +, Max" stand in a column beside the raise chip, and the draw note sits beside the Draw chip, so nothing covers your cards or the right-hand seat. A long showdown line grows upward from above the seat across, and in flop games the board sits a little lower so the seat across can show its hand.
-- **Story screens start at the top:** the intro and ending scroll on a phone; they open at the first line, not at the button.
+- **Story screens start at the top:** the intro and ending scroll on a phone; they open at the first line, not at the button. On a computer they never scroll: a long one is drawn a little smaller so all of it, button included, fits the screen.
 - **Full screen:** added to the home screen, the game opens full screen and sideways (`public/manifest.webmanifest`).
 
 ## Practice

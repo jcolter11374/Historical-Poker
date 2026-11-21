@@ -3,7 +3,9 @@
  * changed into sounds (src/ui/sound.ts) and chips flying across the felt.
  *
  *   new cards          -> a card swish per card (a flip for board cards)
- *   a bet, call, raise -> chips slide from that seat to the pot, with a clack
+ *   a blind, bet, call -> chips slide from that seat onto the felt in front of
+ *                         it, with a clack (TableScreen draws them there)
+ *   the round ends     -> the chips in front of each seat slide into the pot
  *   a check            -> two knocks on the table
  *   a fold             -> a soft swish
  *   your draw          -> a riffle
@@ -59,6 +61,24 @@ export function potSpot(flop: boolean, compact = false): Point {
   return compact ? { x: 800, y: 668 } : { x: 800, y: 630 };
 }
 
+/**
+ * Where a seat's bets for this round sit, on the felt between it and the pot
+ * (blinds are posted here before the deal). Seats beside the pot go a
+ * fraction of the way towards it; the seat across, right above the pot, puts
+ * them beside its cards, away from the pot. Yours sit just left of your cards (TableScreen
+ * draws them there; this is only where the chips fly to).
+ */
+export function betSpot(rivals: Character[], seat: SeatIndex, flop: boolean, compact = false): Point {
+  if (seat === HUMAN) return compact ? { x: 560, y: 740 } : { x: 600, y: 730 };
+  const pot = potSpot(flop, compact);
+  const p = rivals[seat - 1].plate;
+  const from = { x: p.x, y: p.y + 70 };
+  // Across: beside its cards, on the side away from the pot (on small screens the pot moves left in flop games).
+  if (Math.abs(p.x - 800) < 160) return { x: p.x + (pot.x < p.x - 60 ? 130 : -130), y: p.y + 72 };
+  const f = compact ? (flop ? 0.22 : 0.36) : 0.4; // small screens: plates are enlarged, so stay nearer the seat
+  return { x: Math.round(from.x + (pot.x - from.x) * f), y: Math.round(from.y + (pot.y - from.y) * f) };
+}
+
 const FLIGHT_MS = 650;
 let nextId = 1;
 
@@ -106,10 +126,14 @@ export function useTableFx(rivals: Character[], snap: Snapshot, compact: boolean
     const boardBefore = sameHand ? before!.hand!.boards.reduce((n, b) => n + b.length, 0) : 0;
     for (let i = 0; i < Math.min(boardNow - boardBefore, 5); i++) sounds.push(['flip', 120 + i * 90]);
 
-    // Betting.
+    // Betting. Chips go out in front of the seat, and into the pot when the round is over.
+    const bets = (k: number) => betSpot(rivals, k, flop, compact);
     if (!sameHand) {
-      // Antes and blinds go in as the hand starts.
-      for (const seat of Object.keys(h.players).map(Number)) add.push({ id: nextId++, from: seatSpot(rivals, seat), to: pot, delay: seat * 40, big: false });
+      // Antes go straight into the pot; blinds are posted in front of the seat.
+      for (const [k, p] of Object.entries(h.players)) {
+        const seat = Number(k);
+        add.push({ id: nextId++, from: seatSpot(rivals, seat), to: p.bet > 0 ? bets(seat) : pot, delay: seat * 40, big: false });
+      }
       sounds.push(['chip', 0]);
     } else {
       for (const [k, p] of Object.entries(h.players)) {
@@ -117,9 +141,12 @@ export function useTableFx(rivals: Character[], snap: Snapshot, compact: boolean
         const was = before!.hand!.players[seat];
         if (!was) continue;
         if (p.folded && !was.folded) sounds.push(['fold', 0]);
-        else if (p.bet > was.bet) {
-          add.push({ id: nextId++, from: seatSpot(rivals, seat), to: pot, delay: 0, big: p.lastAction === 'All in' });
+        if (p.bet > was.bet) {
+          add.push({ id: nextId++, from: seatSpot(rivals, seat), to: bets(seat), delay: 0, big: p.lastAction === 'All in' });
           sounds.push([p.lastAction === 'All in' ? 'chips' : 'chip', 0]);
+        } else if (p.bet < was.bet) {
+          // The round is over: sweep the bets into the middle.
+          add.push({ id: nextId++, from: bets(seat), to: pot, delay: 0, big: false });
         } else if (p.lastAction === 'Check' && was.lastAction !== 'Check') sounds.push(['check', 0]);
       }
     }

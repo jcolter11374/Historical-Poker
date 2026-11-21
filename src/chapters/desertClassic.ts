@@ -182,6 +182,16 @@ export const DESERT_CLASSIC: Chapter = {
   playerPlate: { x: 800, y: 760 },
   keepsake: { name: '“Tex” Dawson Pruitt', line: 'The Desert Classic, 1972. All in, and all out.' },
   story: {
+    moments: [
+      {
+        beforeHand: 3,
+        lines: [
+          say('tex', 'You the Avery with the old painted cards? A lawyer wrote me in Amarillo. Good money to any man who could win them off you. Polite letter. No name on it.'),
+          say('narration', 'Lou knows the letters. His mother got them for forty years, and they have grown more polite each time. This year’s said “a fair price, at your convenience”. No Avery has ever answered one.'),
+          say('tex', 'I wrote back that I play for my own self, partner. No offense to your cards.'),
+        ],
+      },
+    ],
     dealer: ['Blinds, please. Cards in the air.', 'Shuffle up and deal.', 'Blinds in. Here they come.'],
     exits: {
       weiss: [say('narration', 'Professor Weiss shakes every hand at the table, and leaves to write a paper on what just happened.')],

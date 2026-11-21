@@ -105,10 +105,11 @@ Each chapter needs: a **background** (the empty room and table, first-person fro
 | 7 The Desert Classic | done | all done (Weiss's lap and Lorraine's knee are cut away; the table hides the cuts) | clay chips, a tournament program (title painting done: the strip at dusk) |
 | 8 The Cercle | done | all done (four cards each; Siobhan is cut off at her waist; the table hides the rest) | plaques (rectangular chips) (title painting done: a Paris boulevard at night, the tower across the river) |
 | 9 The Boardwalk | done | all done | Delphine's diary (title painting done: the boardwalk at dusk) |
-| 10 The Boom | both done: the café's monitor with the online table on its screen, and the televised final table (red felt, black rail) | the three avatars done (shark, star, tiger cub); in person, DeuceSeven done; Nate Crane and Hanbit still needed | title painting, chat window, TV graphics |
+| 10 The Boom | both done: the café's monitor with the online table on its screen, and the televised final table (red felt, black rail) | the three avatars done (shark, star, tiger cub); in person, DeuceSeven done; Nat Crane and Hanbit still needed | title painting, chat window, TV graphics |
 | 11 The Big O | big modern card room in the English Midlands: rows of tables, bright lights | Gaz Whitlock, Kerry-Ann Booth, Mr. Emeka Okafor | |
-| 12 The Last Table | private room over Macau harbour at night: one table, city lights | Victor Crane (riverboat cufflinks), Mei Lin Chau, Rafael Duarte | the tablet menu, tea set |
-| Epilogue The Kitchen Table | a kitchen at night: warm light, pizza box, mismatched chips | Marcus, Priya, Dee | the full leather case on the counter |
+| 12 The Last Table | private room over Macau harbour at night: one table, city lights | Mei Lin Chau, Elena Crane (the love interest, a top pro), Victor Crane (riverboat cufflinks, now in the right seat) | the tablet menu, tea set |
+| Epilogue The Kitchen Table | a kitchen at night, the evening after a wedding: warm light, wedding cake, mismatched chips | Dee only: Victor and Elena reuse their chapter 12 pictures (Marcus and Priya speak but are not seen) | the full leather case on the counter |
+| The opening and the ending | nine paintings in the style of the title paintings, one per slide (three more are optional) | none | see [ART_PROMPTS.md](ART_PROMPTS.md), "The opening and the ending" |
 
 The player is never shown, so no art is needed for the Averys. Faces on the chapter select and keepsakes are cropped from the character art, so no separate portraits are needed.
 
@@ -116,7 +117,7 @@ The player is never shown, so no art is needed for the Averys. Faces on the chap
 
 - Café background and table front, the three avatars, the final table background and table front, DeuceSeven in person: done. Nothing needed cleaning up: no lettering or stray marks in any of the six.
 - The café picture differs from its prompt in two ways that were kept: the table on the screen is cut off by the monitor frame at the sides, and its rim is brown wood, not a dark rail. Seats, cards, the board and the pot all sit on it (screenshot: `docs/screenshots/chapter-10-table.jpg`).
-- Still to make: Nate Crane and Hanbit in person (silhouettes at the final table until then; screenshot `docs/screenshots/chapter-10-final-table.jpg`), and the title painting (the intro shows the café until then).
+- Still to make: Nat Crane and Hanbit in person (silhouettes at the final table until then; screenshot `docs/screenshots/chapter-10-final-table.jpg`), and the title painting (the intro shows the café until then).
 
 ## Current state, bonus chapter (The Gaming House)
 

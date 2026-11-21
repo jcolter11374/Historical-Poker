@@ -1,7 +1,10 @@
 /**
  * Chapter 12, "The Last Table": HORSE, then the 8-Game mix, in a private
  * high-stakes room in Macau, today. The finale of Part Two: the Crane feud
- * ends for good. All people and places are fictional.
+ * ends for good. The player is himself here, the last Avery, and the rival
+ * is Elena Crane, Victor's daughter, whom he falls for across the table (the
+ * epilogue is the home game after their wedding). All people and places are
+ * fictional.
  *
  * Every game was taught in an earlier chapter, but a player may jump straight
  * here, so Mei Lin Chau gives a short lesson the first time each one is dealt.
@@ -22,7 +25,7 @@ export const LAST_TABLE: Chapter = {
   title: 'The Last Table',
   year: 'Today',
   place: 'A private high-stakes room, Macau',
-  youAre: 'You',
+  youAre: 'yourself, the last Avery',
   teaches: 'HORSE, then the 8-Game mix',
   rulesObject: 'The tablet menu',
   dealerMarker: 'button',
@@ -73,12 +76,13 @@ export const LAST_TABLE: Chapter = {
   levelLines: [say('narration', 'Midnight over the harbour. A host in a dark suit brings tea, and the limits go up.')],
   intro: [
     'Macau, today. On the top floor of a hotel over the harbour, a private room with one table, a dealer, and four chairs.',
-    'You are the latest of the Averys to hold the Ashcombe deck. You have brought it because of an invitation from Victor Crane, Nate’s uncle and, by his own account, the last Crane who still wants it: one game, every game, for the deck, and the end of the feud.',
-    'He has asked a local legend, Mei Lin Chau, to sit in and explain each game. She has played every one of them, everywhere.',
+    'You are the latest of the Averys to hold the Ashcombe deck. Sophie Avery put it in your hands, with the bundle that comes with it: ninety years of lawyers’ letters with no name on them, and one handwritten note signed “E. Crane”, asking only to see it.',
+    `Now there is an invitation from Victor Crane, Nat’s uncle: one night, every game, for the deck, and the end of the feud. “I am too old to want anything,” he writes. “My daughter plays for the family.” E. Crane turns out to be Elena: one of the best professional players in the world, the best Crane who ever sat down, and not at all what you expected.`,
+    'Victor will sit in to see it done, and a local legend, Mei Lin Chau, will explain each game.',
   ],
   recap: [
     'The Ashcombe deck was painted in Kent in 1543. It crossed to America in 1763, and the Avery family has kept it through every kind of poker since: straight poker, stud, draw, Hold’em, Omaha, triple draw and more.',
-    'The Crane family has wanted it back since Kit Avery caught Silas Crane cheating on a steamboat in 1836. In 2005, Nate Crane lost to Jamie Avery on live television. Tonight it ends.',
+    'The Crane family has wanted it since 1543, when it was promised to one of them and won by an Avery instead. They held it once, by cheating, until Kit Avery won it back on a steamboat in 1836; their lawyers have written about it, with no name, since the 1920s. In 2005, Nat Crane lost to Jamie Avery on live television. Tonight it ends.',
   ],
   history: [
     'Mixed games rotate several kinds of poker, so a player must be good at all of them. HORSE, five limit games in turn, became a championship event in the 2000s.',
@@ -114,10 +118,32 @@ export const LAST_TABLE: Chapter = {
     ),
     rival(
       {
+        id: 'crane',
+        name: 'Elena',
+        fullName: `Elena Crane`,
+        role: 'Victor’s daughter, a top professional: the best Crane who ever sat down',
+        personality: { valueAt: 1.35, bluff: 0.18, caution: 0.01, betSize: 0.75, trap: 0.25, respect: 0.6, reads: 0.9 },
+        tell: { text: `She looks up at you before she bets.`, signals: 'bluffing', showsWhenTrue: 0.65, showsWhenFalse: 0.25 },
+        lines: lines({
+          bet: ['Raise.', 'Bet. Are you watching me, or the cards?', 'Let’s see what an Avery does with that.', 'I do this for a living. Raise.'],
+          call: ['Call.', 'I’ll see it.'],
+          fold: ['Yours.', 'Fold. Don’t look so pleased.'],
+          check: ['Check.'],
+          win: ['Thank you.', 'Silas would have cheated for that one. I didn’t need to.'],
+          bust: 'That’s it, then. Keep it. It was always yours.',
+          draw: ['One.', 'Two cards.'],
+          pat: ['Pat.'],
+        }),
+      },
+      'across',
+      '#5a1f2e',
+    ),
+    rival(
+      {
         id: 'victor',
         name: 'Victor',
         fullName: 'Victor Crane',
-        role: 'The last Crane who still wants the deck',
+        role: `Elena’s father, who started tonight with a letter`,
         personality: { valueAt: 1.3, bluff: 0.2, caution: 0.0, betSize: 0.75, trap: 0.25, respect: 0.5, reads: 0.7, tilt: 0.1 },
         tell: { text: 'He straightens his cufflinks: little gold riverboats.', signals: 'bluffing', showsWhenTrue: 0.65, showsWhenFalse: 0.25 },
         lines: lines({
@@ -125,69 +151,78 @@ export const LAST_TABLE: Chapter = {
           call: ['Call.', 'I’ll see it.'],
           fold: ['Yours.', 'Fold.'],
           check: ['Check.'],
-          win: ['Thank you.', 'Two hundred years, and the Cranes are due.'],
-          bust: 'That’s it, then. Nearly two hundred years. Keep it. It was always yours.',
+          win: ['Thank you.', 'Five hundred years, and the Cranes are due.'],
+          bust: `That’s me, then. Nearly five hundred years, and I am out before the end. Elena: it is yours to finish.`,
           draw: ['One.', 'Two cards.'],
           pat: ['Pat.'],
         }),
       },
-      'across',
+      'right',
       '#1a1a1a',
     ),
-    rival(
-      {
-        id: 'rafael',
-        name: 'Rafael',
-        fullName: 'Rafael Duarte',
-        role: 'A shipping heir who plays for fun, and loudly',
-        personality: { valueAt: 1.2, bluff: 0.22, caution: -0.05, betSize: 0.75, respect: 0.3, reads: 0.2, tilt: 0.1 },
-        tell: { text: 'He hums along to music only he can hear.', signals: 'strong', showsWhenTrue: 0.5, showsWhenFalse: 0.25 },
-        lines: lines({
-          bet: ['Raise! Why not?', 'Bet, my friend.'],
-          call: ['Call, call.', 'I’m curious. Call.'],
-          fold: ['Bah. Fold.', 'Okay, okay.'],
-          check: ['Check.'],
-          win: ['Ha! Beautiful!', 'Obrigado!'],
-          bust: 'I’m finished! Best night of the year. Somebody call my boat.',
-          draw: ['Two! Make them good.', 'Three. I like surprises.'],
-          pat: ['I keep them all, because I’m brave.'],
-        }),
-      },
-      'right',
-      '#2a4a5a',
-    ),
   ],
-  nemesisId: 'victor',
+  nemesisId: 'crane',
   narratorId: 'meilin',
   scene: { music: music('last-table'), palette: { wall: '#0d0b10', light: '#f5d9a0', felt: '#3a1418', rim: '#b08a3a' } },
   playerPlate: { x: 800, y: 760 },
-  keepsake: { name: 'Victor Crane', line: 'The Last Table, today. Every game, and the end of the feud.' },
+  keepsake: { name: `Elena Crane`, line: 'The Last Table, today. Every game, the end of the feud, and dinner.' },
   story: {
     moments: [
       {
+        beforeHand: 2,
+        lines: [
+          say('crane', 'So you are the Avery. I play this for a living, you know. You are allowed to be nervous.'),
+          say('crane', 'I wrote to your family once. I only asked to see it.'),
+          say('narration', `You tell her the note reached you last month, in a shoebox, under ninety years of lawyers’ letters. She laughs, and looks surprised that she did.`),
+          say('victor', `We are not here to laugh, Elena.`),
+        ],
+      },
+      {
+        beforeHand: 4,
+        lines: [
+          say('crane', 'You fold when I look at you. That is not in any of my family’s stories about yours.'),
+          say('narration', `You tell her that she looks at you when she is bluffing. She goes a little pink, and looks at her cards instead. For about a hand.`),
+        ],
+      },
+      {
         beforeHand: 6,
         lines: [
-          say('victor', 'Do you know what my family says about yours? That the deck does the winning. That an Avery couldn’t win a hand without it.'),
+          say('victor', 'Do you know what my family says about yours? That our luck went downriver with that deck in 1836, and that an Avery has not won a hand without it since.'),
           say('meilin', 'Every Avery I have read about won by watching people, Mr. Crane. Not cards.'),
+          say('crane', 'I have read the story too, Father. Silas dealt seconds. And the deck was never ours, whatever Sir Roland told his children.'),
+          say('victor', 'That is the Avery version.'),
+        ],
+      },
+      {
+        beforeHand: 9,
+        lines: [
+          say('narration', `Between hands, Elena asks what the deck looks like up close. You open the case. She does not touch the cards. She reads the lid: “M.A. 1543”, and Clara’s pencilled line.`),
+          say('crane', '“Still ours.” I think I would have liked her.'),
+          say('meilin', 'Mr. Crane. I do not think these two are playing for the deck any more.'),
+          say('victor', 'They are playing for the deck.'),
+          say('meilin', 'Mm.'),
         ],
       },
     ],
     finale: {
       bowOut: {
         meilin: [...mei('This is between your two families. I will watch. It will be a pleasure.'), say('narration', 'Mei Lin moves her chips aside and folds her hands.')],
-        rafael: [say('rafael', 'I know a family feud when I see one! I’ll watch. Champagne for everyone!'), say('narration', 'Rafael sweeps his chips into a bag and settles in to watch.')],
+        victor: [say('victor', 'I started this, with a letter. You two finish it.'), say('narration', 'Victor moves his chips aside and, for once, leaves his cufflinks alone.')],
       },
-      headsUp: [say('victor', 'Just us, then. The way it was always going to end.')],
+      headsUp: [say('crane', 'Just us, then, Avery. For the deck. And the loser buys dinner.')],
+    },
+    exits: {
+      victor: [say('narration', 'Victor Crane buttons his jacket and takes the chair by the window. He does not leave. He wants to see how it ends.')],
     },
   },
   outro: {
     won: [
-      'Victor Crane looks at the cards for a long time. Then he laughs, for the first time all night, and pushes the last of his chips across the felt.',
-      '“Keep it,” he says. “It was always yours. Maybe the Cranes can just play cards now.” Mei Lin pours three cups of tea.',
-      'You open the leather case. Inside, under “M.A. 1543” and Clara’s pencilled line, there is just room for one more.',
+      `The last chips are yours. Elena Crane looks at the cards for a long time. Then she laughs, and pushes them across the felt. “Keep it. It was always yours. But you owe me dinner.”`,
+      'Victor says nothing for a while. “Nearly five hundred years,” he says at last, “and all we ever had to do was send someone you would like. It was never the deck, was it? Maybe the Cranes can just play cards now.” Mei Lin pours four cups of tea.',
+      'You open the leather case. Inside, under “M.A. 1543” and Clara’s pencilled line, there is just room for one more. You decide to leave it empty until after dinner.',
     ],
     lost: [
-      'Your last chip goes to Victor Crane. He holds the old deck up, and doesn’t look as happy as he expected to.',
+      `Your last chip is gone, and Elena Crane holds the old deck up to the light. She doesn’t look as happy as she expected to. “This is not how I wanted it to go,” she says. “Play me again?”`,
       '“Every game has its own patience,” Mei Lin says. “Learn each one’s.” Try again?',
     ],
   },

@@ -176,7 +176,9 @@ export const NORTH_ROAD: Chapter = {
           say('narration', 'A gust blows the door open. As Mr. Sorrel reaches to steady his cards, his coat falls open: a pistol, and a black silk mask.'),
           say('hannah', 'Well, well. Gentleman Jack of the North Road, at my table. There’s a reward for you in York.'),
           say('sorrel', 'There is no road tonight, madam, and no constable. I suggest we all simply keep playing. I find honest money is still money.'),
-          say('hannah', 'Then you play with your hands on the table, sir. Both of them.'),
+          say('hannah', 'Then you play with your hands on the table, sir. Both of them. And tell us what a highwayman wants at cards with a coach guard.'),
+          say('sorrel', 'A commission, madam. A gentleman of Kent named Crane paid me ten guineas to relieve the York coach of an old painted deck. He says it has been owed to his family for two hundred years.'),
+          say('sorrel', 'I had not planned on snow. Nor on liking the guard. I shall tell Mr. Crane the road was closed.'),
         ],
       },
     ],
@@ -195,7 +197,8 @@ export const NORTH_ROAD: Chapter = {
     won: [
       'Captain Pike roars with laughter and claps you on the back. “A captain’s word is good, lad. The Constance sails in March, and you’re on her.”',
       'In the spring of 1763, Will Avery and the Ashcombe deck cross the Atlantic. The Averys will be Americans now.',
-      'Delphine closes her fan. “And that is how an English deck came to an American river, darling. I have told you where it has been. Where it goes next is up to the Averys.”',
+      'Delphine closes her fan. “And that is how an English deck came to an American river, darling. I held it once myself, at nineteen, in my aunt’s house in New Orleans, and put it back in your grandfather’s hands. He told me all of this.”',
+      '“So when I heard that Silas Crane was showing a painted deck on the river, I bought passage. Where it goes next is up to the Averys. And the Cranes, it seems, crossed the ocean after it.”',
     ],
     lost: [
       'Your last shilling goes to the captain. He tucks the deck into his sea chest with a wink.',

@@ -22,6 +22,8 @@ export function ChapterSelect({
   progress,
   tables,
   onPick,
+  onOpening,
+  onClosing,
   onResume,
   onPractice,
   onHints,
@@ -31,6 +33,9 @@ export function ChapterSelect({
   progress: Progress;
   /** Chapters left part-way. */
   tables: SavedTables;
+  /** Watch the opening pictures again; and, once the epilogue is won, the ending. */
+  onOpening: () => void;
+  onClosing: () => void;
   onPick: (c: Chapter) => void;
   /** Back to the table left most recently. */
   onResume: () => void;
@@ -41,6 +46,7 @@ export function ChapterSelect({
 }) {
   const won = new Set(Object.keys(progress.won));
   const next = nextChapter(won);
+  const finished = won.has(CHAPTERS[CHAPTERS.length - 1].chapter.id);
   const latest = latestTable(tables);
   const latestChapter = latest ? CHAPTERS.find((e) => e.chapter.id === latest.chapterId)?.chapter : undefined;
   const [confirmReset, setConfirmReset] = useState(false);
@@ -127,6 +133,16 @@ export function ChapterSelect({
           </button>
         )}
       </footer>
+      <div className="select-links">
+        <button type="button" className="text-link" onClick={onOpening}>
+          Watch the opening
+        </button>
+        {finished && (
+          <button type="button" className="text-link" onClick={onClosing}>
+            Watch the ending
+          </button>
+        )}
+      </div>
     </div>
   );
 }

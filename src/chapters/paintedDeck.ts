@@ -56,7 +56,7 @@ export const PAINTED_DECK: Chapter = {
   levelEvery: 10,
   levelLines: [say('narration', 'The yule log sinks into embers. A servant brings more candles, and Lady Margery doubles the wager.')],
   intro: [
-    'On the Magnolia Queen, Delphine turns the old case in the lamplight. “It begins three hundred years ago, darling, with an Avery like you. How I know is a story for another night.” Twelfth Night, 1543. The last night of the Christmas revels in the great hall of Ashcombe Hall. Candlelight, tapestries, a roaring hearth.',
+    'On the Magnolia Queen, Delphine turns the old case in the lamplight. “It begins three hundred years ago, darling, with an Avery like you and, I am sorry to say, a Crane. How I know is a story for another night.” Twelfth Night, 1543. The last night of the Christmas revels in the great hall of Ashcombe Hall. Candlelight, tapestries, a roaring hearth.',
     'Your father, the card painter Thomas Avery, spent a year on a deck for Lady Margery Ashcombe: every card painted by hand, every court card a face from her own household. Now she will not pay for it.',
     '“Play me for it, if you think it is worth so much,” she says. Your father’s hands shake too badly to hold the cards. So you, Nan Avery, take the seat.',
   ],
@@ -79,8 +79,8 @@ export const PAINTED_DECK: Chapter = {
         {
           id: 'roland',
           name: 'Sir Roland',
-          fullName: 'Sir Roland Fettiplace',
-          role: 'A reckless young knight with a new horse',
+          fullName: 'Sir Roland Crane',
+          role: 'Lady Margery’s nephew, a reckless young knight who was promised the deck',
           personality: { valueAt: 1.1, bluff: 0.3, caution: -0.06, betSize: 0.8, respect: 0.25, reads: 0.1, tilt: 0.15 },
           tell: { text: 'He drains his cup in one long swallow.', signals: 'bluffing', showsWhenTrue: 0.7, showsWhenFalse: 0.15 },
           lines: lines({
@@ -89,7 +89,7 @@ export const PAINTED_DECK: Chapter = {
             fold: ['Bah. Take it.', 'A tactical retreat.'],
             check: ['I’ll hold, for now.'],
             win: ['Ha! Did I not say so?', 'Fortune is a lady, and she loves me.'],
-            bust: 'Out of silver, and the horse is already gone. I shall walk home to Oxfordshire.',
+            bust: 'Out of silver, the horse gone, and my deck in a painter’s girl’s lap. A Crane does not forget this, Mistress Avery.',
             draw: ['Two fresh ones, and quickly!', 'Give me one. A good one.'],
             pat: ['I keep them all. Tremble.'],
           }),
@@ -169,6 +169,8 @@ export const PAINTED_DECK: Chapter = {
         say('margery', 'You play well for a painter’s girl. Very well.'),
         say('narration', 'Lady Margery sets the painted deck on the oak table, in a plain leather case.'),
         say('margery', 'Take my last shilling and the deck is paid for, and then some. Lose yours and I keep it for nothing.'),
+        say('roland', 'Aunt! That deck was to be my New Year’s gift. You promised it to me, before all the household.'),
+        say('margery', 'I promised it to whoever deserved it, nephew. Sit down and deserve it.'),
         say('anselm', 'She turns her ring when the cards favour her, child. Not always. But often.'),
       ],
       passes: [
@@ -195,20 +197,24 @@ export const PAINTED_DECK: Chapter = {
     ],
     finale: {
       bowOut: {
-        roland: [say('roland', 'I shall watch, and cheer for the painter’s daughter. Quietly. My lady holds my horse.'), say('narration', 'Sir Roland pushes back his bench and refills his cup.')],
+        roland: [say('roland', 'I shall watch. And I shall remember who walks out of this hall with my deck. My aunt holds my horse.'), say('narration', 'Sir Roland pushes back his bench and refills his cup.')],
         anselm: [say('anselm', 'I am a steward, not a gambler. I will keep what I have and watch.'), say('narration', 'Brother Anselm folds his hands and sits back from the table.')],
       },
       headsUp: [say('margery', 'Just the two of us, then, Mistress Avery. For your father’s year of work.')],
     },
     exits: {
-      roland: [say('narration', 'Sir Roland bows to the table, trips over the hound, and bows to the hound.')],
+      roland: [
+        say('narration', 'Sir Roland bows to the table, trips over the hound, and bows to the hound.'),
+        say('narration', 'From the door he calls back: “That deck was to be mine. A Crane does not forget!” The hound barks at him until he goes.'),
+      ],
     },
   },
   outro: {
     won: [
       'Lady Margery’s last shilling crosses the table. The hall is silent; then she laughs, and pays twice what she owed. Then she puts the deck back in your hands. “A deck that beat me will not sit in my cupboard. Keep it, Mistress Avery.”',
       'First she has her initials inked inside the lid of its case: “M.A. 1543”. “Whoever holds this deck never loses,” she says. “Tonight, at least, that was true.”',
-      '“And so the legend began,” Delphine says, back on the river. “Two hundred years later, the deck was on the road north, in a coach guard’s coat…”',
+      '“And so the legend began,” Delphine says, back on the river. “And so did the quarrel. Remember the name of that sulking young knight, darling: Crane. His family never forgave yours.”',
+      'She turns the case over in her hands. “Two hundred years later, the deck was on the road north, in a coach guard’s coat…”',
     ],
     lost: [
       'Your last shilling is gone. Lady Margery tucks the painted deck into her sleeve.',

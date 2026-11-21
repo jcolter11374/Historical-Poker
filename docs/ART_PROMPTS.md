@@ -73,7 +73,7 @@ Already right: Delphine and Ezra (five), Lady Margery (four), and all of chapter
 
 **Seats.** Each chapter has a rival on the left, one across, and one on the right. The prompts already say which way each one turns: the side players turn a little toward the middle of the table, the one across faces you.
 
-**Same person, more than one picture.** For a character who appears again (young Delphine, the Crane family look, Nate Crane online and in person), also attach the earlier picture of them and say "the same person as the second attached image".
+**Same person, more than one picture.** For a character who appears again (young Delphine, the Crane family look, Nat Crane online and in person), also attach the earlier picture of them and say "the same person as the second attached image".
 
 ---
 
@@ -115,10 +115,10 @@ Twelfth Night in the great hall of Ashcombe Hall, Kent. Palette: candle gold and
 Match the attached image's art style exactly: painted, hand-inked lines, worn textures, warm light. Use it for the style and the layout only, and paint a completely different room. The great hall of a Tudor manor house in Kent on Twelfth Night, 1543, with NO people and no chairs: dark oak panelling, a faded hunting tapestry on the wall behind the table, a big stone hearth with a roaring fire off to one side, iron candle stands and a hanging candle wheel, holly and ivy over the panelling. First-person view from a seat at a large oval oak table covered with a worn dark-red wool cloth, its rim of carved, scuffed oak: the far rim curves across the middle of the picture and the table fills the bottom half, edge to edge, exactly like the attached image. Nothing on the table. Keep the wall just above the far rim fairly plain and dark. 16:9, no text.
 ```
 
-**Sir Roland Fettiplace, left seat** → `roland.png`
+**Sir Roland Crane, left seat** (first drafted as Fettiplace; the picture is made and does not change) → `roland.png`
 
 ```
-Match the attached image's art style exactly: a painted, hand-inked game illustration with bold dark ink outlines, rich painterly shading and worn textures. Use it for the style only, and paint a completely different person. Sir Roland Fettiplace, a reckless young English knight of 1543, about twenty-two, flushed cheeks, cocky grin, golden shoulder-length hair under a flat black velvet cap with a white feather, slashed doublet in crimson and gold with puffed sleeves. He raises a silver goblet in one hand and holds exactly four painted playing cards (backs toward us) loosely in the other. Ignore the number of cards in the attached image: exactly four, count them. Seated, seen from the waist up as if sitting behind a card table, body turned slightly to the right toward the middle of the table, eyes on the viewer. Lit by warm candlelight and firelight from in front and to one side. Background: one flat, solid pure chroma-key green (#00FF00), evenly lit, with no shadow, gradient, floor or scenery. No chair, no chips, no haze. No green anywhere on him or what he holds. The character centred, filling about 85% of the image height, the whole cap and feather inside the frame. No table, no text, no border. 16:9.
+Match the attached image's art style exactly: a painted, hand-inked game illustration with bold dark ink outlines, rich painterly shading and worn textures. Use it for the style only, and paint a completely different person. Sir Roland Crane, a reckless young English knight of 1543, about twenty-two, flushed cheeks, cocky grin, golden shoulder-length hair under a flat black velvet cap with a white feather, slashed doublet in crimson and gold with puffed sleeves. He raises a silver goblet in one hand and holds exactly four painted playing cards (backs toward us) loosely in the other. Ignore the number of cards in the attached image: exactly four, count them. Seated, seen from the waist up as if sitting behind a card table, body turned slightly to the right toward the middle of the table, eyes on the viewer. Lit by warm candlelight and firelight from in front and to one side. Background: one flat, solid pure chroma-key green (#00FF00), evenly lit, with no shadow, gradient, floor or scenery. No chair, no chips, no haze. No green anywhere on him or what he holds. The character centred, filling about 85% of the image height, the whole cap and feather inside the frame. No table, no text, no border. 16:9.
 ```
 
 **Lady Margery Ashcombe, across** → `margery.png`
@@ -513,10 +513,10 @@ Match the attached image's art style exactly: painted, hand-inked lines, worn te
 Match the attached image's art style exactly: a painted, hand-inked game illustration with bold dark ink outlines, rich painterly shading and worn textures. Use it for the style only, and paint a completely different person. "DeuceSeven", an American online poker pro at a televised final table in 2005, about twenty-five, pale from too many night sessions, scruffy goatee, messy hair under a backwards baseball cap with no logo, dark sunglasses pushed up on his head, a grey zip hoodie, white earbuds hanging round his neck. He peeks at exactly two face-down playing cards with one hand cupped over them. Ignore the number of cards in the attached image: exactly two, count them. Seated, seen from the waist up as if sitting behind a card table, body turned slightly to the right toward the middle of the table, eyes on the viewer. Lit by hard white stage light from above with a blue and purple wash. Background: one flat, solid pure chroma-key green (#00FF00), evenly lit, with no shadow, gradient, floor or scenery. No chair, no chips, no haze. No green anywhere on him or what he holds. The character centred, filling about 85% of the image height, the whole head inside the frame. No table, no text, no logos, no border. 16:9.
 ```
 
-**Nate Crane ("N0rthStar") in person, across** (also attach `art/layers/silas-green.jpg` as a family likeness) → `nate.png`
+**Nat Crane ("N0rthStar") in person, across** (also attach `art/layers/silas-green.jpg` as a family likeness) → `nat.png`
 
 ```
-Match the first attached image's art style exactly: a painted, hand-inked game illustration with bold dark ink outlines, rich painterly shading and worn textures. Use the first attached image for the style only, never for the person. Nate Crane, known online as "N0rthStar", at a televised poker final table in 2005, about thirty, a descendant of the man in the second attached image: the same sharp features and the same faintly mocking look, but clean-shaven with short dark hair. A slim black suit, an open-collared white shirt, no tie, a silver watch. He sits very still, exactly two face-down playing cards under one hand, a small cold smile. Ignore the number of cards in the attached image: exactly two, count them. Seated, seen from the waist up as if sitting behind a card table, facing the viewer. Lit by hard white stage light from above with a blue and purple wash. Background: one flat, solid pure chroma-key green (#00FF00), evenly lit, with no shadow, gradient, floor or scenery. No chair, no chips, no haze. No green anywhere on him or what he holds. The character centred, filling about 85% of the image height, the whole head inside the frame. No table, no text, no border. 16:9.
+Match the first attached image's art style exactly: a painted, hand-inked game illustration with bold dark ink outlines, rich painterly shading and worn textures. Use the first attached image for the style only, never for the person. Nat Crane, a woman known online as "N0rthStar", at a televised poker final table in 2005, about thirty, a descendant of the man in the second attached image: the same sharp features, dark eyes and the same faintly mocking look, as a woman, with no mustache. Straight dark hair cut at the jaw, a slim black suit jacket over a white open-collared shirt, a silver watch, no jewellery. She sits very still, exactly two face-down playing cards under one hand, a small cold smile. Ignore the number of cards in the attached image: exactly two, count them. Seated, seen from the waist up as if sitting behind a card table, facing the viewer. Lit by hard white stage light from above with a blue and purple wash. Background: one flat, solid pure chroma-key green (#00FF00), evenly lit, with no shadow, gradient, floor or scenery. No chair, no chips, no haze. No green anywhere on her or what she holds. The character centred, filling about 85% of the image height, the whole head inside the frame. No table, no text, no border. 16:9.
 ```
 
 **Hanbit in person, right seat** → `hanbit.png`
@@ -589,16 +589,20 @@ Match the attached image's art style exactly: painted, hand-inked lines, worn te
 Match the attached image's art style exactly: a painted, hand-inked game illustration with bold dark ink outlines, rich painterly shading and worn textures. Use it for the style only, and paint a completely different person. Mei Lin Chau, a quiet local poker legend in Macau today, in her seventies, small and serene, silver hair in a neat low bun, sharp kind eyes, a dark-blue silk jacket with a mandarin collar, a thin silver bracelet. She holds a small porcelain teacup in one hand and her playing cards in the other, squared together face down in one small closed stack, not fanned, so they can't be counted. Ignore the cards in the attached image: one small closed stack, no fan. Seated, seen from the waist up as if sitting behind a card table, body turned slightly to the right toward the middle of the table, eyes on the viewer. Lit by a low warm lamp above with a cool city-light glow from behind. Background: one flat, solid pure chroma-key green (#00FF00), evenly lit, with no shadow, gradient, floor or scenery. No chair, no chips, no haze. No green anywhere on her or what she holds. No steam. The character centred, filling about 85% of the image height, the whole head inside the frame. No table, no text, no border. 16:9.
 ```
 
-**Victor Crane, across** (also attach `art/layers/silas-green.jpg` as a family likeness) → `victor.png`
+**Victor Crane, right seat** (also attach `art/layers/silas-green.jpg` as a family likeness) → `victor.png`
+
+Victor moved from the middle seat to the right one when Elena became the rival (2026-11-21), so he turns toward the middle of the table. The same picture is used again at the kitchen table in the epilogue.
 
 ```
-Match the first attached image's art style exactly: a painted, hand-inked game illustration with bold dark ink outlines, rich painterly shading and worn textures. Use the first attached image for the style only, never for the person. Victor Crane, the last of an old family of card sharps, today, in his fifties, a descendant of the man in the second attached image: the same sharp features, the same curled mustache now neatly trimmed and silver-flecked, the same faintly mocking smile. A perfectly cut charcoal three-piece suit, a dark red tie, white cuffs with small gold cufflinks shaped like paddle steamboats, which he is straightening with one hand; playing cards in the other, squared together face down in one small closed stack, not fanned, so they can't be counted. Ignore the cards in the attached image: one small closed stack, no fan. Seated, seen from the waist up as if sitting behind a card table, facing the viewer. Lit by a low warm lamp above with a cool city-light glow from behind. Background: one flat, solid pure chroma-key green (#00FF00), evenly lit, with no shadow, gradient, floor or scenery. No chair, no chips, no haze. No green anywhere on him or what he holds. The character centred, filling about 85% of the image height, the whole head inside the frame. No table, no text, no border. 16:9.
+Match the first attached image's art style exactly: a painted, hand-inked game illustration with bold dark ink outlines, rich painterly shading and worn textures. Use the first attached image for the style only, never for the person. Victor Crane, the head of an old family of card sharps, today, in his early sixties, a descendant of the man in the second attached image: the same sharp features, the same curled mustache now neatly trimmed and silver-flecked, the same faintly mocking smile. A perfectly cut charcoal three-piece suit, a dark red tie, white cuffs with small gold cufflinks shaped like paddle steamboats, which he is straightening with one hand; playing cards in the other, squared together face down in one small closed stack, not fanned, so they can't be counted. Ignore the cards in the attached image: one small closed stack, no fan. Seated, seen from the waist up as if sitting behind a card table, body turned slightly to the left toward the middle of the table, eyes on the viewer. Lit by a low warm lamp above with a cool city-light glow from behind. Background: one flat, solid pure chroma-key green (#00FF00), evenly lit, with no shadow, gradient, floor or scenery. No chair, no chips, no haze. No green anywhere on him or what he holds. The character centred, filling about 85% of the image height, the whole head inside the frame. No table, no text, no border. 16:9.
 ```
 
-**Rafael Duarte, right seat** → `rafael.png`
+**Elena Crane, across** (also attach `art/layers/silas-green.jpg` as a family likeness) → `elena.png`
+
+The rival of chapter 12 and the love interest: Victor's daughter, one of the best professional players in the world. She replaced Rafael Duarte (2026-11-21). The player should like her at first sight, so she is warm where every Crane before her was cold. The same picture is used again in the epilogue, where she is the player's wife.
 
 ```
-Match the attached image's art style exactly: a painted, hand-inked game illustration with bold dark ink outlines, rich painterly shading and worn textures. Use it for the style only, and paint a completely different person. Rafael Duarte, a Macanese-Portuguese shipping heir who plays poker for fun, today, in his early thirties, handsome and loud, wavy black hair, a big white grin, an unbuttoned pale-pink linen shirt under a cream blazer, an expensive watch, sunglasses hooked on his collar. He bobs his head to music only he can hear, playing cards in one hand, squared together face down in one small closed stack, not fanned, so they can't be counted. Ignore the cards in the attached image: one small closed stack, no fan. Seated, seen from the waist up as if sitting behind a card table, body turned slightly to the left toward the middle of the table, eyes on the viewer. Lit by a low warm lamp above with a cool city-light glow from behind. Background: one flat, solid pure chroma-key green (#00FF00), evenly lit, with no shadow, gradient, floor or scenery. No chair, no chips, no haze. No green anywhere on him or what he holds. The character centred, filling about 85% of the image height, the whole head inside the frame. No table, no text, no logos, no border. 16:9.
+Match the first attached image's art style exactly: a painted, hand-inked game illustration with bold dark ink outlines, rich painterly shading and worn textures. Use the first attached image for the style only, never for the person. Elena Crane, a world-class professional poker player, today, a woman in her early thirties, a descendant of the man in the second attached image: his sharp cheekbones and dark eyes, but none of his sneer and no mustache. Dark chestnut hair in a loose low knot with a few strands free, a warm, amused, slightly challenging half-smile, as if she has just caught you looking. A deep-red silk blouse under a tailored black jacket, a thin gold chain with a tiny gold paddle-steamboat charm. She looks straight up at the viewer over her playing cards, which she holds in one hand, squared together face down in one small closed stack, not fanned, so they can't be counted; her other hand rests lightly at her collar, on the charm. Ignore the cards in the attached image: one small closed stack, no fan. Seated, seen from the waist up as if sitting behind a card table, facing the viewer. Lit by a low warm lamp above with a cool city-light glow from behind. Background: one flat, solid pure chroma-key green (#00FF00), evenly lit, with no shadow, gradient, floor or scenery. No chair, no chips, no haze. No green anywhere on her or what she holds. The character centred, filling about 85% of the image height, the whole head inside the frame. No table, no text, no logos, no border. 16:9.
 ```
 
 **Title painting** → `title.jpg`
@@ -613,39 +617,117 @@ Match the attached image's art style exactly: painted, hand-inked lines, worn te
 
 ## Epilogue: The Kitchen Table (today)
 
-A home game with friends, at night. Room light: one warm pendant lamp over the table, cosy and a bit messy. Character reference to attach: `art/layers/tex-green.jpg` (two cards).
+The home game the night after the wedding. Room light: one warm pendant lamp over the table, cosy and a bit messy. Character reference to attach: `art/layers/tex-green.jpg` (two cards).
+
+Only **one** character picture is needed here: Dee. The other two seats are Elena (across) and Victor (right), who reuse their chapter 12 pictures in the same seats. Marcus deals and Priya watches from the sofa; they speak but are never seen, so their old prompts were removed (2026-11-21).
 
 **Background** → `background.jpg`
 
 ```
-Match the attached image's art style exactly: painted, hand-inked lines, worn textures, warm light. Use it for the style and the layout only, and paint a completely different room. Copy only the layout from the attached image, not its wear. A cosy home kitchen at night today, with NO people and no chairs: a warm pendant lamp over the table, cabinets and a fridge covered in photos and magnets (no readable text), a pizza box and bottles on the counter, an old leather card case sitting on the counter, a dark window with rain. First-person view from a seat at a large round wooden kitchen table covered with a cheap folding poker felt, slightly wrinkled: the far rim curves across the middle of the picture and the table fills the bottom half, edge to edge, exactly like the attached image. Nothing on the table. Keep the area just above the far rim fairly plain. 16:9, no text, no logos.
+Match the attached image's art style exactly: painted, hand-inked lines, worn textures, warm light. Use it for the style and the layout only, and paint a completely different room. Copy only the layout from the attached image, not its wear. A cosy home kitchen at night today, with NO people and no chairs: a warm pendant lamp over the table, cabinets and a fridge covered in photos and magnets (no readable text), the top tier of a white wedding cake on a plate and a few bottles on the counter, a small bunch of wedding flowers in a jam jar, an old leather card case sitting on the counter, a dark window with rain. First-person view from a seat at a large round wooden kitchen table covered with a cheap folding poker felt, slightly wrinkled: the far rim curves across the middle of the picture and the table fills the bottom half, edge to edge, exactly like the attached image. Nothing on the table. Keep the area just above the far rim fairly plain. 16:9, no text, no logos.
 ```
 
-**Priya, left seat** → `priya.png`
+**Dee, left seat** → `dee.png`
 
 ```
-Match the attached image's art style exactly: a painted, hand-inked game illustration with bold dark ink outlines, rich painterly shading and worn textures. Use it for the style only, and paint a completely different person. Priya, a British-Indian woman in her early thirties at a home poker night today, bursting with mischief, a huge grin she can't hide, long dark hair in a loose braid, a mustard-yellow knitted jumper, chunky earrings, a slice of pizza in one hand and exactly two playing cards (backs toward us) in the other. Ignore the number of cards in the attached image: exactly two, count them. Seated, seen from the waist up as if sitting behind a kitchen table, body turned slightly to the right toward the middle of the table, eyes on the viewer. Lit by one warm pendant lamp above. Background: one flat, solid pure chroma-key green (#00FF00), evenly lit, with no shadow, gradient, floor or scenery. No chair, no chips, no haze. No green anywhere on her or what she holds. The character centred, filling about 85% of the image height, the whole head inside the frame. No table, no text, no border. 16:9.
-```
-
-**Marcus, across** → `marcus.png`
-
-```
-Match the attached image's art style exactly: a painted, hand-inked game illustration with bold dark ink outlines, rich painterly shading and worn textures. Use it for the style only, and paint a completely different person. Marcus, the host of a weekly home poker night today, a Black man in his late thirties, earnest and very serious about the game, short beard, black-framed glasses, a dark-blue button-up shirt with the sleeves rolled, a dealer button in one hand and exactly two playing cards (backs toward us) held neatly in the other. Ignore the number of cards in the attached image: exactly two, count them. Seated, seen from the waist up as if sitting behind a kitchen table, facing the viewer. Lit by one warm pendant lamp above. Background: one flat, solid pure chroma-key green (#00FF00), evenly lit, with no shadow, gradient, floor or scenery. No chair, no chips, no haze. No green anywhere on him or what he holds. The character centred, filling about 85% of the image height, the whole head inside the frame. No table, no text, no border. 16:9.
-```
-
-**Dee, right seat** → `dee.png`
-
-```
-Match the attached image's art style exactly: a painted, hand-inked game illustration with bold dark ink outlines, rich painterly shading and worn textures. Use it for the style only, and paint a completely different person. Dee, a woman in her late twenties at a home poker night today, loud and fearless, short bleached hair, a nose ring, a faded band T-shirt with no readable text under an oversized denim jacket, holding up exactly two playing cards (backs toward us) with a triumphant "seven-deuce!" look, the other hand drumming the table edge. Ignore the number of cards in the attached image: exactly two, count them. Seated, seen from the waist up as if sitting behind a kitchen table, body turned slightly to the left toward the middle of the table, eyes on the viewer. Lit by one warm pendant lamp above. Background: one flat, solid pure chroma-key green (#00FF00), evenly lit, with no shadow, gradient, floor or scenery. No chair, no chips, no haze. No green anywhere on her or what she holds. The character centred, filling about 85% of the image height, the whole head inside the frame. No table, no text, no border. 16:9.
+Match the attached image's art style exactly: a painted, hand-inked game illustration with bold dark ink outlines, rich painterly shading and worn textures. Use it for the style only, and paint a completely different person. Dee, a woman in her late twenties at a home poker night today, loud and fearless, short bleached hair, a nose ring, a faded band T-shirt with no readable text under an oversized denim jacket, holding up exactly two playing cards (backs toward us) with a triumphant "seven-deuce!" look, the other hand drumming the table edge. Ignore the number of cards in the attached image: exactly two, count them. Seated, seen from the waist up as if sitting behind a kitchen table, body turned slightly to the right toward the middle of the table, eyes on the viewer. Lit by one warm pendant lamp above. Background: one flat, solid pure chroma-key green (#00FF00), evenly lit, with no shadow, gradient, floor or scenery. No chair, no chips, no haze. No green anywhere on her or what she holds. The character centred, filling about 85% of the image height, the whole head inside the frame. No table, no text, no border. 16:9.
 ```
 
 **Title painting** → `title.jpg`
 
 ```
-Match the attached image's art style exactly: painted, hand-inked lines, worn textures. Use it for the style only, and paint a completely different scene. A wide establishing painting: an ordinary terraced house on a rainy evening today, one kitchen window glowing warm, silhouettes of friends laughing around a table inside, a bike against the railings, puddles reflecting streetlight. Calm sky in the upper-left third, left empty for a title the game adds. No text, no lettering, no border. 16:9.
+Match the attached image's art style exactly: painted, hand-inked lines, worn textures. Use it for the style only, and paint a completely different scene. A wide establishing painting: an ordinary terraced house on a rainy evening today, one kitchen window glowing warm, silhouettes of family and friends laughing around a table inside, a ribbon and a few flowers still tied to the front gate from a wedding, a bike against the railings, puddles reflecting streetlight. Calm sky in the upper-left third, left empty for a title the game adds. No text, no lettering, no border. 16:9.
 ```
 
-**Props:** mismatched home-game chips; the old leather case, full, on the counter.
+**Props:** mismatched home-game chips; the old leather case, full, on the counter; a slice of wedding cake.
+
+---
+
+## The opening and the ending
+
+Paintings for the two picture sequences that frame the game: the feud at its most bitter before the chapter select, and the same people seen kindly after the epilogue (`src/story/montages.ts`; [GAME_DESIGN.md](GAME_DESIGN.md), "The opening and the ending"). **John has not yet approved the moments and captions: make no picture here until he has.**
+
+Reference to attach to every one: `art/last-hand-title.jpg` (a finished title painting). These are scenes with people in them, seen from a little way off, like a film still. A caption sits along the bottom, so each prompt asks for a darker, quiet bottom quarter. Save each into `public/art/montage/` under the name given, then set that slide's `image` in `src/story/montages.ts` (and drop its `standIn`). Until a picture exists, the slide shows the stand-in named here.
+
+### The opening (six pictures, in order)
+
+**1. Ashcombe Hall, 1543** → `opening-1-ashcombe.jpg` (stand-in: the Painted Deck title painting)
+
+```
+Match the attached image's art style exactly: painted, hand-inked lines, worn textures, warm firelight and candlelight. Use it for the style only, and paint a completely different scene. The great hall of an English manor on a winter night in 1543, a long oak table after a feast, a great fire, tapestries, guests in shadow. At the table a young woman in a plain russet gown and white linen cap, a painter's daughter, has just been handed a small new leather card case by a stately older lady in black velvet and pearls, who is smiling. Standing apart in the foreground, half turned away from them, a flushed young knight with golden shoulder-length hair, a flat black velvet cap with a white feather and a crimson and gold slashed doublet glares back over his shoulder at the case, his fist tight on an empty silver goblet. Sulking, proud, a grudge being born. Keep the bottom quarter of the picture darker and plain, for a caption the game adds. No text, no lettering, no border. 16:9.
+```
+
+**2. The cheat, 1836** → `opening-2-cheat.jpg` (stand-in: the riverboat title painting)
+
+```
+Match the attached image's art style exactly: painted, hand-inked lines, worn textures, warm lamplight against blue moonlight. Use it for the style only, and paint a completely different scene. A riverboat card room at night in the 1830s. A sleek gambler in a dark frock coat and brocade waistcoat, with a curled black mustache and a cold little smile, deals cards across a green table; his thumb rests on the top of the deck. Opposite him an older, tired man in a plain brown coat stares at the cards, one hand flat on a small worn leather card case as if he cannot bear to let it go. Brass portholes, an oil lamp, shadowy onlookers. A lady in dark blue with a lace fan watches from a chair in the shadows. The mood is cruel and quiet. Keep the bottom quarter of the picture darker and plain, for a caption the game adds. No text, no lettering, no border. 16:9.
+```
+
+**3. Deadwood, 1876** → `opening-3-deadwood.jpg` (stand-in: the Deadwood title painting)
+
+```
+Match the attached image's art style exactly: painted, hand-inked lines, worn textures. Use it for the style only, and paint a completely different scene. A muddy gold-rush main street in 1876 at dusk, plank buildings and lit saloon windows. A young dandy with a curled mustache, a dark suit and a pale hat has just stepped down from a stagecoach and stands in the street, looking hard at the saloon door. In that doorway, lit from behind, stands a young woman in a travelling dress with a small worn leather card case held against her chest, looking straight back at him. Miners keep out of the way. Tense, like the moment before a duel, but no guns drawn. Keep the bottom quarter of the picture darker and plain, for a caption the game adds. No readable signs, no lettering, no border. 16:9.
+```
+
+**4. The letters, 1926 to 1992** → `opening-4-letters.jpg` (stand-in: the Chicago title painting)
+
+```
+Match the attached image's art style exactly: painted, hand-inked lines, worn textures. Use it for the style only, and paint a completely different scene. A still life on a dark wooden desk under one green-shaded lamp: a stack of opened letters on heavy cream paper, typed, each with a law firm's blank letterhead and a wax seal, the top one being held down by a woman's hand with a fountain pen that is not writing; older, yellowed letters underneath, newer white ones on top; beside them a small worn leather card case, closed. Rain on a window behind. The mood is cold and patient. The writing on the letters is only suggested by grey lines, never readable. Keep the bottom quarter of the picture darker and plain, for a caption the game adds. No readable text, no lettering, no border. 16:9.
+```
+
+**5. The stranger, 2005** → `opening-5-stranger.jpg` (stand-in: the televised final table)
+
+```
+Match the attached image's art style exactly: painted, hand-inked lines, worn textures. Use it for the style only, and paint a completely different scene. A televised poker final table in 2005 under hard white studio lights, a crowd in shadow behind a rail, a camera on a crane. Seen from behind the shoulder of a young player in a hooded sweatshirt, whose face we do not see and who has a small worn leather card case beside their chips. Across the table sits one opponent in a dark hooded top with the hood up and mirrored sunglasses, perfectly still, face hidden so that we cannot tell if it is a man or a woman, a tall stack of chips in front of them. Cold, bright and tense. Keep the bottom quarter of the picture darker and plain, for a caption the game adds. No readable signs, no logos, no lettering, no border. 16:9.
+```
+
+**6. Today** → `opening-6-today.jpg` (stand-in: an empty lamplit table)
+
+```
+Match the attached image's art style exactly: painted, hand-inked lines, worn textures. Use it for the style only, and paint a completely different scene. A private card room high above a harbour city at night, today: one oval table with deep red felt under a single low lamp, four empty chairs, glittering towers through a wall of windows. In the exact middle of the table, alone in the pool of light, a small worn leather card case, closed. Nobody in the room. Still, expectant, like a stage before the play. Keep the bottom quarter of the picture darker and plain, for a caption the game adds. No text, no lettering, no border. 16:9.
+```
+
+### The ending (three pictures needed, three optional)
+
+Slides 1, 2 and 4 of the ending show the same moments as the opening with a kinder caption. They can reuse the opening's pictures 2, 3 and 5 as they are. The three below have no picture to borrow.
+
+**3. The shoebox, 1926 to 2019** → `ending-3-shoebox.jpg` (stand-in: an empty lamplit table)
+
+```
+Match the attached image's art style exactly: painted, hand-inked lines, worn textures, warm light. Use it for the style only, and paint a completely different scene. A still life on a kitchen table in warm afternoon light: an old cardboard shoebox full of letters standing on edge in order, yellowed typed ones at the back, whiter ones toward the front; lying on top, unfolded, one small handwritten note on plain paper in blue ink, with a pressed flower beside it. A mug of tea, a pair of reading glasses. Gentle and a little funny, the opposite of a threat. The writing is only suggested by lines, never readable. Keep the bottom quarter of the picture darker and plain, for a caption the game adds. No readable text, no lettering, no border. 16:9.
+```
+
+**5. The wedding** → `ending-5-wedding.jpg` (stand-in: an empty lamplit table)
+
+```
+Match the attached image's art style exactly: painted, hand-inked lines, worn textures, warm golden light. Use it for the style only, and paint a completely different scene. A small wedding party in a garden at dusk today, strings of lights overhead, seen from a little way off. One long table with two families mixed together along it, laughing: an older man in a charcoal suit with a silver-flecked mustache raising a glass, a silver-haired woman in dark-blue silk beside him, friends in bright clothes, children under the table. At the head, seen from behind so their faces are hidden, a groom in a dark suit and a bride with dark chestnut hair in a simple ivory dress, her head on his shoulder. On the table among the plates, a small worn leather card case with a ribbon round it. Keep the bottom quarter of the picture darker and plain, for a caption the game adds. No text, no lettering, no border. 16:9.
+```
+
+**6. The lid** → `ending-6-lid.jpg` (stand-in: an empty lamplit table)
+
+```
+Match the attached image's art style exactly: painted, hand-inked lines, worn textures, warm lamplight. Use it for the style only, and paint a completely different scene. A close still life: a very old brown leather card case lying open on a kitchen counter under a warm lamp, a few hand-painted antique playing cards showing inside, and its open lid facing us. The inside of the lid is worn pale leather and is left completely blank and empty, because the game writes on it. Beside the case, two plain gold wedding rings and a slice of white cake on a small plate. Keep the bottom quarter of the picture darker and plain, for a caption the game adds. No text, no lettering, no border. 16:9.
+```
+
+**Optional, to replace the three borrowed pictures in the ending.** Make these only if John wants the ending to have its own picture for every slide.
+
+`ending-1-silas.jpg`:
+
+```
+Match the attached image's art style exactly: painted, hand-inked lines, worn textures, warm firelight. Use it for the style only, and paint a completely different scene. A modest parlour in the 1860s by firelight. A very old man with a white curled mustache and a worn brocade waistcoat sits in an armchair, holding out two empty hands as he tells a story; three small grandchildren sit on the rug at his feet, listening with wide eyes. On the mantel behind him, a faded print of a paddle steamboat. He looks sad and stubborn, not wicked. Keep the bottom quarter of the picture darker and plain, for a caption the game adds. No text, no lettering, no border. 16:9.
+```
+
+`ending-2-jasper.jpg`:
+
+```
+Match the attached image's art style exactly: painted, hand-inked lines, worn textures, cold early light. Use it for the style only, and paint a completely different scene. Dawn on a muddy gold-rush street in 1876. A stagecoach is pulling away; through its window we see a young man with a curled mustache and a pale hat, looking back over his shoulder at the town, not angry any more, only thoughtful and very young. An empty street, one lamp still lit in a saloon window. Keep the bottom quarter of the picture darker and plain, for a caption the game adds. No readable signs, no lettering, no border. 16:9.
+```
+
+`ending-4-handshake.jpg`:
+
+```
+Match the attached image's art style exactly: painted, hand-inked lines, worn textures. Use it for the style only, and paint a completely different scene. A televised poker final table in 2005 under bright studio lights, confetti falling, a cheering crowd behind a rail. Two players stand and shake hands across the table: one in a hooded sweatshirt seen from behind, face hidden; the other facing us, a woman of about thirty with sharp features, her hood down and mirrored sunglasses pushed up into straight dark jaw-length hair, with a small, surprised, honest smile. A small worn leather card case sits by the winner's chips. Keep the bottom quarter of the picture darker and plain, for a caption the game adds. No readable signs, no logos, no lettering, no border. 16:9.
+```
 
 ---
 

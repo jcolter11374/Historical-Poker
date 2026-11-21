@@ -28,13 +28,14 @@ How the code fits together. Read the README first.
 
 ## Screens
 
-`App.tsx` switches between five screens:
+`App.tsx` switches between seven screens:
 
 1. **Chapter select** (`ChapterSelect.tsx`): the deck case.
 2. **Intro** (`IntroScreen` in `App.tsx`): story, "the story so far" when jumping ahead, the cast. Behind it: the chapter's title painting (`scene.title`) with the text on a left-hand shade, or the table room if there is no painting.
 3. **Table** (`TableScreen.tsx`): a `Session` for the chapter.
 4. **Ending** (`EndScreen` in `App.tsx`): outro, keepsake, history, next chapter.
 5. **Practice** (`PracticeScreen.tsx`): the list of games, from "Practice any game" on the chapter select. Sitting down opens the table screen with a practice Session; leaving it comes back here.
+6. **The opening** and 7. **the ending** (`Montage.tsx`): paintings with one caption each, wiping from one to the next. The slides are data in `src/story/montages.ts` (`OPENING`, `CLOSING`); what follows the last slide (the title and "Take a seat", or the credits) is passed in by `App.tsx`. The opening shows first when `progress.seenOpening` is false; the ending is reached from the last chapter's ending screen. Both can be watched again from the chapter select.
 
 Everything is laid out on a fixed 1600 x 900 stage (`Stage.tsx`) that scales to fit the window, so positions in chapter files are plain stage pixels.
 
@@ -85,6 +86,8 @@ Everything is laid out on a fixed 1600 x 900 stage (`Stage.tsx`) that scales to 
 ## Story scenes
 
 The Session keeps a queue of scene lines (`SceneLine`: who speaks and what). While the queue isn't empty, nobody acts and the UI shows the line with a Continue chip that calls `advanceScene()`. Lines are queued between hands (moments, stage openings, lessons, levels, the stake, buy-backs, exits, the finale), on a lesson hand's streets, when a tutorial tell shows, and when the player calls out a deal (`accuse()`). Set-up deals (chapter 1's tutorial, the cheats) are built by `arrangeDeck()`, which orders the deck so the engine's deal gives each seat the chosen cards.
+
+**People without a seat.** A line's `who` is normally a rival's id, or `'narration'`. A chapter can also name `bystanders` (id to name): people in the room who talk but hold no seat, like Marcus dealing and Priya on the sofa in the epilogue. Their lines show with their name and light up nobody at the table. A saved table whose waiting scene names someone the chapter no longer has is not resumed (`Session.resume` returns null and the chapter starts fresh), so a change of cast can't break an old save.
 
 ## Tests
 

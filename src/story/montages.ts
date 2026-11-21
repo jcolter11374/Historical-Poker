@@ -77,14 +77,12 @@ export const CLOSING: Slide[] = [
   {
     when: 'The Mississippi, after 1836',
     caption: 'Silas Crane never won a big hand again. He told his grandchildren the family’s luck had gone downriver with a deck of cards. It was easier than telling them what he had done.',
-    image: 'riverboat/title.webp',
-    standIn: true,
+    image: 'montage/opening-2-cheat.webp',
   },
   {
     when: 'Deadwood, 1876',
     caption: 'Jasper Crane left on the morning stage with empty pockets. He was a young man who had been raised on one story, and had just met the other half of it.',
-    image: 'last-hand/title.webp',
-    standIn: true,
+    image: 'montage/opening-3-deadwood.webp',
   },
   {
     when: 'A shoebox of letters, 1926 to 2019',
@@ -94,8 +92,7 @@ export const CLOSING: Slide[] = [
   {
     when: 'Las Vegas, 2005',
     caption: 'Nat Crane shook an Avery’s hand on live television. “Every generation,” she said. She did not sound angry any more.',
-    image: 'boom/background-final.webp',
-    standIn: true,
+    image: 'montage/opening-5-stranger.webp',
   },
   {
     when: 'The wedding',

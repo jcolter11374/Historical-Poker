@@ -57,7 +57,7 @@ export const RIVERBOAT: Chapter = {
         win: ['How kind of you all.', 'Patience, gentlemen. Always patience.'],
         bust: 'Well. I do believe I\'ve been outplayed. Good evening.',
       },
-      art: { src: art('delphine-portrait.webp'), kind: 'portrait', aspect: 1200 / 670, place: { x: 330, bottom: 540, height: 400 } },
+      art: { src: art('delphine.webp'), kind: 'cutout', aspect: 722 / 900, place: { x: 365, bottom: 555, height: 505 } },
       plate: { x: 380, y: 540 },
     },
     {
@@ -96,7 +96,7 @@ export const RIVERBOAT: Chapter = {
         win: ['Oh! Oh my.', 'I, well, thank you.'],
         bust: 'My employer will hear of this. Good night.',
       },
-      art: { src: art('ezra-portrait.webp'), kind: 'portrait', aspect: 1200 / 670, place: { x: 1270, bottom: 540, height: 400 } },
+      art: { src: art('ezra.webp'), kind: 'cutout', aspect: 796 / 900, place: { x: 1245, bottom: 555, height: 490 } },
       plate: { x: 1220, y: 540 },
     },
   ],
@@ -105,6 +105,7 @@ export const RIVERBOAT: Chapter = {
   scene: {
     background: art('background.webp'),
     tableFront: art('table-front.webp'),
+    title: art('title.webp'),
     palette: { wall: '#1d1410', light: '#f2b45a', felt: '#2f5a3a', rim: '#8a6a2a' },
   },
   playerPlate: { x: 800, y: 760 },

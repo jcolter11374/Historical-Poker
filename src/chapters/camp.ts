@@ -2,10 +2,15 @@
  * Chapter 4, "The Camp": five-card stud in a Union army camp near
  * Chattanooga, November 1863, the night before battle. A quieter, more
  * serious chapter. (docs/GAME_OUTLINE.md, Chapter 4.)
+ *
+ * Art: the tent, the title painting and the three rivals (cut out from
+ * green) are painted (docs/ART.md).
  */
 import { STUD5_ID } from '../games/fiveCardStud';
-import { lines, rival, say } from './cast';
+import { cutout, lines, rival, say } from './cast';
 import type { Chapter } from './types';
+
+const art = (file: string) => `${import.meta.env.BASE_URL}art/camp/${file}`;
 
 export const CAMP: Chapter = {
   id: 'camp',
@@ -66,72 +71,86 @@ export const CAMP: Chapter = {
     'Once Sergeant Reed stakes his claim, take his last dollar to keep the deck.',
   ],
   rivals: [
-    rival(
-      {
-        id: 'toby',
-        name: 'Toby',
-        fullName: 'Private Toby Finch',
-        role: 'A drummer boy, fifteen and pretending to be eighteen',
-        personality: { valueAt: 1.5, bluff: 0.04, caution: -0.12, betSize: 0.45, respect: 0.4, reads: 0.1 },
-        tell: { text: 'He grins at his new card.', signals: 'strong', showsWhenTrue: 0.6, showsWhenFalse: 0.55 },
-        lines: lines({
-          bet: ['I’ll bet! I’ll bet a dollar!', 'Raise, I think? Is that allowed?'],
-          call: ['I’m in!', 'Call, call.'],
-          fold: ['Aw. Fold.', 'I guess not.'],
-          check: ['Check, Sergeant?'],
-          win: ['I won? I won!', 'Wait till I write my ma.'],
-          bust: 'That was my whole month. Ma was going to get half of it.',
-        }),
-      },
-      'left',
-      '#2d3d63',
-    ),
-    rival(
-      {
-        id: 'reed',
-        name: 'Sergeant Reed',
-        fullName: 'Sergeant Amos Reed',
-        role: 'A veteran of every battle since Bull Run',
-        personality: { valueAt: 1.9, bluff: 0.02, caution: 0.1, betSize: 0.75, respect: 0.9, reads: 0.6 },
-        // Stops chewing when strong: about 80% honest.
-        tell: { text: 'He stops chewing his tobacco.', signals: 'strong', showsWhenTrue: 0.7, showsWhenFalse: 0.12 },
-        lines: lines({
-          bet: ['Bet.', 'Raise. Think hard, Corporal.'],
-          call: ['Call.', 'I’ll see it.'],
-          fold: ['No.', 'Fold.'],
-          check: ['Check.'],
-          win: ['Hm.', 'That’s how it’s done, boys.'],
-          bust: 'Beaten fair. Keep your deck, Corporal. You’ll need luck tomorrow more than I will.',
-        }),
-      },
-      'across',
-      '#283548',
-    ),
-    rival(
-      {
-        id: 'hattie',
-        name: 'Hattie',
-        fullName: 'Hattie Bloom',
-        role: 'The camp sutler, who sells everything',
-        // Bets her board: aggressive, and bluffs when her up cards look scary.
-        personality: { valueAt: 1.35, bluff: 0.22, caution: 0.02, betSize: 0.7, respect: 0.5, reads: 0.6, tilt: 0.08 },
-        tell: { text: 'She taps her pencil against the ledger.', signals: 'bluffing', showsWhenTrue: 0.65, showsWhenFalse: 0.2 },
-        lines: lines({
-          bet: ['That queen of mine looks lonely. Bet.', 'I’ll bet. Credit’s good with me.', 'Raise, boys.'],
-          call: ['I’ll stay in.', 'Call, and write it down.'],
-          fold: ['Too rich.', 'I sell shovels, not miracles.'],
-          check: ['Check.'],
-          win: ['Pleasure doing business.', 'That’s tobacco money for a month.'],
-          bust: 'Well, I’m cleaned out. Good thing I sell the cards, too.',
-        }),
-      },
-      'right',
-      '#6a4a2a',
-    ),
+    {
+      ...rival(
+        {
+          id: 'toby',
+          name: 'Toby',
+          fullName: 'Private Toby Finch',
+          role: 'A drummer boy, fifteen and pretending to be eighteen',
+          personality: { valueAt: 1.5, bluff: 0.04, caution: -0.12, betSize: 0.45, respect: 0.4, reads: 0.1 },
+          tell: { text: 'He grins at his new card.', signals: 'strong', showsWhenTrue: 0.6, showsWhenFalse: 0.55 },
+          lines: lines({
+            bet: ['I’ll bet! I’ll bet a dollar!', 'Raise, I think? Is that allowed?'],
+            call: ['I’m in!', 'Call, call.'],
+            fold: ['Aw. Fold.', 'I guess not.'],
+            check: ['Check, Sergeant?'],
+            win: ['I won? I won!', 'Wait till I write my ma.'],
+            bust: 'That was my whole month. Ma was going to get half of it.',
+          }),
+        },
+        'left',
+        '#2d3d63',
+      ),
+      art: cutout(art('toby.webp'), 1.0722, { x: 340, bottom: 545, height: 380 }),
+    },
+    {
+      ...rival(
+        {
+          id: 'reed',
+          name: 'Sergeant Reed',
+          fullName: 'Sergeant Amos Reed',
+          role: 'A veteran of every battle since Bull Run',
+          personality: { valueAt: 1.9, bluff: 0.02, caution: 0.1, betSize: 0.75, respect: 0.9, reads: 0.6 },
+          // Stops chewing when strong: about 80% honest.
+          tell: { text: 'He stops chewing his tobacco.', signals: 'strong', showsWhenTrue: 0.7, showsWhenFalse: 0.12 },
+          lines: lines({
+            bet: ['Bet.', 'Raise. Think hard, Corporal.'],
+            call: ['Call.', 'I’ll see it.'],
+            fold: ['No.', 'Fold.'],
+            check: ['Check.'],
+            win: ['Hm.', 'That’s how it’s done, boys.'],
+            bust: 'Beaten fair. Keep your deck, Corporal. You’ll need luck tomorrow more than I will.',
+          }),
+        },
+        'across',
+        '#283548',
+      ),
+      art: cutout(art('reed.webp'), 0.9189, { x: 800, bottom: 520, height: 470 }),
+    },
+    {
+      ...rival(
+        {
+          id: 'hattie',
+          name: 'Hattie',
+          fullName: 'Hattie Bloom',
+          role: 'The camp sutler, who sells everything',
+          // Bets her board: aggressive, and bluffs when her up cards look scary.
+          personality: { valueAt: 1.35, bluff: 0.22, caution: 0.02, betSize: 0.7, respect: 0.5, reads: 0.6, tilt: 0.08 },
+          tell: { text: 'She taps her pencil against the ledger.', signals: 'bluffing', showsWhenTrue: 0.65, showsWhenFalse: 0.2 },
+          lines: lines({
+            bet: ['That queen of mine looks lonely. Bet.', 'I’ll bet. Credit’s good with me.', 'Raise, boys.'],
+            call: ['I’ll stay in.', 'Call, and write it down.'],
+            fold: ['Too rich.', 'I sell shovels, not miracles.'],
+            check: ['Check.'],
+            win: ['Pleasure doing business.', 'That’s tobacco money for a month.'],
+            bust: 'Well, I’m cleaned out. Good thing I sell the cards, too.',
+          }),
+        },
+        'right',
+        '#6a4a2a',
+      ),
+      art: cutout(art('hattie.webp'), 0.8389, { x: 1265, bottom: 560, height: 480 }),
+    },
   ],
   nemesisId: 'reed',
   narratorId: 'hattie',
-  scene: { palette: { wall: '#14130f', light: '#e8c06a', felt: '#4d3d27', rim: '#3b3022' } },
+  scene: {
+    background: art('background.webp'),
+    tableFront: art('table-front.webp'),
+    title: art('title.webp'),
+    palette: { wall: '#14130f', light: '#e8c06a', felt: '#4d3d27', rim: '#3b3022' },
+  },
   playerPlate: { x: 800, y: 760 },
   keepsake: { name: 'Sergeant Amos Reed', line: 'The Camp, 1863. When he bet, you believed him.' },
   story: {

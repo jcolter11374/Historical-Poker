@@ -40,6 +40,38 @@ import { getGame, type GameDef } from '../games/catalog';
 import { coachLines } from '../games/guide';
 import { playName, postsFor, stakesFor, unitAt } from './stakes';
 
+/**
+ * A table saved between hands, so a chapter can be picked up later
+ * (Session.saveTable() and Session.resume()). Plain JSON. Bump
+ * TABLE_SAVE_VERSION if the shape changes; older saves are then dropped.
+ */
+export const TABLE_SAVE_VERSION = 1;
+export interface SavedTable {
+  version: number;
+  chapterId: string;
+  seats: { stack: number; out: boolean; left: Seat['left'] }[];
+  button: SeatIndex;
+  handNumber: number;
+  stageIndex: number;
+  /** Index of the next hand's game in its stage's `games`. */
+  playIndex: number;
+  level: number;
+  bombPot: boolean;
+  boughtIn: number;
+  humanDecisions: number;
+  humanAggressive: number;
+  tiltLeft: Record<number, number>;
+  taught: string[];
+  scene: SceneLine[];
+  playerWins: number;
+  stakeHolder: SeatIndex | null;
+  cheat: CheatState;
+  cheaterDeals: number;
+  redeal: boolean;
+  finaleStarted: boolean;
+  tutorialTellShown: boolean;
+}
+
 /** Seat 0 is always the human; 1-3 are the chapter's rivals in seat order (left, across, right). */
 export const HUMAN: SeatIndex = 0;
 
@@ -248,6 +280,84 @@ export class Session {
     this.game = getGame(this.play.game);
     if (this.tutorial) this.scene.push(...this.story.tutorial!.before);
     this.prepareNextHand();
+  }
+
+  // ---------------------------------------------------------------- saving
+
+  /**
+   * The table as plain data, to pick up later with Session.resume(). Only
+   * between hands (the hand in play is not saved) and while the chapter is
+   * still going; otherwise null.
+   */
+  saveTable(): SavedTable | null {
+    if (this.outcome || this.handInProgress || this.handNumber === 0) return null;
+    const playIndex = this.stage().games.indexOf(this.play);
+    if (playIndex < 0) return null;
+    return {
+      version: TABLE_SAVE_VERSION,
+      chapterId: this.chapter.id,
+      seats: this.seats.map((s) => ({ stack: s.stack, out: s.out, left: s.left })),
+      button: this.button,
+      handNumber: this.handNumber,
+      stageIndex: this.stageIndex,
+      playIndex,
+      level: this.level,
+      bombPot: this.bombPot,
+      boughtIn: this.boughtIn,
+      humanDecisions: this.humanDecisions,
+      humanAggressive: this.humanAggressive,
+      tiltLeft: { ...this.tiltLeft },
+      taught: [...this.taught],
+      scene: this.scene.map((l) => ({ ...l })),
+      playerWins: this.playerWins,
+      stakeHolder: this.stakeHolder,
+      cheat: this.cheat,
+      cheaterDeals: this.cheaterDeals,
+      redeal: this.redeal,
+      finaleStarted: this.finaleStarted,
+      tutorialTellShown: this.tutorialTellShown,
+    };
+  }
+
+  /**
+   * A table saved by saveTable(), ready for the next hand. Returns null if
+   * the save doesn't fit the chapter as it is now (an old save, or the
+   * chapter changed since), so the caller can start the chapter afresh.
+   */
+  static resume(chapter: Chapter, saved: SavedTable, opts: SessionOptions = {}): Session | null {
+    try {
+      if (saved.version !== TABLE_SAVE_VERSION || saved.chapterId !== chapter.id) return null;
+      if (saved.seats.length !== chapter.rivals.length + 1 || saved.handNumber < 1) return null;
+      const stage = chapter.stages[saved.stageIndex];
+      const play = stage?.games[saved.playIndex];
+      if (!play || saved.seats[saved.button]?.out !== false) return null;
+      const s = new Session(chapter, { ...opts, skipTutorial: true });
+      s.seats.forEach((seat, i) => Object.assign(seat, saved.seats[i]));
+      s.button = saved.button;
+      s.handNumber = saved.handNumber;
+      s.stageIndex = saved.stageIndex;
+      s.play = play;
+      s.game = getGame(play.game);
+      s.level = saved.level;
+      s.bombPot = saved.bombPot;
+      s.boughtIn = saved.boughtIn;
+      s.humanDecisions = saved.humanDecisions;
+      s.humanAggressive = saved.humanAggressive;
+      s.tiltLeft = { ...saved.tiltLeft };
+      s.taught = new Set(saved.taught);
+      s.scene = saved.scene.map((l) => ({ ...l }));
+      s.playerWins = saved.playerWins;
+      s.stakeHolder = saved.stakeHolder;
+      s.cheat = s.story.cheat ? saved.cheat : 'none';
+      s.cheaterDeals = saved.cheaterDeals;
+      s.redeal = saved.redeal;
+      s.finaleStarted = saved.finaleStarted;
+      s.tutorialTellShown = saved.tutorialTellShown;
+      s.speech = null;
+      return s;
+    } catch {
+      return null;
+    }
   }
 
   // ---------------------------------------------------------------- reading

@@ -30,6 +30,7 @@ export function TableScreen({
   hints,
   sound,
   onSound,
+  onHandOver,
   musicLink,
   onFinished,
   onLeave,
@@ -38,6 +39,8 @@ export function TableScreen({
   hints: boolean;
   sound: boolean;
   onSound: (on: boolean) => void;
+  /** Called between hands (and as each scene line passes), so the app can save the table. */
+  onHandOver?: () => void;
   /** The "Music on/off" link, owned by App (it also sits on the story screens). */
   musicLink: ReactNode;
   onFinished: () => void;
@@ -118,6 +121,11 @@ export function TableScreen({
   const betweenHands = (!hand || hand.complete) && snap.handNumber > 0;
   const drawing = hand?.draw ?? null;
   const drawProblem = drawing ? session.drawProblem(selected) : null;
+
+  // Between hands, keep the table so the chapter can be picked up later.
+  useEffect(() => {
+    if (betweenHands && !snap.outcome) onHandOver?.();
+  }, [betweenHands, snap.handNumber, snap.outcome, snap.scene?.text]);
 
   return (
     <div className={`table-screen${flop ? ' table-flop' : ''}`}>

@@ -550,6 +550,10 @@ button:disabled { opacity: 0.4; cursor: default; }
   position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; text-align: center;
   background: rgba(8, 4, 2, 0.78); text-shadow: 0 3px 10px #000; cursor: default; animation: line-in 1.2s ease-out both;
 }
+.montage-finish-title {
+  justify-content: flex-start; padding-top: 64px;
+  background: linear-gradient(to bottom, rgba(8, 4, 2, 0.8) 0%, rgba(8, 4, 2, 0.45) 45%, rgba(8, 4, 2, 0) 75%);
+}
 .montage-finish h1 { margin: 0; font-family: var(--display); font-weight: 400; font-size: 84px; line-height: 1; }
 .montage-finish p { margin: 0; font-family: var(--story); font-size: 26px; line-height: 1.4; max-width: 900px; }
 .montage-finish .credits { font-size: 20px; color: var(--muted); }

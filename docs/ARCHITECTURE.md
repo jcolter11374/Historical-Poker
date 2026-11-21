@@ -37,7 +37,7 @@ How the code fits together. Read the README first.
 3. **Table** (`TableScreen.tsx`): a `Session` for the chapter.
 4. **Ending** (`EndScreen` in `App.tsx`): outro, keepsake, history, next chapter.
 5. **Practice** (`PracticeScreen.tsx`): the list of games, from "Practice any game" on the chapter select. Sitting down opens the table screen with a practice Session; leaving it comes back here.
-6. **The opening** and 7. **the ending** (`Montage.tsx`): paintings with one caption each, wiping from one to the next. The slides are data in `src/story/montages.ts` (`OPENING`, `CLOSING`); what follows the last slide (the title and "Take a seat", or the credits) is passed in by `App.tsx`. The opening shows first when `progress.seenOpening` is false; the ending is reached from the last chapter's ending screen. Both can be watched again from the chapter select.
+6. **The opening** and 7. **the ending** (`Montage.tsx`): paintings with one caption each, wiping from one to the next. The slides are data in `src/story/montages.ts` (`OPENING`, `CLOSING`); what follows the last slide (the title and "Take a seat", or the credits) is passed in by `App.tsx`. The opening's title sits on its own painting, `public/art/title-screen.webp` (`finishImage`), with the text at the top. The opening shows first when `progress.seenOpening` is false; the ending is reached from the last chapter's ending screen. Both can be watched again from the chapter select.
 
 Everything is laid out on a fixed 1600 x 900 stage (`Stage.tsx`) that scales to fit the window, so positions in chapter files are plain stage pixels.
 

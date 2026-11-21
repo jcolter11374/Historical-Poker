@@ -18,7 +18,12 @@ const HOLD_MS = 8000;
 
 const art = (file: string) => `${import.meta.env.BASE_URL}art/${file}`;
 
-export function Montage({ slides, finish, onSkip, musicLink }: { slides: Slide[]; finish: ReactNode; onSkip: () => void; musicLink?: ReactNode }) {
+/**
+ * `finishImage`: a painting (a file in public/art/) to show behind `finish`
+ * instead of the last slide, with the text at the top: the opening uses the
+ * title-screen painting of the open deck case.
+ */
+export function Montage({ slides, finish, finishImage, onSkip, musicLink }: { slides: Slide[]; finish: ReactNode; finishImage?: string; onSkip: () => void; musicLink?: ReactNode }) {
   // `at` counts slides shown so far; slides.length means the finish screen.
   const [at, setAt] = useState(0);
   const done = at >= slides.length;
@@ -46,13 +51,17 @@ export function Montage({ slides, finish, onSkip, musicLink }: { slides: Slide[]
   const first = Math.max(0, at - 1);
   return (
     <div className="montage" onClick={done ? undefined : next}>
-      {shown.map((s, i) => (
+      {done && finishImage ? (
+        <div className="montage-slide">
+          <img className="layer" src={art(finishImage)} alt="" />
+        </div>
+      ) : shown.map((s, i) => (
         <div key={done ? 'last' : first + i} className={`montage-slide${!done && first + i === at && at > 0 ? ' montage-wipe' : ''}`}>
           {s.image ? <img className="layer" src={art(s.image)} alt="" /> : <Placeholder slide={s} />}
         </div>
       ))}
       {done ? (
-        <div className="montage-finish">{finish}</div>
+        <div className={`montage-finish${finishImage ? ' montage-finish-title' : ''}`}>{finish}</div>
       ) : (
         <>
           <div className="montage-strip" key={at}>

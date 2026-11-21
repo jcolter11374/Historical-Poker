@@ -113,6 +113,12 @@ Each chapter needs: a **background** (the empty room and table, first-person fro
 
 The player is never shown, so no art is needed for the Averys. Faces on the chapter select and keepsakes are cropped from the character art, so no separate portraits are needed.
 
+## Current state, game-wide pictures
+
+- Title screen: done (`public/art/title-screen.webp`, from art/title-screen.jpg in the project files): the open leather case on green baize with the old cards spilling out, a brass lamp and a few coins. It sits behind "Still Ours" after the opening pictures; the shade darkens only the top, where the title is. Made at 1600 wide from the original with Pillow (quality 80); no cleanup needed.
+- Chapter select, the deck case: still to come.
+- Screenshot: `docs/screenshots/title-screen.jpg`.
+
 ## Current state, the epilogue
 
 - Background and table front: done. The first picture had two fridges side by side, fake handwriting on the fridge notes and the lamp low over the seat across; a redo with only those changed fixed all three (the first try is art/redo/kitchen-to-fix.jpg). The two notes on the wall have scribbled lines, not letters, and were kept.

@@ -3,8 +3,8 @@
  * Deadwood, August 1876. The finale of Part One: the Crane feud ends.
  * (docs/GAME_OUTLINE.md, Chapter 5.)
  *
- * Art: the saloon, Doc and Ruby are painted; Jasper is a placeholder
- * until he is painted on green, and there is no title painting yet.
+ * Art: the saloon, the title painting (Deadwood's main street) and the
+ * three rivals (cut out from green-screen paintings) are all in place.
  */
 import { DRAW5_ID } from '../games/fiveCardDraw';
 import { cutout, lines, music, rival, say } from './cast';
@@ -122,29 +122,33 @@ export const LAST_HAND: Chapter = {
       // Her fanned cards widen the picture to her left, so she sits right of centre.
       art: cutout(art('ruby.webp'), 0.9989, { x: 850, bottom: 520, height: 470 }),
     },
-    rival(
-      {
-        id: 'jasper',
-        name: 'Jasper',
-        fullName: 'Jasper Crane',
-        role: 'Silas Crane’s grandson, come for “the Crane deck”',
-        personality: { valueAt: 1.3, bluff: 0.25, caution: -0.02, betSize: 0.8, respect: 0.35, reads: 0.4, tilt: 0.15 },
-        // The same mustache stroke as his grandfather, a callback to chapter 1.
-        tell: { text: 'He smooths his mustache, just like his grandfather.', signals: 'bluffing', showsWhenTrue: 0.7, showsWhenFalse: 0.3 },
-        lines: lines({
-          bet: ['Raise, Miss Avery. Family tradition.', 'A little more for the pot.', 'Let’s find out how lucky my deck is.'],
-          call: ['I’ll keep you honest.', 'Call.'],
-          fold: ['Your hand, this time.', 'I’ll let that one go.'],
-          check: ['After you.'],
-          win: ['The Cranes thank you.', 'The deck knows its family.'],
-          bust: 'Again. A Crane, beaten by an Avery, again. Grandfather said you people were lucky.',
-          draw: ['One card.', 'Two.'],
-          pat: ['I’ll stand.'],
-        }),
-      },
-      'right',
-      '#2a2a2a',
-    ),
+    {
+      ...rival(
+        {
+          id: 'jasper',
+          name: 'Jasper',
+          fullName: 'Jasper Crane',
+          role: 'Silas Crane’s grandson, come for “the Crane deck”',
+          personality: { valueAt: 1.3, bluff: 0.25, caution: -0.02, betSize: 0.8, respect: 0.35, reads: 0.4, tilt: 0.15 },
+          // The same mustache stroke as his grandfather, a callback to chapter 1.
+          tell: { text: 'He smooths his mustache, just like his grandfather.', signals: 'bluffing', showsWhenTrue: 0.7, showsWhenFalse: 0.3 },
+          lines: lines({
+            bet: ['Raise, Miss Avery. Family tradition.', 'A little more for the pot.', 'Let’s find out how lucky my deck is.'],
+            call: ['I’ll keep you honest.', 'Call.'],
+            fold: ['Your hand, this time.', 'I’ll let that one go.'],
+            check: ['After you.'],
+            win: ['The Cranes thank you.', 'The deck knows its family.'],
+            bust: 'Again. A Crane, beaten by an Avery, again. Grandfather said you people were lucky.',
+            draw: ['One card.', 'Two.'],
+            pat: ['I’ll stand.'],
+          }),
+        },
+        'right',
+        '#2a2a2a',
+      ),
+      // His fanned cards reach far to his right (our left), so he sits right of his plate.
+      art: cutout(art('jasper.webp'), 1.1878, { x: 1330, bottom: 560, height: 430 }),
+    },
   ],
   nemesisId: 'ruby',
   narratorId: 'ruby',
@@ -152,6 +156,7 @@ export const LAST_HAND: Chapter = {
     music: music('last-hand'),
     background: art('background.webp'),
     tableFront: art('table-front.webp'),
+    title: art('title.webp'),
     palette: { wall: '#21170f', light: '#f0b75e', felt: '#3b4a2a', rim: '#5b3b20' },
   },
   playerPlate: { x: 800, y: 760 },

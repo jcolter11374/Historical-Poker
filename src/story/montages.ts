@@ -58,8 +58,7 @@ export const OPENING: Slide[] = [
   {
     when: 'Chicago, Las Vegas, Paris: 1926 to 1992',
     caption: 'Then the letters begin. A lawyer, no name, and an offer for the deck. Every Avery gets one. No Avery answers.',
-    image: 'back-room/title.webp',
-    standIn: true,
+    image: 'montage/opening-4-letters.webp',
   },
   {
     when: 'Las Vegas, 2005',

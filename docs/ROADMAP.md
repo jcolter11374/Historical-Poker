@@ -24,13 +24,14 @@ Done:
 - [x] Motion: cards dealt from the dealer and turned over, chips sliding to the pot and to the winner (2026-11-20).
 - [x] Sound effects made in code, with on/off switches; a music hook per chapter (2026-11-20).
 - [x] Phones and tablets: played sideways, with enlarged words and chips on small screens, a "turn sideways" card, and home-screen full screen (2026-11-20).
+- [x] Practice: any game, on its own, against the chapter's rivals, with its teacher's lesson and hints, never ending and never saved (2026-11-21). This is the outline's Free Play.
 - [x] Bots that read the betting, size you up over the evening (the sharp ones), and go on tilt (the hot-headed ones); a bot lab to measure them (2026-11-20).
 
 To do:
 - [ ] **Art** for chapters 2 to 12 and the epilogue, and the rest of chapter 1 ([ART.md](ART.md), "Art needed, per chapter").
 - [ ] **Play-testing** every chapter: length, stakes, bot difficulty, and lesson wording.
 - [ ] Story choices made while building that John should confirm ([DECISIONS.md](DECISIONS.md), 2026-11-20 entries).
-- [ ] Outline features not built yet: difficulty levels, Free Play, the almanac, a "tell spotted" hint, Brag's blind betting, Poque's payout board, jackpots in five-card draw, choices in scenes (giving Toby his pay back).
+- [ ] Outline features not built yet: difficulty levels, the almanac, a "tell spotted" hint, Brag's blind betting, Poque's payout board, jackpots in five-card draw, choices in scenes (giving Toby his pay back).
 - [x] History notes checked against sources, in every chapter ([HISTORY_SOURCES.md](HISTORY_SOURCES.md)). The Atlantic City chapter moved to 1995, after Paris, because poker was illegal there until 1993.
 - [ ] Music files for the chapters ([ART.md](ART.md), "Music").
 - [ ] Play-test the bot tuning with real people; the numbers in GAME_DESIGN.md come from stand-in players.

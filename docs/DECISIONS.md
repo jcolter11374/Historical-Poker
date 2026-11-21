@@ -87,3 +87,6 @@ Recorded sound effects need licences tracked and files hosted. Cards, chips and 
 
 ### Phones play sideways (2026-11-20)
 The table is a wide painting with characters in it, and an upright layout would mean shrinking or cropping the people, which is the point of the look. So phones play sideways like most console-style games, with words and controls enlarged on small screens, and an upright phone is asked to turn (it can carry on upright). An upright layout could come later if play-testers want it.
+
+### Practice is the outline's Free Play, open from the start (2026-11-21)
+John asked for a practice mode where friends pick any RSDP Live game and play it outside the story. The outline's Free Play ("any unlocked game against any unlocked characters", unlocked by the Part One finale) is built as this, with two differences for John to confirm: it is open from the start, like jumping to any chapter, because its purpose is letting a friend go straight to the game they want to learn; and each game is played against the rivals of the chapter that teaches it, rather than picking characters, which keeps the screen to one choice. The list is generated from the chapters, so it can't fall out of step with them. The practice lesson is the game's rules card read by the teacher, because chapter lessons refer to the story around them.

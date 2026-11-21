@@ -223,6 +223,12 @@ export interface Chapter {
   keepsake: { name: string; line: string };
   /** Scripted story moments at the table. Optional: a chapter without one is plain play. */
   story?: Story;
+  /**
+   * A practice table (src/practice), not a chapter of the story: nobody is
+   * ever knocked out (broke means buying back in), so it goes on until the
+   * player leaves. Not saved in progress.
+   */
+  practice?: boolean;
 }
 
 /** One line of a story scene. `who` is a rival's id, or 'narration' for plain description. */

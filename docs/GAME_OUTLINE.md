@@ -26,7 +26,7 @@ You play **Kit Avery**, a young traveler on the steamboat *Magnolia Queen* (fict
 ### The shape of the story
 
 1. **Act I, the riverboat (1836).** Kit wins the deck back from Silas. Inside its worn leather case is an inscription, "M.A. 1543", and Delphine Arceneaux, who knows its history, starts to tell it.
-1. **Act II, flashbacks.** Each flashback is a chapter played as an earlier owner of the deck: a card-painter's daughter at Ashcombe Hall in 1543, then a coach guard at a coaching inn in 1763. They explain how the deck was made, how it crossed to England's roads and then to America, and why people say "the deck never loses".
+1. **Act II, flashbacks (Delphine's tale).** The story is told out of date order on purpose, and the game says so: Delphine tells the deck's past to Kit on the riverboat, each flashback opens and closes with her telling it, and its card in the chapter select is marked "Delphine's tale" under its year (John asked for this, 2026-11-21). Each flashback is a chapter played as an earlier owner of the deck: a card-painter's daughter at Ashcombe Hall in 1543, then a coach guard at a coaching inn in 1763. They explain how the deck was made, how it crossed to England's roads and then to America, and why people say "the deck never loses".
 1. **Act III, forward.** Kit's line carries the deck on: Kit's son at a Union army camp in 1863, then Kit's granddaughter in a Deadwood saloon in 1876, where a Crane descendant wants the deck back. The finale settles the feud.
 1. **Bonus, New Orleans (1817).** Once the main story is done, Delphine's own story unlocks: the night the deck came to her aunt's gaming house, played as Poque, the French game that probably gave poker its name.
 
@@ -36,6 +36,31 @@ You play **Kit Avery**, a young traveler on the steamboat *Magnolia Queen* (fict
 - **The keepsake:** every chapter's rival, once beaten, adds a painted card to the deck's case. The case fills up across the game and is the chapter select screen.
 - **The Cranes:** Silas is the first villain, and a Crane returns in the finale, so the story starts and ends with the same feud.
 - **Real history, invented people:** every main character is fictional. Real places, events and rules appear as backdrop and in short history notes. Whether real figures make cameos (for example Wild Bill Hickok in Deadwood) is an open question.
+
+### The family lines
+
+Every chapter's player is an Avery, and the dates have to allow it. This is the tree the script follows (John agreed, 2026-11-21). Birth years are a guide for writing and are not shown in the game. Keep new story text consistent with it.
+
+| Who | Born about | Chapter | Relation |
+| --- | --- | --- | --- |
+| Nan Avery | 1525 | 2, 1543 | Daughter of the card painter Thomas Avery. Lady Margery pays for the deck, then gives it back to her. |
+| Will Avery | 1740 | 3, 1763 | Nan's descendant, two hundred years on. Takes the deck to America. |
+| Henri Avery | 1766 | Bonus, 1817 | Will's son, Kit's grandfather. Loses the deck to Élodie; Delphine wins it back for him, and he tells her its story, which is how she can tell it in 1836. |
+| Kit's father | 1788 | (before chapter 1) | Henri's son. Loses the deck to Silas Crane, who cheats. |
+| Kit Avery | 1810 | 1, 1836 | Wins it back. Still alive in 1863. |
+| Sam Avery | 1833 | 4, 1863 | Kit's son. |
+| Clara Avery | 1856 | 5, 1876 | Sam's daughter, Kit's granddaughter. |
+| Edith Avery | 1890 | 6, 1926 | Clara's daughter. |
+| Lou Avery | 1920 | 7, 1972 | Edith's son. |
+| Ray Avery | 1945 | 9, 1995 | Lou's son. |
+| Anna Avery | 1968 | 8, 1992 | Ray's daughter. Ray lends her the deck for Paris; it is back with him by 1995. |
+| Jamie Avery | 1984 | 10, 2005 | Ray's youngest, Anna's much younger sibling. |
+| Sophie Avery | 1993 | 11, 2019 | Anna's daughter, Jamie's niece. |
+| You | | 12 and the epilogue | The latest Avery to hold the deck. How you are related is left open. |
+
+- **The Cranes:** Silas (1836); his grandson Jasper (1876); then nothing is heard from them until Nate, "N0rthStar" (2005); and Nate's uncle Victor (today), who calls himself the last Crane who still wants the deck.
+- **The Arceneaux:** Delphine is nineteen and newly married in 1817, a widow of thirty-eight on the riverboat in 1836, and keeps a diary from 1817. Margot Arceneaux (1995) is her descendant and has the diary.
+- **The deck itself** is played with in Part One. From 1926 on it is carried for luck and staked, not shuffled.
 
 ## Chapters
 
@@ -109,7 +134,7 @@ Every chapter below lists the same things: setting, rules as the game will run t
 | Sir Roland Fettiplace | A reckless young knight | Very loose and aggressive: bets on anything, easy to trap | Drains his cup before a bluff |
 | Brother Anselm | A former monk, turned out when the monasteries closed, now the hall's steward | Careful: counts points, calls with good odds, rarely raises | Mutters a prayer when weak |
 
-**Story beats.** The feast and Lady Margery's challenge. Sir Roland wagers and loses his horse. Anselm talks about the abbey he lost. Final showdown with Margery. Win: she pays, and has the deck's leather case stamped with her initials, "M.A. 1543", as a mark of respect. Her parting quip, that whoever holds it never loses, starts the legend.
+**Story beats.** The feast and Lady Margery's challenge. Sir Roland wagers and loses his horse. Anselm talks about the abbey he lost. Final showdown with Margery. Win: she pays, gives the deck back to Nan (so it stays with the Averys), and has her initials written inside its leather case, "M.A. 1543", as a mark of respect. Her parting quip, that whoever holds it never loses, starts the legend.
 
 **History notes (checked).** Primero (Italian *primiera*, Spanish *primera*) was popular across Europe in the 1500s and was one of the fashionable games of Henry VIII's reign. Shakespeare mentions it, in *Henry VIII* (the king at primero with the Duke of Suffolk) and *The Merry Wives of Windsor* (Falstaff). It is played with 40 cards; its hands, including a flush and four of a kind, foreshadow poker's. Henry VIII closed England's monasteries between 1536 and 1541.
 
@@ -203,7 +228,7 @@ Every chapter below lists the same things: setting, rules as the game will run t
 
 **Setting.** Maison Fontaine, a gaming house in New Orleans's French Quarter, two years after the Battle of New Orleans. Candlelight, iron balconies, warm night air. Stakes are Spanish silver and banknotes.
 
-**Story.** Unlocks after the finale. It answers how Delphine knows the deck: as a young woman in her aunt's gaming house, she watched Kit's grandfather Henri Avery play for it, and sat in herself.
+**Story.** Unlocks after the finale. It answers how Delphine knows the deck: as a young woman in her aunt's gaming house, she watched Kit's grandfather Henri Avery (Will's son) play for it, and sat in herself. Henri told her the deck's story that night, which is how she can tell it on the riverboat.
 
 **Rules (a proposal; needs research before building).**
 
@@ -231,11 +256,11 @@ Part Two carries the deck from 1926 to today and teaches every game RSDP Live of
 | # | Chapter | Year | Place | Games, in the order taught | Rival | You play as |
 | --- | --- | --- | --- | --- | --- | --- |
 | 6 | The Back Room | 1926 | A speakeasy, Chicago | Seven Card Stud, then Razz | Nora Shea | Edith Avery, Clara's daughter |
-| 7 | The Desert Classic | 1972 | A casino tournament, Las Vegas | Limit Hold'em, then No-Limit Hold'em | "Tex" Dawson Pruitt | Lou Avery |
-| 8 | The Cercle | 1992 | A private card club, Paris | Pot-Limit Omaha, then Omaha Hi-Lo | Comte Lucien Varenne | Anna Avery |
-| 9 | The Boardwalk | 1995 | A casino poker room, Atlantic City | Stud Hi-Lo | Margot Arceneaux | Ray Avery |
-| 10 | The Boom | 2005 | An internet café at 3 a.m., then a final table in Las Vegas | Online Hold'em, then 2-7 Triple Draw and Badugi | A player known only as "N0rthStar" | Jamie Avery |
-| 11 | The Big O | 2019 | A big card room in the English Midlands | 5-Card Omaha, then 6-Card Omaha, then their Hi-Lo versions | Gaz Whitlock | Sophie Avery |
+| 7 | The Desert Classic | 1972 | A casino tournament, Las Vegas | Limit Hold'em, then No-Limit Hold'em | "Tex" Dawson Pruitt | Lou Avery, Edith's son |
+| 8 | The Cercle | 1992 | A private card club, Paris | Pot-Limit Omaha, then Omaha Hi-Lo | Comte Lucien Varenne | Anna Avery, Ray's daughter |
+| 9 | The Boardwalk | 1995 | A casino poker room, Atlantic City | Stud Hi-Lo | Margot Arceneaux | Ray Avery, Lou's son |
+| 10 | The Boom | 2005 | An internet café at 3 a.m., then a final table in Las Vegas | Online Hold'em, then 2-7 Triple Draw and Badugi | A player known only as "N0rthStar" | Jamie Avery, Ray's youngest |
+| 11 | The Big O | 2019 | A big card room in the English Midlands | 5-Card Omaha, then 6-Card Omaha, then their Hi-Lo versions | Gaz Whitlock | Sophie Avery, Anna's daughter |
 | 12 | The Last Table | Today | A private high-stakes room, Macau | HORSE, then 8-Game | Victor Crane | You |
 | Epilogue | The Kitchen Table | Today | A home game with friends | Hold'em with home-game extras: bomb pots, double board, 7-2 bounty | None: friends | You |
 
@@ -249,7 +274,7 @@ All people, clubs, events and websites in Part Two are fictional, with generic v
 - **9, The Boardwalk (1995).** Poker has been legal in Atlantic City casinos for two years, and stud is the game of East Coast poker rooms. Margot Arceneaux, Delphine's descendant and the room's manager, teaches Stud Hi-Lo and challenges Ray Avery for the deck the two families once shared. *Fit:* seven-card stud was the main casino game in the eastern US before Hold'em (sourced); casinos opened in Atlantic City in 1978, but poker was banned there until June 25, 1993, and stud was its main poker game from 1993 to 2003 (sourced; the chapter moved from 1985 to 1995 for this, John agreed 2026-11-20); when the 8-or-better rule appeared is not recorded (checked: no source gives a date).
 - **10, The Boom (2005).** The most dramatic chapter, not a quiet one. Jamie Avery, broke and studying at night, plays a $5 online qualifier in a cramped internet café at 3 a.m. The screen is the table: a painted monitor glow, avatars, a scrolling chat full of trash talk, four tables at once, and a new tell, **timing**, how fast each player acts. Jamie wins seat after seat and lands at the televised final table of a big live championship in Las Vegas, with lights, cameras and a crowd, where the rival "N0rthStar" is revealed in person as a Crane. Between rounds of the qualifier, two online pros teach the high-stakes games of the moment: "DeuceSeven" teaches 2-7 Triple Draw, and "Hanbit", from Seoul, teaches Badugi. *Fit:* the online boom of the mid-2000s turned amateurs into champions: Chris Moneymaker won the 2003 world championship after qualifying through an $86 online satellite (sourced); Badugi has been played since the 1980s, in South Korea among other places, and became known in the US around 2004 (sourced).
 - **11, The Big O (2019).** A huge, noisy card room in the English Midlands, where big Omaha games with five and six cards are the fashion. Gaz Whitlock, a regular who has seen everything, teaches 5-Card and then 6-Card Omaha; on the last round the table switches to the Hi-Lo versions. *Fit:* six-card Omaha is found in many UK casinos, and five-card Omaha ("Big O") spread in American card rooms from about 2008 (sourced; the 2008 date is uncited on its source).
-- **12, The Last Table (today).** The finale in a private room in Macau. Victor Crane, the last of the Cranes, challenges you for the deck in HORSE, five games in turn, then the 8-Game mix, so you use almost everything you have learned. Mei Lin Chau, a quiet local legend, explains each switch. The feud ends for good and the deck's case is full.
+- **12, The Last Table (today).** The finale in a private room in Macau. Victor Crane, Nate's uncle and by his own account the last Crane who still wants the deck, challenges you for the deck in HORSE, five games in turn, then the 8-Game mix, so you use almost everything you have learned. Mei Lin Chau, a quiet local legend, explains each switch. The feud ends for good and the deck's case is full.
 - **Epilogue, The Kitchen Table (today).** You bring the deck home to a game with friends, the kind RSDP Live was made for. Your friends teach the house extras: bomb pots, double board and the 7-2 bounty. The last screen is the "Powered by RSDP Live" mark, inviting players to start their own game.
 
 Sources for the facts marked sourced: [Seven-card stud](https://en.wikipedia.org/wiki/7_Card_Stud), [Stud poker](https://en.wikipedia.org/wiki/Stud_poker), [Omaha hold 'em](https://en.wikipedia.org/wiki/Omaha_Hi-Lo), [Robert Turner](https://en.wikipedia.org/wiki/Robert_Turner_(poker_player)), [Omaha, at pagat.com](https://pagat.com/poker/variants/omaha.html), [Badugi, at pagat.com](https://pagat.com/poker/variants/badugi.html). Sources for everything else, and the full fact check, are in [HISTORY_SOURCES.md](HISTORY_SOURCES.md).

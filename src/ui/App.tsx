@@ -192,7 +192,7 @@ function IntroScreen({
       <PoweredBy />
       <div className="story-card">
         <div className="eyebrow">
-          {chapter.numeral === 'Bonus' || chapter.numeral === 'Epilogue' ? chapter.numeral : `Chapter ${chapter.numeral}`} · {chapter.place}, {chapter.year}
+          {chapter.numeral === 'Bonus' || chapter.numeral === 'Epilogue' ? chapter.numeral : `Chapter ${chapter.numeral}`}{chapter.toldBy ? ` · ${chapter.toldBy}` : ''} · {chapter.place}, {chapter.year}
         </div>
         <h1>{chapter.title}</h1>
         {jumping && !first && (

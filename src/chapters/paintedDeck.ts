@@ -19,6 +19,7 @@ export const PAINTED_DECK: Chapter = {
   title: 'The Painted Deck',
   year: 1543,
   place: 'Ashcombe Hall, Kent, England',
+  toldBy: 'Delphine’s tale',
   youAre: 'Nan Avery, a card-painter’s daughter',
   teaches: 'Primero, the courtly ancestor of poker',
   rulesObject: 'The parchment of rules',
@@ -54,7 +55,7 @@ export const PAINTED_DECK: Chapter = {
   levelEvery: 10,
   levelLines: [say('narration', 'The yule log sinks into embers. A servant brings more candles, and Lady Margery doubles the wager.')],
   intro: [
-    'Twelfth Night, 1543. The last night of the Christmas revels in the great hall of Ashcombe Hall. Candlelight, tapestries, a roaring hearth.',
+    'On the Magnolia Queen, Delphine turns the old case in the lamplight. “It begins three hundred years ago, darling, with an Avery like you. How I know is a story for another night.” Twelfth Night, 1543. The last night of the Christmas revels in the great hall of Ashcombe Hall. Candlelight, tapestries, a roaring hearth.',
     'Your father, the card painter Thomas Avery, spent a year on a deck for Lady Margery Ashcombe: every card painted by hand, every court card a face from her own household. Now she will not pay for it.',
     '“Play me for it, if you think it is worth so much,” she says. Your father’s hands shake too badly to hold the cards. So you, Nan Avery, take the seat.',
   ],
@@ -204,9 +205,9 @@ export const PAINTED_DECK: Chapter = {
   },
   outro: {
     won: [
-      'Lady Margery’s last shilling crosses the table. The hall is silent; then she laughs, and pays twice what she owed.',
-      'She has her goldsmith stamp her initials inside the deck’s case: “M.A. 1543”. “Whoever holds this deck never loses,” she says. “Tonight, at least, that was true.”',
-      'The legend has begun. Two hundred years later, the deck is on the road north…',
+      'Lady Margery’s last shilling crosses the table. The hall is silent; then she laughs, and pays twice what she owed. Then she puts the deck back in your hands. “A deck that beat me will not sit in my cupboard. Keep it, Mistress Avery.”',
+      'First she has her initials inked inside the lid of its case: “M.A. 1543”. “Whoever holds this deck never loses,” she says. “Tonight, at least, that was true.”',
+      '“And so the legend began,” Delphine says, back on the river. “Two hundred years later, the deck was on the road north, in a coach guard’s coat…”',
     ],
     lost: [
       'Your last shilling is gone. Lady Margery tucks the painted deck into her sleeve.',

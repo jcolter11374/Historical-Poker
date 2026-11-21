@@ -199,6 +199,16 @@ export interface Chapter {
   /** Display year ("Today" for the present). */
   year: number | 'Today';
   place: string;
+  /**
+   * Set on a chapter that happens EARLIER than the one before it in play
+   * order: a tale told inside the story ("Delphine’s tale"). The story opens
+   * in 1836 and Delphine tells the deck's past on the riverboat, so chapters
+   * 2 and 3 (1543, 1763) and the bonus (1817) carry this. It is shown on the
+   * chapter's card in the chapter select and on its intro screen, so nobody
+   * takes the jump back in time for a mistake. See docs/GAME_DESIGN.md,
+   * "The order of the story".
+   */
+  toldBy?: string;
   /** Who the player is in this chapter: "Kit Avery". */
   youAre: string;
   /** The games taught, for the chapter select: "Seven Card Stud, then Razz". */

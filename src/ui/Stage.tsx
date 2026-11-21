@@ -51,6 +51,16 @@ export function Stage({ children }: { children: ReactNode }) {
 }
 
 /**
+ * Use as `ref={focusOnMount}` instead of `autoFocus` on a button inside a
+ * scrolling card (the story screens): it takes the keyboard focus without
+ * scrolling the card down to the button, so a phone shows the start of the
+ * story, not its end.
+ */
+export function focusOnMount(el: HTMLElement | null) {
+  el?.focus({ preventScroll: true });
+}
+
+/**
  * Focusing a button (autoFocus) makes the browser scroll its containers to
  * show it, even ones with overflow hidden, which would slide the whole stage
  * off the screen. Put any container that isn't meant to scroll back.

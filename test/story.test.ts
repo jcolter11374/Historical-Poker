@@ -66,12 +66,16 @@ describe('chapter 1 story', () => {
         return s.handInProgress && tells.includes(RIVERBOAT.story!.cheat!.tell);
       });
       if (!s.canAccuse() || !(s.snapshot().tells[2] ?? []).includes(RIVERBOAT.story!.cheat!.tell)) continue;
+      // Purses are shown as they stand mid-hand (antes and bets already out), so the pot is what must come back.
       const before = s.snapshot().seats.map((x) => x.stack);
+      const pot = s.snapshot().hand!.pot;
       s.accuse();
       const after = s.snapshot();
       expect(after.hand).toBeNull();
       expect(after.redeal).toBe(true);
-      expect(after.seats.map((x) => x.stack)).toEqual(before);
+      const back = after.seats.map((x, i) => x.stack - before[i]);
+      expect(back.every((n) => n >= 1)).toBe(true); // at least the $1 ante each
+      expect(back.reduce((a, b) => a + b, 0)).toBe(pot);
       skip(s);
       s.startHand();
       expect(s.canAccuse()).toBe(false); // caught once, he plays straight from then on

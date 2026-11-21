@@ -1,12 +1,17 @@
 /**
- * Three-card brag, as played in English inns (chapter 3, 1763). Our version
- * follows the modern game, which keeps the 1700s hand order:
- * - 52 cards, three each, face down. Everyone antes, one betting round.
- * - Hands, best first: prial (three of a kind; three threes are best, then
- *   aces, kings and down), running flush, run, flush, pair, high card.
- * - Runs: A-2-3 is the best run, then A-K-Q, K-Q-J and down to 4-3-2.
- * Betting blind is described in the rules card but not played: see
- * docs/DECISIONS.md.
+ * Brag, as played in English inns (chapter 3, 1763). This is the vying game
+ * of Hoyle's century, not today's three-card brag:
+ * - 52 cards, three each, face down. Everyone antes, then one round of
+ *   bragging: pass, or brag (bet), until the brags are matched ("seen").
+ * - Only matched cards count. Hands, best first: a pair royal (three of a
+ *   kind), a pair, then the highest card. Aces are high. Runs and flushes do
+ *   not count: they are the later, modern game.
+ * - Two "braggers", the knave of clubs and the nine of diamonds, stand for
+ *   any card. A natural hand beats the same hand made with a bragger.
+ * - No betting blind and no agreed limit: neither is recorded for the 1700s.
+ * Not played here: the other two stakes of three-stake brag (the best card
+ * turned up, and thirty-one). Sources and open questions:
+ * docs/HISTORY_SOURCES.md.
  */
 import type { Card, GameSpec, VariantRules } from '@rsdp/engine/core';
 import { RANK_ORDER, RANK_WORDS, cap, highAward, type Scored } from './award';
@@ -15,43 +20,47 @@ export const BRAG_ID = 'brag-1763';
 
 export const BRAG: GameSpec = {
   id: BRAG_ID,
-  name: 'Three-Card Brag (1763)',
+  name: 'Brag (1763)',
   family: 'draw',
   streets: [{ name: 'The deal', dealDown: 3, dealUp: 0, dealBoard: 0, betSize: 'small' }],
   maxPlayers: 8,
-  defaultBetting: 'pot-limit',
+  defaultBetting: 'no-limit',
   split: 'high',
   forcedBets: 'blinds',
 };
 
-export const BRAG_CATEGORIES = ['High card', 'Pair', 'Flush', 'Run', 'Running flush', 'Prial'];
+export const BRAG_CATEGORIES = ['High card', 'Pair', 'Pair royal'];
+
+/** The braggers: the knave of clubs and the nine of diamonds are wild. */
+export const BRAGGERS: Card[] = ['Jc', '9d'];
 
 const letter = (r: number) => Object.keys(RANK_ORDER).find((k) => RANK_ORDER[k] === r)!;
 const one = (r: number) => RANK_WORDS[letter(r)][0];
 const many = (r: number) => RANK_WORDS[letter(r)][1];
 
+/**
+ * Scores one to three cards. Key: [category, rank of the set, kicker, natural (1) or made with a bragger (0)],
+ * so of two equal hands the natural one wins.
+ */
 export function scoreBrag(cards: Card[]): Scored {
-  const ranks = cards.map((c) => RANK_ORDER[c[0]]).sort((a, b) => b - a);
-  if (cards.length < 3) {
-    const pair = ranks.length === 2 && ranks[0] === ranks[1];
-    return { key: [pair ? 1 : 0, ...ranks], name: pair ? `A pair of ${many(ranks[0])}` : `${cap(one(ranks[0]))} high` };
+  const naturals = cards.filter((c) => !BRAGGERS.includes(c)).map((c) => RANK_ORDER[c[0]]).sort((a, b) => b - a);
+  const wild = cards.length - naturals.length;
+  const tag = wild ? ' (with a bragger)' : '';
+  const [a, b, c] = naturals;
+  // No natural card at all (both braggers and nothing else): they stand for aces.
+  if (!naturals.length) return wild === 1 ? { key: [0, 14, 0, 0], name: 'A bragger' } : { key: [1, 14, 0, 0], name: `A pair of aces${tag}` };
+  const allAlike = naturals.every((r) => r === a);
+  if (cards.length === 3 && allAlike) return { key: [2, a, 0, wild ? 0 : 1], name: `Pair royal of ${many(a)}${tag}` };
+  if (wild) {
+    // One bragger with two different cards (or with one card, mid-deal): it pairs the higher.
+    return { key: [1, a, b ?? 0, 0], name: `A pair of ${many(a)}${tag}` };
   }
-  const flush = cards.every((c) => c[1] === cards[0][1]);
-  const [a, b, c] = ranks;
-  // A-2-3 is the best run; then ordinary runs, aces high.
-  const ace23 = a === 14 && b === 3 && c === 2;
-  const run = ace23 || (a - b === 1 && b - c === 1);
-  const runValue = ace23 ? 15 : a;
-  if (a === b && b === c) return { key: [5, a === 3 ? 15 : a], name: `Prial of ${many(a)}` };
-  if (run && flush) return { key: [4, runValue], name: ace23 ? 'Running flush, A-2-3' : `Running flush, ${one(a)} high` };
-  if (run) return { key: [3, runValue], name: ace23 ? 'Run, A-2-3' : `Run, ${one(a)} high` };
-  if (flush) return { key: [2, a, b, c], name: `Flush, ${one(a)} high` };
-  if (a === b || b === c) {
+  if (a === b || (b !== undefined && b === c)) {
     const pair = a === b ? a : b;
-    const kicker = a === b ? c : a;
-    return { key: [1, pair, kicker], name: `A pair of ${many(pair)}` };
+    const kicker = a === b ? (c ?? 0) : a;
+    return { key: [1, pair, kicker, 1], name: `A pair of ${many(pair)}` };
   }
-  return { key: [0, a, b, c], name: `${cap(one(a))} high` };
+  return { key: [0, a, b ?? 0, c ?? 0], name: `${cap(one(a))} high` };
 }
 
 export const BRAG_RULES: VariantRules = { awardPortion: highAward(scoreBrag) };

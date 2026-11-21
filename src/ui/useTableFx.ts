@@ -50,7 +50,7 @@ export function seatSpot(chapter: Chapter, seat: SeatIndex): Point {
  * and middle seats.
  */
 export function potSpot(flop: boolean, compact = false): Point {
-  return flop || compact ? { x: 585, y: 462 } : { x: 800, y: 640 };
+  return flop || compact ? { x: 585, y: 462 } : { x: 800, y: 630 };
 }
 
 const FLIGHT_MS = 650;
@@ -85,7 +85,7 @@ export function useTableFx(chapter: Chapter, snap: Snapshot, compact: boolean): 
     prev.current = snap;
     const h = snap.hand;
     if (!h) return;
-    const flop = snap.play.family === 'flop';
+    const flop = (snap.hand?.family ?? snap.play.family) === 'flop';
     const pot = potSpot(flop, compact);
     const add: Flight[] = [];
     const sounds: [Sfx, number][] = [];

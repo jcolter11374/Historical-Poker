@@ -64,7 +64,8 @@ export function TableScreen({
   // A stage with its own scene keeps the chapter's music unless it names its own.
   const music = stage.scene?.music ?? chapter.scene.music ?? null;
   useEffect(() => playMusic(music), [music]);
-  const flop = snap.play.family === 'flop';
+  // Lay out the felt for the hand on it: between hands `play` is already the next game.
+  const flop = (snap.hand?.family ?? snap.play.family) === 'flop';
   // Cards fly in from whoever holds the buck.
   const dealer = seatSpot(chapter, snap.button);
   const from = (to: Point): CSSProperties => ({ '--dx': `${dealer.x - to.x}px`, '--dy': `${dealer.y - to.y}px` }) as CSSProperties;
@@ -198,6 +199,14 @@ export function TableScreen({
 
       {hand?.complete && hand.summary && <div className="summary">{hand.summary}</div>}
 
+      {/* The draw is easy to miss, so it is announced where the showdown line goes. */}
+      {drawing && !snap.scene && (
+        <div className="summary draw-call" aria-live="polite">
+          <span className="draw-call-title">{drawing.rounds > 1 ? `The draw, ${drawing.round} of ${drawing.rounds}` : 'The draw'}</span>
+          Pick the cards to throw away: {drawing.words}. Or stand pat and keep them all.
+        </div>
+      )}
+
       {hand && (
         <PlayerHand
           snap={snap}
@@ -240,7 +249,7 @@ export function TableScreen({
             {hand && !hand.complete && hand.legal && <ChipControls legal={hand.legal} pot={hand.pot} unit={snap.play.unit} money={money} onAct={act} />}
             {drawing && (
               <div className="draw-group">
-                <div className="draw-note">{drawProblem ?? (selected.length ? `Throw ${selected.length}, draw ${selected.length}.` : `Click the cards to throw away (up to ${drawing.max}).`)}</div>
+                <div className="draw-note">{drawProblem ?? (selected.length ? `Throw ${selected.length}, draw ${selected.length}.` : 'Pick cards to throw away, or keep them all.')}</div>
                 <button type="button" className="chip chip-raise" onClick={draw} disabled={!!drawProblem}>
                   {selected.length ? (
                     <>
@@ -326,7 +335,14 @@ function SeatPlate({
               : '';
   const inHand = snap.hand && !s.out && p && !p.folded;
   const won = snap.hand?.complete ? snap.hand.winners.filter((w) => w.seat === seat).reduce((n, w) => n + w.amount, 0) : 0;
-  const size: CardSize = small && !(p?.handName) ? 'tiny' : 'small';
+  // Flop games: cards stay tiny before the showdown. The seat across stays
+  // tiny at the showdown too, and its win goes on the hand line, so its
+  // cards never reach the board below.
+  const across = seat === 2;
+  const size: CardSize = small && (across || !p?.handName) ? 'tiny' : 'small';
+  const winInLine = small && across;
+  const winText = won > 0 ? `wins ${money(won)}` : '';
+  const showHand = !!p?.handName && !p.folded;
   return (
     <div className={`plate${s.out || p?.folded ? ' plate-dim' : ''}`} style={{ left: character.plate.x, top: character.plate.y }}>
       {snap.button === seat && <Buck />}
@@ -335,6 +351,7 @@ function SeatPlate({
       <div className="plate-stack">
         {money(s.stack)}
         {status ? ` · ${status}` : ''}
+        {winInLine && !showHand && winText && <span className="plate-win pop-in"> · {winText}</span>}
       </div>
       {inHand && (
         <div className={`plate-cards plate-cards-${size}`}>
@@ -346,8 +363,13 @@ function SeatPlate({
           ))}
         </div>
       )}
-      {p?.handName && !p.folded && <div className="plate-hand">{p.handName}</div>}
-      {won > 0 && <div className="plate-win pop-in">wins {money(won)}</div>}
+      {showHand && (
+        <div className="plate-hand">
+          {p.handName}
+          {winInLine && winText && <span className="plate-win pop-in"> · {winText}</span>}
+        </div>
+      )}
+      {winText && !winInLine && <div className="plate-win pop-in">{winText}</div>}
     </div>
   );
 }
@@ -445,7 +467,7 @@ function PlayerHand({
   const tilt = n > 5 ? 4 : 7;
   return (
     <div className={`my-hand${lowered ? ' my-hand-low' : ''}`}>
-      <div className={`my-cards${folded ? ' my-cards-folded' : ''}${n > 5 ? ' my-cards-many' : ''}`}>
+      <div className={`my-cards${folded ? ' my-cards-folded' : ''}${n > 5 ? ' my-cards-many' : ''}${selectable ? ' my-cards-draw' : ''}`}>
         {hand.myCards.map((c, i) => {
           const lift = selected.includes(i) ? -48 : 0;
           const style = { transform: `rotate(${(i - mid) * tilt}deg) translateY(${Math.abs(i - mid) * 8 + lift}px)` };
@@ -463,10 +485,13 @@ function PlayerHand({
         })}
       </div>
       <div className="my-line">
-        {folded ? 'You folded' : hand.myHandName}
-        {' · '}your purse {money(me.stack)}
-        {snap.button === HUMAN ? ' · you hold the buck' : ''}
-        {won ? ` · you win ${money(won)}` : ''}
+        <span className="my-hand-name">{folded ? 'You folded' : hand.myHandName}</span>
+        {/* On small screens the purse goes on a second line (styles.css, "Small screens"). */}
+        <span className="my-purse">
+          your purse {money(me.stack)}
+          {snap.button === HUMAN ? ' · you hold the buck' : ''}
+          {won ? ` · you win ${money(won)}` : ''}
+        </span>
       </div>
     </div>
   );

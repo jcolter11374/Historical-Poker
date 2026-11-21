@@ -164,7 +164,7 @@ A private room in Macau. You are the last Avery (a man; the story ends with his 
 - **Elena's strength:** she is written as a top pro in her talk and reputation, not in a punishing difficulty: this is a teaching game. Her numbers are a little sharper than Victor's. When rivals move to RSDP Live's bots, she is one of the few characters where the Hard setting may fit (John, 2026-11-21).
 - **Beats, the two of you warming:** before hand 2 she says she wrote to your family once, and laughs when you say the note reached you last month in a shoebox; before hand 4 you tell her she looks at you when she bluffs; before hand 6 Victor gives the Crane version of the legend (their luck went downriver in 1836), Mei Lin answers that the Averys won by watching people, and Elena says Silas dealt seconds ("That is the Avery version," says Victor); before hand 9 she reads Clara's "Still ours" in the case, and Mei Lin tells Victor these two are no longer playing for the deck.
 - **Finale:** Mei Lin or Victor bows out ("I started this, with a letter. You two finish it."), and the last two are you and Elena, for the deck, loser buys dinner. Win: she laughs, says it was always yours, and you owe her dinner; Victor lets the grudge go ("It was never the deck, was it? Maybe the Cranes can just play cards now"); the case has room for one more line, which you leave empty until after dinner.
-- **Art:** the private room over Macau harbour, Mei Lin, Elena and Victor painted in person (docs/ART.md). The title painting is still to come.
+- **Art:** fully painted: the private room over Macau harbour, Mei Lin, Elena, Victor and the title painting (docs/ART.md).
 
 ### Epilogue. The Kitchen Table (today), house extras
 

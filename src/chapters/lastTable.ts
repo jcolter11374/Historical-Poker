@@ -174,7 +174,7 @@ export const LAST_TABLE: Chapter = {
   ]),
   nemesisId: 'crane',
   narratorId: 'meilin',
-  scene: { music: music('last-table'), background: art('background.webp'), tableFront: art('table-front.webp'), palette: { wall: '#0d0b10', light: '#f5d9a0', felt: '#3a1418', rim: '#b08a3a' } },
+  scene: { music: music('last-table'), title: art('title.webp'), background: art('background.webp'), tableFront: art('table-front.webp'), palette: { wall: '#0d0b10', light: '#f5d9a0', felt: '#3a1418', rim: '#b08a3a' } },
   playerPlate: { x: 800, y: 760 },
   keepsake: { name: `Elena Crane`, line: 'The Last Table, today. Every game, the end of the feud, and dinner.' },
   story: {

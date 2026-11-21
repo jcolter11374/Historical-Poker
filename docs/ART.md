@@ -107,7 +107,7 @@ Each chapter needs: a **background** (the empty room and table, first-person fro
 | 9 The Boardwalk | done | all done | Delphine's diary (title painting done: the boardwalk at dusk) |
 | 10 The Boom | both done: the café's monitor with the online table on its screen, and the televised final table (red felt, black rail) | the three avatars done (shark, star, tiger cub); in person, all done (Nat Crane fixed by hand to two cards) | chat window, TV graphics (title painting done: the café and the TV stage side by side) |
 | 11 The Big O | done (rows of tables, a bar, waiting-list screens blurred by hand) | all done (five cards each) | modern chips (title painting done: the casino by a canal on a wet evening) |
-| 12 The Last Table | done (private room over Macau harbour at night: red felt, the bridge and the observation tower; the lampshade painted out) | all done (Mei Lin fixed by hand to one card; Victor's lamp painted out) | the tablet menu, tea set (title painting still to come) |
+| 12 The Last Table | done (private room over Macau harbour at night: red felt, the bridge and the observation tower; the lampshade painted out) | all done (Mei Lin fixed by hand to one card; Victor's lamp painted out) | the tablet menu, tea set (title painting done: the old street, the tower and the bridge at night) |
 | Epilogue The Kitchen Table | a kitchen at night, the evening after a wedding: warm light, wedding cake, mismatched chips | Dee only: Victor and Elena reuse their chapter 12 pictures (Marcus and Priya speak but are not seen) | the full leather case on the counter |
 | The opening and the ending | nine paintings in the style of the title paintings, one per slide (three more are optional) | none | see [ART_PROMPTS.md](ART_PROMPTS.md), "The opening and the ending" |
 
@@ -119,8 +119,8 @@ The player is never shown, so no art is needed for the Averys. Faces on the chap
 - Elena: done. The first picture had her brows pulled down into a scheming look, wrong for the one warm Crane, and was redone with only the expression changed. A table edge along the bottom was cropped off before the cutout. She sits a little higher than the standard seat across so her closed stack shows above the rim.
 - Mei Lin: done. She was painted holding a fan of three cards; the two back cards were painted out with her robe (cloned from just beside them) by `meilin-fix.py`, which also redraws the front card's ink outline and clears a blurred spot on the green. One card back is left, so no count can be read.
 - Victor: done. He was painted under a hanging lamp touching his hair; `victor-fix.py` paints the lamp out and keeps the hair.
-- Title painting: still to come.
-- Screenshot: `docs/screenshots/chapter-12-table.jpg`.
+- Title painting: done, the old shophouse street and temple roofs in front, the observation tower, the gold casino tower and the long low bridge behind. The first version had two observation towers and made-up Chinese on the signs; a redo fixed the towers and blanked most signs, and `last-table-title-fix.py` blurs the rest (the untouched picture is art/last-table-title-original.jpg). Chapter 12 is fully painted.
+- Screenshots: `docs/screenshots/chapter-12-table.jpg`, `chapter-12-intro.jpg`.
 
 ## Current state, chapter 11
 

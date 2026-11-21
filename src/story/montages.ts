@@ -98,6 +98,7 @@ export const CLOSING: Slide[] = [
   {
     when: 'The wedding',
     caption: 'Both families in one room, and nobody counting the chairs between them.',
+    image: 'montage/ending-5-wedding.webp',
     palette: KITCHEN,
   },
   {

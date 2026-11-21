@@ -241,7 +241,7 @@ export const BOOM: Chapter = {
   ],
   nemesisId: 'northstar',
   narratorId: 'deuceseven',
-  scene: { music: music('boom'), background: art('background-cafe.webp'), tableFront: art('table-front-cafe.webp'), pot: { x: 630, y: 500 }, palette: { wall: '#0b0f1a', light: '#6ad0ff', felt: '#1a3a6a', rim: '#2a2f3a' } },
+  scene: { music: music('boom'), background: art('background-cafe.webp'), tableFront: art('table-front-cafe.webp'), pot: { x: 600, y: 500 }, palette: { wall: '#0b0f1a', light: '#6ad0ff', felt: '#1a3a6a', rim: '#2a2f3a' } },
   playerPlate: { x: 800, y: 760 },
   keepsake: { name: '“N0rthStar”, Nate Crane', line: 'The Boom, 2005. From a $5 qualifier to the final table.' },
   story: {

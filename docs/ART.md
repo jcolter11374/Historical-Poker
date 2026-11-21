@@ -65,7 +65,15 @@ Every chapter is playable with no art at all:
 1. Make the pictures from the prompts above, using the chapter's setting and cast from [CHAPTERS.md](CHAPTERS.md) and the outline.
 2. Run the tools as in "From picture to game art", into `public/art/<chapter-id>/` (for example `public/art/painted-deck/`), and add the chapter's `TABLE_ELLIPSE` to `prepare-art.py`.
 3. In the chapter file, set `scene.background`, `scene.tableFront` and (if painted) `scene.title` (see `riverboat.ts`: `art('background.webp')`), and give each rival real art: keep `rival(..., seat, colour)` and override its art, `{ ...rival(...), art: cutout(art('name.webp'), aspect, place) }`, with `aspect` the image's width / height (see `paintedDeck.ts`). The standard seat positions in `cast.ts` are a good start; nudge `place` and `plate` until they sit right.
-4. Check every stage of the chapter in `npm run dev` (some stages change the lighting, like the Boom's final table), and update the list below.
+4. Check every stage of the chapter in `npm run dev` (some stages change the room, like the Boom's final table), and update the list below.
+
+### A chapter with two rooms (the Boom)
+
+The Boom is played in two rooms, so its files carry the room's name: `background-cafe.jpg` and `background-final.jpg` in the originals folder, and `python3 tools/prepare-art.py <originals-folder> boom cafe` (then `... boom final`) writes `background-cafe.webp`, `table-front-cafe.webp` and so on. The rims are in `TABLE_ELLIPSE` as `boom-cafe` and `boom-final`.
+
+- **The café** is the chapter's own `scene`. Its table is a picture on a monitor, cut off by the monitor's frame at both sides, so `TABLE_CLIP` in `prepare-art.py` keeps the table front inside the screen. The screen covers about x 305 to 1315 of the 1600-wide stage, so the three rivals sit closer together than usual (`ONLINE` in `boom.ts`): square avatars standing above the far rim, name plates under them. Two things follow from the tight seats: the scene sets `pot` (where the pot sits in flop games), and the avatars set `tellAbove` (tells show over the avatar, not beside it).
+- **The avatars** are square icons in a silver frame on green, cut out like any character: `python3 tools/greenscreen-cutout.py deuceseven-avatar-green.jpg deuceseven-avatar.png`. They are also the faces on the chapter select, intro and keepsake.
+- **The final table** is the last stage's `scene`, and that stage's `seats` gives each rival their in-person art and the standard seat places (see `Stage.seats` in `types.ts`). A rival not yet painted keeps the placeholder there: `standardSeat('across', colour)`.
 
 ## RSDP Live logo
 
@@ -97,12 +105,18 @@ Each chapter needs: a **background** (the empty room and table, first-person fro
 | 7 The Desert Classic | 1970s casino tournament room: low ceiling, smoke, patterned carpet | "Tex" Dawson Pruitt, Professor Milton Weiss, Lorraine Fisk | clay chips, a tournament program |
 | 8 The Cercle | private Paris card club: panelled salon, chandelier, cigar smoke | Comte Lucien Varenne, Siobhan Kearney, Dmitri Volkov | plaques (rectangular chips) |
 | 9 The Boardwalk | 1990s Atlantic City poker room: neon, mirrors, ocean at the window | Margot Arceneaux, Benny "the Book" Russo, Ruth Goldfarb | Delphine's diary |
-| 10 The Boom | two: a cramped internet café at 3 a.m. (monitor glow, the screen as the table), then a TV final table in Las Vegas (stage lights, cameras) | "N0rthStar" (as an avatar, and as Nate Crane in person), "DeuceSeven", "Hanbit" (avatars and in person) | avatars, chat window, TV graphics |
+| 10 The Boom | both done: the café's monitor with the online table on its screen, and the televised final table (red felt, black rail) | the three avatars done (shark, star, tiger cub); in person, DeuceSeven done; Nate Crane and Hanbit still needed | title painting, chat window, TV graphics |
 | 11 The Big O | big modern card room in the English Midlands: rows of tables, bright lights | Gaz Whitlock, Kerry-Ann Booth, Mr. Emeka Okafor | |
 | 12 The Last Table | private room over Macau harbour at night: one table, city lights | Victor Crane (riverboat cufflinks), Mei Lin Chau, Rafael Duarte | the tablet menu, tea set |
 | Epilogue The Kitchen Table | a kitchen at night: warm light, pizza box, mismatched chips | Marcus, Priya, Dee | the full leather case on the counter |
 
 The player is never shown, so no art is needed for the Averys. Faces on the chapter select and keepsakes are cropped from the character art, so no separate portraits are needed.
+
+## Current state, chapter 10
+
+- Café background and table front, the three avatars, the final table background and table front, DeuceSeven in person: done. Nothing needed cleaning up: no lettering or stray marks in any of the six.
+- The café picture differs from its prompt in two ways that were kept: the table on the screen is cut off by the monitor frame at the sides, and its rim is brown wood, not a dark rail. Seats, cards, the board and the pot all sit on it (screenshot: `docs/screenshots/chapter-10-table.jpg`).
+- Still to make: Nate Crane and Hanbit in person (silhouettes at the final table until then; screenshot `docs/screenshots/chapter-10-final-table.jpg`), and the title painting (the intro shows the café until then).
 
 ## Current state, chapter 1
 

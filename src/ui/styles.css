@@ -318,6 +318,9 @@ button:disabled { opacity: 0.4; cursor: default; }
     #5a2e17;
   box-shadow: inset 0 0 0 3px #2e170a, inset 0 0 0 7px #7a4524, inset 0 0 0 9px rgba(0, 0, 0, 0.3), 0 24px 50px rgba(0, 0, 0, 0.7);
 }
+.select-painted { background-size: cover; background-position: center; }
+/* On the painting the velvet is the case, so the drawn case steps back. */
+.select-painted .case { background: none; box-shadow: none; }
 .case-part h2 { margin: 0 0 8px; font-family: var(--story); font-style: italic; font-weight: 400; font-size: 20px; color: #e6c27a; }
 .case-row { display: flex; gap: 12px; }
 .case-card {

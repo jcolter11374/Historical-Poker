@@ -16,6 +16,9 @@ import { CHAPTERS, isUnlocked, nextChapter } from '../chapters';
 import type { Chapter } from '../chapters/types';
 import { latestTable, type Progress, type SavedTables } from '../progress/save';
 import { PoweredBy } from './PoweredBy';
+
+/** The painting behind the chapter cards: the open deck case, lined with red velvet (docs/ART.md). */
+const SELECT_ART = `linear-gradient(rgba(12, 6, 2, 0.35), rgba(12, 6, 2, 0.35)), url(${import.meta.env.BASE_URL}art/chapter-select.webp)`;
 import { Face } from './Scene';
 
 export function ChapterSelect({
@@ -75,7 +78,7 @@ export function ChapterSelect({
     );
   };
   return (
-    <div className="select-screen">
+    <div className="select-screen select-painted" style={{ backgroundImage: SELECT_ART }}>
       <PoweredBy />
       <header className="select-head">
         <div className="eyebrow">The Ashcombe deck, 1543 to today</div>

@@ -53,6 +53,7 @@ src/games         The game catalog: every game's rules card and teaching guide, 
 src/table         The table between hands: seats, money, stages, stakes, story beats, win/loss.
 src/bots          How rivals decide: hand strength by simulation, plus a personality.
 src/chapters      One file per chapter: story, stages, lessons, characters; index.ts sets the order.
+src/practice      Practice mode: any game outside the story, built from the chapters.
 src/progress      Saved progress (chapters won, hints on or off).
 src/ui            React screens: chapter select, intro, table, ending, rules sheet.
 public/art        Game-ready art, one folder per chapter.

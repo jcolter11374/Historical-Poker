@@ -875,6 +875,7 @@ export class Session {
 
   /** True once hand `hand` is in the last stage: from then on, broke means out. */
   private inFinalStage(hand: number): boolean {
+    if (this.chapter.practice) return false; // practice never ends: everyone buys back in
     return hand >= this.chapter.stages[this.chapter.stages.length - 1].fromHand;
   }
 

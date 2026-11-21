@@ -21,6 +21,7 @@ export function ChapterSelect({
   tables,
   onPick,
   onResume,
+  onPractice,
   onHints,
   onOption,
   onReset,
@@ -31,6 +32,7 @@ export function ChapterSelect({
   onPick: (c: Chapter) => void;
   /** Back to the table left most recently. */
   onResume: () => void;
+  onPractice: () => void;
   onHints: (on: boolean) => void;
   onOption: (option: 'sound' | 'music', on: boolean) => void;
   onReset: () => void;
@@ -91,6 +93,9 @@ export function ChapterSelect({
             {won.size ? `Continue: ${next.title}` : 'Begin the story'}
           </button>
         )}
+        <button type="button" className="chip chip-call chip-wide" onClick={onPractice} title="Play any game on its own, outside the story">
+          Practice any game
+        </button>
         <label className="toggle">
           <input type="checkbox" checked={progress.hints} onChange={(e) => onHints(e.target.checked)} /> Teacher hints at the table
         </label>

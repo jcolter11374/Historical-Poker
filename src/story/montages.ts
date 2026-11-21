@@ -68,6 +68,7 @@ export const OPENING: Slide[] = [
   {
     when: 'Today',
     caption: 'Two families. One deck. Nearly five hundred years of bad blood. Somebody has to end it. Take a seat.',
+    image: 'montage/opening-6-today.webp',
     palette: MACAU,
   },
 ];

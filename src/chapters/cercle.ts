@@ -3,12 +3,20 @@
  * Paris card club, 1992. All people and places are fictional.
  *
  * Art: the panelled club room and the title painting (a Paris boulevard at
- * night) are in. The three rivals are still placeholders (docs/ART.md).
+ * night) and the Comte Varenne are in. Siobhan and Dmitri are still
+ * placeholders (docs/ART.md).
  */
-import { lines, music, rival, say } from './cast';
-import type { Chapter } from './types';
+import { cutout, lines, music, rival, say } from './cast';
+import type { Chapter, Character, CharacterArt } from './types';
 
 const art = (file: string) => `${import.meta.env.BASE_URL}art/cercle/${file}`;
+
+/** The painted rivals, by id: image, width / height, and place on the 1600 x 900 stage. */
+const PAINTED: Record<string, CharacterArt> = {
+  varenne: cutout(art('varenne.webp'), 0.9878, { x: 800, bottom: 488, height: 385 }),
+};
+const paint = (r: Character): Character => ({ ...r, art: PAINTED[r.id] ?? r.art });
+const painted = ([a, b, c]: Chapter['rivals']): Chapter['rivals'] => [paint(a), paint(b), paint(c)];
 
 export const CERCLE: Chapter = {
   id: 'cercle',
@@ -96,7 +104,7 @@ export const CERCLE: Chapter = {
     'Pot-limit: no bet larger than the pot. Before two o’clock, a player who goes broke can buy back in.',
     'After two, in Omaha Hi-Lo, broke means out. Be the last one at the table.',
   ],
-  rivals: [
+  rivals: painted([
     rival(
       {
         id: 'siobhan',
@@ -157,7 +165,7 @@ export const CERCLE: Chapter = {
       'right',
       '#2a2a3a',
     ),
-  ],
+  ]),
   nemesisId: 'varenne',
   narratorId: 'varenne',
   scene: {

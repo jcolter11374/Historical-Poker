@@ -10,7 +10,7 @@
  * shows session.snapshot() and calls session methods; `version` is bumped
  * after each call to re-render.
  */
-import { useEffect, useState, type CSSProperties } from 'react';
+import { useEffect, useState, type CSSProperties, type ReactNode } from 'react';
 import type { Action, LegalActions, SeatIndex } from '@rsdp/engine/core';
 import type { Character } from '../chapters/types';
 import { HUMAN, type SceneView, type Session, type Snapshot } from '../table/session';
@@ -30,6 +30,7 @@ export function TableScreen({
   hints,
   sound,
   onSound,
+  musicLink,
   onFinished,
   onLeave,
 }: {
@@ -37,6 +38,8 @@ export function TableScreen({
   hints: boolean;
   sound: boolean;
   onSound: (on: boolean) => void;
+  /** The "Music on/off" link, owned by App (it also sits on the story screens). */
+  musicLink: ReactNode;
   onFinished: () => void;
   onLeave: () => void;
 }) {
@@ -55,7 +58,9 @@ export function TableScreen({
   const money = (n: number) => session.money(n);
   const compact = useCompact();
   const flights = useTableFx(chapter, snap, compact);
-  useEffect(() => playMusic(scene.music ?? null), [scene.music]);
+  // A stage with its own scene keeps the chapter's music unless it names its own.
+  const music = stage.scene?.music ?? chapter.scene.music ?? null;
+  useEffect(() => playMusic(music), [music]);
   const flop = snap.play.family === 'flop';
   // Cards fly in from whoever holds the buck.
   const dealer = seatSpot(chapter, snap.button);
@@ -146,6 +151,7 @@ export function TableScreen({
         <button type="button" onClick={() => onSound(!sound)} aria-pressed={sound}>
           {sound ? 'Sound on' : 'Sound off'}
         </button>
+        {musicLink}
         <button type="button" onClick={onLeave}>
           Leave the table
         </button>
@@ -201,9 +207,10 @@ export function TableScreen({
       ))}
 
       {line ? (
-        <div key={line.text} className={`dialogue${line.name ? '' : ' dialogue-narration'}`} aria-live="polite">
+        <div key={line.text} className={`dialogue${line.name ? '' : ' dialogue-narration'}${line === hint ? ' dialogue-hint' : ''}`} aria-live="polite">
           {line.name && <div className="speaker">{line.name}</div>}
           <p>{line.name ? `“${line.text}”` : line.text}</p>
+          {line.aside && <p className="aside">{line.aside}</p>}
         </div>
       ) : (
         snap.speech &&
@@ -264,7 +271,18 @@ export function TableScreen({
         )}
       </div>
 
-      {rulesOpen && <RulesPanel chapter={chapter} game={session.currentGame} playName={snap.play.name} onClose={() => setRulesOpen(false)} />}
+      {rulesOpen && (
+        <RulesPanel
+          chapter={chapter}
+          game={session.currentGame}
+          playName={snap.play.name}
+          betting={snap.play.betting}
+          extras={stage.extras}
+          unitMoney={(units) => money(units * snap.play.unit)}
+          hints={hints}
+          onClose={() => setRulesOpen(false)}
+        />
+      )}
     </div>
   );
 }

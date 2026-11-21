@@ -185,6 +185,7 @@ button:disabled { opacity: 0.4; cursor: default; }
 
 .sheet-backdrop { position: absolute; inset: 0; z-index: 5; background: rgba(5, 2, 0, 0.6); display: grid; place-items: center; }
 .sheet {
+  min-height: 640px;
   width: 980px; max-height: 820px; overflow: auto; padding: 40px 52px; color: var(--ink); border-radius: 6px;
   background:
     radial-gradient(ellipse at 20% 10%, rgba(255, 255, 255, 0.45), transparent 50%),
@@ -201,6 +202,15 @@ button:disabled { opacity: 0.4; cursor: default; }
 .rankings li span { display: inline-block; min-width: 160px; }
 .rankings .example { font-family: var(--display); font-size: 16px; color: #5a3a20; }
 .note { font-style: italic; font-size: 17px; }
+.sheet-eyebrow { font-family: var(--story); font-style: italic; font-size: 18px; color: #6b2a10; }
+.sheet-pages { display: flex; gap: 22px; margin: -4px 0 4px; }
+.sheet-pages button {
+  padding: 2px 0; border: 0; background: none; color: #6b2a10;
+  font-family: var(--story); font-style: italic; font-size: 19px; text-decoration: underline; text-underline-offset: 4px;
+}
+.sheet-pages button.current { color: var(--ink); font-weight: 700; text-decoration: none; }
+.tips { margin: 0; padding-left: 22px; }
+.tips li { margin: 0 0 8px; }
 .sheet-close {
   margin-top: 18px; padding: 10px 22px; border-radius: 999px; border: 2px solid var(--ink); background: transparent;
   font-family: var(--display); font-size: 18px; color: var(--ink);
@@ -231,6 +241,10 @@ button:disabled { opacity: 0.4; cursor: default; }
 
 /* ---------------------------------------------------------------- story */
 .dialogue-narration p { font-style: italic; color: var(--muted); }
+/* A hint says more than a line of talk: a little smaller, and a reminder under it in the teacher's margin-note style. */
+.dialogue-hint { width: 500px; }
+.dialogue-hint p { font-size: 22px; }
+.dialogue-hint .aside { margin-top: 8px; font-size: 18px; font-style: italic; color: var(--gold); }
 .tell-line { display: block; }
 .tell-line + .tell-line { margin-top: 6px; }
 .deck-case { position: absolute; right: -54px; top: -6px; filter: drop-shadow(0 3px 4px #000a); }
@@ -372,6 +386,8 @@ button:disabled { opacity: 0.4; cursor: default; }
 .stage-compact .tell-left { transform-origin: top right; }
 .stage-compact .dialogue { scale: calc(var(--boost) * 0.8); transform-origin: bottom left; width: 380px; left: 28px; bottom: 30px; }
 .stage-compact .dialogue p { font-size: 22px; }
+.stage-compact .dialogue-hint p { font-size: 19px; }
+.stage-compact .dialogue-hint .aside { font-size: 16px; }
 .stage-compact .controls { scale: calc(var(--boost) * 0.85); transform-origin: bottom right; right: 22px; bottom: 22px; }
 .stage-compact .my-hand { scale: 0.82; transform-origin: 0 100%; left: 760px; }
 .stage-compact .my-line { scale: calc(var(--boost) * 1.1); }

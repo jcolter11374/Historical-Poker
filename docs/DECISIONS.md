@@ -87,3 +87,9 @@ Recorded sound effects need licences tracked and files hosted. Cards, chips and 
 
 ### Phones play sideways (2026-11-20)
 The table is a wide painting with characters in it, and an upright layout would mean shrinking or cropping the people, which is the point of the look. So phones play sideways like most console-style games, with words and controls enlarged on small screens, and an upright phone is asked to turn (it can carry on upright). An upright layout could come later if play-testers want it.
+
+### Original music, written as code (2026-11-21)
+John asked for music in every chapter. Rather than collect free tracks of uneven sound and licence, each chapter has an original tune in the sound of its era, written as a short score in code (`tools/music/pieces.py`) and rendered with a sampled-instrument soundfont (FluidR3 GM, MIT). This replaces the earlier plan of a hook for tracks picked later: sampled instruments sound far better than the synthesis the sound effects use, there is nothing to license, and a developer can change a tune by editing a melody string ([MUSIC.md](MUSIC.md)). Loops are short (50 to 90 seconds), mastered quietly and played at half volume, so the music stays in the background. It can be turned off at the table and on the story screens.
+
+### The rules sheet teaches, not just lists (2026-11-21)
+To help friends learn every RSDP Live game, the rules sheet gained a page of tips and easy mistakes for each game, and plain words for the betting (no limit, pot limit, limit; antes, blinds, bring-in) and the house extras. It is split into three short pages so it never becomes a wall of text. Hints now explain themselves: your hand, your share of the pot, and the share a call needs, plus one reminder about the game and round. The reminders take turns, so a player who keeps asking keeps learning.

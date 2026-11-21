@@ -36,6 +36,7 @@ export function playChapter(chapter: Chapter, seed: number, opts: { maxHands?: n
           const cards = s.snapshot().hand!.myCards.map((c) => c.card);
           let d = s.currentGame.discards?.(cards, limit) ?? [];
           if (s.drawProblem(d)) d = d.slice(0, 3);
+          expect(s.hint()?.text).toMatch(/keep|throw|Stand pat/i);
           s.draw(d);
           continue;
         }

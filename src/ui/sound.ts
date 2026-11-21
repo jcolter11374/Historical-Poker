@@ -5,30 +5,35 @@
  * for cards, short metallic pings for chips, a low thump for a knock), so
  * there are no audio files to license or download. See docs/CREDITS.md.
  *
- * Music is a hook: a chapter (or one of its stages) may name a music file in
- * `scene.music` (src/chapters/types.ts). The file goes in public/music/ and
- * must be free to use (see docs/ART.md, "Music"). With no file named, no
- * music plays. Music fades between chapters and loops.
+ * Music: each chapter names its loop in `scene.music` (src/chapters/types.ts),
+ * a file in public/music/. The loops are original tunes written for this game
+ * and rendered by tools/music/compose.py (docs/MUSIC.md), which also writes
+ * each loop's exact length to music.json. Music is played through Web Audio
+ * so it loops without a gap, fades between chapters, and sits quietly under
+ * the table (MUSIC_VOLUME).
  *
  * Browsers only allow sound after the player has clicked or tapped, so the
- * audio context starts on the first press anywhere (unlock()).
+ * audio context starts on the first press anywhere (unlock()). Music asked
+ * for before that starts then.
  *
  * No React here. The UI calls sfx('chip') and so on; src/ui/useTableFx.ts
  * works out which sounds a change at the table makes.
  */
+import TRACKS from './music.json';
 
 export type Sfx = 'deal' | 'flip' | 'chip' | 'chips' | 'check' | 'fold' | 'win' | 'bigWin' | 'turn' | 'draw' | 'lose';
 
 let ctx: AudioContext | null = null;
 let master: GainNode | null = null;
+let musicBus: GainNode | null = null;
 let noise: AudioBuffer | null = null;
 let sfxOn = true;
 let musicOn = true;
-let musicEl: HTMLAudioElement | null = null;
-let musicSrc: string | null = null;
-let fadeTimer: number | undefined;
 
-const MUSIC_VOLUME = 0.35;
+/** How loud music plays under the table, 0 to 1. The loops are already mastered quietly. */
+const MUSIC_VOLUME = 0.5;
+const FADE_IN = 1.5;
+const FADE_OUT = 1.0;
 
 /** Start audio. Call from a click or tap (the browser insists). Safe to call often. */
 export function unlock(): void {
@@ -40,11 +45,20 @@ export function unlock(): void {
     master = ctx.createGain();
     master.gain.value = 0.55;
     master.connect(ctx.destination);
+    musicBus = ctx.createGain();
+    musicBus.gain.value = MUSIC_VOLUME;
+    musicBus.connect(ctx.destination);
     noise = makeNoise(ctx);
+    // Rest the music while the game is in a background tab.
+    document.addEventListener('visibilitychange', () => {
+      if (!ctx) return;
+      if (document.hidden) void ctx.suspend();
+      else void ctx.resume();
+    });
   }
-  if (ctx.state === 'suspended') void ctx.resume();
-  // A music file asked for before the first click starts now.
-  if (musicEl && musicOn && musicEl.paused) void musicEl.play().catch(() => undefined);
+  if (ctx.state === 'suspended' && !document.hidden) void ctx.resume();
+  // Music asked for before the first press starts now.
+  syncMusic();
 }
 
 export function setSoundOn(on: boolean): void {
@@ -53,9 +67,7 @@ export function setSoundOn(on: boolean): void {
 
 export function setMusicOn(on: boolean): void {
   musicOn = on;
-  if (!musicEl) return;
-  if (on) void musicEl.play().catch(() => undefined);
-  else musicEl.pause();
+  syncMusic();
 }
 
 /** Plays a sound effect, if sound is on and audio has started. */
@@ -65,35 +77,99 @@ export function sfx(name: Sfx, delayMs = 0): void {
   RECIPES[name](ctx, master, t);
 }
 
-/** Changes the music: a file path (relative to the site), or null for silence. Fades over a second. */
-export function playMusic(src: string | null): void {
-  if (typeof window === 'undefined' || src === musicSrc) return;
-  musicSrc = src;
-  const old = musicEl;
-  window.clearInterval(fadeTimer);
-  if (old) fade(old, 0, () => old.pause());
-  musicEl = null;
-  if (!src) return;
-  const el = new Audio(src);
-  el.loop = true;
-  el.volume = 0;
-  musicEl = el;
-  if (musicOn) void el.play().catch(() => undefined);
-  fade(el, MUSIC_VOLUME);
+// ---------------------------------------------------------------- music
+
+interface Track {
+  src: string;
+  source: AudioBufferSourceNode;
+  gain: GainNode;
 }
 
-function fade(el: HTMLAudioElement, to: number, done?: () => void) {
-  const from = el.volume;
-  let step = 0;
-  const id = window.setInterval(() => {
-    step++;
-    el.volume = Math.max(0, Math.min(1, from + ((to - from) * step) / 20));
-    if (step >= 20) {
-      window.clearInterval(id);
-      done?.();
-    }
-  }, 50);
-  if (!done) fadeTimer = id;
+/** The loop that should be playing (null: silence). */
+let wanted: string | null = null;
+let playing: Track | null = null;
+const buffers = new Map<string, Promise<AudioBuffer | null>>();
+
+/**
+ * Changes the music: a file path (as a chapter's `scene.music` gives it), or
+ * null for silence. The old loop fades out as the new one fades in.
+ */
+export function playMusic(src: string | null): void {
+  if (src === wanted) return;
+  wanted = src;
+  syncMusic();
+}
+
+/** The title of a music file, from music.json (for credits and tests). */
+export function musicTitle(src: string): string | null {
+  return trackInfo(src)?.title ?? null;
+}
+
+function trackInfo(src: string): { file: string; title: string; loop: number } | null {
+  const file = src.split('/').pop() ?? '';
+  return Object.values(TRACKS).find((t) => t.file === file) ?? null;
+}
+
+/** Makes what is playing match `wanted` and the Music setting. */
+function syncMusic(): void {
+  if (!ctx || !musicBus) return;
+  const target = musicOn ? wanted : null;
+  if (playing && playing.src === target) return;
+  if (playing) stopTrack(playing);
+  playing = null;
+  if (!target) return;
+  void load(target).then((buffer) => {
+    // Still wanted, and nothing else started meanwhile?
+    if (!buffer || !ctx || !musicBus || (musicOn ? wanted : null) !== target || playing) return;
+    playing = startTrack(target, buffer);
+  });
+}
+
+function load(src: string): Promise<AudioBuffer | null> {
+  let p = buffers.get(src);
+  if (!p) {
+    p = fetch(src)
+      .then((r) => (r.ok ? r.arrayBuffer() : Promise.reject(new Error(String(r.status)))))
+      .then((data) => ctx!.decodeAudioData(data))
+      .catch(() => {
+        buffers.delete(src); // try again next time
+        return null;
+      });
+    buffers.set(src, p);
+  }
+  return p;
+}
+
+function startTrack(src: string, buffer: AudioBuffer): Track {
+  const c = ctx!;
+  const source = c.createBufferSource();
+  source.buffer = buffer;
+  source.loop = true;
+  // Each file is one loop plus half a second of what follows it, so the
+  // reverb runs on across the seam. Some browsers keep the MP3 encoder's few
+  // milliseconds of silence at the start; whatever is left over beyond the
+  // loop and its tail is that silence, so the loop starts after it.
+  const loop = trackInfo(src)?.loop;
+  if (loop && loop < buffer.duration) {
+    const lead = Math.max(0, buffer.duration - loop - 0.5);
+    source.loopStart = lead;
+    source.loopEnd = lead + loop;
+  }
+  const gain = c.createGain();
+  gain.gain.setValueAtTime(0.0001, c.currentTime);
+  gain.gain.exponentialRampToValueAtTime(1, c.currentTime + FADE_IN);
+  source.connect(gain).connect(musicBus!);
+  source.start(c.currentTime, source.loopStart);
+  return { src, source, gain };
+}
+
+function stopTrack(t: Track): void {
+  const c = ctx!;
+  const now = c.currentTime;
+  t.gain.gain.cancelScheduledValues(now);
+  t.gain.gain.setValueAtTime(Math.max(0.0001, t.gain.gain.value), now);
+  t.gain.gain.exponentialRampToValueAtTime(0.0001, now + FADE_OUT);
+  t.source.stop(now + FADE_OUT + 0.05);
 }
 
 // ---------------------------------------------------------------- the sounds

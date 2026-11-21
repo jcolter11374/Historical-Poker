@@ -21,6 +21,8 @@ One section per chapter: what you play, who teaches it, the cast as coded, and t
 | 12 | The Last Table | `lastTable.ts` | Today | HORSE, then the 8-Game | You | Victor Crane | 11 |
 | Epilogue | The Kitchen Table | `kitchenTable.ts` | Today | No-Limit Hold'em with bomb pots, double board, 7-2 bounty | You | Marcus | 12 |
 
+Each chapter's music (its own original tune, set in `scene.music`) is listed in [MUSIC.md](MUSIC.md).
+
 "Unlocked by" is the chapter you must win to open it normally. Every chapter can still be opened early from the chapter select: the intro then shows "The story so far" (the chapter's `recap`) first, so a friend can go straight to the game they want to learn. The bonus is not on the main path: "On to…" after chapter 5 goes to chapter 6.
 
 Every rival's personality numbers and tell chances are in the chapter file; the tables below give the character of each so you know what to expect. The numbers are explained in [GAME_DESIGN.md](GAME_DESIGN.md), "How the bots think".

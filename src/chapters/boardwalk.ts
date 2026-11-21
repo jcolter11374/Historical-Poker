@@ -3,7 +3,7 @@
  * casino poker room, 1995. The Arceneaux and Avery families meet again. All
  * people and places are fictional.
  */
-import { lines, rival, say } from './cast';
+import { lines, music, rival, say } from './cast';
 import type { Chapter } from './types';
 
 export const BOARDWALK: Chapter = {
@@ -127,7 +127,7 @@ export const BOARDWALK: Chapter = {
   ],
   nemesisId: 'margot',
   narratorId: 'margot',
-  scene: { palette: { wall: '#151218', light: '#f2d39a', felt: '#2a3a5a', rim: '#3a2a20' } },
+  scene: { music: music('boardwalk'), palette: { wall: '#151218', light: '#f2d39a', felt: '#2a3a5a', rim: '#3a2a20' } },
   playerPlate: { x: 800, y: 760 },
   keepsake: { name: 'Margot Arceneaux', line: 'The Boardwalk, 1995. Two families, one deck, half a pot each.' },
   story: {

@@ -8,7 +8,7 @@
  * Progress (chapters won, hints on or off) is saved in the browser after each
  * chapter (src/progress/save.ts).
  */
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { CHAPTERS, followingChapter, isUnlocked, nextChapter } from '../chapters';
 import type { Chapter } from '../chapters/types';
 import { loadProgress, record, resetProgress, setHints, setOption, type Progress } from '../progress/save';
@@ -48,6 +48,13 @@ export function App() {
     if (screen.name !== 'table') playMusic(storyMusic);
   }, [screen.name, storyMusic]);
 
+  // "Music on" / "Music off": a plain text link on the story screens and the table.
+  const musicLink = (
+    <button type="button" className="text-link" onClick={() => setProgress((p) => setOption(p, 'music', !p.music))} aria-pressed={progress.music}>
+      {progress.music ? 'Music on' : 'Music off'}
+    </button>
+  );
+
   const sit = (chapter: Chapter) => {
     setProgress(record(progress, chapter.id, 'started'));
     setScreen({ name: 'table', session: new Session(chapter) });
@@ -70,7 +77,7 @@ export function App() {
         />
       )}
       {screen.name === 'intro' && (
-        <IntroScreen chapter={screen.chapter} jumping={!isUnlocked(screen.chapter.id, won)} onStart={() => sit(screen.chapter)} onBack={() => setScreen({ name: 'select' })} />
+        <IntroScreen chapter={screen.chapter} jumping={!isUnlocked(screen.chapter.id, won)} onStart={() => sit(screen.chapter)} onBack={() => setScreen({ name: 'select' })} musicLink={musicLink} />
       )}
       {screen.name === 'table' && (
         <TableScreen
@@ -78,6 +85,7 @@ export function App() {
           hints={progress.hints}
           sound={progress.sound}
           onSound={(on) => setProgress(setOption(progress, 'sound', on))}
+          musicLink={musicLink}
           onFinished={() => finished(screen.session)} onLeave={() => setScreen({ name: 'select' })} />
       )}
       {screen.name === 'end' && (
@@ -87,13 +95,14 @@ export function App() {
           onAgain={() => sit(screen.chapter)}
           onNext={(c) => setScreen({ name: 'intro', chapter: c })}
           onCase={() => setScreen({ name: 'select' })}
+          musicLink={musicLink}
         />
       )}
     </Stage>
   );
 }
 
-function IntroScreen({ chapter, jumping, onStart, onBack }: { chapter: Chapter; jumping: boolean; onStart: () => void; onBack: () => void }) {
+function IntroScreen({ chapter, jumping, onStart, onBack, musicLink }: { chapter: Chapter; jumping: boolean; onStart: () => void; onBack: () => void; musicLink: ReactNode }) {
   const first = CHAPTERS[0].chapter.id === chapter.id;
   return (
     <div className={`story-screen ${chapter.scene.title ? 'story-titled' : ''}`}>
@@ -133,13 +142,14 @@ function IntroScreen({ chapter, jumping, onStart, onBack }: { chapter: Chapter; 
           <button type="button" className="text-link" onClick={onBack}>
             All chapters
           </button>
+          {musicLink}
         </div>
       </div>
     </div>
   );
 }
 
-function EndScreen({ chapter, won, onAgain, onNext, onCase }: { chapter: Chapter; won: boolean; onAgain: () => void; onNext: (c: Chapter) => void; onCase: () => void }) {
+function EndScreen({ chapter, won, onAgain, onNext, onCase, musicLink }: { chapter: Chapter; won: boolean; onAgain: () => void; onNext: (c: Chapter) => void; onCase: () => void; musicLink: ReactNode }) {
   const next = won ? followingChapter(chapter.id) : null;
   const nemesis = chapter.rivals.find((r) => r.id === chapter.nemesisId)!;
   const last = chapter.id === CHAPTERS[CHAPTERS.length - 1].chapter.id;
@@ -188,6 +198,7 @@ function EndScreen({ chapter, won, onAgain, onNext, onCase }: { chapter: Chapter
               All chapters
             </button>
           )}
+          {musicLink}
         </div>
       </div>
     </div>

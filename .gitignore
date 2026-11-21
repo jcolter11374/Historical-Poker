@@ -3,3 +3,7 @@ dist/
 coverage/
 .DS_Store
 *.log
+
+# MIDI files written by tools/music/compose.py --mid
+tools/music/*.mid
+__pycache__/

@@ -1,0 +1,72 @@
+{
+  "back-room": {
+    "file": "back-room.mp3",
+    "title": "Back Room Stomp",
+    "loop": 58.1818
+  },
+  "big-o": {
+    "file": "big-o.mp3",
+    "title": "Last Orders",
+    "loop": 75.7895
+  },
+  "boardwalk": {
+    "file": "boardwalk.mp3",
+    "title": "Boardwalk After Midnight",
+    "loop": 87.2727
+  },
+  "boom": {
+    "file": "boom.mp3",
+    "title": "Dot Com Felt",
+    "loop": 76.8
+  },
+  "camp": {
+    "file": "camp.mp3",
+    "title": "Campfire on the Rappahannock",
+    "loop": 54.8571
+  },
+  "cercle": {
+    "file": "cercle.mp3",
+    "title": "Valse du Cercle",
+    "loop": 57.6
+  },
+  "desert-classic": {
+    "file": "desert-classic.mp3",
+    "title": "Neon After Midnight",
+    "loop": 65.0847
+  },
+  "gaming-house": {
+    "file": "gaming-house.mp3",
+    "title": "Minuet on the Rue Royale",
+    "loop": 60.0
+  },
+  "kitchen-table": {
+    "file": "kitchen-table.mp3",
+    "title": "Deal Me In",
+    "loop": 80.0
+  },
+  "last-hand": {
+    "file": "last-hand.mp3",
+    "title": "Gold Dust Polka",
+    "loop": 73.8462
+  },
+  "last-table": {
+    "file": "last-table.mp3",
+    "title": "Cotai Lights",
+    "loop": 83.4783
+  },
+  "north-road": {
+    "file": "north-road.mp3",
+    "title": "The Coaching Inn Jig",
+    "loop": 72.0
+  },
+  "painted-deck": {
+    "file": "painted-deck.mp3",
+    "title": "The Ashcombe Galliard",
+    "loop": 51.4286
+  },
+  "riverboat": {
+    "file": "riverboat.mp3",
+    "title": "Moonlight on the Magnolia",
+    "loop": 57.6
+  }
+}

@@ -17,6 +17,7 @@ const lastTable = (file: string) => `${import.meta.env.BASE_URL}art/last-table/$
 
 /** The painted rivals, by id: image, width / height, and place on the 1600 x 900 stage. */
 const PAINTED: Record<string, CharacterArt> = {
+  dee: cutout(art('dee.webp'), 1.1133, { x: 340, bottom: 600, height: 450 }),
   // Elena sits lower than in Macau so the kitchen lamp shows above her head, not behind it.
   crane: cutout(lastTable('elena.webp'), 0.8456, { x: 800, bottom: 500, height: 400 }),
   victor: cutout(lastTable('victor.webp'), 0.8767, { x: 1265, bottom: 600, height: 470 }),

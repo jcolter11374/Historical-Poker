@@ -34,7 +34,7 @@ export const PRIMERO: GameSpec = {
     { name: 'The change', dealDown: 0, dealUp: 0, dealBoard: 0, drawMaxDiscard: 2, betSize: 'big' },
   ],
   maxPlayers: 6,
-  defaultBetting: 'pot-limit',
+  defaultBetting: 'no-limit',
   split: 'high',
   forcedBets: 'blinds',
 };

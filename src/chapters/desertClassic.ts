@@ -3,7 +3,7 @@
  * No-Limit Hold'em tournament with rising blinds, Las Vegas, 1972. All
  * people and events are fictional.
  */
-import { lines, rival, say } from './cast';
+import { lines, music, rival, say } from './cast';
 import type { Chapter } from './types';
 
 export const DESERT_CLASSIC: Chapter = {
@@ -156,7 +156,7 @@ export const DESERT_CLASSIC: Chapter = {
   ],
   nemesisId: 'tex',
   narratorId: 'weiss',
-  scene: { palette: { wall: '#1a1410', light: '#f5c878', felt: '#2a4a3a', rim: '#5a3a1a' } },
+  scene: { music: music('desert-classic'), palette: { wall: '#1a1410', light: '#f5c878', felt: '#2a4a3a', rim: '#5a3a1a' } },
   playerPlate: { x: 800, y: 760 },
   keepsake: { name: '“Tex” Dawson Pruitt', line: 'The Desert Classic, 1972. All in, and all out.' },
   story: {

@@ -8,7 +8,7 @@
  * The online tell is timing: how fast each player acts. Their tells here are
  * written as timing habits.
  */
-import { lines, rival, say } from './cast';
+import { lines, music, rival, say } from './cast';
 import type { Chapter } from './types';
 
 export const BOOM: Chapter = {
@@ -209,7 +209,7 @@ export const BOOM: Chapter = {
   ],
   nemesisId: 'northstar',
   narratorId: 'deuceseven',
-  scene: { palette: { wall: '#0b0f1a', light: '#6ad0ff', felt: '#1a3a6a', rim: '#2a2f3a' } },
+  scene: { music: music('boom'), palette: { wall: '#0b0f1a', light: '#6ad0ff', felt: '#1a3a6a', rim: '#2a2f3a' } },
   playerPlate: { x: 800, y: 760 },
   keepsake: { name: '“N0rthStar”, Nate Crane', line: 'The Boom, 2005. From a $5 qualifier to the final table.' },
   story: {

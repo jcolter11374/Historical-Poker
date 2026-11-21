@@ -10,7 +10,7 @@
  * shows session.snapshot() and calls session methods; `version` is bumped
  * after each call to re-render.
  */
-import { useEffect, useState, type CSSProperties, type ReactNode } from 'react';
+import { useEffect, useMemo, useState, type CSSProperties, type ReactNode } from 'react';
 import type { Action, LegalActions, SeatIndex } from '@rsdp/engine/core';
 import type { Character } from '../chapters/types';
 import { HUMAN, type SceneView, type Session, type Snapshot } from '../table/session';
@@ -58,15 +58,17 @@ export function TableScreen({
   const snap = session.snapshot();
   const stage = chapter.stages[snap.play.stageIndex];
   const scene = stage.scene ?? chapter.scene;
+  // The rivals as this stage seats them (a stage can give them other art and places).
+  const rivals = useMemo(() => (stage.seats ? chapter.rivals.map((c) => ({ ...c, ...stage.seats![c.id] })) : chapter.rivals), [chapter, stage]);
   const money = (n: number) => session.money(n);
   const compact = useCompact();
-  const flights = useTableFx(chapter, snap, compact);
+  const flights = useTableFx(rivals, snap, compact, scene.pot);
   // A stage with its own scene keeps the chapter's music unless it names its own.
   const music = stage.scene?.music ?? chapter.scene.music ?? null;
   useEffect(() => playMusic(music), [music]);
   const flop = snap.play.family === 'flop';
   // Cards fly in from whoever holds the buck.
-  const dealer = seatSpot(chapter, snap.button);
+  const dealer = seatSpot(rivals, snap.button);
   const from = (to: Point): CSSProperties => ({ '--dx': `${dealer.x - to.x}px`, '--dy': `${dealer.y - to.y}px` }) as CSSProperties;
 
   // Deal the first hand when the table opens, once any opening scene is over.
@@ -130,7 +132,7 @@ export function TableScreen({
   return (
     <div className={`table-screen${flop ? ' table-flop' : ''}`}>
       <SceneBack scene={scene} />
-      {chapter.rivals.map((c, i) => (
+      {rivals.map((c, i) => (
         <Rival key={c.id} character={c} left={snap.seats[i + 1].left} folded={!!hand?.players[i + 1]?.folded && !hand.complete} light={scene.palette.light} />
       ))}
       <SceneFront scene={scene} />
@@ -165,11 +167,11 @@ export function TableScreen({
         </button>
       </nav>
 
-      {chapter.rivals.map((c, i) => (
+      {rivals.map((c, i) => (
         <SeatPlate key={c.id} character={c} seat={i + 1} snap={snap} money={money} small={flop} dealFrom={from({ x: c.plate.x, y: c.plate.y + 40 })} />
       ))}
 
-      {snap.hand && Object.entries(snap.tells).map(([seat, texts]) => <TellNote key={seat} character={chapter.rivals[Number(seat) - 1]} texts={texts} />)}
+      {snap.hand && Object.entries(snap.tells).map(([seat, texts]) => <TellNote key={seat} character={rivals[Number(seat) - 1]} texts={texts} />)}
 
       {hand && hand.boards.some((b) => b.length) && (
         <div className={`boards boards-${hand.boards.length}`}>
@@ -190,7 +192,7 @@ export function TableScreen({
       )}
 
       {hand && !hand.complete && (
-        <div className="pot" style={{ left: potSpot(flop, compact).x, top: potSpot(flop, compact).y }}>
+        <div className="pot" style={{ left: potSpot(flop, compact, scene.pot).x, top: potSpot(flop, compact, scene.pot).y }}>
           <Coins key={hand.pot > 0 ? 'full' : 'empty'} />
           <div className="pot-amount">{money(hand.pot)}</div>
         </div>
@@ -397,11 +399,15 @@ function DeckCase() {
 }
 
 function TellNote({ character, texts }: { character: Character; texts: string[] }) {
-  const { place } = character.art;
+  const { place, tellAbove } = character.art;
   const top = place.bottom - place.height + 70;
-  // Beside the head, on the side away from the stage's edge.
-  const right = place.x > 1100;
-  const style: CSSProperties = right ? { right: 1600 - (place.x - 70), top } : { left: place.x + 70, top };
+  // Beside the head, on the side away from the stage's edge; or, for small art, centred above it.
+  const right = !tellAbove && place.x > 1100;
+  const style: CSSProperties = tellAbove
+    ? { left: place.x - 110, bottom: 900 - (place.bottom - place.height) + 8 }
+    : right
+      ? { right: 1600 - (place.x - 70), top }
+      : { left: place.x + 70, top };
   return (
     <div className={`tell${right ? ' tell-left' : ''}`} style={style}>
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">

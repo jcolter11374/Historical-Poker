@@ -16,7 +16,7 @@
  */
 import { useEffect, useRef, useState } from 'react';
 import type { SeatIndex } from '@rsdp/engine/core';
-import type { Chapter } from '../chapters/types';
+import type { Character } from '../chapters/types';
 import { HUMAN, type Snapshot } from '../table/session';
 import { sfx, type Sfx } from './sound';
 
@@ -37,9 +37,9 @@ export interface Flight {
 /** Where the player's own chips sit, in stage pixels. */
 export const PLAYER_SPOT: Point = { x: 800, y: 760 };
 
-export function seatSpot(chapter: Chapter, seat: SeatIndex): Point {
+export function seatSpot(rivals: Character[], seat: SeatIndex): Point {
   if (seat === HUMAN) return PLAYER_SPOT;
-  const p = chapter.rivals[seat - 1].plate;
+  const p = rivals[seat - 1].plate;
   return { x: p.x, y: p.y + 46 };
 }
 
@@ -49,7 +49,8 @@ export function seatSpot(chapter: Chapter, seat: SeatIndex): Point {
  * enlarged name plates fill it, so then the pot moves up between the left
  * and middle seats.
  */
-export function potSpot(flop: boolean, compact = false): Point {
+export function potSpot(flop: boolean, compact = false, scenePot?: Point): Point {
+  if (flop && scenePot) return scenePot;
   return flop || compact ? { x: 585, y: 462 } : { x: 800, y: 640 };
 }
 
@@ -62,7 +63,7 @@ function cardCount(snap: Snapshot): number {
   return Object.entries(h.players).reduce((n, [seat, p]) => n + (Number(seat) === HUMAN ? 0 : p.cards.length), 0) + h.myCards.length;
 }
 
-export function useTableFx(chapter: Chapter, snap: Snapshot, compact: boolean): Flight[] {
+export function useTableFx(rivals: Character[], snap: Snapshot, compact: boolean, scenePot?: Point): Flight[] {
   const prev = useRef<Snapshot | null>(null);
   const [flights, setFlights] = useState<Flight[]>([]);
 
@@ -86,7 +87,7 @@ export function useTableFx(chapter: Chapter, snap: Snapshot, compact: boolean): 
     const h = snap.hand;
     if (!h) return;
     const flop = snap.play.family === 'flop';
-    const pot = potSpot(flop, compact);
+    const pot = potSpot(flop, compact, scenePot);
     const add: Flight[] = [];
     const sounds: [Sfx, number][] = [];
     const sameHand = !!before?.hand && before.handNumber === snap.handNumber;
@@ -103,7 +104,7 @@ export function useTableFx(chapter: Chapter, snap: Snapshot, compact: boolean): 
     // Betting.
     if (!sameHand) {
       // Antes and blinds go in as the hand starts.
-      for (const seat of Object.keys(h.players).map(Number)) add.push({ id: nextId++, from: seatSpot(chapter, seat), to: pot, delay: seat * 40, big: false });
+      for (const seat of Object.keys(h.players).map(Number)) add.push({ id: nextId++, from: seatSpot(rivals, seat), to: pot, delay: seat * 40, big: false });
       sounds.push(['chip', 0]);
     } else {
       for (const [k, p] of Object.entries(h.players)) {
@@ -112,7 +113,7 @@ export function useTableFx(chapter: Chapter, snap: Snapshot, compact: boolean): 
         if (!was) continue;
         if (p.folded && !was.folded) sounds.push(['fold', 0]);
         else if (p.bet > was.bet) {
-          add.push({ id: nextId++, from: seatSpot(chapter, seat), to: pot, delay: 0, big: p.lastAction === 'All in' });
+          add.push({ id: nextId++, from: seatSpot(rivals, seat), to: pot, delay: 0, big: p.lastAction === 'All in' });
           sounds.push([p.lastAction === 'All in' ? 'chips' : 'chip', 0]);
         } else if (p.lastAction === 'Check' && was.lastAction !== 'Check') sounds.push(['check', 0]);
       }
@@ -121,7 +122,7 @@ export function useTableFx(chapter: Chapter, snap: Snapshot, compact: boolean): 
     // The pot goes to the winners.
     if (h.complete && !(sameHand && before!.hand!.complete)) {
       const seats = [...new Set(h.winners.map((w) => w.seat))];
-      seats.forEach((seat, i) => add.push({ id: nextId++, from: pot, to: seatSpot(chapter, seat), delay: 350 + i * 120, big: true }));
+      seats.forEach((seat, i) => add.push({ id: nextId++, from: pot, to: seatSpot(rivals, seat), delay: 350 + i * 120, big: true }));
       const mine = h.winners.filter((w) => w.seat === HUMAN).reduce((n, w) => n + w.amount, 0);
       const showdown = Object.values(h.players).some((p) => p.handName);
       if (mine > 0) sounds.push([mine >= h.pot * 0.9 && h.pot >= snap.play.unit * 8 ? 'bigWin' : 'win', 350]);

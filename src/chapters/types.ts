@@ -30,6 +30,11 @@ export interface CharacterArt {
   /** Width / height of the image file, so the stage can size it without loading it first. */
   aspect: number;
   place: Placement;
+  /**
+   * Show this rival's tell centred above the art, not beside the head: for
+   * small art in seats that sit close together (the Boom's avatars).
+   */
+  tellAbove?: boolean;
 }
 
 /**
@@ -150,6 +155,12 @@ export interface Stage {
   extras?: Extras;
   /** A new room for this stage (the Boom's final table). */
   scene?: ChapterScene;
+  /**
+   * How rivals look and where they sit in this stage, by rival id, when it
+   * differs from the chapter's (the Boom: avatars on a screen online, the
+   * same three in person at the final table). Anything left out is the chapter's.
+   */
+  seats?: Record<string, { art?: CharacterArt; plate?: { x: number; y: number } }>;
   /** Everyone starts this stage with the chapter's starting stack again (a tournament after a side game). */
   resetStacks?: boolean;
   /** What the chapter title strip says during this stage ("The qualifier"). */
@@ -168,6 +179,12 @@ export interface ChapterScene {
    */
   title?: string;
   palette: Palette;
+  /**
+   * Where the pot sits in flop games, in stage pixels, when the usual spot
+   * (between the left and middle seats) is taken: the Boom's online table,
+   * where the seats sit close together on a monitor.
+   */
+  pot?: { x: number; y: number };
   /**
    * Music that loops while at this table: `music('<chapter-id>')` from
    * cast.ts, a file in public/music/ listed in src/ui/music.json. The loops

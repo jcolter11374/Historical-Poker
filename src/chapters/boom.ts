@@ -8,8 +8,23 @@
  * The online tell is timing: how fast each player acts. Their tells here are
  * written as timing habits.
  */
-import { lines, music, rival, say } from './cast';
+import { cutout, lines, music, rival, say, standardSeat } from './cast';
 import type { Chapter } from './types';
+
+const art = (file: string) => `${import.meta.env.BASE_URL}art/boom/${file}`;
+
+/**
+ * Online, the table is the picture on the café's monitor (the screen is about
+ * x 305 to 1315 on the stage), so the three sit closer together than at a
+ * real table: square avatars above the far rim, name plates under them.
+ */
+const ONLINE = {
+  left: { place: { x: 440, bottom: 440, height: 150 }, plate: { x: 440, y: 446 } },
+  across: { place: { x: 800, bottom: 418, height: 150 }, plate: { x: 800, y: 424 } },
+  right: { place: { x: 1160, bottom: 440, height: 150 }, plate: { x: 1160, y: 446 } },
+};
+/** An avatar in an online seat. Tells show above it: the seats are too close for notes beside them. */
+const avatar = (file: string, seat: keyof typeof ONLINE) => ({ ...cutout(art(file), 910 / 900, ONLINE[seat].place), tellAbove: true });
 
 export const BOOM: Chapter = {
   id: 'boom',
@@ -102,7 +117,12 @@ export const BOOM: Chapter = {
       fromHand: 13,
       label: 'The final table, Las Vegas',
       resetStacks: true,
-      scene: { palette: { wall: '#07070c', light: '#e8f0ff', felt: '#1d2c5a', rim: '#3a3a4a' } },
+      seats: {
+        deuceseven: { art: cutout(art('deuceseven.webp'), 850 / 900, { x: 330, bottom: 600, height: 470 }), plate: { x: 380, y: 540 } },
+        northstar: standardSeat('across', '#1a1a2a'),
+        hanbit: standardSeat('right', '#5a3a5a'),
+      },
+      scene: { background: art('background-final.webp'), tableFront: art('table-front-final.webp'), palette: { wall: '#07070c', light: '#e8f0ff', felt: '#1d2c5a', rim: '#3a3a4a' } },
       structure: { unit: 10 },
       opening: [
         say('narration', 'Six weeks later. Las Vegas. Television lights, three cameras, a crowd behind the rail. Out of eight thousand qualifiers, four players are left, and you are one of them.'),
@@ -140,76 +160,88 @@ export const BOOM: Chapter = {
     'At the final table, everyone starts even, blinds rise every four hands, and broke means out. Win every chip.',
   ],
   rivals: [
-    rival(
-      {
-        id: 'deuceseven',
-        name: 'DeuceSeven',
-        fullName: '“DeuceSeven”',
-        role: 'An online pro who plays twelve tables at once',
-        personality: { valueAt: 1.35, bluff: 0.16, caution: 0.01, betSize: 0.7, respect: 0.5, reads: 0.8 },
-        tell: { text: 'He tanks for the full timer, then raises.', signals: 'bluffing', showsWhenTrue: 0.55, showsWhenFalse: 0.2 },
-        lines: lines({
-          bet: ['raise', 'bet', 'lol raise'],
-          call: ['call', 'k call'],
-          fold: ['fold', 'gg fold'],
-          check: ['check'],
-          win: ['ship it', 'gg'],
-          bust: 'busto. gl jamie, take it down',
-          draw: ['2', 'one', 'drawing 3 lol'],
-          pat: ['pat.'],
-        }),
-      },
-      'left',
-      '#2a4a6a',
-    ),
-    rival(
-      {
-        id: 'northstar',
-        name: 'N0rthStar',
-        fullName: '“N0rthStar”',
-        role: 'Never types in the chat. Never loses.',
-        personality: { valueAt: 1.25, bluff: 0.22, caution: -0.01, betSize: 0.8, trap: 0.2, respect: 0.6, reads: 1 },
-        tell: { text: 'Bets instantly, the moment it’s his turn.', signals: 'strong', showsWhenTrue: 0.6, showsWhenFalse: 0.25 },
-        lines: lines({
-          bet: ['Raise.', 'Bet.', 'All the way.'],
-          call: ['Call.'],
-          fold: ['Fold.'],
-          check: ['Check.'],
-          win: ['…', 'The Cranes say thank you.'],
-          bust: 'Again. An Avery, again. Fine. Keep your deck. Every generation, the same story.',
-          draw: ['One.', 'Two.'],
-          pat: ['Pat.'],
-        }),
-      },
-      'across',
-      '#1a1a2a',
-    ),
-    rival(
-      {
-        id: 'hanbit',
-        name: 'Hanbit',
-        fullName: '“Hanbit”',
-        role: 'A Badugi player from Seoul',
-        personality: { valueAt: 1.5, bluff: 0.08, caution: 0.04, betSize: 0.6, respect: 0.6, reads: 0.7 },
-        tell: { text: 'Hanbit types “hmm” in the chat.', signals: 'weak', showsWhenTrue: 0.6, showsWhenFalse: 0.12 },
-        lines: lines({
-          bet: ['bet!', 'raise :)'],
-          call: ['call', 'ok call'],
-          fold: ['fold', 'no luck'],
-          check: ['check'],
-          win: ['^^', 'thank you!'],
-          bust: 'I am out! Good game everyone, very fun. Jamie, fighting!',
-          draw: ['draw 1', 'draw 2'],
-          pat: ['pat!'],
-        }),
-      },
-      'right',
-      '#5a3a5a',
-    ),
+    {
+      ...rival(
+        {
+          id: 'deuceseven',
+          name: 'DeuceSeven',
+          fullName: '“DeuceSeven”',
+          role: 'An online pro who plays twelve tables at once',
+          personality: { valueAt: 1.35, bluff: 0.16, caution: 0.01, betSize: 0.7, respect: 0.5, reads: 0.8 },
+          tell: { text: 'He tanks for the full timer, then raises.', signals: 'bluffing', showsWhenTrue: 0.55, showsWhenFalse: 0.2 },
+          lines: lines({
+            bet: ['raise', 'bet', 'lol raise'],
+            call: ['call', 'k call'],
+            fold: ['fold', 'gg fold'],
+            check: ['check'],
+            win: ['ship it', 'gg'],
+            bust: 'busto. gl jamie, take it down',
+            draw: ['2', 'one', 'drawing 3 lol'],
+            pat: ['pat.'],
+          }),
+        },
+        'left',
+        '#2a4a6a',
+      ),
+      art: avatar('deuceseven-avatar.webp', 'left'),
+      plate: ONLINE.left.plate,
+    },
+    {
+      ...rival(
+        {
+          id: 'northstar',
+          name: 'N0rthStar',
+          fullName: '“N0rthStar”',
+          role: 'Never types in the chat. Never loses.',
+          personality: { valueAt: 1.25, bluff: 0.22, caution: -0.01, betSize: 0.8, trap: 0.2, respect: 0.6, reads: 1 },
+          tell: { text: 'Bets instantly, the moment it’s his turn.', signals: 'strong', showsWhenTrue: 0.6, showsWhenFalse: 0.25 },
+          lines: lines({
+            bet: ['Raise.', 'Bet.', 'All the way.'],
+            call: ['Call.'],
+            fold: ['Fold.'],
+            check: ['Check.'],
+            win: ['…', 'The Cranes say thank you.'],
+            bust: 'Again. An Avery, again. Fine. Keep your deck. Every generation, the same story.',
+            draw: ['One.', 'Two.'],
+            pat: ['Pat.'],
+          }),
+        },
+        'across',
+        '#1a1a2a',
+      ),
+      art: avatar('northstar-avatar.webp', 'across'),
+      plate: ONLINE.across.plate,
+    },
+    {
+      ...rival(
+        {
+          id: 'hanbit',
+          name: 'Hanbit',
+          fullName: '“Hanbit”',
+          role: 'A Badugi player from Seoul',
+          personality: { valueAt: 1.5, bluff: 0.08, caution: 0.04, betSize: 0.6, respect: 0.6, reads: 0.7 },
+          tell: { text: 'Hanbit types “hmm” in the chat.', signals: 'weak', showsWhenTrue: 0.6, showsWhenFalse: 0.12 },
+          lines: lines({
+            bet: ['bet!', 'raise :)'],
+            call: ['call', 'ok call'],
+            fold: ['fold', 'no luck'],
+            check: ['check'],
+            win: ['^^', 'thank you!'],
+            bust: 'I am out! Good game everyone, very fun. Jamie, fighting!',
+            draw: ['draw 1', 'draw 2'],
+            pat: ['pat!'],
+          }),
+        },
+        'right',
+        '#5a3a5a',
+      ),
+      art: avatar('hanbit-avatar.webp', 'right'),
+      plate: ONLINE.right.plate,
+    },
   ],
   nemesisId: 'northstar',
   narratorId: 'deuceseven',
-  scene: { music: music('boom'), palette: { wall: '#0b0f1a', light: '#6ad0ff', felt: '#1a3a6a', rim: '#2a2f3a' } },
+  scene: { music: music('boom'), background: art('background-cafe.webp'), tableFront: art('table-front-cafe.webp'), pot: { x: 630, y: 500 }, palette: { wall: '#0b0f1a', light: '#6ad0ff', felt: '#1a3a6a', rim: '#2a2f3a' } },
   playerPlate: { x: 800, y: 760 },
   keepsake: { name: '“N0rthStar”, Nate Crane', line: 'The Boom, 2005. From a $5 qualifier to the final table.' },
   story: {

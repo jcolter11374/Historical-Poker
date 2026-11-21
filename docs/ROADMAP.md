@@ -26,6 +26,7 @@ Done:
 - [x] Chapter 7's own art: the tournament room, Weiss, Tex and Lorraine cut out from green, and the title painting (2026-11-21).
 - [x] Motion: cards dealt from the dealer and turned over, chips sliding to the pot and to the winner (2026-11-20).
 - [x] Sound effects made in code, with on/off switches (2026-11-20).
+- [x] Chapter 6's own art: the back room, Sal, Nora and Gus cut out from green, and the title painting (2026-11-21).
 - [x] Chapter 8's own art: the Paris club room, the Comte Varenne, Siobhan and Dmitri cut out from green, and the title painting (2026-11-21).
 - [x] Music: an original loop for every chapter, with Music on/off at the table and on the story screens ([MUSIC.md](MUSIC.md), 2026-11-21).
 - [x] Stronger teaching: the rules sheet in three pages (rules and betting, tips and easy mistakes, this chapter), and hints that name your hand, explain the pot odds and add a reminder for the game and round (2026-11-21).

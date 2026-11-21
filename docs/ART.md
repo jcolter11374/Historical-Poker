@@ -2,7 +2,7 @@
 
 John makes the art with an image tool from the prompts below. This page covers the style, the prompts, and how a picture becomes game art.
 
-**Ready-to-paste prompts for every chapter** (backgrounds, every rival on green, title paintings, props) are in [ART_PROMPTS.md](ART_PROMPTS.md). The two below are the general templates.
+**Ready-to-paste prompts for every chapter** (backgrounds, every rival on green, title paintings, props) are in [ART_PROMPTS.md](ART_PROMPTS.md). The two below are the general templates. Every rival holds the number of cards that is right for the chapter's game (five for draw, one hole card for five-card stud, two for Hold'em and so on): the table is in ART_PROMPTS.md, with the list of painted pictures that still show the wrong number.
 
 ## Style
 

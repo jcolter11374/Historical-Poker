@@ -3,6 +3,7 @@
 | What | Source | License |
 | --- | --- | --- |
 | Poker engine (`packages/engine`) | RSDP Live, by John Colter ([ENGINE.md](ENGINE.md)) | MIT |
+| The rivals' thinking and the hints (`src/bots/rsdp`): RSDP Live's practice bot and coach | RSDP Live, by John Colter ([BOTS.md](BOTS.md)). The characters' styles on top, and the old games' decks and hand rankings, are this project's | MIT |
 | zod (used by the engine) | zod.dev | MIT |
 | React, React DOM | react.dev | MIT |
 | Vite, Vitest, TypeScript | vitejs.dev, vitest.dev, typescriptlang.org | MIT, MIT, Apache 2.0 |

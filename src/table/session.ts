@@ -31,9 +31,10 @@ import {
   type SeatIndex,
 } from '@rsdp/engine/core';
 import { cryptoRng, shuffle, type Rng } from '@rsdp/engine';
-import { decide, READS, RESPECT, type Decision, type Personality } from '../bots/personality';
+import { play, thinking, type Decision, type PlayerRead } from '../bots/personality';
 import { seeded, type Random } from '../bots/random';
-import { equity } from '../bots/strength';
+import { coachTip } from '../bots/rsdp/coach';
+import { readPlayers, seededRand, seenBy } from '../bots/rsdp/strategy';
 import type { Betting, Chapter, Character, GamePlay, SceneLine, Stage, Story } from '../chapters/types';
 import { getGame, type GameDef } from '../games/catalog';
 import { coachLines } from '../games/guide';
@@ -44,7 +45,7 @@ import { engineBetting, playName, postsFor, spreadLimit, stakesFor, unitAt } fro
  * (Session.saveTable() and Session.resume()). Plain JSON. Bump
  * TABLE_SAVE_VERSION if the shape changes; older saves are then dropped.
  */
-export const TABLE_SAVE_VERSION = 1;
+export const TABLE_SAVE_VERSION = 2;
 export interface SavedTable {
   version: number;
   chapterId: string;
@@ -57,8 +58,8 @@ export interface SavedTable {
   level: number;
   bombPot: boolean;
   boughtIn: number;
-  humanDecisions: number;
-  humanAggressive: number;
+  /** How everyone has played this sitting, as RSDP's bots keep it (see Session.players). */
+  players: Record<string, PlayerRead>;
   tiltLeft: Record<number, number>;
   taught: string[];
   scene: SceneLine[];
@@ -214,10 +215,6 @@ export interface BotDecisionInfo {
   facingBet: boolean;
 }
 
-/** A careful player's numbers: what the teacher would do. Used for hints. */
-const TEACHER: Personality = { valueAt: 1.4, bluff: 0, caution: 0.02, betSize: 0.6 };
-/** Hints only: each raise by a player still in multiplies the teacher's estimate of your hand by this. */
-const RAISE_DISCOUNT = 0.8;
 /** Hints only (Session.steady): a hand that wins this often may bet freely. */
 const NUTS = 0.85;
 /** Hints only: the share of your purse the teacher will bet or raise into one pot without the nuts. */
@@ -254,9 +251,13 @@ export class Session {
   private readonly onBotDecision?: (info: BotDecisionInfo) => void;
   private boughtIn = 0;
 
-  // What the rivals have learned about the player tonight (see pressureOn).
-  private humanDecisions = 0;
-  private humanAggressive = 0;
+  /**
+   * What the table has learned about each player this sitting, by player id
+   * ('you' and the rivals' ids): RSDP's bot record of how often they bet and
+   * how often they fold to a bet (strategy.ts, readPlayers). Rivals who read
+   * people play you by it (personality.ts, `reads`).
+   */
+  private players: Record<string, PlayerRead> = {};
   // Temper: hands left on tilt, by seat, and stacks at the start of the hand.
   private tiltLeft: Record<SeatIndex, number> = {};
   private handStartStacks: number[] = [];
@@ -329,8 +330,7 @@ export class Session {
       level: this.level,
       bombPot: this.bombPot,
       boughtIn: this.boughtIn,
-      humanDecisions: this.humanDecisions,
-      humanAggressive: this.humanAggressive,
+      players: Object.fromEntries(Object.entries(this.players).map(([id, r]) => [id, { ...r }])),
       tiltLeft: { ...this.tiltLeft },
       taught: [...this.taught],
       scene: this.scene.map((l) => ({ ...l })),
@@ -366,8 +366,7 @@ export class Session {
       s.level = saved.level;
       s.bombPot = saved.bombPot;
       s.boughtIn = saved.boughtIn;
-      s.humanDecisions = saved.humanDecisions;
-      s.humanAggressive = saved.humanAggressive;
+      s.players = Object.fromEntries(Object.entries(saved.players).map(([id, r]) => [id, { ...r }]));
       s.tiltLeft = { ...saved.tiltLeft };
       s.taught = new Set(saved.taught);
       s.scene = saved.scene.map((l) => ({ ...l }));
@@ -575,10 +574,6 @@ export class Session {
   /** The human bets. Throws if it isn't their turn or the move is illegal. */
   act(action: Action): void {
     if (!this.state || this.toAct !== HUMAN || this.state.phase !== 'betting') throw new Error('not your turn');
-    if (action.type !== 'bring-in') {
-      this.humanDecisions++;
-      if (action.type === 'bet' || action.type === 'raise') this.humanAggressive++;
-    }
     this.actFor(HUMAN, action);
     this.afterAction();
   }
@@ -637,10 +632,15 @@ export class Session {
     const s = this.state;
     const me = s.seats.find((x) => x.seat === seat)!;
 
-    if (s.phase === 'drawing') {
+    const tilted = (this.tiltLeft[seat] ?? 0) > 0;
+    const drawing = s.phase === 'drawing';
+    const legal = drawing ? undefined : this.legalFor(seat);
+    // RSDP Live's bot thinks; the character's numbers bend it (src/bots/personality.ts).
+    const decision = play(character.personality, { hand: s, seat, game: this.game, legal, players: this.players, tilted, sims: this.simTrials }, this.rnd);
+
+    if (decision.kind === 'draw') {
       const cards = me.cards.map((c) => c.card);
-      const max = s.input.game.streets[s.street].drawMaxDiscard ?? 0;
-      let discard = this.game.discards ? this.game.discards(cards, max) : [];
+      let discard = decision.discard;
       if (this.game.drawRule?.(cards, discard)) discard = discard.slice(0, 3);
       engine.draw(s, seat, discard);
       const lines = character.lines;
@@ -648,16 +648,8 @@ export class Session {
       this.afterAction();
       return true;
     }
+    if (!legal) return false;
 
-    const legal = this.legalFor(seat);
-    const eq = this.equityFor(seat);
-    const opponents = s.seats.filter((x) => !x.folded && x.seat !== seat).length;
-    const tilted = (this.tiltLeft[seat] ?? 0) > 0;
-    const decision = decide(
-      character.personality,
-      { legal, equity: eq, opponents, pot: s.seats.reduce((n, x) => n + x.total, 0), currentBet: s.currentBet, tilted },
-      this.rnd,
-    );
     // Stud's low card must bring in (or complete with a strong hand); it can't check or fold.
     if (legal.canBringIn && (decision.action.type === 'check' || decision.action.type === 'fold' || decision.action.type === 'call')) {
       decision.action = { type: 'bring-in' };
@@ -669,7 +661,7 @@ export class Session {
       id: character.id,
       street: s.street,
       action: decision.action.type,
-      equity: eq,
+      equity: decision.equity,
       bluffing: decision.bluffing,
       tilted,
       facingBet: !legal.canCheck && !legal.canBringIn,
@@ -699,25 +691,56 @@ export class Session {
   }
 
   /**
+   * RSDP Live's coach tip for the human's turn (src/bots/rsdp/coach.ts): what
+   * RSDP's Normal bot would do here if it never bluffed, worked out from only
+   * what the player can see, reading this hand's betting. Seeded from the
+   * turn, so asking twice gives the same answer.
+   */
+  private coach() {
+    const s = this.state!;
+    const drawing = s.phase === 'drawing';
+    thinking(this.game, this.simTrials);
+    return coachTip(seenBy(s, HUMAN), HUMAN, {
+      legal: drawing ? null : this.legalFor(HUMAN),
+      drawMax: drawing ? (s.input.game.streets[s.street].drawMaxDiscard ?? 0) : 0,
+      rand: seededRand(this.handNumber * 101 + s.events.length),
+      handNumber: this.handNumber,
+      at: s.events.length,
+    });
+  }
+
+  /**
    * What the teacher would do in the human's seat right now (betting only),
-   * with the numbers behind it. hint() puts it into words; tools/bot-lab.ts
-   * plays with it.
+   * with the numbers behind it: RSDP's coach tip, steadied for a beginner
+   * (steady()). hint() puts it into words; Math Mode uses its winning chance;
+   * tools/bot-lab.ts plays with it.
    */
   teacherAdvice(): { decision: Decision; equity: number; opponents: number; pot: number } | null {
     const s = this.state;
     if (!s || this.toAct !== HUMAN || s.phase !== 'betting') return null;
     const legal = this.legalFor(HUMAN);
-    // The simulation is kind to a hand facing raises (it can't know how rarely people raise without the goods),
-    // so the teacher marks it down for every raise a player still in has made this hand.
-    const live = new Set(s.seats.filter((x) => !x.folded && x.seat !== HUMAN).map((x) => x.seat));
-    const raises = s.events.filter((e) => e.t === 'action' && e.action === 'raise' && live.has(e.seat)).length;
-    // Not once the table is down to two: then caution only drags the duel out.
-    const duel = this.seats.filter((x) => !x.out).length === 2;
-    const eq = this.equityFor(HUMAN) * (duel ? 1 : RAISE_DISCOUNT ** raises);
-    const opponents = s.seats.filter((x) => !x.folded && x.seat !== HUMAN).length;
+    const tip = this.coach();
+    const eq = tip.share;
+    const opponents = tip.opponents;
     const pot = s.seats.reduce((n, x) => n + x.total, 0);
-    const decision = this.steady(decide(TEACHER, { legal, equity: eq, opponents, pot, currentBet: s.currentBet }, seeded(this.handNumber * 101 + s.events.length)), legal, eq, pot);
+    const m = tip.move;
+    const action: Action =
+      m.type === 'bet' || m.type === 'raise' || m.type === 'complete' ? { type: legal.raiseKind, to: Math.max(legal.minTo, Math.min(legal.maxTo, m.to ?? legal.minTo)) }
+      : m.type === 'draw' ? { type: 'check' }
+      : { type: m.type };
+    const relative = eq * (opponents + 1);
+    const decision = this.steady({ action, bluffing: false, strong: relative >= 1.45, weak: relative < 1 }, legal, eq, pot);
     return { decision, equity: eq, opponents, pot };
+  }
+
+  /** Draw turns: the cards (indexes into the human's hand) RSDP's coach would throw, within any table rule. */
+  teacherDraw(): number[] | null {
+    const s = this.state;
+    if (!s || this.toAct !== HUMAN || s.phase !== 'drawing') return null;
+    const m = this.coach().move;
+    let discard = m.type === 'draw' ? [...m.discard].sort((a, b) => a - b) : [];
+    if (this.game.drawRule?.(this.myCards(), discard)) discard = discard.slice(0, 3);
+    return discard;
   }
 
   /**
@@ -769,9 +792,7 @@ export class Session {
     // While drawing, reminders about the draw itself come first ('draw' in the game's guide).
     const aside = this.coachLine(s.phase === 'drawing' ? 'draw' : (s.input.game.streets[s.street]?.name ?? ''));
     if (s.phase === 'drawing') {
-      const max = this.drawLimit()!;
-      let discard = this.game.discards ? this.game.discards(cards, max) : [];
-      if (this.game.drawRule?.(cards, discard)) discard = discard.slice(0, 3);
+      const discard = this.teacherDraw()!;
       const keep = cards.map((_, i) => i).filter((i) => !discard.includes(i));
       const text = !discard.length
         ? `${youHave}I’d keep all of these. Stand pat.`
@@ -815,6 +836,14 @@ export class Session {
       return;
     }
     for (const hs of s.seats) this.seats[hs.seat].stack = hs.stack;
+    // What everyone did this hand goes on their record, as RSDP's table keeps it for its bots.
+    for (const [id, r] of Object.entries(readPlayers([s]))) {
+      const have = (this.players[id] ??= { acts: 0, aggressive: 0, faced: 0, folds: 0 });
+      have.acts += r.acts;
+      have.aggressive += r.aggressive;
+      have.faced += r.faced;
+      have.folds += r.folds;
+    }
     this.lastNet = this.seats.map((x) => x.stack - (this.handStartStacks[x.seat] ?? x.stack));
     this.checkTempers();
     const nemesis = this.nemesisSeat();
@@ -1028,42 +1057,6 @@ export class Session {
     return this.state?.seats.find((x) => x.seat === HUMAN)?.cards.map((c) => c.card) ?? [];
   }
 
-  /** A seat's share of the pot by simulation, knowing only what that seat can see. */
-  /**
-   * How hard each live opponent's betting this hand leans on `seat`'s
-   * estimate (strength.ts, `pressure`): 1 + respect x their bets and raises
-   * this hand x how believable they are. The player's bets are believed less
-   * the more often they bet tonight (if this rival reads people); a rival's
-   * are believed less the more that rival bluffs.
-   */
-  private pressureOn(seat: SeatIndex, opponents: SeatIndex[]): number[] {
-    const s = this.state!;
-    const p: Personality = this.seats[seat].character?.personality ?? TEACHER;
-    const respect = p.respect ?? RESPECT;
-    const bets: Record<number, number> = {};
-    for (const e of s.events) {
-      if (e.t === 'action' && (e.action === 'bet' || e.action === 'raise' || e.action === 'complete')) bets[e.seat] = (bets[e.seat] ?? 0) + 1;
-    }
-    return opponents.map((o) => {
-      const n = Math.min(3, bets[o] ?? 0);
-      if (!n) return 1;
-      // Below 1 means "they're probably bluffing": deals where they're ahead count for less.
-      return Math.max(0.4, 1 + respect * n * this.credibility(o, p));
-    });
-  }
-
-  /** How far `seat`'s bets are believed by a player with personality `by`. 1 = normal. */
-  private credibility(seat: SeatIndex, by: Personality): number {
-    const c = this.seats[seat].character;
-    if (c) return 1 - Math.min(0.6, c.personality.bluff * 2);
-    // The player: a normal player bets or raises about a quarter of the time.
-    // Five imagined decisions at that rate start every evening.
-    const rate = (this.humanAggressive + 1.25) / (this.humanDecisions + 5);
-    // 1 at a normal rate, 0 at about 60%, -1 (bets mean little) for a player who bets nearly every time.
-    const read = Math.max(-1, Math.min(1.3, (0.6 - rate) / 0.35));
-    return 1 + (by.reads ?? READS) * (read - 1);
-  }
-
   /** After a hand: a rival with a temper who lost a big pot goes on tilt for three hands. */
   private checkTempers() {
     for (const seat of this.seats) {
@@ -1072,27 +1065,6 @@ export class Session {
       const lost = (this.handStartStacks[seat.seat] ?? seat.stack) - seat.stack;
       if (lost >= this.chapter.startingStack * 0.25) this.tiltLeft[seat.seat] = 3;
     }
-  }
-
-  private equityFor(seat: SeatIndex): number {
-    const s = this.state!;
-    const me = s.seats.find((x) => x.seat === seat)!;
-    const others = s.seats.filter((x) => x.seat !== seat);
-    const live = others.filter((x) => !x.folded);
-    return equity(
-      {
-        game: this.game,
-        me: me.cards.map((c) => c.card),
-        board: s.runs[0][0],
-        opponents: others.filter((x) => !x.folded).map((x) => x.cards.filter((c) => c.up).map((c) => c.card)),
-        dead: others.filter((x) => x.folded).flatMap((x) => x.cards.filter((c) => c.up).map((c) => c.card)),
-        street: s.street,
-        drawPending: s.phase === 'drawing',
-        pressure: this.pressureOn(seat, live.map((x) => x.seat)),
-      },
-      this.rnd,
-      this.simTrials,
-    );
   }
 
   private noticeTell(seat: SeatIndex, text: string) {

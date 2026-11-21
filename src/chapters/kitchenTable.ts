@@ -68,7 +68,7 @@ export const KITCHEN_TABLE: Chapter = {
         name: 'Priya',
         fullName: 'Priya',
         role: 'Loves bomb pots. Loves chaos.',
-        personality: { valueAt: 1.2, bluff: 0.22, caution: -0.06, betSize: 0.7, respect: 0.3, reads: 0.2 },
+        personality: { level: 'easy', valueAt: 1.2, bluff: 0.22, caution: -0.06, betSize: 0.7, respect: 0.3, reads: 0.2 },
         tell: { text: 'She can’t stop smiling.', signals: 'strong', showsWhenTrue: 0.6, showsWhenFalse: 0.3 },
         lines: lines({
           bet: ['Raise!', 'Let’s gooo.', 'Bet. Come on.'],
@@ -88,7 +88,7 @@ export const KITCHEN_TABLE: Chapter = {
         name: 'Marcus',
         fullName: 'Marcus',
         role: 'Hosts every game, and takes it very seriously',
-        personality: { valueAt: 1.45, bluff: 0.1, caution: 0.03, betSize: 0.65, trap: 0.3, respect: 0.6, reads: 0.7, tilt: 0.08 },
+        personality: { level: 'normal', valueAt: 1.45, bluff: 0.1, caution: 0.03, betSize: 0.65, trap: 0.3, respect: 0.6, reads: 0.7, tilt: 0.08 },
         tell: { text: 'He re-stacks his chips by colour.', signals: 'strong', showsWhenTrue: 0.55, showsWhenFalse: 0.2 },
         lines: lines({
           bet: ['Bet.', 'I’ll raise.', 'Let’s see where we are.'],
@@ -108,7 +108,7 @@ export const KITCHEN_TABLE: Chapter = {
         name: 'Dee',
         fullName: 'Dee',
         role: 'Plays seven-deuce every single time',
-        personality: { valueAt: 1.35, bluff: 0.18, caution: -0.02, betSize: 0.6, respect: 0.45, reads: 0.3 },
+        personality: { level: 'easy', valueAt: 1.35, bluff: 0.18, caution: -0.02, betSize: 0.6, respect: 0.45, reads: 0.3 },
         tell: { text: 'She drums the table with both hands.', signals: 'bluffing', showsWhenTrue: 0.6, showsWhenFalse: 0.2 },
         lines: lines({
           bet: ['Raise. Could be seven-deuce.', 'Bet!'],

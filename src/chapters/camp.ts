@@ -81,7 +81,7 @@ export const CAMP: Chapter = {
           name: 'Toby',
           fullName: 'Private Toby Finch',
           role: 'A drummer boy, fifteen and pretending to be eighteen',
-          personality: { valueAt: 1.5, bluff: 0.04, caution: -0.12, betSize: 0.45, respect: 0.4, reads: 0.1 },
+          personality: { level: 'easy', valueAt: 1.5, bluff: 0.04, caution: -0.12, betSize: 0.45, respect: 0.4, reads: 0.1 },
           tell: { text: 'He grins at his new card.', signals: 'strong', showsWhenTrue: 0.6, showsWhenFalse: 0.55 },
           lines: lines({
             bet: ['I’ll bet! I’ll bet a dollar!', 'Raise, I think? Is that allowed?'],
@@ -104,7 +104,7 @@ export const CAMP: Chapter = {
           name: 'Sergeant Reed',
           fullName: 'Sergeant Amos Reed',
           role: 'A veteran of every battle since Bull Run',
-          personality: { valueAt: 1.9, bluff: 0.02, caution: 0.1, betSize: 0.75, respect: 0.9, reads: 0.6 },
+          personality: { level: 'normal', valueAt: 1.5, bluff: 0.02, caution: 0.0, betSize: 0.75, respect: 0.5, reads: 0.6 },
           // Stops chewing when strong: about 80% honest.
           tell: { text: 'He stops chewing his tobacco.', signals: 'strong', showsWhenTrue: 0.7, showsWhenFalse: 0.12 },
           lines: lines({
@@ -129,7 +129,7 @@ export const CAMP: Chapter = {
           fullName: 'Hattie Bloom',
           role: 'The camp sutler, who sells everything',
           // Bets her board: aggressive, and bluffs when her up cards look scary.
-          personality: { valueAt: 1.35, bluff: 0.22, caution: 0.02, betSize: 0.7, respect: 0.5, reads: 0.6, tilt: 0.08 },
+          personality: { level: 'easy', valueAt: 1.35, bluff: 0.22, caution: 0.02, betSize: 0.7, respect: 0.5, reads: 0.6, tilt: 0.08 },
           tell: { text: 'She taps her pencil against the ledger.', signals: 'bluffing', showsWhenTrue: 0.65, showsWhenFalse: 0.2 },
           lines: lines({
             bet: ['That queen of mine looks lonely. Bet.', 'I’ll bet. Credit’s good with me.', 'Raise, boys.'],

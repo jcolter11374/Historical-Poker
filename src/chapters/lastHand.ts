@@ -78,7 +78,7 @@ export const LAST_HAND: Chapter = {
           name: 'Doc',
           fullName: '“Doc” Abel Whitcomb',
           role: 'A prospector who has never been a doctor',
-          personality: { valueAt: 1.4, bluff: 0.12, caution: -0.08, betSize: 0.5, respect: 0.4, reads: 0.3 },
+          personality: { level: 'easy', valueAt: 1.4, bluff: 0.12, caution: -0.08, betSize: 0.5, respect: 0.4, reads: 0.3 },
           tell: { text: 'He shakes his pouch of gold dust.', signals: 'strong', showsWhenTrue: 0.6, showsWhenFalse: 0.2 },
           lines: lines({
             bet: ['A pinch of dust says I’m good.', 'Bet! Feelin’ lucky.', 'Raise, on a hunch.'],
@@ -104,7 +104,7 @@ export const LAST_HAND: Chapter = {
           fullName: 'Ruby Calloway',
           role: 'Owner of the Lucky Nugget, best player in the territory',
           // Balanced and hard to read: value bets, traps, bluffs at the right times.
-          personality: { valueAt: 1.4, bluff: 0.14, caution: 0.03, betSize: 0.7, trap: 0.3, respect: 0.6, reads: 1 },
+          personality: { level: 'normal', valueAt: 1.4, bluff: 0.14, caution: 0.03, betSize: 0.7, trap: 0.3, respect: 0.6, reads: 1 },
           // No reliable tell: she reads yours instead.
           tell: { text: 'She smiles at you. It tells you nothing.', signals: 'strong', showsWhenTrue: 0.3, showsWhenFalse: 0.3 },
           lines: lines({
@@ -131,7 +131,7 @@ export const LAST_HAND: Chapter = {
           name: 'Jasper',
           fullName: 'Jasper Crane',
           role: 'Silas Crane’s grandson, come for “the Crane deck”',
-          personality: { valueAt: 1.3, bluff: 0.25, caution: -0.02, betSize: 0.8, respect: 0.35, reads: 0.4, tilt: 0.15 },
+          personality: { level: 'normal', valueAt: 1.3, bluff: 0.25, caution: -0.02, betSize: 0.8, respect: 0.35, reads: 0.4, tilt: 0.15 },
           // The same mustache stroke as his grandfather, a callback to chapter 1.
           tell: { text: 'He smooths his mustache, just like his grandfather.', signals: 'bluffing', showsWhenTrue: 0.7, showsWhenFalse: 0.3 },
           lines: lines({

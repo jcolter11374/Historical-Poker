@@ -85,7 +85,7 @@ export const BOARDWALK: Chapter = {
         name: 'Benny',
         fullName: 'Benny “the Book” Russo',
         role: 'A regular who has been in every game since the room opened',
-        personality: { valueAt: 1.3, bluff: 0.14, caution: -0.04, betSize: 0.6, respect: 0.5, reads: 0.6 },
+        personality: { level: 'easy', valueAt: 1.3, bluff: 0.14, caution: 0.06, betSize: 0.6, respect: 0.5, reads: 0.6 },
         tell: { text: 'He shuffles his chips, faster and faster.', signals: 'strong', showsWhenTrue: 0.6, showsWhenFalse: 0.2 },
         lines: lines({
           bet: ['Bet, bet.', 'Raise it up.', 'C’mon, let’s play.'],
@@ -105,7 +105,7 @@ export const BOARDWALK: Chapter = {
         name: 'Margot',
         fullName: 'Margot Arceneaux',
         role: 'Poker room manager, Delphine’s descendant',
-        personality: { valueAt: 1.45, bluff: 0.1, caution: 0.04, betSize: 0.7, trap: 0.3, respect: 0.6, reads: 0.9 },
+        personality: { level: 'normal', valueAt: 1.45, bluff: 0.1, caution: 0.04, betSize: 0.7, trap: 0.3, respect: 0.6, reads: 0.9 },
         tell: { text: 'She twists a pearl earring.', signals: 'strong', showsWhenTrue: 0.55, showsWhenFalse: 0.2 },
         lines: lines({
           bet: ['Bet.', 'Let’s make it interesting, Mr. Avery.', 'Raise.'],
@@ -125,7 +125,7 @@ export const BOARDWALK: Chapter = {
         name: 'Ruth',
         fullName: 'Ruth Goldfarb',
         role: 'A retired schoolteacher who only plays good hands',
-        personality: { valueAt: 1.9, bluff: 0.0, caution: 0.1, betSize: 0.5, respect: 0.95, reads: 0.2 },
+        personality: { level: 'normal', valueAt: 1.9, bluff: 0.0, caution: 0.1, betSize: 0.5, respect: 0.95, reads: 0.2 },
         tell: { text: 'She adjusts her reading glasses.', signals: 'weak', showsWhenTrue: 0.6, showsWhenFalse: 0.08 },
         lines: lines({
           bet: ['I’ll bet, dear.', 'A raise, I think.'],

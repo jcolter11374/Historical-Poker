@@ -3,6 +3,7 @@
  * prints a table) and test/bots.test.ts (which checks the rivals aren't easy
  * money). See tools/bot-lab.ts for what each style does.
  */
+import { drawHabit } from './drawHabits';
 import type { Action } from '@rsdp/engine/core';
 import { seeded } from '../src/bots/random';
 import type { Chapter } from '../src/chapters/types';
@@ -81,7 +82,7 @@ export function playStyle(chapter: Chapter, policy: Policy, hands: number, seed:
         const limit = s.drawLimit();
         if (limit !== null) {
           const cards = s.snapshot().hand!.myCards.map((c) => c.card);
-          let d = s.currentGame.discards?.(cards, limit) ?? [];
+          let d = drawHabit(s.currentGame.id, cards, limit);
           if (s.drawProblem(d)) d = d.slice(0, 3);
           s.draw(d);
         } else s.act(choose(s, policy));

@@ -183,34 +183,34 @@ The two difficulty levels and an optional "tell spotted" hint. They are listed i
 
 ## How the bots think
 
-All rivals run the same code. What makes them different is a few numbers in their chapter file.
+Every rival thinks with **RSDP Live's practice bot**, copied into `src/bots/rsdp/`, and every hint comes from RSDP Live's coach. [BOTS.md](BOTS.md) says exactly what is RSDP's and what is this game's. In short:
 
-1. **Hand strength** (`src/bots/strength.ts`): the bot deals the unseen cards out at random a few hundred times and counts how often its hand wins (ties count as shares). This is its *equity*, 0 to 1.
-2. **Reading the betting** (also `strength.ts`, `pressure`): a player who bets is more likely to be ahead, so each simulated deal where an opponent who bet this hand beats the bot counts extra. How much extra is `1 + respect × (their bets and raises this hand, up to 3) × how believable they are`. A bet from a rival who bluffs a lot is believed less. Your bets are believed less the more often you bet tonight, but only by rivals who read people (`reads`). Against someone who bets nearly every time, a rival who reads well counts your bets as *weaker* than a random hand, and calls you down.
-3. **Decision** (`src/bots/personality.ts`, `decide()`): equity is compared with an average hand. `relative = equity × players in the hand`, so 1 is an average hand and 2 is twice as good.
+1. **RSDP's bot sizes up the hand.** It deals the unseen cards out a few hundred times and counts how much of the pot its hand wins (its *equity*, 0 to 1). With draws to come it tries every way to draw. It sees only what a player in its seat could see. For the games RSDP Live doesn't have, `src/bots/games.ts` teaches it the deck and the hand ranking; the thinking is the same.
+2. **It reads the betting** (`handReads`): every bet or raise an opponent made this hand deals them stronger cards in the bot's imagination. A player who bets nearly every time is believed less. RSDP keeps a record of how often each player bets and how often they fold to a bet (`readPlayers`); the Session keeps it for the whole sitting.
+3. **It bets by one of RSDP's three levels.** Easy calls small bets with almost anything, bets only good hands and never bluffs. Normal plays the pot odds with a small margin. Hard also follows your draws, uses position, and bluffs players who fold a lot.
+4. **The character bends it** (`src/bots/personality.ts`, `play()`), with a few numbers in their chapter file:
 
 | Number | Meaning |
 | --- | --- |
-| `valueAt` | How strong (`relative`) a hand must be to bet or raise for value. Lower is looser. |
-| `bluff` | Chance to bet a hand that isn't strong when nobody has bet, heads-up against two players. It's 1.4 times that against one player, about half against three. Half of it is the chance to raise as a bluff when facing a bet. |
-| `caution` | Extra equity, above the pot odds, demanded before calling. Negative means the bot calls too much. |
+| `level` | RSDP's level: `easy`, `normal` or `hard`. This is a teaching game: Part One is mostly Easy, Part Two mostly Normal, and only two late bosses are Hard ([BOTS.md](BOTS.md), "Levels"). |
+| `valueAt` | How strong a hand must be to bet for value when nobody has bet (1 is an average hand, 2 twice as good). RSDP's own bar is 1.7 at Easy, 1.45 at Normal, 1.35 at Hard. Lower is looser. |
+| `bluff` | Chance to bet a hand RSDP's bot checked, against two players. It's 1.4 times that against one player, about half against three. Half of it is the chance to raise a hand RSDP folded. 0 switches off RSDP's own bluffs too. |
+| `caution` | Extra equity, above the pot odds, demanded before calling. 0.03 is RSDP Normal's own margin. Negative means they call too much. |
 | `betSize` | Bet size as a share of the pot (bluffs are 80% of that). |
-| `trap` | Optional. Chance to check a strong hand when nobody has bet, hoping to raise later. |
-| `respect` | Optional, 0 to 1 (default 0.6). How much a bet scares them. Timid players near 1, reckless ones near 0.3. |
-| `reads` | Optional, 0 to 1 (default 0.5). How fast they size you up. The sharp players are 0.9 to 1; the naive ones 0.1 to 0.3. |
+| `trap` | Optional. Chance to check a strong hand RSDP's bot would bet, hoping to raise later. |
+| `respect` | Optional, 0 to 1 (default 0.6). How much a bet scares them: it scales RSDP's read of the betting. Timid players near 1, reckless ones near 0.3. Easy players don't read the betting at all. |
+| `reads` | Optional, 0 to 1 (default 0.5). How fast they size you up: how much of RSDP's record of you they have taken in. The sharp players are 0.9 to 1; the naive ones 0.1 to 0.3. |
 | `tilt` | Optional temper, 0 to 0.3 (default none). After losing a quarter of a starting stack in one hand, for three hands they add `tilt` to `bluff`, take it from `valueAt` and half of it from `caution`. A line appears by them ("Silas is still smarting from that last pot."), so you can punish it. |
 
-Facing a bet, the bot raises when `relative ≥ 1.25 × valueAt`, calls when its equity beats the pot odds plus `caution`, sometimes bluff-raises, and otherwise folds.
-
-Bots in every game also see the cards showing (stud up-cards, the board) and simulate the cards still to come and their own draws. A game's `simCost` sets how many deals are simulated, so slow games (many-card Omaha) stay fast. The teacher's hints use the same reading of the betting.
+The teacher's hints are RSDP's coach tip: a Normal bot that never bluffs, in your seat, seeing only what you see. The Session steadies it for beginners (`steady()`: no big bets or raising wars without a near-certain hand).
 
 Chapter 1 numbers (every other chapter's are in its file; [CHAPTERS.md](CHAPTERS.md), "How the rivals play", lists them all with measured play):
 
-| Rival | valueAt | bluff | caution | betSize | trap | respect | reads | tilt | Plays like |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Silas Crane | 1.3 | 0.24 | -0.02 | 0.75 | | 0.35 | 0.6 | 0.12 | Loose and aggressive, bluffs often, steams after a big loss |
-| Delphine Arceneaux | 1.6 | 0.07 | 0.03 | 0.6 | 0.5 | 0.6 | 0.9 | | Tricky: traps strong hands, bluffs rarely, sees through a bully |
-| Ezra Hollis | 2.0 | 0 | 0.1 | 0.4 | | 0.95 | 0.1 | | Tight and passive, never bluffs, folds to any bet |
+| Rival | RSDP level | valueAt | bluff | caution | betSize | trap | respect | reads | tilt | Plays like |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Silas Crane | easy | 1.05 | 0.24 | -0.02 | 0.75 | | 0.35 | 0.6 | 0.12 | Loose and loud: plays over half his hands, bluffs often, steams after a big loss |
+| Delphine Arceneaux | normal | 1.6 | 0.07 | 0.03 | 0.6 | 0.5 | 0.6 | 0.9 | | Tricky: traps strong hands, bluffs rarely, sees through a bully |
+| Ezra Hollis | easy | 2.0 | 0 | 0.2 | 0.4 | | 0.95 | 0.1 | | Tight and passive, never bluffs, folds to most bets |
 
 ### Is it too easy? The bot lab
 
@@ -218,9 +218,9 @@ Chapter 1 numbers (every other chapter's are in its file; [CHAPTERS.md](CHAPTERS
 
 - **station** checks and calls everything; **maniac** raises the most it can every time; **aggro** bets about the pot whenever it can; **teacher** follows the hint.
 
-The aim (2026-11-20 tuning, 300 hands a chapter): every reckless style loses steadily in every chapter (station about 80 to 740 units per 100 hands, maniac and aggro 80 to 1,300), and a careful player following the hints comes out roughly even (-45 to +60; +110 at the kitchen table, the easy-going epilogue). The full table is in [CHAPTERS.md](CHAPTERS.md), "How the rivals play". Beating a chapter takes more than playing safe: watching tells, catching a rival on tilt and changing gear. `test/bots.test.ts` checks the reckless styles lose in chapters 1 and 4 and that Silas, Delphine and Ezra stay recognisably themselves. Run the lab after changing any personality or anything in `src/bots/`, and update the numbers here.
+The aim (2026-11-21 tuning on RSDP's bots, 200 to 300 hands a chapter): every reckless style loses in every chapter (station about 50 to 310 units per 100 hands, maniac and aggro about 40 to 2,100; all-in play swings widely over a few hundred hands), and a careful player following the hints comes out roughly even or a little ahead (-32 to +25 in most chapters, +73 and +86 in chapters 2 and 5). The full table is in [CHAPTERS.md](CHAPTERS.md), "How the rivals play". Beating a chapter takes more than playing safe: watching tells, catching a rival on tilt and changing gear. `test/bots.test.ts` checks the reckless styles lose in chapters 1 and 4 and that Silas, Delphine and Ezra stay recognisably themselves. Run the lab after changing any personality or anything in `src/bots/`, and update the numbers here.
 
-Bots use a seeded random generator (`src/bots/random.ts`) so tests can replay games. The deal itself uses the engine's crypto random source in the game.
+Bots use a seeded random generator (`src/bots/random.ts`) and deal a fixed number of finishes per decision rather than stopping by the clock as RSDP Live does, so tests can replay games. The deal itself uses the engine's crypto random source in the game.
 
 ## Tells
 

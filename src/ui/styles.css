@@ -317,10 +317,17 @@ button:disabled { opacity: 0.4; cursor: default; }
 .case-seal { font-size: 40px; line-height: 1; margin: 6px 0; opacity: 0.75; }
 .case-face { width: 56px; height: 56px; font-size: 22px; margin: 2px 0; }
 .case-game { font-family: var(--ui); font-size: 13px; line-height: 1.2; font-weight: 700; }
-.case-badge { position: absolute; top: 8px; right: 8px; font-family: var(--ui); font-weight: 800; font-size: 11px; color: #fff; background: #3c6b3a; border-radius: 6px; padding: 2px 6px; }
-.case-badge-jump { background: rgba(0, 0, 0, 0.45); }
+/* A ribbon across the foot of the card: "Won", or the hand a chapter was left at. */
+.case-badge {
+  position: absolute; bottom: -9px; left: 50%; translate: -50% 0; white-space: nowrap;
+  font-family: var(--story); font-style: italic; font-size: 15px; color: #fbeed2; padding: 1px 14px 2px;
+  background: #3c6b3a; clip-path: polygon(0 0, 100% 0, 94% 50%, 100% 100%, 0 100%, 6% 50%);
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.5));
+}
+.case-badge-saved { background: #8a2a1e; }
 .select-foot { margin-top: auto; display: flex; align-items: center; gap: 28px; }
 .toggle { font-family: var(--story); font-size: 19px; color: var(--muted); display: flex; align-items: center; gap: 8px; }
+.toggle input { accent-color: var(--gold); width: 18px; height: 18px; }
 .reset { font-family: var(--story); font-size: 18px; color: var(--muted); }
 /* ---------------------------------------------------------------- practice: the same case, one small card per game */
 .practice-case { gap: 6px; padding: 14px 24px 16px; }

@@ -32,6 +32,7 @@ export function TableScreen({
   hints,
   sound,
   onSound,
+  onHandOver,
   musicLink,
   math,
   mathStars,
@@ -44,6 +45,8 @@ export function TableScreen({
   hints: boolean;
   sound: boolean;
   onSound: (on: boolean) => void;
+  /** Called between hands (and as each scene line passes), so the app can save the table. */
+  onHandOver?: () => void;
   /** The "Music on/off" link, owned by App (it also sits on the story screens). */
   musicLink: ReactNode;
   /** Math Mode is on: sums about the hand while it is the player's turn (src/math). */
@@ -143,6 +146,11 @@ export function TableScreen({
     const deal = advice ? dealQuestion(h.pot, h.legal.callAmount, advice.equity, (n) => session.money(n)) : null;
     return [outs, deal].filter((q): q is MathQuestion => q !== null);
   }, [session, mathKey]);
+
+  // Between hands, keep the table so the chapter can be picked up later.
+  useEffect(() => {
+    if (betweenHands && !snap.outcome) onHandOver?.();
+  }, [betweenHands, snap.handNumber, snap.outcome, snap.scene?.text]);
 
   return (
     <div className={`table-screen${flop ? ' table-flop' : ''}`}>

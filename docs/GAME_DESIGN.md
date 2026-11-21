@@ -4,12 +4,13 @@
 
 ## The shape of the game
 
-- **Chapter select** (the Ashcombe deck's leather case): one card per chapter in two rows, Part One and Part Two. Won chapters show the beaten rival's face (the keepsake); the next chapter glows; later ones say "Jump ahead". A first-time visitor goes straight to chapter 1's intro.
+- **Chapter select** (the Ashcombe deck's leather case): one card per chapter in two rows, Part One and Part Two. Every card names the game it teaches. Won chapters show the beaten rival's face (the keepsake) and a green "Won" ribbon; a chapter left part-way shows a red "At hand 12" ribbon; the chapter you'd continue glows; chapters you haven't reached are face down but open like any other (after "the story so far"). "Continue" goes straight back to the table you left most recently, or to the next chapter's intro if there is none. The game always opens here, first visit included ("Begin the story" opens chapter 1), so a friend can go straight to the game they want to learn.
 - **Intro:** the setting, who you play, what game is taught, the cast. If you jumped ahead, "The story so far" comes first.
 - **The table:** one sitting of the chapter's games (below).
 - **Ending:** the chapter's won or lost text, the keepsake, a "From the history book" note, and "On to" the next chapter. Losing offers "Try again". The last chapter links to RSDP Live.
 - **Practice** ("Practice any game" on the chapter select): any game the story teaches, on its own, outside the story. See "Practice" below.
-- **Saved progress:** which chapters were started and won, and whether teacher hints are on, are kept in the browser's local storage (`src/progress/save.ts`). "Start over" clears them.
+- **Saved progress:** which chapters were started and won, and the hints, sound and music switches, are kept in the browser's local storage (`src/progress/save.ts`). No account: another browser or device starts fresh, and clearing the browser's data resets it.
+- **Leaving part-way:** after every hand the table is saved for that chapter: money, the buck, the stage and stakes, which lessons were given, story beats already played (the stake, the cheat, the finale), and any scene still to read. Leaving the table, closing the tab or reloading the page loses at most the hand in play. Opening that chapter again offers "Back to the table (hand 12)" or "Start the chapter over". Each chapter keeps its own table, so a friend can leave Brag half-way, try Omaha, and come back. Finishing a chapter (won or lost) or "Play this chapter again" clears its table. "Start over" on the case clears everything.
 
 ## How a chapter plays
 

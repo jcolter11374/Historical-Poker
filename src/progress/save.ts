@@ -4,8 +4,16 @@
  *
  * Stored under one key as JSON. Bump VERSION and migrate in load() if the
  * shape ever changes.
+ *
+ * A chapter left part-way is kept too, under a second key: the table as it
+ * stood after the last finished hand (Session.saveTable()), one per chapter,
+ * so "Continue" sits you back down at the same table. A hand in play is not
+ * saved; you pick up at the next deal.
  */
+import type { SavedTable } from '../table/session';
+
 const KEY = 'historical-poker/progress';
+const TABLES_KEY = 'historical-poker/tables';
 const VERSION = 1;
 
 export interface Progress {
@@ -91,9 +99,56 @@ export function addMathStar(p: Progress, s: Store | null = store()): Progress {
   return next;
 }
 
-/** Wipes saved progress. */
+/** Wipes saved progress, and every table left part-way. */
 export function resetProgress(s: Store | null = store()): Progress {
   const p = empty();
   saveProgress(p, s);
+  try {
+    s?.setItem(TABLES_KEY, '{}');
+  } catch {
+    /* nothing saved to wipe */
+  }
   return p;
+}
+
+// ---------------------------------------------------------------- tables left part-way
+
+/** A table left part-way, and when it was saved (ISO time). */
+export type KeptTable = SavedTable & { savedAt: string };
+/** Chapters left part-way, by chapter id. */
+export type SavedTables = Record<string, KeptTable>;
+
+export function loadTables(s: Store | null = store()): SavedTables {
+  try {
+    const raw = s?.getItem(TABLES_KEY);
+    const t = raw ? (JSON.parse(raw) as SavedTables) : {};
+    return t && typeof t === 'object' ? t : {};
+  } catch {
+    return {};
+  }
+}
+
+function writeTables(t: SavedTables, s: Store | null): SavedTables {
+  try {
+    s?.setItem(TABLES_KEY, JSON.stringify(t));
+  } catch {
+    /* storage full or disabled: the table just isn't kept */
+  }
+  return t;
+}
+
+/** Keeps a chapter's table (after a hand), replacing any earlier save of it. */
+export function saveTable(table: SavedTable, s: Store | null = store()): SavedTables {
+  return writeTables({ ...loadTables(s), [table.chapterId]: { ...table, savedAt: new Date().toISOString() } }, s);
+}
+
+/** Forgets a chapter's table: it was finished, or started over. */
+export function clearTable(chapterId: string, s: Store | null = store()): SavedTables {
+  const { [chapterId]: _gone, ...rest } = loadTables(s);
+  return writeTables(rest, s);
+}
+
+/** The table left most recently, if any. */
+export function latestTable(t: SavedTables): KeptTable | null {
+  return Object.values(t).sort((a, b) => b.savedAt.localeCompare(a.savedAt))[0] ?? null;
 }

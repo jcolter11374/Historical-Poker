@@ -93,7 +93,7 @@ Each chapter needs: a **background** (the empty room and table, first-person fro
 | 4 The Camp | done | all done (Toby is cut off at the chest; the table hides the rest) | greenbacks, the silver presentation watch (title painting done) |
 | 5 The Last Hand | done | all done | gold-dust pouch, 1870s indexed cards; an epilogue painting of the full case (title painting done: Deadwood's main street) |
 | Bonus The Gaming House | New Orleans gaming house: candlelight, iron balconies | Madame Élodie Fontaine, Henri Avery, Captain Lacroix | piquet cards, Spanish silver, a payout board |
-| 6 The Back Room | speakeasy behind a florist's shop: one green lamp, brick, crates of flowers | Nora Shea, Sal Moretti, Gus Lindqvist | a matchbook, chips in a flowerpot |
+| 6 The Back Room | done | all done (Nora is cut off at her waistband, Gus above his lap; the table hides the rest) | a matchbook, chips in a flowerpot (title painting done: the florist's shop in the rain) |
 | 7 The Desert Classic | done | all done (Weiss's lap and Lorraine's knee are cut away; the table hides the cuts) | clay chips, a tournament program (title painting done: the strip at dusk) |
 | 8 The Cercle | done | all done (four cards each; Siobhan is cut off at her waist; the table hides the rest) | plaques (rectangular chips) (title painting done: a Paris boulevard at night, the tower across the river) |
 | 9 The Boardwalk | done | all done | Delphine's diary (title painting done: the boardwalk at dusk) |
@@ -110,6 +110,13 @@ The player is never shown, so no art is needed for the Averys. Faces on the chap
 - Silas, Delphine and Ezra: done, cut out from green. Delphine's lace fan is see-through; Ezra's right lens keeps a faint glass sheen where the backdrop showed through.
 - Title painting (the Magnolia Queen at night): done, behind the intro screen.
 - Still to make: silver dollars, the buckhorn knife. The cards and the buck are drawn in code for now.
+
+## Current state, chapter 6
+
+- Background (the brick back room under one green lamp), table front, title painting (the florist's shop in the rain): done. The background's wall calendar came with garbled lettering; the pen strokes of its heading and numbers were painted over with the paper colour and the grid lines kept, so nothing reads as text. Check every new picture for stray or nonsense lettering like this.
+- Sal, Nora and Gus: done, cut out from green, two cards each (seven-card stud starts with two cards down). Gus's picture had stray game text in the green, removed by keeping only the largest connected piece (the figure), and he is cut off above his lap. Nora's had a brownish haze along the bottom of the green, so she is cut off at her waistband first. Sal's green was darker than usual but keyed cleanly as it was.
+- `backRoom.ts` keeps its `rival(...)` blocks and swaps in the art by id (`PAINTED`), which is the same result as overriding `art` on each rival.
+- Still to make: a matchbook, chips in a flowerpot.
 
 ## Current state, chapter 7
 

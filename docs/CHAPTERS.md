@@ -101,7 +101,7 @@ A fictional early championship in Las Vegas. Lou Avery.
 A private card club in Paris. Anna Avery, a translator. Money in francs ("1,000 F"). The title painting is in (a Paris boulevard at night); the room and the rivals are still placeholders.
 
 - **Stages:** hands 1 to 6, Pot-Limit Omaha, taught by Siobhan Kearney; from hand 7, "Omaha Hi-Lo, after two in the morning", taught by the Comte. 20 F unit, 1,000 F each, rising every 8 hands.
-- **Cast:** Siobhan (Irish pro, drums her fingers when bluffing), the Comte Lucien Varenne (club president, tricky, relights a lit cigar when strong), Dmitri Volkov (chess master, perfectly still when weak).
+- **Cast:** Siobhan (Irish pro, drums her fingers when bluffing), the Comte Lucien Varenne (club president, tricky, turns his signet ring when strong), Dmitri Volkov (chess master, perfectly still when weak).
 - **Beats:** before hand 4 the Comte asks to look at the old deck. Finale: Siobhan or Dmitri bows out.
 
 ### 9. The Boardwalk (1995), Stud Hi-Lo

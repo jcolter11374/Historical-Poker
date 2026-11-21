@@ -124,7 +124,7 @@ export const CERCLE: Chapter = {
         fullName: 'Comte Lucien Varenne',
         role: 'President of the club, collector of antique cards',
         personality: { valueAt: 1.4, bluff: 0.1, caution: 0.03, betSize: 0.75, trap: 0.3, respect: 0.6, reads: 0.7 },
-        tell: { text: 'He relights a cigar that is already lit.', signals: 'strong', showsWhenTrue: 0.55, showsWhenFalse: 0.2 },
+        tell: { text: 'He turns the signet ring on his finger.', signals: 'strong', showsWhenTrue: 0.55, showsWhenFalse: 0.2 },
         lines: lines({
           bet: ['Pot.', 'I raise, mademoiselle.', 'Let us see.'],
           call: ['Je suis.', 'I follow.'],

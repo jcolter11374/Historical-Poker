@@ -174,68 +174,72 @@ The home game the night after your wedding to Elena, a year and a good many dinn
 
 ## How the rivals play
 
-Every rival's numbers, from their chapter file (what each number means: [GAME_DESIGN.md](GAME_DESIGN.md), "How the bots think"), and how they actually played in the bot lab (`tools/bot-lab.ts`, 2026-11-20, 300 hands per stand-in in Part One, 200 to 300 in Part Two; the last two chapters were run again on 2026-11-21 with their new casts, 200 hands). "Plays" is the share of hands they put money in on the first round by choice; "bets" the share of their decisions that were bets or raises. In multi-game chapters these mix every game.
+Every rival thinks with RSDP Live's practice bot at the level shown, bent by the numbers from their chapter file (what each means: [GAME_DESIGN.md](GAME_DESIGN.md), "How the bots think"; what is RSDP's and what is ours: [BOTS.md](BOTS.md)). The last three columns are how they actually played in the bot lab (`tools/bot-lab.ts`, 2026-11-21, 300 hands per stand-in in Part One, 200 to 300 in Part Two). "Plays" is the share of hands they put money in on the first round by choice; "bets" the share of their decisions that were bets or raises. In multi-game chapters these mix every game.
 
-| Chapter | Rival | valueAt | bluff | caution | betSize | trap | respect | reads | tilt | plays % | bets % | folds to a bet % |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| riverboat | Delphine | 1.6 | 0.07 | 0.03 | 0.6 | 0.5 | 0.6 | 0.9 |  | 33 | 17 | 54 |
-| riverboat | Silas | 1.3 | 0.24 | -0.02 | 0.75 |  | 0.35 | 0.6 | 0.12 | 53 | 39 | 37 |
-| riverboat | Ezra | 2.0 | 0.0 | 0.1 | 0.4 |  | 0.95 | 0.1 |  | 28 | 14 | 64 |
-| painted-deck | Sir Roland | 1.1 | 0.3 | -0.06 | 0.8 |  | 0.25 | 0.1 | 0.15 | 44 | 37 | 35 |
-| painted-deck | Lady Margery | 1.45 | 0.08 | 0.04 | 0.7 |  | 0.6 | 0.9 |  | 17 | 19 | 40 |
-| painted-deck | Brother Anselm | 1.7 | 0.03 | 0.08 | 0.5 |  | 0.85 | 0.3 |  | 6 | 5 | 73 |
-| north-road | Hannah | 1.7 | 0.04 | 0.06 | 0.7 |  | 0.8 | 0.4 |  | 29 | 16 | 61 |
-| north-road | Captain Pike | 1.15 | 0.32 | -0.04 | 0.85 |  | 0.3 | 0.2 | 0.1 | 57 | 43 | 36 |
-| north-road | Mr. Sorrel | 1.35 | 0.18 | 0.0 | 0.65 | 0.35 | 0.5 | 0.9 |  | 47 | 28 | 41 |
-| camp | Toby | 1.5 | 0.04 | -0.12 | 0.45 |  | 0.4 | 0.1 |  | 58 | 15 | 27 |
-| camp | Sergeant Reed | 1.9 | 0.02 | 0.1 | 0.75 |  | 0.9 | 0.6 |  | 12 | 7 | 43 |
-| camp | Hattie | 1.35 | 0.22 | 0.02 | 0.7 |  | 0.5 | 0.6 | 0.08 | 40 | 23 | 30 |
-| last-hand | Doc | 1.4 | 0.12 | -0.08 | 0.5 |  | 0.4 | 0.3 |  | 31 | 24 | 38 |
-| last-hand | Ruby | 1.4 | 0.14 | 0.03 | 0.7 | 0.3 | 0.6 | 1 |  | 25 | 27 | 34 |
-| last-hand | Jasper | 1.3 | 0.25 | -0.02 | 0.8 |  | 0.35 | 0.4 | 0.15 | 40 | 40 | 27 |
-| gaming-house | Henri | 1.5 | 0.08 | 0.03 | 0.6 |  | 0.7 | 0.5 | 0.1 | 32 | 27 | 54 |
-| gaming-house | Madame Élodie | 1.45 | 0.12 | 0.04 | 0.7 | 0.4 | 0.6 | 1 |  | 38 | 25 | 47 |
-| gaming-house | Lacroix | 1.15 | 0.3 | -0.06 | 0.85 |  | 0.25 | 0.2 | 0.12 | 57 | 40 | 34 |
-| back-room | Sal | 1.55 | 0.05 | 0.05 | 0.6 |  | 0.75 | 0.7 |  | 30 | 20 | 38 |
-| back-room | Nora | 1.35 | 0.15 | 0.02 | 0.7 | 0.25 | 0.6 | 0.8 |  | 40 | 27 | 23 |
-| back-room | Gus | 1.3 | 0.1 | -0.08 | 0.5 |  | 0.4 | 0.1 |  | 52 | 22 | 10 |
-| desert-classic | Professor Weiss | 1.5 | 0.06 | 0.04 | 0.6 |  | 0.7 | 0.7 |  | 23 | 14 | 47 |
-| desert-classic | Tex | 1.2 | 0.28 | -0.03 | 0.8 |  | 0.35 | 0.5 | 0.1 | 48 | 31 | 21 |
-| desert-classic | Lorraine | 1.45 | 0.12 | 0.03 | 0.7 | 0.4 | 0.6 | 0.9 |  | 35 | 15 | 26 |
-| boardwalk | Benny | 1.3 | 0.14 | -0.04 | 0.6 |  | 0.5 | 0.6 |  | 51 | 22 | 15 |
-| boardwalk | Margot | 1.45 | 0.1 | 0.04 | 0.7 | 0.3 | 0.6 | 0.9 |  | 26 | 14 | 21 |
-| boardwalk | Ruth | 1.9 | 0.0 | 0.1 | 0.5 |  | 0.95 | 0.2 |  | 17 | 3 | 51 |
-| cercle | Siobhan | 1.4 | 0.14 | 0.02 | 0.75 |  | 0.6 | 0.9 |  | 27 | 16 | 42 |
-| cercle | Comte Varenne | 1.4 | 0.1 | 0.03 | 0.75 | 0.3 | 0.6 | 0.7 |  | 25 | 13 | 45 |
-| cercle | Dmitri | 1.6 | 0.06 | 0.06 | 0.6 |  | 0.7 | 0.8 |  | 29 | 8 | 44 |
-| boom | DeuceSeven | 1.35 | 0.16 | 0.01 | 0.7 |  | 0.5 | 0.8 |  | 30 | 30 | 31 |
-| boom | N0rthStar | 1.25 | 0.22 | -0.01 | 0.8 | 0.2 | 0.6 | 1 |  | 39 | 35 | 23 |
-| boom | Hanbit | 1.5 | 0.08 | 0.04 | 0.6 |  | 0.6 | 0.7 |  | 29 | 21 | 33 |
-| big-o | Kerry-Ann | 1.3 | 0.15 | -0.03 | 0.7 |  | 0.5 | 0.3 | 0.08 | 34 | 19 | 41 |
-| big-o | Gaz | 1.35 | 0.14 | 0.0 | 0.75 | 0.25 | 0.6 | 0.9 |  | 28 | 16 | 41 |
-| big-o | Mr. Okafor | 1.7 | 0.04 | 0.07 | 0.6 |  | 0.8 | 0.4 |  | 29 | 6 | 52 |
-| last-table | Mei Lin | 1.5 | 0.08 | 0.04 | 0.65 |  | 0.6 | 1 |  | 35 | 20 | 29 |
-| last-table | Elena | 1.35 | 0.18 | 0.01 | 0.75 | 0.25 | 0.6 | 0.9 |  | 35 | 27 | 19 |
-| last-table | Victor | 1.3 | 0.2 | 0.0 | 0.75 | 0.25 | 0.5 | 0.7 | 0.1 | 35 | 25 | 20 |
-| kitchen-table | Victor | 1.3 | 0.2 | 0.0 | 0.75 | 0.25 | 0.5 | 0.7 | 0.1 | 32 | 22 | 36 |
-| kitchen-table | Elena | 1.35 | 0.18 | 0.01 | 0.75 | 0.25 | 0.6 | 0.9 |  | 29 | 22 | 40 |
-| kitchen-table | Dee | 1.35 | 0.18 | -0.02 | 0.6 |  | 0.45 | 0.3 |  | 18 | 20 | 51 |
+| Chapter | Rival | RSDP level | valueAt | bluff | caution | betSize | trap | respect | reads | tilt | plays % | bets % | folds to a bet % |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| riverboat | Delphine | normal | 1.6 | 0.07 | 0.03 | 0.6 | 0.5 | 0.6 | 0.9 |  | 28 | 15 | 68 |
+| riverboat | Silas | easy | 1.05 | 0.24 | -0.02 | 0.75 |  | 0.35 | 0.6 | 0.12 | 55 | 23 | 38 |
+| riverboat | Ezra | easy | 2 | 0 | 0.2 | 0.4 |  | 0.95 | 0.1 |  | 29 | 7 | 62 |
+| painted-deck | Sir Roland | easy | 0.95 | 0.3 | -0.06 | 0.8 |  | 0.25 | 0.1 | 0.15 | 38 | 24 | 34 |
+| painted-deck | Lady Margery | normal | 1.45 | 0.08 | -0.03 | 0.7 |  | 0.4 | 0.9 |  | 12 | 19 | 57 |
+| painted-deck | Brother Anselm | easy | 1.7 | 0.03 | 0.18 | 0.5 |  | 0.85 | 0.3 |  | 9 | 6 | 56 |
+| north-road | Hannah | easy | 1.7 | 0.04 | 0.12 | 0.7 |  | 0.8 | 0.4 |  | 35 | 10 | 60 |
+| north-road | Captain Pike | easy | 0.95 | 0.32 | -0.04 | 0.85 |  | 0.3 | 0.2 | 0.1 | 60 | 24 | 34 |
+| north-road | Mr. Sorrel | normal | 1.35 | 0.18 | 0 | 0.65 | 0.35 | 0.5 | 0.9 |  | 36 | 19 | 59 |
+| camp | Toby | easy | 1.5 | 0.04 | -0.12 | 0.45 |  | 0.4 | 0.1 |  | 38 | 13 | 22 |
+| camp | Sergeant Reed | normal | 1.5 | 0.02 | 0 | 0.75 |  | 0.5 | 0.6 |  | 10 | 17 | 57 |
+| camp | Hattie | easy | 1.35 | 0.22 | 0.02 | 0.7 |  | 0.5 | 0.6 | 0.08 | 23 | 20 | 31 |
+| last-hand | Doc | easy | 1.4 | 0.12 | -0.08 | 0.5 |  | 0.4 | 0.3 |  | 34 | 16 | 31 |
+| last-hand | Ruby | normal | 1.4 | 0.14 | 0.03 | 0.7 | 0.3 | 0.6 | 1 |  | 20 | 27 | 50 |
+| last-hand | Jasper | normal | 1.3 | 0.25 | -0.02 | 0.8 |  | 0.35 | 0.4 | 0.15 | 32 | 40 | 35 |
+| gaming-house | Henri | easy | 1.5 | 0.08 | 0.03 | 0.6 |  | 0.7 | 0.5 | 0.1 | 38 | 11 | 53 |
+| gaming-house | Madame Élodie | normal | 1.45 | 0.12 | 0.04 | 0.7 | 0.4 | 0.6 | 1 |  | 33 | 19 | 64 |
+| gaming-house | Lacroix | easy | 0.95 | 0.3 | -0.06 | 0.85 |  | 0.25 | 0.2 | 0.12 | 59 | 21 | 29 |
+| back-room | Sal | normal | 1.55 | 0.05 | 0.05 | 0.6 |  | 0.75 | 0.7 |  | 15 | 18 | 65 |
+| back-room | Nora | normal | 1.35 | 0.15 | 0.02 | 0.7 | 0.25 | 0.6 | 0.8 |  | 27 | 24 | 43 |
+| back-room | Gus | easy | 1.3 | 0.1 | 0.02 | 0.5 |  | 0.4 | 0.1 |  | 29 | 19 | 11 |
+| desert-classic | Professor Weiss | normal | 1.5 | 0.06 | 0.04 | 0.6 |  | 0.7 | 0.7 |  | 24 | 14 | 55 |
+| desert-classic | Tex | normal | 1.2 | 0.28 | -0.03 | 0.8 |  | 0.35 | 0.5 | 0.1 | 46 | 30 | 29 |
+| desert-classic | Lorraine | normal | 1.45 | 0.12 | 0.03 | 0.7 | 0.4 | 0.6 | 0.9 |  | 35 | 15 | 36 |
+| cercle | Siobhan | normal | 1.4 | 0.14 | 0.02 | 0.75 |  | 0.6 | 0.9 |  | 25 | 19 | 50 |
+| cercle | Comte Varenne | normal | 1.4 | 0.1 | 0.03 | 0.75 | 0.3 | 0.6 | 0.7 |  | 23 | 13 | 54 |
+| cercle | Dmitri | normal | 1.6 | 0.06 | 0.06 | 0.6 |  | 0.7 | 0.8 |  | 30 | 11 | 48 |
+| boardwalk | Benny | easy | 1.3 | 0.14 | 0.06 | 0.6 |  | 0.5 | 0.6 |  | 62 | 17 | 9 |
+| boardwalk | Margot | normal | 1.45 | 0.1 | 0.04 | 0.7 | 0.3 | 0.6 | 0.9 |  | 27 | 15 | 28 |
+| boardwalk | Ruth | normal | 1.9 | 0 | 0.1 | 0.5 |  | 0.95 | 0.2 |  | 15 | 4 | 52 |
+| boom | DeuceSeven | normal | 1.35 | 0.16 | 0.01 | 0.7 |  | 0.5 | 0.8 |  | 47 | 33 | 25 |
+| boom | N0rthStar | hard | 1.25 | 0.22 | -0.01 | 0.8 | 0.2 | 0.6 | 1 |  | 40 | 21 | 33 |
+| boom | Hanbit | normal | 1.5 | 0.08 | 0.04 | 0.6 |  | 0.6 | 0.7 |  | 45 | 29 | 25 |
+| big-o | Kerry-Ann | easy | 1.3 | 0.15 | -0.03 | 0.7 |  | 0.5 | 0.3 | 0.08 | 55 | 18 | 18 |
+| big-o | Gaz | normal | 1.35 | 0.14 | 0 | 0.75 | 0.25 | 0.6 | 0.9 |  | 29 | 15 | 50 |
+| big-o | Mr. Okafor | normal | 1.7 | 0.04 | 0.07 | 0.6 |  | 0.8 | 0.4 |  | 28 | 10 | 53 |
+| last-table | Mei Lin | normal | 1.5 | 0.08 | 0.04 | 0.65 |  | 0.6 | 1 |  | 33 | 22 | 38 |
+| last-table | Elena | hard | 1.35 | 0.18 | 0.01 | 0.75 | 0.25 | 0.6 | 0.9 |  | 39 | 26 | 26 |
+| last-table | Victor | normal | 1.3 | 0.2 | 0 | 0.75 | 0.25 | 0.5 | 0.7 | 0.1 | 41 | 26 | 19 |
+| kitchen-table | Dee | easy | 1.35 | 0.18 | -0.02 | 0.6 |  | 0.45 | 0.3 |  | 35 | 18 | 36 |
+| kitchen-table | Elena | hard | 1.35 | 0.18 | 0.01 | 0.75 | 0.25 | 0.6 | 0.9 |  | 41 | 25 | 35 |
+| kitchen-table | Victor | easy | 1.3 | 0.2 | 0 | 0.75 | 0.25 | 0.5 | 0.7 | 0.1 | 38 | 14 | 16 |
+
+Levels: 14 Easy, 24 Normal, 2 Hard (N0rthStar and Elena, both Cranes). Victor is Normal in Macau and Easy at the kitchen table. Part One has two Easy rivals at every table (one in the finale). An Easy rival bets and raises less than the same numbers did on the old bot, because RSDP's Easy only raises its best hands: Silas, Roland, Pike and Lacroix are still the loudest at their tables, but they are loose callers who bluff rather than raisers.
 
 Stand-ins in your seat, in betting units won per 100 hands (negative means the rivals beat them):
 
 | Chapter | station | maniac | aggro | teacher |
 | --- | --- | --- | --- | --- |
-| riverboat | -82 | -695 | -644 | -43 |
-| painted-deck | -203 | -82 | -472 | -41 |
-| north-road | -181 | -918 | -846 | 61 |
-| camp | -264 | -402 | -678 | 13 |
-| last-hand | -234 | -516 | -574 | 35 |
-| gaming-house | -353 | -1281 | -980 | 10 |
-| back-room | -188 | -306 | -361 | 14 |
-| desert-classic | -364 | -139 | -407 | 37 |
-| boardwalk | -125 | -143 | -121 | -11 |
-| cercle | -347 | -163 | -441 | -2 |
-| boom | -319 | -160 | -108 | 43 |
-| big-o | -247 | -275 | -344 | 5 |
-| last-table | -171 | -355 | -544 | 46 |
-| kitchen-table | -693 | -380 | -494 | 74 |
+| riverboat | -50 | -1203 | -355 | -32 |
+| painted-deck | -192 | -342 | -616 | 73 |
+| north-road | -126 | -2110 | -444 | 20 |
+| camp | -216 | -194 (over 2,400 hands; all-in play swings widely, and one 300-hand run came out +34) | -430 | 20 |
+| last-hand | -105 | -415 | -625 | 86 |
+| gaming-house | -77 | -1348 | -556 | -14 |
+| back-room | -184 | -318 | -170 | 16 |
+| desert-classic | -309 | -57 | -154 | 25 |
+| cercle | -282 | -309 | -277 | -12 |
+| boardwalk | -85 | -87 | -46 | 10 |
+| boom | -225 | -149 | -131 | 13 |
+| big-o | -109 | -48 | -36 | 0 |
+| last-table | -148 | -328 | -503 | 14 |
+| kitchen-table | -12 | -597 | -546 | 103 |
+
+The teacher follows the hints (RSDP's coach, steadied for beginners). Compared with the old bots (2026-11-20), a player who only calls loses more slowly in most chapters (the riverboat 50 a hundred hands against 82, the gaming house 77 against 353), so the short chapters are no quicker to bust a beginner than before.

@@ -36,6 +36,7 @@ Done:
 - [x] Phones and tablets: played sideways, with enlarged words and chips on small screens, a "turn sideways" card, and home-screen full screen (2026-11-20).
 - [x] Practice: any game, on its own, against the chapter's rivals, with its teacher's lesson and hints, never ending and never saved (2026-11-21). This is the outline's Free Play.
 - [x] Bots that read the betting, size you up over the evening (the sharp ones), and go on tilt (the hot-headed ones); a bot lab to measure them (2026-11-20).
+- [x] The rivals think with RSDP Live's practice bot and the hints come from RSDP Live's coach, copied in like the engine; each character is one of RSDP's levels (mostly Easy and Normal, two Hard bosses) with their own style on top ([BOTS.md](BOTS.md), 2026-11-21).
 - [x] Math Mode, first version (2026-11-21): a switch, off by default, that asks young players sums from the hand being played: counting outs as a fraction of the unseen cards, and "is this call a good deal?" (pot odds). Stars for right answers (GAME_DESIGN.md, "Math Mode").
 
 To do:

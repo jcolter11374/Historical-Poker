@@ -171,7 +171,7 @@ export const BOOM: Chapter = {
           name: 'DeuceSeven',
           fullName: '“DeuceSeven”',
           role: 'An online pro who plays twelve tables at once',
-          personality: { valueAt: 1.35, bluff: 0.16, caution: 0.01, betSize: 0.7, respect: 0.5, reads: 0.8 },
+          personality: { level: 'normal', valueAt: 1.35, bluff: 0.16, caution: 0.01, betSize: 0.7, respect: 0.5, reads: 0.8 },
           tell: { text: 'He tanks for the full timer, then raises.', signals: 'bluffing', showsWhenTrue: 0.55, showsWhenFalse: 0.2 },
           lines: lines({
             bet: ['raise', 'bet', 'lol raise'],
@@ -197,7 +197,7 @@ export const BOOM: Chapter = {
           name: 'N0rthStar',
           fullName: '“N0rthStar”',
           role: 'Never types in the chat. Never loses.',
-          personality: { valueAt: 1.25, bluff: 0.22, caution: -0.01, betSize: 0.8, trap: 0.2, respect: 0.6, reads: 1 },
+          personality: { level: 'hard', valueAt: 1.25, bluff: 0.22, caution: -0.01, betSize: 0.8, trap: 0.2, respect: 0.6, reads: 1 },
           tell: { text: 'Bets instantly, the moment it’s her turn.', signals: 'strong', showsWhenTrue: 0.6, showsWhenFalse: 0.25 },
           lines: lines({
             bet: ['Raise.', 'Bet.', 'All the way.'],
@@ -223,7 +223,7 @@ export const BOOM: Chapter = {
           name: 'Hanbit',
           fullName: '“Hanbit”',
           role: 'A Badugi player from Seoul',
-          personality: { valueAt: 1.5, bluff: 0.08, caution: 0.04, betSize: 0.6, respect: 0.6, reads: 0.7 },
+          personality: { level: 'normal', valueAt: 1.5, bluff: 0.08, caution: 0.04, betSize: 0.6, respect: 0.6, reads: 0.7 },
           tell: { text: 'Hanbit types “hmm” in the chat.', signals: 'weak', showsWhenTrue: 0.6, showsWhenFalse: 0.12 },
           lines: lines({
             bet: ['bet!', 'raise :)'],

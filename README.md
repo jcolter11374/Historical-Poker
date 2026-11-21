@@ -6,7 +6,7 @@ A single-player card game that tells the history of poker, one chapter per era. 
 
 It runs entirely in the browser: no server, no accounts. Progress is saved in the browser's local storage. It is hosted for free on GitHub Pages.
 
-Powered by the poker engine from [RSDP Live](https://rsdp-poker-live.fly.dev), used under its MIT license (see [docs/ENGINE.md](docs/ENGINE.md)).
+Powered by [RSDP Live](https://rsdp-poker-live.fly.dev): its poker engine runs every hand ([docs/ENGINE.md](docs/ENGINE.md)), and its practice bot and coach do the rivals' thinking and the hints ([docs/BOTS.md](docs/BOTS.md)). Both are copies, used under RSDP Live's MIT license.
 
 ## Start here
 
@@ -28,6 +28,7 @@ For looking things up:
 | Know why something is the way it is | [docs/DECISIONS.md](docs/DECISIONS.md) |
 | Check a history fact, or add one with its source | [docs/HISTORY_SOURCES.md](docs/HISTORY_SOURCES.md) |
 | Understand or update the copied RSDP engine | [docs/ENGINE.md](docs/ENGINE.md) |
+| Understand how the rivals think, or update the copied RSDP bots | [docs/BOTS.md](docs/BOTS.md) |
 | Change a chapter's music | [docs/MUSIC.md](docs/MUSIC.md) |
 | See the software, fonts and art this uses | [docs/CREDITS.md](docs/CREDITS.md) |
 | Know the rules AI coding sessions follow | [CLAUDE.md](CLAUDE.md) |

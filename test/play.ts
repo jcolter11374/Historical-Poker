@@ -4,6 +4,7 @@
  * clicks through every scene. Checks after every hand that no money appears
  * or disappears (buy-backs before the last stage are counted separately).
  */
+import { drawHabit } from './drawHabits';
 import { expect } from 'vitest';
 import { seeded } from '../src/bots/random';
 import type { Chapter } from '../src/chapters/types';
@@ -34,7 +35,7 @@ export function playChapter(chapter: Chapter, seed: number, opts: { maxHands?: n
         const limit = s.drawLimit();
         if (limit !== null) {
           const cards = s.snapshot().hand!.myCards.map((c) => c.card);
-          let d = s.currentGame.discards?.(cards, limit) ?? [];
+          let d = drawHabit(s.currentGame.id, cards, limit);
           if (s.drawProblem(d)) d = d.slice(0, 3);
           expect(s.hint()?.text).toMatch(/keep|throw|Stand pat/i);
           s.draw(d);

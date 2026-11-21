@@ -115,7 +115,7 @@ export const DESERT_CLASSIC: Chapter = {
         name: 'Professor Weiss',
         fullName: 'Professor Milton Weiss',
         role: 'A mathematics professor who plays by the numbers',
-        personality: { valueAt: 1.5, bluff: 0.06, caution: 0.04, betSize: 0.6, respect: 0.7, reads: 0.7 },
+        personality: { level: 'normal', valueAt: 1.5, bluff: 0.06, caution: 0.04, betSize: 0.6, respect: 0.7, reads: 0.7 },
         tell: { text: 'He polishes his glasses.', signals: 'weak', showsWhenTrue: 0.55, showsWhenFalse: 0.12 },
         lines: lines({
           bet: ['A bet, by the numbers.', 'Raise. The odds favour it.'],
@@ -135,7 +135,7 @@ export const DESERT_CLASSIC: Chapter = {
         name: 'Tex',
         fullName: '“Tex” Dawson Pruitt',
         role: 'A road gambler from Amarillo who plays every hand fast',
-        personality: { valueAt: 1.2, bluff: 0.28, caution: -0.03, betSize: 0.8, respect: 0.35, reads: 0.5, tilt: 0.1 },
+        personality: { level: 'normal', valueAt: 1.2, bluff: 0.28, caution: -0.03, betSize: 0.8, respect: 0.35, reads: 0.5, tilt: 0.1 },
         tell: { text: 'He tips his hat back and grins.', signals: 'bluffing', showsWhenTrue: 0.65, showsWhenFalse: 0.25 },
         lines: lines({
           bet: ['Raise, partner.', 'Let’s gamble!', 'Bet. Y’all are too slow.'],
@@ -155,7 +155,7 @@ export const DESERT_CLASSIC: Chapter = {
         name: 'Lorraine',
         fullName: 'Lorraine Fisk',
         role: 'A former showgirl with an iron poker face',
-        personality: { valueAt: 1.45, bluff: 0.12, caution: 0.03, betSize: 0.7, trap: 0.4, respect: 0.6, reads: 0.9 },
+        personality: { level: 'normal', valueAt: 1.45, bluff: 0.12, caution: 0.03, betSize: 0.7, trap: 0.4, respect: 0.6, reads: 0.9 },
         tell: { text: 'Her face doesn’t move. At all.', signals: 'strong', showsWhenTrue: 0.35, showsWhenFalse: 0.35 },
         lines: lines({
           bet: ['Bet.', 'Raise.'],

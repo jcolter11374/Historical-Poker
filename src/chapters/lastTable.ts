@@ -100,7 +100,7 @@ export const LAST_TABLE: Chapter = {
         name: 'Mei Lin',
         fullName: 'Mei Lin Chau',
         role: 'A quiet local legend who has played every game',
-        personality: { valueAt: 1.5, bluff: 0.08, caution: 0.04, betSize: 0.65, respect: 0.6, reads: 1 },
+        personality: { level: 'normal', valueAt: 1.5, bluff: 0.08, caution: 0.04, betSize: 0.65, respect: 0.6, reads: 1 },
         tell: { text: 'She sips her tea.', signals: 'weak', showsWhenTrue: 0.5, showsWhenFalse: 0.15 },
         lines: lines({
           bet: ['Bet.', 'Raise, please.'],
@@ -122,7 +122,7 @@ export const LAST_TABLE: Chapter = {
         name: 'Elena',
         fullName: `Elena Crane`,
         role: 'Victor’s daughter, a top professional: the best Crane who ever sat down',
-        personality: { valueAt: 1.35, bluff: 0.18, caution: 0.01, betSize: 0.75, trap: 0.25, respect: 0.6, reads: 0.9 },
+        personality: { level: 'hard', valueAt: 1.35, bluff: 0.18, caution: 0.01, betSize: 0.75, trap: 0.25, respect: 0.6, reads: 0.9 },
         tell: { text: `She looks up at you before she bets.`, signals: 'bluffing', showsWhenTrue: 0.65, showsWhenFalse: 0.25 },
         lines: lines({
           bet: ['Raise.', 'Bet. Are you watching me, or the cards?', 'Let’s see what an Avery does with that.', 'I do this for a living. Raise.'],
@@ -144,7 +144,7 @@ export const LAST_TABLE: Chapter = {
         name: 'Victor',
         fullName: 'Victor Crane',
         role: `Elena’s father, who started tonight with a letter`,
-        personality: { valueAt: 1.3, bluff: 0.2, caution: 0.0, betSize: 0.75, trap: 0.25, respect: 0.5, reads: 0.7, tilt: 0.1 },
+        personality: { level: 'normal', valueAt: 1.3, bluff: 0.2, caution: 0.0, betSize: 0.75, trap: 0.25, respect: 0.5, reads: 0.7, tilt: 0.1 },
         tell: { text: 'He straightens his cufflinks: little gold riverboats.', signals: 'bluffing', showsWhenTrue: 0.65, showsWhenFalse: 0.25 },
         lines: lines({
           bet: ['Raise.', 'Bet.', 'Let’s see if the deck still works.'],

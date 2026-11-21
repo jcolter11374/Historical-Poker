@@ -48,7 +48,7 @@ export const RIVERBOAT: Chapter = {
       fullName: 'Mrs. Delphine Arceneaux',
       role: 'A Louisiana widow who knows the deck’s story',
       // Tricky: checks strong hands to trap, bluffs rarely.
-      personality: { valueAt: 1.6, bluff: 0.07, caution: 0.03, betSize: 0.6, trap: 0.5, respect: 0.6, reads: 0.9 },
+      personality: { level: 'normal', valueAt: 1.6, bluff: 0.07, caution: 0.03, betSize: 0.6, trap: 0.5, respect: 0.6, reads: 0.9 },
       // She fakes it half the time, so the tell is a coin flip.
       tell: { text: 'Her fan snaps shut.', signals: 'strong', showsWhenTrue: 0.4, showsWhenFalse: 0.4 },
       lines: {
@@ -67,7 +67,7 @@ export const RIVERBOAT: Chapter = {
       name: 'Silas',
       fullName: '“Gentleman” Silas Crane',
       role: 'A riverboat card sharp',
-      personality: { valueAt: 1.3, bluff: 0.24, caution: -0.02, betSize: 0.75, respect: 0.35, reads: 0.6, tilt: 0.12 },
+      personality: { level: 'easy', valueAt: 1.05, bluff: 0.24, caution: -0.02, betSize: 0.75, respect: 0.35, reads: 0.6, tilt: 0.12 },
       // Loose and aggressive. The mustache is about 70% honest: it shows on 70% of his bluffs and 30% of his honest bets.
       tell: { text: 'He’s smoothing his mustache again...', signals: 'bluffing', showsWhenTrue: 0.7, showsWhenFalse: 0.3 },
       lines: {
@@ -87,7 +87,7 @@ export const RIVERBOAT: Chapter = {
       fullName: 'Ezra Hollis',
       role: 'A nervous cotton agent from New Orleans',
       // Tight and passive: plays only good hands, calls more than he raises.
-      personality: { valueAt: 2.0, bluff: 0.0, caution: 0.1, betSize: 0.4, respect: 0.95, reads: 0.1 },
+      personality: { level: 'easy', valueAt: 2.0, bluff: 0.0, caution: 0.2, betSize: 0.4, respect: 0.95, reads: 0.1 },
       // The tutorial tell: about 90% honest. He wipes his brow when his hand is weak.
       tell: { text: 'He wipes his brow.', signals: 'weak', showsWhenTrue: 0.6, showsWhenFalse: 0.07 },
       lines: {

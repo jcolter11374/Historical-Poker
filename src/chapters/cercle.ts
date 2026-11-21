@@ -114,7 +114,7 @@ export const CERCLE: Chapter = {
         name: 'Siobhan',
         fullName: 'Siobhan Kearney',
         role: 'An Irish professional who plays the European circuit',
-        personality: { valueAt: 1.4, bluff: 0.14, caution: 0.02, betSize: 0.75, respect: 0.6, reads: 0.9 },
+        personality: { level: 'normal', valueAt: 1.4, bluff: 0.14, caution: 0.02, betSize: 0.75, respect: 0.6, reads: 0.9 },
         tell: { text: 'She drums her fingers on the rail.', signals: 'bluffing', showsWhenTrue: 0.6, showsWhenFalse: 0.2 },
         lines: lines({
           bet: ['Pot.', 'Bet the pot.', 'Raise, love.'],
@@ -134,7 +134,7 @@ export const CERCLE: Chapter = {
         name: 'Comte Varenne',
         fullName: 'Comte Lucien Varenne',
         role: 'President of the club, collector of antique cards',
-        personality: { valueAt: 1.4, bluff: 0.1, caution: 0.03, betSize: 0.75, trap: 0.3, respect: 0.6, reads: 0.7 },
+        personality: { level: 'normal', valueAt: 1.4, bluff: 0.1, caution: 0.03, betSize: 0.75, trap: 0.3, respect: 0.6, reads: 0.7 },
         tell: { text: 'He turns the signet ring on his finger.', signals: 'strong', showsWhenTrue: 0.55, showsWhenFalse: 0.2 },
         lines: lines({
           bet: ['Pot.', 'I raise, mademoiselle.', 'Let us see.'],
@@ -154,7 +154,7 @@ export const CERCLE: Chapter = {
         name: 'Dmitri',
         fullName: 'Dmitri Volkov',
         role: 'A chess grandmaster who plays cold and exact',
-        personality: { valueAt: 1.6, bluff: 0.06, caution: 0.06, betSize: 0.6, respect: 0.7, reads: 0.8 },
+        personality: { level: 'normal', valueAt: 1.6, bluff: 0.06, caution: 0.06, betSize: 0.6, respect: 0.7, reads: 0.8 },
         tell: { text: 'He stares at the board, perfectly still.', signals: 'weak', showsWhenTrue: 0.5, showsWhenFalse: 0.12 },
         lines: lines({
           bet: ['Pot.', 'Raise.'],

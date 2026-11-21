@@ -79,7 +79,7 @@ export const NORTH_ROAD: Chapter = {
           name: 'Hannah',
           fullName: 'Hannah Pell',
           role: 'Keeper of the Pewter Lamb',
-          personality: { valueAt: 1.7, bluff: 0.04, caution: 0.06, betSize: 0.7, respect: 0.8, reads: 0.4 },
+          personality: { level: 'easy', valueAt: 1.7, bluff: 0.04, caution: 0.12, betSize: 0.7, respect: 0.8, reads: 0.4 },
           tell: { text: 'She polishes a tankard, slowly.', signals: 'strong', showsWhenTrue: 0.6, showsWhenFalse: 0.15 },
           lines: lines({
             bet: ['I’ll put some in.', 'Wager.', 'Raise, and I’ll not apologise.'],
@@ -102,7 +102,7 @@ export const NORTH_ROAD: Chapter = {
           name: 'Captain Pike',
           fullName: 'Captain Josiah Pike',
           role: 'A retired sea captain bound for the colonies',
-          personality: { valueAt: 1.15, bluff: 0.32, caution: -0.04, betSize: 0.85, respect: 0.3, reads: 0.2, tilt: 0.1 },
+          personality: { level: 'easy', valueAt: 0.95, bluff: 0.32, caution: -0.04, betSize: 0.85, respect: 0.3, reads: 0.2, tilt: 0.1 },
           // The louder his boast, the weaker his hand: shows on 75% of his bluffs, 25% of his honest bets.
           tell: { text: 'He boasts, loudly, about the hand he holds.', signals: 'bluffing', showsWhenTrue: 0.75, showsWhenFalse: 0.25 },
           lines: lines({
@@ -126,7 +126,7 @@ export const NORTH_ROAD: Chapter = {
           name: 'Mr. Sorrel',
           fullName: 'Mr. Jack Sorrel',
           role: 'A well-dressed gentleman. Too well dressed',
-          personality: { valueAt: 1.35, bluff: 0.18, caution: 0.0, betSize: 0.65, trap: 0.35, respect: 0.5, reads: 0.9 },
+          personality: { level: 'normal', valueAt: 1.35, bluff: 0.18, caution: 0.0, betSize: 0.65, trap: 0.35, respect: 0.5, reads: 0.9 },
           tell: { text: 'His hand drifts to his coat pocket.', signals: 'weak', showsWhenTrue: 0.55, showsWhenFalse: 0.12 },
           lines: lines({
             bet: ['I believe I shall wager.', 'Shall we make it interesting?'],

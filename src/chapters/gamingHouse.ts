@@ -78,7 +78,7 @@ export const GAMING_HOUSE: Chapter = {
           name: 'Henri',
           fullName: 'Henri Avery',
           role: 'Kit’s grandfather, an American with one thing left to lose',
-          personality: { valueAt: 1.5, bluff: 0.08, caution: 0.03, betSize: 0.6, respect: 0.7, reads: 0.5, tilt: 0.1 },
+          personality: { level: 'easy', valueAt: 1.5, bluff: 0.08, caution: 0.03, betSize: 0.6, respect: 0.7, reads: 0.5, tilt: 0.1 },
           tell: { text: 'He hums an old tune under his breath.', signals: 'strong', showsWhenTrue: 0.65, showsWhenFalse: 0.12 },
           lines: lines({
             bet: ['Je poque, as they say.', 'A wager, then.'],
@@ -101,7 +101,7 @@ export const GAMING_HOUSE: Chapter = {
           name: 'Madame Élodie',
           fullName: 'Madame Élodie Fontaine',
           role: 'Owner of the house, Delphine’s aunt, who reads everyone',
-          personality: { valueAt: 1.45, bluff: 0.12, caution: 0.04, betSize: 0.7, trap: 0.4, respect: 0.6, reads: 1 },
+          personality: { level: 'normal', valueAt: 1.45, bluff: 0.12, caution: 0.04, betSize: 0.7, trap: 0.4, respect: 0.6, reads: 1 },
           tell: { text: 'She fans her cards slowly open.', signals: 'strong', showsWhenTrue: 0.55, showsWhenFalse: 0.2 },
           lines: lines({
             bet: ['Je poque.', 'Shall we, chérie?', 'Double, I think.'],
@@ -124,7 +124,7 @@ export const GAMING_HOUSE: Chapter = {
           name: 'Lacroix',
           fullName: 'Captain Jean-Baptiste Lacroix',
           role: 'A privateer spending his prize money fast',
-          personality: { valueAt: 1.15, bluff: 0.3, caution: -0.06, betSize: 0.85, respect: 0.25, reads: 0.2, tilt: 0.12 },
+          personality: { level: 'easy', valueAt: 0.95, bluff: 0.3, caution: -0.06, betSize: 0.85, respect: 0.25, reads: 0.2, tilt: 0.12 },
           tell: { text: 'He laughs, a little too loudly.', signals: 'bluffing', showsWhenTrue: 0.7, showsWhenFalse: 0.2 },
           lines: lines({
             bet: ['Ha! Je poque! Double!', 'Spanish silver, and plenty of it!', 'Raise, by the Gulf!'],

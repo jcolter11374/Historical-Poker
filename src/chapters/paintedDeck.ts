@@ -81,7 +81,7 @@ export const PAINTED_DECK: Chapter = {
           name: 'Sir Roland',
           fullName: 'Sir Roland Crane',
           role: 'Lady Margery’s nephew, a reckless young knight who was promised the deck',
-          personality: { valueAt: 1.1, bluff: 0.3, caution: -0.06, betSize: 0.8, respect: 0.25, reads: 0.1, tilt: 0.15 },
+          personality: { level: 'easy', valueAt: 0.95, bluff: 0.3, caution: -0.06, betSize: 0.8, respect: 0.25, reads: 0.1, tilt: 0.15 },
           tell: { text: 'He drains his cup in one long swallow.', signals: 'bluffing', showsWhenTrue: 0.7, showsWhenFalse: 0.15 },
           lines: lines({
             bet: ['Have at thee!', 'More silver! Fortune loves the bold.', 'I raise, by Saint George.'],
@@ -106,7 +106,7 @@ export const PAINTED_DECK: Chapter = {
           name: 'Lady Margery',
           fullName: 'Lady Margery Ashcombe',
           role: 'Mistress of Ashcombe Hall, who never shows her hand',
-          personality: { valueAt: 1.45, bluff: 0.08, caution: 0.04, betSize: 0.7, respect: 0.6, reads: 0.9 },
+          personality: { level: 'normal', valueAt: 1.45, bluff: 0.08, caution: -0.03, betSize: 0.7, respect: 0.4, reads: 0.9 },
           tell: { text: 'She turns the signet ring on her finger.', signals: 'strong', showsWhenTrue: 0.6, showsWhenFalse: 0.2 },
           lines: lines({
             bet: ['I wager.', 'Let us raise the stakes, Mistress Avery.', 'Twice that.'],
@@ -131,7 +131,7 @@ export const PAINTED_DECK: Chapter = {
           name: 'Brother Anselm',
           fullName: 'Brother Anselm',
           role: 'A monk turned out of his abbey, now the hall’s steward',
-          personality: { valueAt: 1.7, bluff: 0.03, caution: 0.08, betSize: 0.5, respect: 0.85, reads: 0.3 },
+          personality: { level: 'easy', valueAt: 1.7, bluff: 0.03, caution: 0.18, betSize: 0.5, respect: 0.85, reads: 0.3 },
           tell: { text: 'He mutters a prayer under his breath.', signals: 'weak', showsWhenTrue: 0.65, showsWhenFalse: 0.1 },
           lines: lines({
             bet: ['A modest wager.', 'The numbers favour me, I think.'],

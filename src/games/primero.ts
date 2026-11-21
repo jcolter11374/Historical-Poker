@@ -72,25 +72,3 @@ export function scorePrimero(cards: Card[]): Scored {
 }
 
 export const PRIMERO_RULES: VariantRules = { awardPortion: highAward(scorePrimero) };
-
-/**
- * Which cards to change (indexes), at most `max`. Aims for the best category
- * within reach: keep a near-fluxus suit, keep a near-primero spread (one card
- * per suit, the highest), otherwise change the lowest cards.
- */
-export function primeroDiscards(cards: Card[], max: number): number[] {
-  if (cards.length < 4 || max === 0) return [];
-  const now = scorePrimero(cards).key[0];
-  if (now >= 1) return []; // primero or better: keep it
-  const bySuit = new Map<string, number[]>();
-  cards.forEach((c, i) => bySuit.set(c[1], [...(bySuit.get(c[1]) ?? []), i]));
-  const longest = [...bySuit.values()].sort((a, b) => b.length - a.length)[0];
-  if (longest.length >= 3) return cards.map((_, i) => i).filter((i) => !longest.includes(i)).slice(0, max);
-  // Keep the best card of each suit; change the rest (lowest first).
-  const keep = new Set([...bySuit.values()].map((idx) => idx.reduce((a, b) => (POINTS[cards[b][0]] > POINTS[cards[a][0]] ? b : a))));
-  return cards
-    .map((_, i) => i)
-    .filter((i) => !keep.has(i))
-    .sort((a, b) => POINTS[cards[a][0]] - POINTS[cards[b][0]])
-    .slice(0, max);
-}

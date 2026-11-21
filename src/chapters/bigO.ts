@@ -126,7 +126,7 @@ export const BIG_O: Chapter = {
         name: 'Kerry-Ann',
         fullName: 'Kerry-Ann Booth',
         role: 'A nurse just off a night shift',
-        personality: { valueAt: 1.3, bluff: 0.15, caution: -0.03, betSize: 0.7, respect: 0.5, reads: 0.3, tilt: 0.08 },
+        personality: { level: 'easy', valueAt: 1.3, bluff: 0.15, caution: -0.03, betSize: 0.7, respect: 0.5, reads: 0.3, tilt: 0.08 },
         tell: { text: 'She checks her phone, bored.', signals: 'weak', showsWhenTrue: 0.55, showsWhenFalse: 0.15 },
         lines: lines({
           bet: ['Pot it.', 'Raise.', 'Go on, then.'],
@@ -146,7 +146,7 @@ export const BIG_O: Chapter = {
         name: 'Gaz',
         fullName: 'Gaz Whitlock',
         role: 'A regular who has seen everything, twice',
-        personality: { valueAt: 1.35, bluff: 0.14, caution: 0.0, betSize: 0.75, trap: 0.25, respect: 0.6, reads: 0.9 },
+        personality: { level: 'normal', valueAt: 1.35, bluff: 0.14, caution: 0.0, betSize: 0.75, trap: 0.25, respect: 0.6, reads: 0.9 },
         tell: { text: 'He goes quiet. Gaz is never quiet.', signals: 'strong', showsWhenTrue: 0.65, showsWhenFalse: 0.15 },
         lines: lines({
           bet: ['Pot, duck.', 'Raise. Go on.', 'Let’s have a game.'],
@@ -166,7 +166,7 @@ export const BIG_O: Chapter = {
         name: 'Mr. Okafor',
         fullName: 'Mr. Emeka Okafor',
         role: 'A retired accountant who plays every Friday',
-        personality: { valueAt: 1.7, bluff: 0.04, caution: 0.07, betSize: 0.6, respect: 0.8, reads: 0.4 },
+        personality: { level: 'normal', valueAt: 1.7, bluff: 0.04, caution: 0.07, betSize: 0.6, respect: 0.8, reads: 0.4 },
         tell: { text: 'He stacks his chips in perfect towers.', signals: 'strong', showsWhenTrue: 0.55, showsWhenFalse: 0.15 },
         lines: lines({
           bet: ['I shall bet.', 'Pot, please.'],

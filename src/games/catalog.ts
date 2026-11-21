@@ -6,13 +6,12 @@
  * - `spec` and `rules`: what the RSDP engine needs (registered once, below).
  * - `deck`, `forced`: how the table deals and what forced bets it posts.
  * - `describe`: names the best hand some cards make, for "your hand" labels.
- * - `discards`, `drawRule`: draw games only; how bots draw, and any table
- *   rule on top of the engine's limit (five-card draw's "four with an ace").
+ * - `drawRule`: draw games only; any table rule on top of the engine's limit.
  * - `card`: the rules card the player can open at the table.
  *
  * The six historical games are in their own files in this folder. The twelve
  * modern games are RSDP Live's own, run by the engine unchanged; this file
- * only adds names, rules cards and draw habits for them.
+ * only adds names and rules cards for them.
  */
 import { freshDeck } from '@rsdp/engine';
 import { variants, type Card, type GameSpec, type VariantRules } from '@rsdp/engine/core';
@@ -20,7 +19,6 @@ import {
   HIGH_EVALUATORS,
   LOW_EVALUATORS,
   VARIANTS,
-  bestBadugi,
   registerAllVariants,
   type VariantId,
 } from '@rsdp/engine/variants';
@@ -30,7 +28,7 @@ import { DRAW5_ID, FIVE_CARD_DRAW, FIVE_CARD_DRAW_RULES } from './fiveCardDraw';
 import { FIVE_CARD_STUD, FIVE_CARD_STUD_RULES } from './fiveCardStud';
 import { RANKINGS_1864, score1864 } from './hands1864';
 import { POQUE, POQUE_RULES, deck32, scorePoque } from './poque';
-import { PRIMERO, PRIMERO_RULES, deck40, primeroDiscards, scorePrimero } from './primero';
+import { PRIMERO, PRIMERO_RULES, deck40, scorePrimero } from './primero';
 import { STRAIGHT_POKER, STRAIGHT_POKER_RULES, deck20, evaluate1836 } from './straightPoker';
 
 /**
@@ -63,8 +61,6 @@ export interface GameDef {
   forced: ForcedStyle;
   /** The best hand these cards make now, in words; '' when there are too few cards to say. */
   describe(hole: Card[], board: Card[]): string;
-  /** Draw games: which card indexes a sensible player throws, at most `max`. */
-  discards?(cards: Card[], max: number): number[];
   /** Draw games: a table rule on top of the engine's limit. Null when allowed, else why not. */
   drawRule?(cards: Card[], discard: number[]): string | null;
   /** Draw games with a table rule: how many may be thrown, in words ("up to three, or four if you keep an ace"). */
@@ -142,7 +138,6 @@ const historical: GameDef[] = ([
     deck: deck40,
     forced: 'antes',
     describe: (hole) => (hole.length ? scorePrimero(hole).name : ''),
-    discards: primeroDiscards,
     simCost: 1,
     card: {
       title: 'Primero, 1543',
@@ -221,7 +216,6 @@ const historical: GameDef[] = ([
     deck: freshDeck,
     forced: 'age',
     describe: describeWith('any-five'),
-    discards: highDrawDiscards,
     simCost: 1,
     card: {
       title: 'Five-Card Draw, 1876',
@@ -358,7 +352,6 @@ const modern: GameDef[] = [
   }),
   engineGame('td27', {
     name: '2-7 Triple Draw',
-    discards: lowballDiscards,
     card: {
       title: '2-7 Triple Draw',
       howToPlay: [...DRAW_HOW(5), 'The LOWEST hand wins. Aces are high, and straights and flushes count against you.'],
@@ -374,10 +367,6 @@ const modern: GameDef[] = [
   }),
   engineGame('badugi', {
     name: 'Badugi',
-    discards: (cards, max) => {
-      const keep = new Set(bestBadugi(cards).cards);
-      return cards.map((c, i) => (keep.has(c) ? -1 : i)).filter((i) => i >= 0).slice(0, max);
-    },
     card: {
       title: 'Badugi',
       howToPlay: [...DRAW_HOW(4), 'You want four cards of four different suits and four different ranks, as low as possible. Aces are low.'],
@@ -505,47 +494,6 @@ function describeVariant(id: VariantId) {
     if (high && low) return hole.length + board.length >= 5 ? `${hi} · ${lo}` : hi;
     return hi || lo;
   };
-}
-
-/**
- * High-hand draw: keep matched cards; otherwise four to a flush; otherwise
- * the ace (or the highest card). At most `max` thrown.
- */
-export function highDrawDiscards(cards: Card[], max: number): number[] {
-  const counts = new Map<string, number>();
-  for (const c of cards) counts.set(c[0], (counts.get(c[0]) ?? 0) + 1);
-  const matched = cards.map((c, i) => ((counts.get(c[0]) ?? 0) >= 2 ? i : -1)).filter((i) => i >= 0);
-  // A pat hand (straight or better) stands.
-  const name = describeWith('any-five')(cards, []);
-  if (/Straight|Flush|Full House|Four/i.test(name)) return [];
-  if (matched.length) return cards.map((_, i) => i).filter((i) => !matched.includes(i)).slice(0, max);
-  const suits = new Map<string, number[]>();
-  cards.forEach((c, i) => suits.set(c[1], [...(suits.get(c[1]) ?? []), i]));
-  const four = [...suits.values()].find((s) => s.length === 4);
-  if (four) return cards.map((_, i) => i).filter((i) => !four.includes(i));
-  const order = '23456789TJQKA';
-  const top = cards.reduce((a, _, i) => (order.indexOf(cards[i][0]) > order.indexOf(cards[a][0]) ? i : a), 0);
-  // Throw the lowest first, so a three-card limit keeps the two highest.
-  const throwAll = cards
-    .map((_, i) => i)
-    .filter((i) => i !== top)
-    .sort((a, b) => order.indexOf(cards[a][0]) - order.indexOf(cards[b][0]));
-  return throwAll.slice(0, cards[top][0] === 'A' ? Math.min(4, max) : Math.min(3, max));
-}
-
-/** 2-7 lowball: throw pairs, aces and anything above an eight. */
-export function lowballDiscards(cards: Card[], max: number): number[] {
-  const order = '23456789TJQKA';
-  const seen = new Set<string>();
-  const out: number[] = [];
-  cards
-    .map((c, i) => ({ c, i }))
-    .sort((a, b) => order.indexOf(a.c[0]) - order.indexOf(b.c[0]))
-    .forEach(({ c, i }) => {
-      if (seen.has(c[0]) || order.indexOf(c[0]) > order.indexOf('8')) out.push(i);
-      seen.add(c[0]);
-    });
-  return out.slice(0, max);
 }
 
 export { DRAW5_ID };

@@ -118,7 +118,7 @@ export const BACK_ROOM: Chapter = {
         name: 'Sal',
         fullName: 'Sal Moretti',
         role: 'A bootlegger’s bookkeeper who counts everything',
-        personality: { valueAt: 1.55, bluff: 0.05, caution: 0.05, betSize: 0.6, respect: 0.75, reads: 0.7 },
+        personality: { level: 'normal', valueAt: 1.55, bluff: 0.05, caution: 0.05, betSize: 0.6, respect: 0.75, reads: 0.7 },
         tell: { text: 'He taps his pencil on the table, counting.', signals: 'weak', showsWhenTrue: 0.6, showsWhenFalse: 0.12 },
         lines: lines({
           bet: ['Bet.', 'The numbers say raise.'],
@@ -138,7 +138,7 @@ export const BACK_ROOM: Chapter = {
         name: 'Nora',
         fullName: 'Nora Shea',
         role: 'Owner of the back room',
-        personality: { valueAt: 1.35, bluff: 0.15, caution: 0.02, betSize: 0.7, trap: 0.25, respect: 0.6, reads: 0.8 },
+        personality: { level: 'normal', valueAt: 1.35, bluff: 0.15, caution: 0.02, betSize: 0.7, trap: 0.25, respect: 0.6, reads: 0.8 },
         tell: { text: 'She laughs and lights a cigarette.', signals: 'bluffing', showsWhenTrue: 0.6, showsWhenFalse: 0.25 },
         lines: lines({
           bet: ['Bet, kid.', 'Raise. It’s my room.', 'Let’s make it worth the trip.'],
@@ -158,7 +158,7 @@ export const BACK_ROOM: Chapter = {
         name: 'Gus',
         fullName: 'Gus Lindqvist',
         role: 'A Swedish truck driver who just likes the company',
-        personality: { valueAt: 1.3, bluff: 0.1, caution: -0.08, betSize: 0.5, respect: 0.4, reads: 0.1 },
+        personality: { level: 'easy', valueAt: 1.3, bluff: 0.1, caution: 0.02, betSize: 0.5, respect: 0.4, reads: 0.1 },
         tell: { text: 'He hums a Swedish song.', signals: 'strong', showsWhenTrue: 0.55, showsWhenFalse: 0.25 },
         lines: lines({
           bet: ['I bet! Ja!', 'More, more.'],

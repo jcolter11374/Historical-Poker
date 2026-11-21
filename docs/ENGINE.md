@@ -8,6 +8,8 @@
 - Copied unchanged, including its own tests (`npm run test:engine`).
 - It is a workspace package named `@rsdp/engine`; the game imports `@rsdp/engine/core`.
 
+RSDP Live's practice bot and coach are copied too, into `src/bots/rsdp/`. They have their own page: [BOTS.md](BOTS.md).
+
 ## Rules
 
 - **Never change RSDP Live from this project.** It has its own project and its own development.

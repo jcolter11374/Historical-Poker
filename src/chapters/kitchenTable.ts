@@ -77,7 +77,7 @@ export const KITCHEN_TABLE: Chapter = {
         name: 'Dee',
         fullName: 'Dee',
         role: 'Your friend, who plays seven-deuce every single time',
-        personality: { valueAt: 1.35, bluff: 0.18, caution: -0.02, betSize: 0.6, respect: 0.45, reads: 0.3 },
+        personality: { level: 'easy', valueAt: 1.35, bluff: 0.18, caution: -0.02, betSize: 0.6, respect: 0.45, reads: 0.3 },
         tell: { text: 'She drums the table with both hands.', signals: 'bluffing', showsWhenTrue: 0.6, showsWhenFalse: 0.2 },
         lines: lines({
           bet: ['Raise. Could be seven-deuce.', 'Bet!'],
@@ -97,7 +97,7 @@ export const KITCHEN_TABLE: Chapter = {
         name: 'Elena',
         fullName: `Elena Crane`,
         role: `Your wife, as of yesterday`,
-        personality: { valueAt: 1.35, bluff: 0.18, caution: 0.01, betSize: 0.75, trap: 0.25, respect: 0.6, reads: 0.9 },
+        personality: { level: 'hard', valueAt: 1.35, bluff: 0.18, caution: 0.01, betSize: 0.75, trap: 0.25, respect: 0.6, reads: 0.9 },
         tell: { text: `She looks up at you before she bets.`, signals: 'bluffing', showsWhenTrue: 0.65, showsWhenFalse: 0.25 },
         lines: lines({
           bet: ['Raise.', 'Bet. I know that face.', 'Let’s see what an Avery does with that.'],
@@ -117,7 +117,7 @@ export const KITCHEN_TABLE: Chapter = {
         name: 'Victor',
         fullName: 'Victor Crane',
         role: `Your new father-in-law, at his first home game`,
-        personality: { valueAt: 1.3, bluff: 0.2, caution: 0.0, betSize: 0.75, trap: 0.25, respect: 0.5, reads: 0.7, tilt: 0.1 },
+        personality: { level: 'easy', valueAt: 1.3, bluff: 0.2, caution: 0.0, betSize: 0.75, trap: 0.25, respect: 0.5, reads: 0.7, tilt: 0.1 },
         tell: { text: 'He straightens his cufflinks: little gold riverboats.', signals: 'bluffing', showsWhenTrue: 0.65, showsWhenFalse: 0.25 },
         lines: lines({
           bet: ['Raise.', 'I bet. Is that allowed here? Good.', 'Let’s see where we are.'],

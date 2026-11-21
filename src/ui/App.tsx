@@ -16,6 +16,7 @@ import { useEffect, useState, type ReactNode } from 'react';
 import { CHAPTERS, chapterById, followingChapter, isUnlocked } from '../chapters';
 import type { Chapter } from '../chapters/types';
 import {
+  addMathStar,
   clearTable,
   latestTable,
   loadProgress,
@@ -140,6 +141,10 @@ export function App() {
           sound={progress.sound}
           onSound={(on) => setProgress(setOption(progress, 'sound', on))}
           musicLink={musicLink}
+          math={progress.math}
+          mathStars={progress.mathStars}
+          onMath={(on) => setProgress((p) => setOption(p, 'math', on))}
+          onMathStar={() => setProgress((p) => addMathStar(p))}
           onHandOver={() => keep(screen.session)}
           onFinished={() => finished(screen.session)}
           onLeave={() => {

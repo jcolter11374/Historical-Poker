@@ -24,13 +24,16 @@ Done:
 - [x] Chapter 5: the saloon background and Doc (2026-11-20); Ruby, Jasper and the title painting (2026-11-21). Chapters 1 to 5 are fully painted.
 - [x] Motion: cards dealt from the dealer and turned over, chips sliding to the pot and to the winner (2026-11-20).
 - [x] Sound effects made in code, with on/off switches (2026-11-20).
+- [x] Chapter 8's own art: the Paris club room, the Comte Varenne, Siobhan and Dmitri cut out from green, and the title painting (2026-11-21).
 - [x] Music: an original loop for every chapter, with Music on/off at the table and on the story screens ([MUSIC.md](MUSIC.md), 2026-11-21).
 - [x] Stronger teaching: the rules sheet in three pages (rules and betting, tips and easy mistakes, this chapter), and hints that name your hand, explain the pot odds and add a reminder for the game and round (2026-11-21).
 - [x] Phones and tablets: played sideways, with enlarged words and chips on small screens, a "turn sideways" card, and home-screen full screen (2026-11-20).
 - [x] Practice: any game, on its own, against the chapter's rivals, with its teacher's lesson and hints, never ending and never saved (2026-11-21). This is the outline's Free Play.
 - [x] Bots that read the betting, size you up over the evening (the sharp ones), and go on tilt (the hot-headed ones); a bot lab to measure them (2026-11-20).
+- [x] Math Mode, first version (2026-11-21): a switch, off by default, that asks young players sums from the hand being played: counting outs as a fraction of the unseen cards, and "is this call a good deal?" (pot odds). Stars for right answers (GAME_DESIGN.md, "Math Mode").
 
 To do:
+- [ ] **Math Mode, next ideas** (not agreed in detail yet): a chance meter (your chance as a fraction, a percent and a pie, guess first); chip math (making change, splitting a pot, odd chips as remainders); easy, medium and hard levels (for example the fraction shown for you on easy, typed answers on hard); outs in draw games and low games; a separate "Math Table" on the chapter list; play-testing with children for wording and reading level.
 - [ ] **Art** for chapters 2 to 12 and the epilogue, and the rest of chapter 1 ([ART.md](ART.md), "Art needed, per chapter").
 - [x] Play-test pass of every chapter, by a scripted player following the teacher's hints, at desktop (1600x900, 1280x720) and phone sizes (844x390, 667x375) (2026-11-21). Fixed: the last hand of a game in a rotation was named by the next game's rules at the showdown and laid out for it; story screens opened scrolled to the bottom on phones; on phones the chips covered your cards, the hand line ran under the dialogue and chips, the raise's −/+ covered the right-hand seat, and long showdown lines covered the seat across; on desktop the pot sat under your cards, the seat across was hidden by the board at Omaha showdowns, seven-card stud plates ran into your cards, and "Call out the deal" pushed the chips onto your cards. No crashes, console errors or stuck hands.
 - [x] Rules audit of every game, locked in by `test/rules.test.ts`; the Camp's stud made a true limit game; the draw announced on the felt; live purses; steadier hints and more starting money in The Last Hand and The Painted Deck (2026-11-21, [DECISIONS.md](DECISIONS.md)).

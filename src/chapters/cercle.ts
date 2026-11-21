@@ -1,9 +1,23 @@
 /**
  * Chapter 8, "The Cercle": Pot-Limit Omaha, then Omaha Hi-Lo, in a private
  * Paris card club, 1992. All people and places are fictional.
+ *
+ * Art: the panelled club room, its title painting (a Paris boulevard at
+ * night) and all three rivals are painted (docs/ART.md).
  */
-import { lines, music, rival, say } from './cast';
-import type { Chapter } from './types';
+import { cutout, lines, music, rival, say } from './cast';
+import type { Chapter, Character, CharacterArt } from './types';
+
+const art = (file: string) => `${import.meta.env.BASE_URL}art/cercle/${file}`;
+
+/** The painted rivals, by id: image, width / height, and place on the 1600 x 900 stage. */
+const PAINTED: Record<string, CharacterArt> = {
+  siobhan: cutout(art('siobhan.webp'), 1.1533, { x: 340, bottom: 590, height: 450 }),
+  varenne: cutout(art('varenne.webp'), 0.9878, { x: 800, bottom: 490, height: 410 }),
+  dmitri: cutout(art('dmitri.webp'), 1.0678, { x: 1265, bottom: 590, height: 450 }),
+};
+const paint = (r: Character): Character => ({ ...r, art: PAINTED[r.id] ?? r.art });
+const painted = ([a, b, c]: Chapter['rivals']): Chapter['rivals'] => [paint(a), paint(b), paint(c)];
 
 export const CERCLE: Chapter = {
   id: 'cercle',
@@ -91,7 +105,7 @@ export const CERCLE: Chapter = {
     'Pot-limit: no bet larger than the pot. Before two o’clock, a player who goes broke can buy back in.',
     'After two, in Omaha Hi-Lo, broke means out. Be the last one at the table.',
   ],
-  rivals: [
+  rivals: painted([
     rival(
       {
         id: 'siobhan',
@@ -119,7 +133,7 @@ export const CERCLE: Chapter = {
         fullName: 'Comte Lucien Varenne',
         role: 'President of the club, collector of antique cards',
         personality: { valueAt: 1.4, bluff: 0.1, caution: 0.03, betSize: 0.75, trap: 0.3, respect: 0.6, reads: 0.7 },
-        tell: { text: 'He relights a cigar that is already lit.', signals: 'strong', showsWhenTrue: 0.55, showsWhenFalse: 0.2 },
+        tell: { text: 'He turns the signet ring on his finger.', signals: 'strong', showsWhenTrue: 0.55, showsWhenFalse: 0.2 },
         lines: lines({
           bet: ['Pot.', 'I raise, mademoiselle.', 'Let us see.'],
           call: ['Je suis.', 'I follow.'],
@@ -152,10 +166,16 @@ export const CERCLE: Chapter = {
       'right',
       '#2a2a3a',
     ),
-  ],
+  ]),
   nemesisId: 'varenne',
   narratorId: 'varenne',
-  scene: { music: music('cercle'), palette: { wall: '#1a0f12', light: '#f0c890', felt: '#3a1f2a', rim: '#7a5a2a' } },
+  scene: {
+    music: music('cercle'),
+    background: art('background.webp'),
+    tableFront: art('table-front.webp'),
+    title: art('title.webp'),
+    palette: { wall: '#1a0f12', light: '#f0c890', felt: '#3a1f2a', rim: '#7a5a2a' },
+  },
   playerPlate: { x: 800, y: 760 },
   keepsake: { name: 'Comte Lucien Varenne', line: 'The Cercle, 1992. Two from the hand, three from the board.' },
   story: {

@@ -2,13 +2,13 @@
 
 John makes the art with an image tool from the prompts below. This page covers the style, the prompts, and how a picture becomes game art.
 
-**Ready-to-paste prompts for every chapter** (backgrounds, every rival on green, title paintings, props) are in [ART_PROMPTS.md](ART_PROMPTS.md). The two below are the general templates.
+**Ready-to-paste prompts for every chapter** (backgrounds, every rival on green, title paintings, props) are in [ART_PROMPTS.md](ART_PROMPTS.md). The two below are the general templates. Every rival holds the number of cards that is right for the chapter's game (five for draw, one hole card for five-card stud, two for Hold'em and so on): the table is in ART_PROMPTS.md, with the list of painted pictures that still show the wrong number.
 
 ## Style
 
 The style target is John's painted riverboat scene: painted and hand-inked, worn textures, warm lamplight against blue moonlight. Every chapter matches its finish with its own era palette (see the outline's "Art and UI direction"). No boxes or panels in the UI: controls are chips on the table, dialogue is plain text on a shaded strip across the bottom.
 
-Attach the style-target image as a reference to every prompt, so the style stays the same.
+Attach one clean finished picture as the reference to every prompt, so the style stays the same: a finished character on green for characters, the clean table (`background-clean-table.jpg`) for backgrounds, a finished title for titles (the exact files are listed at the top of ART_PROMPTS.md). Do not attach `style-target-riverboat.jpg`: it is a full game mockup, and the image tool copies its dialogue text, fan and chips into new pictures.
 
 ## Layers
 
@@ -95,7 +95,7 @@ Each chapter needs: a **background** (the empty room and table, first-person fro
 | Bonus The Gaming House | New Orleans gaming house: candlelight, iron balconies | Madame Élodie Fontaine, Henri Avery, Captain Lacroix | piquet cards, Spanish silver, a payout board |
 | 6 The Back Room | speakeasy behind a florist's shop: one green lamp, brick, crates of flowers | Nora Shea, Sal Moretti, Gus Lindqvist | a matchbook, chips in a flowerpot |
 | 7 The Desert Classic | 1970s casino tournament room: low ceiling, smoke, patterned carpet | "Tex" Dawson Pruitt, Professor Milton Weiss, Lorraine Fisk | clay chips, a tournament program |
-| 8 The Cercle | private Paris card club: panelled salon, chandelier, cigar smoke | Comte Lucien Varenne, Siobhan Kearney, Dmitri Volkov | plaques (rectangular chips) |
+| 8 The Cercle | done | all done (four cards each; Siobhan is cut off at her waist; the table hides the rest) | plaques (rectangular chips) (title painting done: a Paris boulevard at night, the tower across the river) |
 | 9 The Boardwalk | 1990s Atlantic City poker room: neon, mirrors, ocean at the window | Margot Arceneaux, Benny "the Book" Russo, Ruth Goldfarb | Delphine's diary |
 | 10 The Boom | two: a cramped internet café at 3 a.m. (monitor glow, the screen as the table), then a TV final table in Las Vegas (stage lights, cameras) | "N0rthStar" (as an avatar, and as Nate Crane in person), "DeuceSeven", "Hanbit" (avatars and in person) | avatars, chat window, TV graphics |
 | 11 The Big O | big modern card room in the English Midlands: rows of tables, bright lights | Gaz Whitlock, Kerry-Ann Booth, Mr. Emeka Okafor | |
@@ -110,3 +110,11 @@ The player is never shown, so no art is needed for the Averys. Faces on the chap
 - Silas, Delphine and Ezra: done, cut out from green. Delphine's lace fan is see-through; Ezra's right lens keeps a faint glass sheen where the backdrop showed through.
 - Title painting (the Magnolia Queen at night): done, behind the intro screen.
 - Still to make: silver dollars, the buckhorn knife. The cards and the buck are drawn in code for now.
+
+## Current state, chapter 8
+
+- Background (the cream and gold panelled club room), table front, title painting (a Paris boulevard at night): done. The first room was rejected because its baize came out stained and its walls peeling: a prompt for a smart room must say the felt and paint are clean, or the tool copies the wear of the reference picture.
+- The Comte Varenne: done, cut out from green. Redone at John's request without a cigar and match; one hand rests at his cravat with the signet ring, and his tell now reads "He turns the signet ring on his finger" to match.
+- Siobhan and Dmitri: done, cut out from green. Both were painted with a fan of five cards, twice, and Omaha is four, so the leftmost card of each fan was removed by hand from the green original (`cercle-fix.py`: the card's face is found between its ink lines and turned to green, and a fresh ink line is drawn along the next card and the hand). Siobhan was also painted on a chair with a knee raised; the chair back beside her jacket is painted out and she is cut off at the waist (`cercle-siobhan-chair.py`). Both scripts are with the originals, in the project's art folder under `layers/cleanup-scripts/`.
+- `cercle.ts` keeps its `rival(...)` blocks and swaps in the art by id (`PAINTED`).
+- Still to make: plaques (rectangular chips).

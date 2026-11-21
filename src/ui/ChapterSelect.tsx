@@ -36,7 +36,7 @@ export function ChapterSelect({
   onResume: () => void;
   onPractice: () => void;
   onHints: (on: boolean) => void;
-  onOption: (option: 'sound' | 'music', on: boolean) => void;
+  onOption: (option: 'sound' | 'music' | 'math', on: boolean) => void;
   onReset: () => void;
 }) {
   const won = new Set(Object.keys(progress.won));
@@ -107,6 +107,9 @@ export function ChapterSelect({
         </label>
         <label className="toggle">
           <input type="checkbox" checked={progress.music} onChange={(e) => onOption('music', e.target.checked)} /> Music
+        </label>
+        <label className="toggle" title="Sums for young players at the table: counting helpful cards, and whether a call is a good deal">
+          <input type="checkbox" checked={progress.math} onChange={(e) => onOption('math', e.target.checked)} /> Math Mode{progress.math && progress.mathStars > 0 ? ` · ★ ${progress.mathStars}` : ''}
         </label>
         {confirmReset ? (
           <span className="reset">

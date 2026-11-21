@@ -96,7 +96,7 @@ Each chapter needs: a **background** (the empty room and table, first-person fro
 | 6 The Back Room | speakeasy behind a florist's shop: one green lamp, brick, crates of flowers | Nora Shea, Sal Moretti, Gus Lindqvist | a matchbook, chips in a flowerpot |
 | 7 The Desert Classic | 1970s casino tournament room: low ceiling, smoke, patterned carpet | "Tex" Dawson Pruitt, Professor Milton Weiss, Lorraine Fisk | clay chips, a tournament program |
 | 8 The Cercle | private Paris card club: panelled salon, chandelier, cigar smoke | Comte Lucien Varenne, Siobhan Kearney, Dmitri Volkov | plaques (rectangular chips) |
-| 9 The Boardwalk | done | Margot, Benny done; Ruth Goldfarb still needed | Delphine's diary |
+| 9 The Boardwalk | done | all done | Delphine's diary (title painting done: the boardwalk at dusk) |
 | 10 The Boom | two: a cramped internet café at 3 a.m. (monitor glow, the screen as the table), then a TV final table in Las Vegas (stage lights, cameras) | "N0rthStar" (as an avatar, and as Nate Crane in person), "DeuceSeven", "Hanbit" (avatars and in person) | avatars, chat window, TV graphics |
 | 11 The Big O | big modern card room in the English Midlands: rows of tables, bright lights | Gaz Whitlock, Kerry-Ann Booth, Mr. Emeka Okafor | |
 | 12 The Last Table | private room over Macau harbour at night: one table, city lights | Victor Crane (riverboat cufflinks), Mei Lin Chau, Rafael Duarte | the tablet menu, tea set |
@@ -113,8 +113,7 @@ The player is never shown, so no art is needed for the Averys. Faces on the chap
 
 ## Current state, chapter 9
 
-- Background (the casino poker room: blue oval table with a black padded rim, pink and blue neon along the ceiling, mirrored columns, brass rails, the pier and grey sea at the window) and table front: done. No lettering, and the felt is clean. A second table shows in the mirror on the right-hand column, which is fine for a card room.
-- Benny and Margot: done, cut out from green, two cards each (the two hole cards of seven-card stud). Both have a pink and blue neon rim painted along their outlines, kept because it matches the room's neon. Benny's picture had a pale blurred blotch in the green beside his shoulder, removed by keeping only the largest connected piece (the figure); his chip stacks at the bottom edge are kept, and the table hides them. Margot twists her pearl earring (her tell) and wears a blank name badge.
-- Ruth and the title painting: still placeholders. The pictures arrive one at a time.
+- Background (the casino poker room: blue oval table with a black padded rim, pink and blue neon along the ceiling, mirrored columns, brass rails, the pier and grey sea at the window), table front, title painting (the boardwalk at dusk: strollers, rolling chairs, the pier and its wheel, casino towers trimmed in neon): done. No lettering in either; the signs in the title painting are blank. A second table shows in the mirror on the right-hand column of the room, which is fine for a card room.
+- Benny, Margot and Ruth: done, cut out from green, two cards each (the two hole cards of seven-card stud). All three have a pink and blue neon rim painted along their outlines, kept because it matches the room's neon. Benny's and Ruth's pictures had a pale blurred blotch in the green at the left, removed by keeping only the largest connected piece (the figure). Benny's chip stacks at the bottom edge are kept, and the table hides them. Margot twists her pearl earring and Ruth adjusts her glasses (their tells); Margot's name badge is blank. Ruth's beaded glasses chain keyed cleanly with the standard thresholds.
 - `boardwalk.ts` keeps its `rival(...)` blocks and swaps in the art by id (`PAINTED`), which is the same result as overriding `art` on each rival.
 - Still to make: Delphine's diary.

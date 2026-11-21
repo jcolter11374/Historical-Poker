@@ -106,7 +106,7 @@ A private card club in Paris. Anna Avery, a translator. Money in francs ("1,000 
 
 ### 9. The Boardwalk (1995), Stud Hi-Lo
 
-An Atlantic City poker room, two years after poker became legal there (it was banned in the casinos until 1993; see HISTORY_SOURCES.md). Ray Avery, after his daughter Anna's Paris chapter. The room, Benny and Margot are painted (blue oval table, neon, the pier at the window); Ruth and the title are placeholders until their pictures arrive.
+An Atlantic City poker room, two years after poker became legal there (it was banned in the casinos until 1993; see HISTORY_SOURCES.md). Ray Avery, after his daughter Anna's Paris chapter. Fully painted: the poker room with its blue table and neon, all three rivals, and a title painting of the boardwalk at dusk (`docs/screenshots/chapter-9-intro.jpg`, `chapter-9-table.jpg`).
 
 - **Game:** Seven Card Stud Hi-Lo (eight or better), limit, $10 unit, $400 each, rising every 9 hands. Taught by Margot Arceneaux.
 - **Cast:** Benny "the Book" Russo (loose, shuffles his chips faster when strong), Margot (Delphine's descendant and the room manager, twists a pearl earring when strong), Ruth Goldfarb (very tight, adjusts her glasses when weak).

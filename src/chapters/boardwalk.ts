@@ -3,8 +3,8 @@
  * casino poker room, 1995. The Arceneaux and Avery families meet again. All
  * people and places are fictional.
  *
- * Art: the poker room (blue oval table, neon trim, the pier at the window)
- * Benny and Margot are painted; Ruth and the title are placeholders for now
+ * Art: the poker room (blue oval table, neon trim, the pier at the window),
+ * its title painting (the boardwalk at dusk) and all three rivals are painted
  * (docs/ART.md).
  */
 import { cutout, lines, music, rival, say } from './cast';
@@ -16,6 +16,7 @@ const art = (file: string) => `${import.meta.env.BASE_URL}art/boardwalk/${file}`
 const PAINTED: Record<string, CharacterArt> = {
   benny: cutout(art('benny.webp'), 1.0389, { x: 340, bottom: 600, height: 450 }),
   margot: cutout(art('margot.webp'), 0.8044, { x: 800, bottom: 560, height: 440 }),
+  ruth: cutout(art('ruth.webp'), 0.86, { x: 1265, bottom: 600, height: 450 }),
 };
 const paint = (r: Character): Character => ({ ...r, art: PAINTED[r.id] ?? r.art });
 const painted = ([a, b, c]: Chapter['rivals']): Chapter['rivals'] => [paint(a), paint(b), paint(c)];
@@ -145,6 +146,7 @@ export const BOARDWALK: Chapter = {
     music: music('boardwalk'),
     background: art('background.webp'),
     tableFront: art('table-front.webp'),
+    title: art('title.webp'),
     palette: { wall: '#151218', light: '#f2d39a', felt: '#2a3a5a', rim: '#3a2a20' },
   },
   playerPlate: { x: 800, y: 760 },

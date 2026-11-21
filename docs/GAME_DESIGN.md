@@ -12,6 +12,10 @@
 - **Saved progress:** which chapters were started and won, and the hints, sound and music switches, are kept in the browser's local storage (`src/progress/save.ts`). No account: another browser or device starts fresh, and clearing the browser's data resets it.
 - **Leaving part-way:** after every hand the table is saved for that chapter: money, the buck, the stage and stakes, which lessons were given, story beats already played (the stake, the cheat, the finale), and any scene still to read. Leaving the table, closing the tab or reloading the page loses at most the hand in play. Opening that chapter again offers "Back to the table (hand 12)" or "Start the chapter over". Each chapter keeps its own table, so a friend can leave Brag half-way, try Omaha, and come back. Finishing a chapter (won or lost) or "Play this chapter again" clears its table. "Start over" on the case clears everything.
 
+### The order of the story
+
+The story opens in 1836, on the riverboat, because that is the first game called poker. The deck's older past (1543, 1763) is then told by Delphine, at that same table, before the story moves forward to 1863 and on to today. So that nobody takes the jump back for a mistake, a chapter that goes back in time is labelled as a tale ("Delphine's tale") on its chapter-select card and intro screen, its text begins and ends with her telling it, and the chapter select's Part One heading spells the order out. See [CHAPTERS.md](CHAPTERS.md), "Chapters that go back in time".
+
 ## How a chapter plays
 
 Everything here is shared by every chapter and lives in `src/table/session.ts`. A chapter file only supplies data (`src/chapters/types.ts`).

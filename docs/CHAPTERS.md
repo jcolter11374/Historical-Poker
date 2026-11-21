@@ -80,6 +80,7 @@ The Lucky Nugget, Deadwood. Clara Avery, Kit's granddaughter. The end of Part On
 Maison Fontaine, New Orleans. You play young Delphine, at her aunt's table.
 
 - **Game:** Poque as reconstructed in `src/games/poque.ts`: 32-card piquet deck, five cards each, one betting round, only sets count (fours, threes, a pair; a second pair only breaks ties). Table stakes, $1 ante, $2 minimum, $100 each. The other two parts of the game, and the payout board, are not built.
+- **Art:** fully painted: the salon, the title painting (a French Quarter street at night) and all three rivals.
 - **Teacher:** Henri Avery, Will's son and Kit's grandfather.
 - **Cast:** Henri (solid, hums when strong), Madame Élodie (tricky, fans her cards slowly when strong), Captain Lacroix (privateer, loose, laughs too loudly when bluffing).
 - **Beats:** Élodie has won the Ashcombe deck from Henri, and stakes it; Delphine wins it back for him. Finale: Henri or Lacroix bows out.

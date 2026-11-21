@@ -16,6 +16,7 @@ import { useEffect, useState, type ReactNode } from 'react';
 import { CHAPTERS, chapterById, followingChapter, isUnlocked } from '../chapters';
 import type { Chapter } from '../chapters/types';
 import {
+  addMathStar,
   clearTable,
   latestTable,
   loadProgress,
@@ -34,7 +35,7 @@ import { ChapterSelect } from './ChapterSelect';
 import { PracticeScreen } from './PracticeScreen';
 import { PoweredBy } from './PoweredBy';
 import { Face, SceneBack } from './Scene';
-import { Stage } from './Stage';
+import { focusOnMount, Stage } from './Stage';
 import { playMusic, setMusicOn, setSoundOn, unlock } from './sound';
 import { TableScreen } from './TableScreen';
 
@@ -140,6 +141,10 @@ export function App() {
           sound={progress.sound}
           onSound={(on) => setProgress(setOption(progress, 'sound', on))}
           musicLink={musicLink}
+          math={progress.math}
+          mathStars={progress.mathStars}
+          onMath={(on) => setProgress((p) => setOption(p, 'math', on))}
+          onMathStar={() => setProgress((p) => addMathStar(p))}
           onHandOver={() => keep(screen.session)}
           onFinished={() => finished(screen.session)}
           onLeave={() => {
@@ -212,7 +217,7 @@ function IntroScreen({
           ))}
         </ul>
         <div className="story-buttons">
-          <button type="button" className="chip chip-raise chip-wide" onClick={() => onStart(false)} autoFocus>
+          <button type="button" className="chip chip-raise chip-wide" onClick={() => onStart(false)} ref={focusOnMount}>
             {saved ? `Back to the table (hand ${saved.handNumber + 1})` : 'Take a seat'}
           </button>
           {saved && (
@@ -256,11 +261,11 @@ function EndScreen({ chapter, won, onAgain, onNext, onCase, musicLink }: { chapt
         {chapter.history.map((p) => <p key={p} className="history">{p}</p>)}
         <div className="story-buttons">
           {next ? (
-            <button type="button" className="chip chip-raise chip-wide" onClick={() => onNext(next)} autoFocus>
+            <button type="button" className="chip chip-raise chip-wide" onClick={() => onNext(next)} ref={focusOnMount}>
               On to {next.title}
             </button>
           ) : (
-            <button type="button" className="chip chip-raise chip-wide" onClick={won ? onCase : onAgain} autoFocus>
+            <button type="button" className="chip chip-raise chip-wide" onClick={won ? onCase : onAgain} ref={focusOnMount}>
               {won ? 'Back to the deck case' : 'Try again'}
             </button>
           )}

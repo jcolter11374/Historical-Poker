@@ -22,7 +22,21 @@ Seat 0 is the player; seats 1 to 3 are the three rivals, sitting left, across an
 
 ### Stages and games
 
-A chapter is a list of **stages**, each starting at a hand number (`fromHand`). A stage lists one or more **games**, each a game id with a betting kind (no-limit, pot-limit or fixed-limit). With one game, every hand is that game. With several, they rotate, `handsPerGame` hands each (HORSE, the 8-Game, the Big O's Hi-Lo round). A stage can have an `opening` scene, a `label` shown under the game name, its own lighting (`scene`), house `extras` (bomb pots and so on), and `resetStacks` to give everyone a fresh starting stack (a tournament starting).
+A chapter is a list of **stages**, each starting at a hand number (`fromHand`). A stage lists one or more **games**, each a game id with a betting kind (no-limit, pot-limit, fixed-limit, or the 1800s agreed limit, `spread-limit`; see "Period rules" below). With one game, every hand is that game. With several, they rotate, `handsPerGame` hands each (HORSE, the 8-Game, the Big O's Hi-Lo round). A stage can have an `opening` scene, a `label` shown under the game name, its own lighting (`scene`), house `extras` (bomb pots and so on), and `resetStacks` to give everyone a fresh starting stack (a tournament starting).
+
+### Period rules
+
+John's rule (2026-11-21): **every game is played by the rules of the year its chapter is set in**, including how it is bet, what is forced, and who speaks first. Sources are in [HISTORY_SOURCES.md](HISTORY_SOURCES.md), "Period rules"; where history is unsure the best-supported rule is used and listed there as an open pick.
+
+| Years | Betting | Why |
+| --- | --- | --- |
+| 1543 to 1863 (Primero, Brag, Poque, straight poker, five-card stud) | **Table stakes** (`no-limit`): any amount in front of you | No source for these games gives a limit. Primero players spoke of wagering their whole "rest". Pot-limit is a 1900s idea and the four-bet fixed limit a card room's. |
+| 1876 (five-card draw) | **The agreed limit** (`spread-limit`): any bet or raise from the minimum up to the table's limit (5 units: $20 at the start), no cap on the number of raises | Draw poker of the rule-book years was played to a limit the table agreed. |
+| 1926 on | The modern kinds, as each game was played | Limit stud; limit and no-limit Hold'em; pot-limit Omaha; limit draw games. |
+
+The engine has no agreed limit, so the table runs `spread-limit` on the engine's no-limit betting and lowers the ceiling itself (`legalFor` in `src/table/session.ts`). The same place handles stud with no bring-in. The engine's copy is unchanged.
+
+Not played, and said so on the rules cards: Brag's other two stakes (best card turned up, and thirty-one), Poque's other two parts, and jack pots.
 
 ### Lessons
 
@@ -34,9 +48,11 @@ Each stage has one number, the **unit**. Every game turns it into its forced bet
 
 | Forced bets | Used by | Ante | Blinds | Bring-in | Bets |
 | --- | --- | --- | --- | --- | --- |
-| Antes | Historical games, except stud | half a unit each | none | none | the unit is the minimum bet |
+| Antes | Primero, Brag, Poque, straight poker | half a unit each | none | none | the unit is the minimum bet |
+| The age (`age`) | Five-card draw, 1876 | half a unit, from the player left of the dealer only, blind | none | none | a unit to come in (double the ante); the age makes good last |
+| Stud, no bring-in (`stud-open`) | Five-card stud 1863, Seven Card Stud and Razz 1926 | a fifth of a unit | none | none: the best hand showing opens every round and may check | the unit is the minimum bet (1863); limit: one unit, then two (1926) |
 | Blinds | Hold'em, Omaha, 2-7 Triple Draw, Badugi | none | half a unit and one unit | none | limit: one unit, then two |
-| Stud | Seven Card Stud, Razz, Stud Hi-Lo, five-card stud | a fifth of a unit | none | a third of a unit | limit: one unit, then two |
+| Stud | Seven Card Stud, Razz, Stud Hi-Lo from the casino years on | a fifth of a unit | none | a third of a unit | limit: one unit, then two |
 
 If a chapter sets `levelEvery`, the unit rises by half every that many hands (rounded: 10, 15, 23, 34…), with the chapter's `levelLines` and "The stakes are now…". Money is shown with the chapter's `money` prefix or suffix ($, £, HK$, F, s).
 
@@ -63,10 +79,30 @@ Set per stage in `extras`: a **bomb pot** every N hands (everyone puts in N unit
   - *Playing it well:* three to five tips for someone who has just learned the game, and the easy mistakes new players make in it.
   - *This chapter:* how to win it, and the history book.
   Rules cards are in `src/games/catalog.ts`; tips, mistakes and the betting words in `src/games/guide.ts`.
-- **Teacher hints:** "Ask for a hint" (on by default, can be turned off on the chapter select). The game's teacher names your hand, says how big a share of the pot a hand like yours takes against this many players (the same simulation the bots use), and, when there is a bet to call, what the call costs and the share it needs to pay ("Calling costs $2 to win $6, so it pays if you take more than 25%"). Then fold, check, call, bet or raise. In a draw, they say which cards they'd keep. Under the line, in smaller gold italic, a reminder about this game and betting round (from `coach` in `guide.ts`); asking again on the same round gives the next one, so hints teach the game as you play.
+- **Teacher hints:** "Ask for a hint" (on by default, can be turned off on the chapter select). The game's teacher names your hand, says how big a share of the pot a hand like yours takes against this many players (the same simulation the bots use), and, when there is a bet to call, what the call costs and the share it needs to pay ("Calling costs $2 to win $6, so it pays if you take more than 25%"). Then fold, check, call, bet or raise. In a draw, they say which cards they'd keep. Under the line, in smaller gold italic, a reminder about this game and betting round (from `coach` in `guide.ts`); asking again on the same round gives the next one, so hints teach the game as you play. The teacher is steadier than the bots so a beginner isn't led into a raising war (`Session.steady` and `teacherAdvice`): your chance is marked down by a fifth for every raise a player still in has made (`RAISE_DISCOUNT`); short of a near-certain hand (85%, `NUTS`) the teacher won't bet or raise more than a quarter of your purse into one pot (`STEADY_SHARE`), raises once a round at most, and wants 12 points more than the pot odds before calling a third of your purse (`BIG_CALL`). Once only two players are left at the table, the teacher plays it straight.
 - **Your hand:** your best hand's name (and best low, in split games) shows under your cards.
+- **Between hands:** the finished hand stays on the felt, described by its own game, while the next game's name (and its lesson, in a rotation) is already shown at the top.
+- **Calling out the deal:** the "Call out the deal" chip sits above the other chips.
 - **Showdown summary:** one line after each hand: who won, with what, and your hand if you lost. Split pots say who took the high and the low.
-- **Drawing:** in draw games, click cards to throw them (they lift), then "Draw N" or "Stand pat". The chip says what is not allowed (more than the limit).
+- **Drawing:** when it's your turn to draw, "The draw" is announced over the felt with the limit in words (and "1 of 3" in triple-draw games), and your cards bob to show they can be picked. Pick cards to throw them (they lift), then "Draw N" or "Stand pat". The chip says what is not allowed (more than the limit).
+- **Purses:** during a hand every purse shows what is left after antes and bets, not what it was at the deal.
+
+### Math Mode
+
+A switch for young players learning math, **off by default** so the game stays uncluttered: the "Math Mode" checkbox on the chapter select, or the "Math on / Math off" corner link at any table (story or practice). It is saved with the other settings. When it is on, a sum made from the hand being played appears on the dialogue strip each time it is the player's turn to bet. Answering is optional: the betting chips stay live, and acting moves on. A right answer earns a star; the count shows beside "Math question" and on the chapter select. Money words are used as in the rest of the game (John's call, 2026-11-21). The code is `src/math/index.ts` (the sums) and `src/ui/MathStrip.tsx` (the strip).
+
+Two kinds of question in this first version:
+
+- **Counting outs.** "One more card is coming. You have a pair now. How many of the cards you can't see would make it a better kind of hand?" Four numbers on small chips to pick from. After the answer, the deck is laid out on the felt by suit: cards the player can see (their own, the board, face-up cards in other hands) are gaps, the helpful cards glow, and the working is given as a fraction: "6 of the 47 cards you can't see help you... 6/47, about 1 in 8, or 13%".
+  - A card *helps* when it makes the hand a better **kind** of hand (high card to a pair, four hearts to a flush). In a game with a board, a card that gives everyone the same kind of hand doesn't count (the board pairing when you hold nothing).
+  - Asked only where the count is clean: games won by the best high hand (Hold'em, the Omahas, Seven Card Stud, five-card stud), when exactly one card comes next (the turn or river, the next stud card), with one board, and at least one card helps. Not in low or split games, draw games, or the old games with no card to come.
+- **A good deal?** Asked whenever there is a bet to call, in every game. "The pot holds $12. Calling costs you $4. A hand like yours wins about 40 times in 100. Is calling a good deal?" The pot and the price are drawn as two stacks of chips, and the answers are "Good deal" and "Bad deal". The working: "$4 of the $16 in the pot is yours. 4/16 = 1/4, which is 25%... 40% is more than 25%... a good deal. Card players call this pot odds."
+  - The winning chance is the teacher's estimate, the same number a hint gives (`Session.teacherAdvice`).
+  - Within 4 percentage points (`CLOSE`) the deal is "too close to call" and either answer earns the star.
+
+When both apply, outs is asked first and "Next question" brings the deal. A story scene or a hint takes the strip while it shows.
+
+Ideas not built yet are in [ROADMAP.md](ROADMAP.md).
 
 ### Sound and motion
 
@@ -79,6 +115,8 @@ Set per stage in `extras`: a **bomb pot** every N hands (everyone puts in N unit
 
 - **Sideways:** the table is a wide painting, so on a phone it's played sideways. Held upright, the phone shows "Turn your phone sideways" (with "Play upright anyway").
 - **Bigger words and chips:** when the screen draws the table at less than three quarters size, names, money, dialogue, links and chips are enlarged (up to 1.6 times) while the painting stays the same. The pot then sits up between the left and middle seats in every game (it always does in flop games, where the board has the middle of the felt).
+- **Room for your cards:** on small screens your hand name and your purse sit on two lines under your cards, the raise's "−, +, Max" stand in a column beside the raise chip, and the draw note sits beside the Draw chip, so nothing covers your cards or the right-hand seat. A long showdown line grows upward from above the seat across, and in flop games the board sits a little lower so the seat across can show its hand.
+- **Story screens start at the top:** the intro and ending scroll on a phone; they open at the first line, not at the button.
 - **Full screen:** added to the home screen, the game opens full screen and sideways (`public/manifest.webmanifest`).
 
 ## Practice
@@ -97,11 +135,12 @@ The outline's Free Play, built for John's friends to learn any RSDP Live game ri
 | Game | Code | Deck | Deal and betting | What wins |
 | --- | --- | --- | --- | --- |
 | Primero (1543) | `src/games/primero.ts` | 40 (no 8s, 9s, 10s) | 2 down, bet, 2 down, bet, change up to 2 once, bet | chorus > fluxus > supremus > primero > numerus; points break ties |
-| Brag (1763) | `src/games/brag.ts` | 52 | 3 down, one betting round | prial (3s best) > running flush > run (A-2-3 best) > flush > pair > high |
-| Poque (1817) | `src/games/poque.ts` | 32 (7 to ace) | 5 down, one betting round | fours > triplets > two pairs > pair > nothing; no straights or flushes |
-| Straight poker (1836) | `src/games/straightPoker.ts` | 20 (10 to ace) | 5 down, one betting round | see chapter 1 |
-| Five-card stud (1863) | `src/games/fiveCardStud.ts` | 52 | 1 down 1 up, bet; then 3 more up, bet each | standard high hands; lowest card up brings in, best hand showing acts first |
-| Five-card draw (1876) | `src/games/fiveCardDraw.ts` | 52 | 5 down, bet, draw up to 3 (4 keeping an ace), bet | standard high hands |
+| Brag (1763) | `src/games/brag.ts` | 52 | 3 down, one round of bragging; table stakes | pair royal (aces best) > pair > high card; the knave of clubs and nine of diamonds are wild ("braggers") and a natural hand beats the same hand made with one; no runs or flushes |
+| Poque (1817) | `src/games/poque.ts` | 32 (7 to ace) | 5 down, one betting round; table stakes | fours > threes > pair > nothing; a second pair only breaks ties; no straights or flushes |
+| Straight poker (1836) | `src/games/straightPoker.ts` | 20 (10 to ace) | 5 down, one betting round; table stakes | see chapter 1 |
+| Five-card stud (1863) | `src/games/fiveCardStud.ts` | 52 | 1 down 1 up, bet; then 3 more up, bet each; everyone antes, no bring-in, the best hand showing opens every round and may check; table stakes | the 1864 list (`src/games/hands1864.ts`): fours > full house > flush > threes > straight > two pairs > pair; no straight flush |
+| Five-card draw (1876) | `src/games/fiveCardDraw.ts` | 52 | the age antes blind; 5 down, bet (double the ante to come in), draw up to 5, bet (left of the age first); an agreed limit on each bet or raise, no cap on raises; no jackpots | standard high hands |
+| Seven Card Stud and Razz (1926) | `src/games/catalog.ts` (`stud-1926`, `razz-1926`) | 52 | RSDP Live's games with no bring-in: everyone antes, the best hand showing (Razz: the lowest) opens every round; fixed limit | as in RSDP Live |
 | RSDP Live's 12 games | `packages/engine` | 52 | as in RSDP Live | as in RSDP Live |
 
 The historical rules are our playable reconstructions; old sources disagree, and the rules cards say so. Every game, old or new, is registered in `src/games/catalog.ts`.
@@ -116,7 +155,7 @@ Code: `src/chapters/riverboat.ts` (story, rivals, tells, lines, art placement) a
 - **Seats:** four. Seat 0 is the player (Kit Avery, never shown); seats 1 to 3 are Delphine, Silas and Ezra.
 - **Each hand:** everyone puts in a $1 ante, all 20 cards are dealt five each, one betting round starts left of the buck, then the best hand still in takes the pot. There is no draw.
 - **Hand ranks, best first:** four of a kind, full house, three of a kind, two pairs, one pair, high card. No straights or flushes. Ties are broken by the ranks that make the hand, then kickers (`evaluate1836`).
-- **Betting:** pot-limit, minimum bet $2, everyone starts with $100. No-limit was tried first; simulated games often ended in one all-in hand, so pot-limit was chosen (see [DECISIONS.md](DECISIONS.md)).
+- **Betting:** table stakes (the engine's no-limit), minimum bet $2, everyone starts with $100. It was pot-limit until 2026-11-21; pot-limit is a 1900s idea, and the first accounts of the game give no limit at all (see "Period rules" and [DECISIONS.md](DECISIONS.md)).
 - **Winning the chapter:** take the Ashcombe deck: win the last chips of whoever has it staked (normally Silas, heads-up at the end). If the deck is never staked, being the last player with money also wins. **Losing:** run out of money. Rivals who run out leave the table with a parting line.
 
 ### Story beats

@@ -3,8 +3,8 @@
  * Deadwood, August 1876. The finale of Part One: the Crane feud ends.
  * (docs/GAME_OUTLINE.md, Chapter 5.)
  *
- * Art: the saloon and Doc are painted; Ruby and Jasper are placeholders
- * until they are painted on green, and there is no title painting yet.
+ * Art: the saloon, the title painting (Deadwood's main street) and the
+ * three rivals (cut out from green-screen paintings) are all in place.
  */
 import { DRAW5_ID } from '../games/fiveCardDraw';
 import { cutout, lines, music, rival, say } from './cast';
@@ -29,25 +29,27 @@ export const LAST_HAND: Chapter = {
       games: [
         {
           game: DRAW5_ID,
-          betting: 'pot-limit',
+          betting: 'spread-limit',
           lesson: {
             teacher: 'ruby',
             before: [
-              say('ruby', 'House rules, honey, so nobody gets shot over a misunderstanding. We play draw. Everybody antes, everybody gets five cards, face down.'),
-              say('ruby', 'One round of betting. Then the draw: throw away up to three cards and I deal you new ones. Four, if the card you keep is an ace.'),
-              say('ruby', 'Then we bet again, and the best hand takes it. Straights and flushes count, same as anywhere civilized.'),
+              say('ruby', 'House rules, honey, so nobody gets shot over a misunderstanding. We play draw. The age, that’s whoever sits left of the dealer, puts up the ante blind. Two dollars. Then everybody gets five cards, face down.'),
+              say('ruby', 'To come in you put up double the ante, four dollars, or raise it. The age speaks last and makes his ante good, or lets it go.'),
+              say('ruby', 'Then the draw: throw away as many cards as you like and I deal you new ones. All five if you must, though I never saw it end well.'),
+              say('ruby', 'Then we bet again, man left of the age first, and the best hand takes it. Straights and flushes count, same as anywhere civilized.'),
+              say('ruby', 'My limit is twenty dollars: no bet and no raise bigger than that. Raise as often as you dare. And no jack pots in my house. That’s a fashion for men afraid to bet.'),
               say('ruby', 'And watch how many cards a man draws. A man who takes one card is chasing a straight or a flush. A man who takes none is either very good or very brave.'),
             ],
             streets: {
               0: [say('ruby', 'Look at your five. A pair of jacks or better is worth a bet. Less than that, you’re hoping the draw saves you.')],
-              1: [say('ruby', 'Time to draw. Click the cards you want to throw away, then draw. Keep your pairs, throw the rest. Four to a flush? Throw the odd one.')],
+              1: [say('ruby', 'Time to draw. Pick the cards you want to throw away, then draw. Keep your pairs, throw the rest. Four to a flush? Throw the odd one.')],
             },
           },
         },
       ],
     },
   ],
-  startingStack: 120,
+  startingStack: 240,
   levelEvery: 10,
   levelLines: [say('narration', 'The lamps are lit. The piano player switches to something faster, and Ruby raises the ante.')],
   intro: [
@@ -62,10 +64,10 @@ export const LAST_HAND: Chapter = {
   history: [
     'Draw poker was first described in print in 1850. By 1875 The American Hoyle listed draw, stud and “jackpots”, and poker was played in saloons from San Francisco to New York.',
     'On August 2, 1876, Wild Bill Hickok was shot dead at a poker table in Deadwood’s Saloon No. 10. The hand he is said to have held, aces and eights, is still called the dead man’s hand, though the story was first told in the 1920s.',
-    '“Jackpots”, where you need a pair of jacks or better to open the betting, were new: they first appear in print in 1875.',
+    '“Jackpots”, where you need a pair of jacks or better to open the betting, were new: they first appear in print in 1875. The plain game had no such rule, and you could draw as many as five cards.',
   ],
   howToWin: [
-    'Everyone antes $2; the smallest bet is $4, and no bet may be larger than the pot.',
+    'The player left of the dealer antes $2 blind; it costs $4 to come in. No bet or raise may be more than the limit, $20 to start, but there is no end to the raising. The ante and the limit go up as the night goes on.',
     'Be the last one at Ruby’s table with money, and the feud is settled.',
   ],
   rivals: [
@@ -94,53 +96,61 @@ export const LAST_HAND: Chapter = {
       ),
       art: cutout(art('doc.webp'), 1.0444, { x: 345, bottom: 565, height: 440 }),
     },
-    rival(
-      {
-        id: 'ruby',
-        name: 'Ruby',
-        fullName: 'Ruby Calloway',
-        role: 'Owner of the Lucky Nugget, best player in the territory',
-        // Balanced and hard to read: value bets, traps, bluffs at the right times.
-        personality: { valueAt: 1.4, bluff: 0.14, caution: 0.03, betSize: 0.7, trap: 0.3, respect: 0.6, reads: 1 },
-        // No reliable tell: she reads yours instead.
-        tell: { text: 'She smiles at you. It tells you nothing.', signals: 'strong', showsWhenTrue: 0.3, showsWhenFalse: 0.3 },
-        lines: lines({
-          bet: ['Bet, honey.', 'Let’s see if you mean it.', 'Raise.'],
-          call: ['I’ll call.', 'Sure.'],
-          fold: ['Yours.', 'Go on, take it.'],
-          check: ['Check.'],
-          win: ['House thanks you.', 'That’s why I own the place.'],
-          bust: 'Well, I’ll be. Nobody’s done that to me in this territory. Drinks are on the house.',
-          draw: ['Two for me.', 'One.', 'Three.'],
-          pat: ['I’m good.'],
-        }),
-      },
-      'across',
-      '#6a1d2b',
-    ),
-    rival(
-      {
-        id: 'jasper',
-        name: 'Jasper',
-        fullName: 'Jasper Crane',
-        role: 'Silas Crane’s grandson, come for “the Crane deck”',
-        personality: { valueAt: 1.3, bluff: 0.25, caution: -0.02, betSize: 0.8, respect: 0.35, reads: 0.4, tilt: 0.15 },
-        // The same mustache stroke as his grandfather, a callback to chapter 1.
-        tell: { text: 'He smooths his mustache, just like his grandfather.', signals: 'bluffing', showsWhenTrue: 0.7, showsWhenFalse: 0.3 },
-        lines: lines({
-          bet: ['Raise, Miss Avery. Family tradition.', 'A little more for the pot.', 'Let’s find out how lucky my deck is.'],
-          call: ['I’ll keep you honest.', 'Call.'],
-          fold: ['Your hand, this time.', 'I’ll let that one go.'],
-          check: ['After you.'],
-          win: ['The Cranes thank you.', 'The deck knows its family.'],
-          bust: 'Again. A Crane, beaten by an Avery, again. Grandfather said you people were lucky.',
-          draw: ['One card.', 'Two.'],
-          pat: ['I’ll stand.'],
-        }),
-      },
-      'right',
-      '#2a2a2a',
-    ),
+    {
+      ...rival(
+        {
+          id: 'ruby',
+          name: 'Ruby',
+          fullName: 'Ruby Calloway',
+          role: 'Owner of the Lucky Nugget, best player in the territory',
+          // Balanced and hard to read: value bets, traps, bluffs at the right times.
+          personality: { valueAt: 1.4, bluff: 0.14, caution: 0.03, betSize: 0.7, trap: 0.3, respect: 0.6, reads: 1 },
+          // No reliable tell: she reads yours instead.
+          tell: { text: 'She smiles at you. It tells you nothing.', signals: 'strong', showsWhenTrue: 0.3, showsWhenFalse: 0.3 },
+          lines: lines({
+            bet: ['Bet, honey.', 'Let’s see if you mean it.', 'Raise.'],
+            call: ['I’ll call.', 'Sure.'],
+            fold: ['Yours.', 'Go on, take it.'],
+            check: ['Check.'],
+            win: ['House thanks you.', 'That’s why I own the place.'],
+            bust: 'Well, I’ll be. Nobody’s done that to me in this territory. Drinks are on the house.',
+            draw: ['Two for me.', 'One.', 'Three.'],
+            pat: ['I’m good.'],
+          }),
+        },
+        'across',
+        '#6a1d2b',
+      ),
+      // Her fanned cards widen the picture to her left, so she sits right of centre.
+      art: cutout(art('ruby.webp'), 0.9989, { x: 850, bottom: 520, height: 470 }),
+    },
+    {
+      ...rival(
+        {
+          id: 'jasper',
+          name: 'Jasper',
+          fullName: 'Jasper Crane',
+          role: 'Silas Crane’s grandson, come for “the Crane deck”',
+          personality: { valueAt: 1.3, bluff: 0.25, caution: -0.02, betSize: 0.8, respect: 0.35, reads: 0.4, tilt: 0.15 },
+          // The same mustache stroke as his grandfather, a callback to chapter 1.
+          tell: { text: 'He smooths his mustache, just like his grandfather.', signals: 'bluffing', showsWhenTrue: 0.7, showsWhenFalse: 0.3 },
+          lines: lines({
+            bet: ['Raise, Miss Avery. Family tradition.', 'A little more for the pot.', 'Let’s find out how lucky my deck is.'],
+            call: ['I’ll keep you honest.', 'Call.'],
+            fold: ['Your hand, this time.', 'I’ll let that one go.'],
+            check: ['After you.'],
+            win: ['The Cranes thank you.', 'The deck knows its family.'],
+            bust: 'Again. A Crane, beaten by an Avery, again. Grandfather said you people were lucky.',
+            draw: ['One card.', 'Two.'],
+            pat: ['I’ll stand.'],
+          }),
+        },
+        'right',
+        '#2a2a2a',
+      ),
+      // His fanned cards reach far to his right (our left), so he sits right of his plate.
+      art: cutout(art('jasper.webp'), 1.1878, { x: 1330, bottom: 560, height: 430 }),
+    },
   ],
   nemesisId: 'ruby',
   narratorId: 'ruby',
@@ -148,6 +158,7 @@ export const LAST_HAND: Chapter = {
     music: music('last-hand'),
     background: art('background.webp'),
     tableFront: art('table-front.webp'),
+    title: art('title.webp'),
     palette: { wall: '#21170f', light: '#f0b75e', felt: '#3b4a2a', rim: '#5b3b20' },
   },
   playerPlate: { x: 800, y: 760 },

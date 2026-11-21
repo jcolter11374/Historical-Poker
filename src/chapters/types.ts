@@ -100,17 +100,29 @@ export interface Palette {
  * How big the bets are, in one number. The table derives every forced bet
  * from it (src/table/stakes.ts): antes games ante half a unit and bet at
  * least a unit; blinds are half a unit and a unit; limit bets are one and two
- * units; stud antes a fifth of a unit and brings in a third.
+ * units; stud antes a fifth of a unit and brings in a third. The old games'
+ * forced bets are in stakesFor too.
  */
 export interface Structure {
   unit: number;
+  /** 'spread-limit' betting: the most one bet or raise may be, in units (default 5). */
+  limitUnits?: number;
 }
+
+/**
+ * How a game is bet. The engine's three kinds, plus the 1800s "limit": the
+ * table agrees the most any one bet or raise may be, a bet may be any amount
+ * from the minimum up to it, and there is no cap on the number of raises.
+ * The table runs it on the engine's no-limit betting with a ceiling
+ * (src/table/session.ts, legalFor).
+ */
+export type Betting = BettingKind | 'spread-limit';
 
 /** One game played in a stage, and the lesson given the first time it is dealt in the chapter. */
 export interface GamePlay {
   /** A game id from src/games/catalog.ts. */
   game: string;
-  betting: BettingKind;
+  betting: Betting;
   lesson?: Lesson;
 }
 

@@ -30,13 +30,14 @@ export const PAINTED_DECK: Chapter = {
       games: [
         {
           game: PRIMERO_ID,
-          betting: 'pot-limit',
+          betting: 'no-limit',
           lesson: {
             teacher: 'anselm',
             before: [
               say('anselm', 'You have never played Primero, child? Then sit by me. I kept the abbey’s accounts for twenty years; I can count a hand of cards.'),
               say('anselm', 'Forty cards: the painted court, and the aces to the sevens. No eights, nines or tens. Every card is worth points. The seven is worth most, twenty-one; then the six, eighteen; the ace, sixteen.'),
               say('anselm', 'You will get two cards, then two more, with a wager after each. Then you may change up to two cards, once, and we wager a last time.'),
+              say('anselm', 'The coin before you is your rest. You may wager any part of it, or set up your rest and wager it all. Do that only when you are sure, child.'),
               say('anselm', 'Best of all is a chorus, four alike. Then a fluxus, four of one suit. Then the supremus, seven, six and ace of one suit. Then a primero, one card of every suit. Failing those, the most points in a single suit.'),
             ],
             streets: {
@@ -49,7 +50,7 @@ export const PAINTED_DECK: Chapter = {
       ],
     },
   ],
-  startingStack: 100,
+  startingStack: 200,
   levelEvery: 10,
   levelLines: [say('narration', 'The yule log sinks into embers. A servant brings more candles, and Lady Margery doubles the wager.')],
   intro: [
@@ -67,7 +68,7 @@ export const PAINTED_DECK: Chapter = {
     'Old books disagree on its exact rules. This chapter plays a reconstruction, and says so.',
   ],
   howToWin: [
-    'Everyone antes 1s; the smallest wager is 2s, and no wager may be larger than the pot.',
+    'Everyone antes 1s and the smallest wager is 2s. You may wager anything up to your whole “rest”, the money in front of you.',
     'Take Lady Margery’s last shilling once she stakes the deck, and it is paid for.',
   ],
   rivals: [

@@ -29,19 +29,21 @@ export const CAMP: Chapter = {
       games: [
         {
           game: STUD5_ID,
-          betting: 'pot-limit',
+          betting: 'no-limit',
           lesson: {
             teacher: 'reed',
             before: [
               say('reed', 'Stud, Corporal. Every man in this army plays it, and most of them badly. Listen once.'),
               say('reed', 'Everybody antes. You get one card face down, your hole card, and one face up. Nobody sees the hole card but you.'),
-              say('reed', 'Lowest card showing has to bring it in: a small forced bet, or a full one if he likes his hand. Then the betting goes round.'),
-              say('reed', 'Three more cards come face up, one at a time, with betting after each. Best hand showing bets first. Five cards, best hand wins: straights and flushes count now.'),
+              say('reed', 'Highest card showing speaks first. He can bet or he can check, nobody makes him. Then the betting goes round.'),
+              say('reed', 'Three more cards come face up, one at a time, with betting after each. Best hand showing always speaks first.'),
+              say('reed', 'Table stakes: bet what you like of the money in front of you, four dollars or better. No man can be bet out of a hand for more than he has.'),
+              say('reed', 'Five cards, best hand wins. Flushes count. We play the straight in this regiment too, but it only beats two pairs: three of a kind still beats it.'),
             ],
             streets: {
               0: [say('reed', 'Look at what everyone is showing. A man with an ace up has a head start. A man who bets big with a deuce up has something in the hole, or wants you to think so.')],
               1: [say('reed', 'Third card. If your cards are beaten by what someone shows already, get out cheap.')],
-              2: [say('reed', 'Fourth card. The bets get bigger from here. Count what’s out: if two of your rank are on the table, nobody can make three of them.')],
+              2: [say('reed', 'Fourth card. The pots get bigger from here. Count what’s out: if two of your rank are on the table, nobody can make three of them.')],
               3: [say('reed', 'Last card. Look at every hand showing and ask: what does his hole card have to be? Then decide.')],
             },
           },
@@ -63,11 +65,12 @@ export const CAMP: Chapter = {
   ],
   history: [
     'Five-card stud first appears in print in The American Hoyle of 1864, and was much played by soldiers on both sides of the Civil War.',
-    'The 52-card deck had replaced the old 20-card one and brought in the flush. The straight was new: the same 1864 book lists it.',
+    'The 52-card deck had replaced the old 20-card one and brought in the flush. The straight was new: the same 1864 book says it is played “in some localities”, and ranks it below three of a kind.',
+    'There was no forced “bring-in” bet yet. The high card showing opened the betting; the low card’s bring-in is a later casino rule.',
     'Cards with corner numbers, so you could fan them in one hand, were first patented in 1864, and caught on in the 1870s and 1880s. The cards in this tent have none.',
   ],
   howToWin: [
-    'Everyone antes $1; the low card brings it in for $1. No bet may be larger than the pot.',
+    'Everyone antes $1 and the smallest bet is $4. The best hand showing speaks first and may check. It is table stakes: you may bet anything up to all the money in front of you. The stakes go up as the night goes on.',
     'Once Sergeant Reed stakes his claim, take his last dollar to keep the deck.',
   ],
   rivals: [

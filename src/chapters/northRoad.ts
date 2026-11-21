@@ -31,17 +31,18 @@ export const NORTH_ROAD: Chapter = {
       games: [
         {
           game: BRAG_ID,
-          betting: 'pot-limit',
+          betting: 'no-limit',
           lesson: {
             teacher: 'hannah',
             before: [
               say('hannah', 'Brag, is it? It’s the only game in this house, love. Simple as bread: three cards each, one round of wagering, best hand wins.'),
-              say('hannah', 'Three of a kind is a prial, and that’s the top of it. Three threes beat even three aces; don’t ask me why, it’s always been so.'),
-              say('hannah', 'Then a running flush, three in a row of one suit. Then a run, three in a row. Then a flush. Then a pair. Then just your highest card.'),
-              say('hannah', 'And it’s called brag for a reason. Half these men wager like they hold a prial when they hold a pair of fours. Watch them, not your cards.'),
+              say('hannah', 'Three of a kind is a pair royal, and that’s the top of it: three aces best of all. Then a pair. Then just your highest card. Nothing else counts, so don’t go showing me three hearts.'),
+              say('hannah', 'Two cards are braggers: the knave of clubs and the nine of diamonds. A bragger is any card you want it to be. But a true pair beats the same pair made with a bragger.'),
+              say('hannah', 'You may pass, or you may brag: put up what you like of the coin in front of you, and the others must match it or give up.'),
+              say('hannah', 'And it’s called brag for a reason. Half these men wager like they hold a pair royal when they hold a pair of fours. Watch them, not your cards.'),
             ],
             streets: {
-              0: [say('hannah', 'There’s your three. A pair is a fair hand at this table; a run or better is a strong one. Ace-high and nothing else? Let it go, unless you’re sure they’re bragging.')],
+              0: [say('hannah', 'There’s your three. A pair is a fair hand at this table, and a high pair or a bragger is a strong one. Ace-high and nothing else? Let it go, unless you’re sure they’re bragging.')],
             },
           },
         },
@@ -62,11 +63,11 @@ export const NORTH_ROAD: Chapter = {
   ],
   history: [
     'Brag grew out of post and pair, a game recorded in the 1500s. English card books described it from 1721, with a wild card called a “bragger”: the jack of clubs, later joined by the nine of diamonds.',
-    'Betting blind, bluffing, and bragging about a hand you may not hold are all ideas poker kept.',
-    'Three-card brag is still played in Britain today.',
+    'In the 1700s only pairs and pairs royal counted. The runs, flushes and blind betting of today’s three-card brag came later.',
+    'Bluffing, and bragging about a hand you may not hold, are ideas poker kept. Three-card brag is still played in Britain today.',
   ],
   howToWin: [
-    'Everyone antes 1s; the smallest wager is 2s, and no wager may be larger than the pot.',
+    'Everyone antes 1s and the smallest brag is 2s. You may brag anything up to all the money in front of you.',
     'Once Captain Pike stakes his ship’s passage, take his last shilling and you sail with him for free.',
   ],
   rivals: [
@@ -104,7 +105,7 @@ export const NORTH_ROAD: Chapter = {
           // The louder his boast, the weaker his hand: shows on 75% of his bluffs, 25% of his honest bets.
           tell: { text: 'He boasts, loudly, about the hand he holds.', signals: 'bluffing', showsWhenTrue: 0.75, showsWhenFalse: 0.25 },
           lines: lines({
-            bet: ['A prial, lad, I’d wager my ship on it!', 'Raise! I’ve sailed through worse storms than you.', 'More! The sea favours the bold.'],
+            bet: ['A pair royal, lad, I’d wager my ship on it!', 'Raise! I’ve sailed through worse storms than you.', 'More! The sea favours the bold.'],
             call: ['I’ll see you, landlubber.', 'Aye.'],
             fold: ['Strike the colours. Fold.', 'Not worth the powder.'],
             check: ['Steady as she goes.'],

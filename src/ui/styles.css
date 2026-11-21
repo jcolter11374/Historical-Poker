@@ -74,13 +74,15 @@ button:disabled { opacity: 0.4; cursor: default; }
 .plate-name { font-family: var(--display); font-size: 21px; }
 .plate-stack { font-weight: 700; font-size: 15px; color: var(--gold); white-space: nowrap; }
 .plate-cards { display: flex; margin-top: 6px; }
-.plate-cards .card + .card { margin-left: -14px; }
-.plate-cards-tiny .card + .card { margin-left: -8px; }
+/* Each card is wrapped (for the deal-in motion), so overlap the wrappers. */
+.plate-cards > * + * { margin-left: -10px; }
+.plate-cards-tiny > * + * { margin-left: -6px; }
 .plate-hand { font-weight: 800; font-size: 15px; color: var(--text); margin-top: 4px; white-space: nowrap; }
 .plate-win { font-family: var(--display); font-size: 18px; color: var(--gold); }
 .buck { position: absolute; left: -84px; top: 8px; }
 
-.pot { position: absolute; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; }
+/* Coins and amount side by side, so the pot is short enough to sit between the seat across and your cards. */
+.pot { position: absolute; transform: translate(-50%, -50%); display: flex; align-items: center; gap: 2px; }
 .pot-amount { font-family: var(--display); font-size: 26px; color: #f6e7c1; text-shadow: 0 2px 6px #000; }
 
 .tell { position: absolute; width: 220px; display: flex; gap: 8px; align-items: flex-start; color: var(--tell); font-family: var(--story); font-style: italic; font-size: 19px; line-height: 1.3; text-shadow: 0 2px 6px #000; }
@@ -128,20 +130,30 @@ button:disabled { opacity: 0.4; cursor: default; }
 .my-cards { display: flex; }
 .my-cards > * + * { margin-left: -30px; }
 .my-cards-many > * + * { margin-left: -46px; }
-.my-hand-low { top: 690px; gap: 6px; }
+.my-hand-low { top: 694px; gap: 10px; }
 .card-button { padding: 0; border: 0; background: none; border-radius: 10px; }
 .card-button .card { transition: transform 0.12s; }
 .card-button:hover .card { filter: brightness(1.08); }
-.boards { position: absolute; left: 800px; top: 584px; transform: translateX(-50%); display: flex; flex-direction: column; gap: 6px; z-index: 1; }
+.boards { position: absolute; left: 800px; top: 600px; transform: translateX(-50%); display: flex; flex-direction: column; gap: 6px; z-index: 1; }
 .board { display: flex; gap: 8px; }
+/* Two boards (bomb pots) side by side, so they stay above your cards. */
+.boards-2 { flex-direction: row; gap: 28px; }
 .summary {
   position: absolute; left: 800px; top: 388px; transform: translateX(-50%); width: 760px; text-align: center; z-index: 2;
   font-family: var(--story); font-size: 22px; line-height: 1.3; color: var(--text); text-shadow: 0 2px 8px #000, 0 0 18px #000;
 }
+/* The draw: announced over the felt, and your cards bob to show they can be picked. */
+.draw-call-title { display: block; font-family: var(--display); font-size: 30px; color: var(--gold); }
+.my-cards-draw .card-button { animation: draw-bob 1.6s ease-in-out infinite; }
+.my-cards-draw .card-button:nth-child(2n) { animation-delay: 0.2s; }
+.my-cards-draw .card-button[aria-pressed='true'] { animation: none; }
+@keyframes draw-bob { 0%, 100% { translate: 0 0; } 50% { translate: 0 -7px; } }
+@media (prefers-reduced-motion: reduce) { .my-cards-draw .card-button { animation: none; } }
 .draw-group { display: flex; flex-direction: column; align-items: center; gap: 10px; }
 .draw-note { max-width: 300px; text-align: center; font-family: var(--story); font-style: italic; font-size: 19px; color: var(--muted); text-shadow: 0 2px 6px #000; }
 .my-cards-folded { filter: brightness(0.5); }
-.my-line { font-weight: 700; font-size: 17px; color: var(--gold); text-shadow: 0 2px 6px #000; white-space: nowrap; }
+.my-line { font-weight: 700; font-size: 17px; color: var(--gold); text-shadow: 0 2px 6px #000; white-space: nowrap; text-align: center; position: relative; z-index: 1; /* above the fanned cards' corners */ }
+.my-purse::before { content: ' · '; }
 
 /* ---------------------------------------------------------------- dialogue and controls */
 
@@ -180,6 +192,8 @@ button:disabled { opacity: 0.4; cursor: default; }
 .chip-fold { color: #4a3d30; }
 .chip-raise { width: 136px; height: 136px; }
 .chip-wide { width: auto; height: auto; min-width: 220px; padding: 22px 34px; border-radius: 999px; }
+/* Calling out the deal sits above the other chips, clear of your cards. */
+.controls .chip-accuse { position: absolute; right: 0; bottom: calc(100% + 14px); }
 
 /* ---------------------------------------------------------------- rules sheet */
 
@@ -416,16 +430,29 @@ button:disabled { opacity: 0.4; cursor: default; }
 .stage-compact .powered-by { scale: calc(var(--boost) * 0.8); transform-origin: top right; }
 .stage-compact .tell { scale: calc(var(--boost) * 0.85); transform-origin: top left; }
 .stage-compact .tell-left { transform-origin: top right; }
-.stage-compact .dialogue { scale: calc(var(--boost) * 0.8); transform-origin: bottom left; width: 380px; left: 28px; bottom: 30px; }
+.stage-compact .dialogue { scale: calc(var(--boost) * 0.76); transform-origin: bottom left; width: 410px; left: 28px; bottom: 30px; }
 .stage-compact .dialogue p { font-size: 22px; }
 .stage-compact .dialogue-hint p { font-size: 19px; }
 .stage-compact .dialogue-hint .aside { font-size: 16px; }
-.stage-compact .controls { scale: calc(var(--boost) * 0.85); transform-origin: bottom right; right: 22px; bottom: 22px; }
-.stage-compact .my-hand { scale: 0.82; transform-origin: 0 100%; left: 760px; }
-.stage-compact .my-line { scale: calc(var(--boost) * 1.1); }
-.stage-compact .summary { scale: var(--boost); transform-origin: 0 0; width: 640px; }
+.stage-compact .controls { scale: calc(var(--boost) * 0.72); transform-origin: bottom right; right: 18px; bottom: 18px; gap: 14px; }
+.stage-compact .chip-row { gap: 14px; }
+/* Less, more and max stand in a column beside the raise chip, below the right-hand seat's cards. */
+.stage-compact .raise-group { flex-direction: row; align-items: center; }
+.stage-compact .raise-adjust { flex-direction: column; }
+.stage-compact .raise-adjust button { min-width: 58px; height: 40px; }
+.stage-compact .draw-group { flex-direction: row; align-items: flex-end; }
+.stage-compact .draw-note { max-width: 210px; text-align: right; }
+.stage-compact .my-hand { scale: 0.82; transform-origin: 0 100%; left: 760px; top: auto; bottom: 14px; gap: 8px; }
+/* Your hand and your purse on two lines, so neither runs under the dialogue or the chips. */
+.stage-compact .my-line { scale: calc(var(--boost) * 1.1); transform-origin: 50% 100%; line-height: 1.2; }
+.stage-compact .my-purse { display: block; }
+.stage-compact .my-purse::before { content: none; }
+/* Grows upward from just above the seat across, so a long split-pot line never covers the name plates. */
+.stage-compact .summary { scale: var(--boost); transform-origin: 0 100%; width: 640px; top: auto; bottom: 424px; }
 .stage-compact .pot-amount { scale: calc(var(--boost) * 0.8); }
-.stage-compact.stage .table-flop .boards { top: 604px; }
+/* The seat across is enlarged too, so its hand line needs the board a little lower. */
+.stage-compact .table-flop .boards { top: 640px; }
+.stage-compact .my-hand-low { scale: 0.74; }
 .stage-compact .sheet { scale: var(--boost); max-height: calc(860px / var(--boost)); width: calc(1500px / var(--boost)); padding: 26px 34px; }
 .stage-compact .sheet-columns { gap: 24px; }
 .stage-compact .story-card { scale: calc(var(--boost) * 0.85); transform-origin: 0 0; max-height: calc(860px / (var(--boost) * 0.85)); width: calc(1480px / (var(--boost) * 0.85)); overflow-y: auto; }

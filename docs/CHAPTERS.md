@@ -143,7 +143,7 @@ Jamie Avery, a broke student, in an internet café at 3 a.m. The rivals are scre
 
 - **Stages:** hands 1 to 4, "The $5 qualifier, 3 a.m.", No-Limit Hold'em, taught by DeuceSeven; 5 to 8, "Waiting for the next table: 2-7 Triple Draw", taught by DeuceSeven; 9 to 12, "Still waiting: Badugi", taught by Hanbit; from 13, "The final table, Las Vegas", No-Limit Hold'em with stacks reset, its own room (a stage `scene`) and the rivals in person (the stage's `seats`). $10 unit, $500 each, blinds rise every 4 hands.
 - **Cast:** DeuceSeven (tanks then raises when bluffing), N0rthStar (bets instantly when strong; revealed at the final table as Nat Crane), Hanbit (from Seoul, types "hmm" when weak).
-- **Art:** online, the table is the screen of the café's monitor and the rivals are square avatars above its far rim (a shark, a star, a tiger cub). At the final table DeuceSeven is painted; Nat Crane and Hanbit are silhouettes until their pictures are made, and there is no title painting yet.
+- **Art:** online, the table is the screen of the café's monitor and the rivals are square avatars above its far rim (a shark, a star, a tiger cub). At the final table all three are painted in person. The title painting puts the café and the TV stage side by side.
 - **Beats:** the final table opens with the reveal: Nat Crane says her family has wanted the deck since 1543, names the eighty years of lawyers' letters ("You never wrote back") and says she does not cheat and means to win the deck fairly, on television. Finale: no bow-outs; it is played to the end like a tournament, with a heads-up line from Nat, who shakes hands when she loses.
 
 ### 11. The Big O (2019), 5- and 6-Card Omaha, then Hi-Lo

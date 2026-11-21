@@ -8,7 +8,7 @@
  * The online tell is timing: how fast each player acts. Their tells here are
  * written as timing habits.
  */
-import { cutout, lines, music, rival, say, standardSeat } from './cast';
+import { cutout, lines, music, rival, say } from './cast';
 import type { Chapter } from './types';
 
 const art = (file: string) => `${import.meta.env.BASE_URL}art/boom/${file}`;
@@ -121,8 +121,8 @@ export const BOOM: Chapter = {
       resetStacks: true,
       seats: {
         deuceseven: { art: cutout(art('deuceseven.webp'), 850 / 900, { x: 330, bottom: 600, height: 470 }), plate: { x: 380, y: 540 } },
-        northstar: standardSeat('across', '#1a1a2a'),
-        hanbit: standardSeat('right', '#5a3a5a'),
+        northstar: { art: cutout(art('nat.webp'), 0.8044, { x: 800, bottom: 495, height: 410 }), plate: { x: 800, y: 474 } },
+        hanbit: { art: cutout(art('hanbit.webp'), 0.8589, { x: 1270, bottom: 600, height: 470 }), plate: { x: 1220, y: 540 } },
       },
       scene: { background: art('background-final.webp'), tableFront: art('table-front-final.webp'), palette: { wall: '#07070c', light: '#e8f0ff', felt: '#1d2c5a', rim: '#3a3a4a' } },
       structure: { unit: 10 },
@@ -245,7 +245,7 @@ export const BOOM: Chapter = {
   ],
   nemesisId: 'northstar',
   narratorId: 'deuceseven',
-  scene: { music: music('boom'), background: art('background-cafe.webp'), tableFront: art('table-front-cafe.webp'), palette: { wall: '#0b0f1a', light: '#6ad0ff', felt: '#1a3a6a', rim: '#2a2f3a' } },
+  scene: { music: music('boom'), title: art('title.webp'), background: art('background-cafe.webp'), tableFront: art('table-front-cafe.webp'), palette: { wall: '#0b0f1a', light: '#6ad0ff', felt: '#1a3a6a', rim: '#2a2f3a' } },
   playerPlate: { x: 800, y: 760 },
   keepsake: { name: '“N0rthStar”, Nat Crane', line: 'The Boom, 2005. From a $5 qualifier to the final table.' },
   story: {

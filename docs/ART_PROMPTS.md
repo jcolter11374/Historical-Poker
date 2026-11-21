@@ -59,7 +59,7 @@ Copy-ready image prompts for every picture the game needs: each chapter's backgr
 | Sergeant Reed | 4 | four, fanned | one hole card | To do: new picture (the cards lie over his coat, too much to repaint) |
 | Hattie Bloom | 4 | four, fanned | one hole card | Done by hand: three back cards painted out (`hattie-fix.py`) |
 | Doc Whitcomb | 5 | four | five | Done by hand: a fifth card added (`doc-cards-fix.py`) |
-| Ruby Calloway | 5 | about nine | five | To do: new picture (the fan is too tight to cut down) |
+| Ruby Calloway | 5 | about nine | five | Done: a second try still had nine, but over clean green, so the four back cards were painted out by hand (`ruby-fix.py`) |
 
 Adding a card by hand works well: the scripts build a clean card from the top half of the front card (a card back reads the same either way up), tilt it one fan step past the back card, and lay it under the cards and hand already there. Taking cards away works only where they lie over the green. The scripts are in the project's `art/layers/cleanup-scripts/`; each old picture is kept as `art/layers/<name>-old-*.png`.
 

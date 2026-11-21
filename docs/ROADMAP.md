@@ -78,7 +78,7 @@ Tracked in the outline's "Open questions". Two were answered by building: Part T
 
 ## Story: waiting on John (2026-11-21)
 
-- [ ] **Art for the new story:** Elena Crane in the epilogue (her chapter 12 picture is done and can be reused), nine paintings for the opening and the ending, and three optional ones. Prompts are in [ART_PROMPTS.md](ART_PROMPTS.md). Until then: chapter paintings stand in on the slides.
+- [x] **Art for the new story** (2026-11-21): Elena Crane, the six opening pictures and the three ending pictures (ending slides 1, 2 and 4 reuse opening pictures 2, 3 and 5). Optional later: the three ending pictures of their own, and the lid's three lines drawn onto the last picture.
 - [x] **John approved the opening's and ending's moments and captions** (`src/story/montages.ts`), 2026-11-21. Their art can be made.
 - [x] **1543 is the start of the feud** (John said yes, 2026-11-21). Sir Roland is a Crane who was promised the deck; a Crane hires the highwayman in 1763; the opening starts in 1543. See [DECISIONS.md](DECISIONS.md).
 - [x] **A Crane who is a woman before Elena** (John said yes, 2026-11-21). "N0rthStar" is Nat Crane, Victor's niece. Her picture is not painted yet; the prompt is updated. See [DECISIONS.md](DECISIONS.md).

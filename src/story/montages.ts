@@ -104,6 +104,7 @@ export const CLOSING: Slide[] = [
   {
     when: 'The Ashcombe deck, 1543 to today',
     caption: 'In the lid of the case, three lines in three hands: “M.A. 1543”. “Still ours.” And two names, side by side: Avery and Crane.',
+    image: 'montage/ending-6-lid.webp',
     palette: MACAU,
   },
 ];

@@ -7,7 +7,7 @@
  * here, so Mei Lin Chau gives a short lesson the first time each one is dealt.
  */
 import type { BettingKind } from '@rsdp/engine/core';
-import { lines, rival, say } from './cast';
+import { lines, music, rival, say } from './cast';
 import type { GamePlay, SceneLine } from './types';
 import type { Chapter } from './types';
 
@@ -157,7 +157,7 @@ export const LAST_TABLE: Chapter = {
   ],
   nemesisId: 'victor',
   narratorId: 'meilin',
-  scene: { palette: { wall: '#0d0b10', light: '#f5d9a0', felt: '#3a1418', rim: '#b08a3a' } },
+  scene: { music: music('last-table'), palette: { wall: '#0d0b10', light: '#f5d9a0', felt: '#3a1418', rim: '#b08a3a' } },
   playerPlate: { x: 800, y: 760 },
   keepsake: { name: 'Victor Crane', line: 'The Last Table, today. Every game, and the end of the feud.' },
   story: {

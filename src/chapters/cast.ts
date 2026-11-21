@@ -6,6 +6,9 @@
  */
 import type { Character, CharacterArt, Lines, SceneLine } from './types';
 
+/** A chapter's music loop in public/music/ (made by tools/music/compose.py; docs/MUSIC.md). */
+export const music = (id: string) => `${import.meta.env.BASE_URL}music/${id}.mp3`;
+
 export type SeatPos = 'left' | 'across' | 'right';
 
 const ART: Record<SeatPos, { x: number; bottom: number; height: number }> = {

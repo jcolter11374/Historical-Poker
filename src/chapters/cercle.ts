@@ -2,7 +2,7 @@
  * Chapter 8, "The Cercle": Pot-Limit Omaha, then Omaha Hi-Lo, in a private
  * Paris card club, 1992. All people and places are fictional.
  */
-import { lines, rival, say } from './cast';
+import { lines, music, rival, say } from './cast';
 import type { Chapter } from './types';
 
 export const CERCLE: Chapter = {
@@ -155,7 +155,7 @@ export const CERCLE: Chapter = {
   ],
   nemesisId: 'varenne',
   narratorId: 'varenne',
-  scene: { palette: { wall: '#1a0f12', light: '#f0c890', felt: '#3a1f2a', rim: '#7a5a2a' } },
+  scene: { music: music('cercle'), palette: { wall: '#1a0f12', light: '#f0c890', felt: '#3a1f2a', rim: '#7a5a2a' } },
   playerPlate: { x: 800, y: 760 },
   keepsake: { name: 'Comte Lucien Varenne', line: 'The Cercle, 1992. Two from the hand, three from the board.' },
   story: {

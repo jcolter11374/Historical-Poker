@@ -37,6 +37,7 @@ import { seeded, type Random } from '../bots/random';
 import { equity } from '../bots/strength';
 import type { Chapter, Character, GamePlay, SceneLine, Stage, Story } from '../chapters/types';
 import { getGame, type GameDef } from '../games/catalog';
+import { coachLines } from '../games/guide';
 import { playName, postsFor, stakesFor, unitAt } from './stakes';
 
 /** Seat 0 is always the human; 1-3 are the chapter's rivals in seat order (left, across, right). */
@@ -64,6 +65,8 @@ export interface SceneView {
   name: string | null;
   seat: SeatIndex | null;
   text: string;
+  /** A teaching reminder shown under the line (hints only): see src/games/guide.ts, `coach`. */
+  aside?: string;
 }
 
 export type Outcome = 'won' | 'lost' | null;
@@ -207,6 +210,8 @@ export class Session {
   private taught = new Set<string>();
   private guiding = false;
   private guidedStreets = new Set<number>();
+  /** How many hints each game and betting round has given, so reminders take turns. */
+  private coachTurns = new Map<string, number>();
 
   // Story state. See the Story type for what each beat is.
   private readonly story: Story;
@@ -531,36 +536,58 @@ export class Session {
   }
 
   /**
-   * The teacher's advice for the human's current decision, in one line, or
-   * null when there is nothing to decide. Built from the same simulation the
-   * bots use, played by a careful, honest player.
+   * The teacher's advice for the human's current decision, or null when there
+   * is nothing to decide. It names your hand, gives your share of the pot
+   * from the same simulation the bots use (played by a careful, honest
+   * player), and when there is a bet to call, the share you need for the
+   * call to pay. `aside` adds a reminder about this game and betting round.
    */
   hint(): SceneView | null {
     if (!this.state || this.toAct !== HUMAN) return null;
     const teacher = this.teacherSeat();
     const name = this.seats[teacher].name;
     const s = this.state;
+    const cards = this.myCards();
+    const board = s.runs[0]?.[0] ?? [];
+    const handName = this.game.describe(cards, board);
+    const youHave = handName ? `Your hand: ${handWords(handName)}. ` : '';
+    // While drawing, reminders about the draw itself come first ('draw' in the game's guide).
+    const aside = this.coachLine(s.phase === 'drawing' ? 'draw' : (s.input.game.streets[s.street]?.name ?? ''));
     if (s.phase === 'drawing') {
-      const cards = this.myCards();
       const max = this.drawLimit()!;
       let discard = this.game.discards ? this.game.discards(cards, max) : [];
       if (this.game.drawRule?.(cards, discard)) discard = discard.slice(0, 3);
-      const text = discard.length
-        ? `I’d throw ${listWords(discard.map((i) => cardWord(cards[i])))} and draw ${count(discard.length).toLowerCase()}.`
-        : 'I’d keep all of these. Stand pat.';
-      return { name, seat: teacher, text };
+      const keep = cards.map((_, i) => i).filter((i) => !discard.includes(i));
+      const text = !discard.length
+        ? `${youHave}I’d keep all of these. Stand pat.`
+        : keep.length
+          ? `${youHave}I’d keep ${listWords(keep.map((i) => cardWord(cards[i])))}, throw the rest and draw ${count(discard.length).toLowerCase()}.`
+          : `${youHave}Nothing worth keeping. I’d throw them all.`;
+      return { name, seat: teacher, text, aside };
     }
     const legal = engine.legalActions(s, HUMAN)!;
     const { decision: d, equity: eq, opponents, pot } = this.teacherAdvice()!;
     const pct = Math.round(eq * 100);
-    const odds = legal.canCheck ? '' : ` It costs ${this.money(legal.callAmount)} to win ${this.money(pot)}.`;
+    const need = legal.canCheck || !legal.callAmount ? null : Math.round((legal.callAmount / (pot + legal.callAmount)) * 100);
+    const odds = need === null ? '' : ` Calling costs ${this.money(legal.callAmount)} to win ${this.money(pot)}, so it pays if you take more than ${need}%.`;
     const verb =
       legal.canBringIn && d.action.type !== 'bet' && d.action.type !== 'raise' ? 'just bring it in'
       : d.action.type === 'fold' ? 'let this one go'
       : d.action.type === 'check' ? 'check and see'
       : d.action.type === 'call' ? 'call'
       : legal.raiseKind === 'bet' ? 'bet' : 'raise';
-    return { name, seat: teacher, text: `Against ${opponents === 1 ? 'one player' : `${opponents} players`}, a hand like yours takes about ${pct}% of the pot.${odds} I’d ${verb}.` };
+    const against = opponents === 1 ? 'one player' : `${opponents} players`;
+    return { name, seat: teacher, text: `${youHave}Against ${against}, a hand like yours takes about ${pct}% of the pot.${odds} I’d ${verb}.`, aside };
+  }
+
+  /** The next reminder for this game and round, taking turns through them. */
+  private coachLine(street: string): string | undefined {
+    const lines = coachLines(this.game.id, street);
+    if (!lines.length) return undefined;
+    const key = `${this.game.id}/${street}`;
+    const n = this.coachTurns.get(key) ?? 0;
+    this.coachTurns.set(key, n + 1);
+    return lines[n % lines.length];
   }
 
   // ---------------------------------------------------------------- after a hand
@@ -1024,4 +1051,6 @@ const count = (n: number) => `${COUNT[n] ?? n} card${n === 1 ? '' : 's'}`.replac
 const RANK_WORD: Record<string, string> = { A: 'ace', K: 'king', Q: 'queen', J: 'jack', T: 'ten', '9': 'nine', '8': 'eight', '7': 'seven', '6': 'six', '5': 'five', '4': 'four', '3': 'three', '2': 'two' };
 const SUIT_WORD: Record<string, string> = { c: 'clubs', d: 'diamonds', h: 'hearts', s: 'spades' };
 const cardWord = (c: Card) => `the ${RANK_WORD[c[0]]} of ${SUIT_WORD[c[1]]}`;
+/** A hand name inside a sentence: "Pair of Kings" -> "pair of kings" ("A-2-3" stays). */
+const handWords = (name: string) => name.replace(/\b[A-Z][a-z]+/g, (w) => w.toLowerCase());
 const listWords = (w: string[]) => (w.length <= 1 ? w.join('') : `${w.slice(0, -1).join(', ')} and ${w[w.length - 1]}`);

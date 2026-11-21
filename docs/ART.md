@@ -69,14 +69,7 @@ Every chapter is playable with no art at all:
 
 ## Music
 
-No music is in the game yet; the hook is ready. To add a loop for a chapter:
-
-1. Find or make a track that is free to use in a public game: CC0 / public domain is simplest (for example from freepd.com, opengameart.org filtered to CC0, or the Free Music Archive filtered to CC0). CC BY is fine too if the credit goes in [CREDITS.md](CREDITS.md). Don't use anything "non-commercial" or unlicensed.
-2. Keep it short and quiet (a 1 to 3 minute loop, MP3 or OGG at 96 to 128 kbps, under about 3 MB), and in the era: a fiddle or banjo for the river and the camp, a lute for 1543, a piano for the back room, lounge jazz for 1972.
-3. Put it in `public/music/`, and in the chapter file set `scene.music: 'music/<file>.mp3'` (or a stage's `scene.music` to change it for that stage).
-4. Add a line to [CREDITS.md](CREDITS.md) with the source, author and license.
-
-The player turns music off with the Music box on the chapter select. It fades in, loops, and fades between chapters (`src/ui/sound.ts`).
+Every chapter has an original music loop, made in code: see [MUSIC.md](MUSIC.md) for the tunes and how to change one. To use a recorded track instead, it must be free to use in a public game (CC0 / public domain is simplest; CC BY is fine with a line in [CREDITS.md](CREDITS.md); nothing "non-commercial"). Put it in `public/music/`, add its file name, title and loop length in seconds to `src/ui/music.json`, and point the chapter's `scene.music` at it.
 
 ## Motion and sound effects
 

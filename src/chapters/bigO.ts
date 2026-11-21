@@ -3,7 +3,7 @@
  * versions in turn, in a big card room in the English Midlands, 2019. All
  * people and places are fictional.
  */
-import { lines, rival, say } from './cast';
+import { lines, music, rival, say } from './cast';
 import type { Chapter } from './types';
 
 export const BIG_O: Chapter = {
@@ -180,7 +180,7 @@ export const BIG_O: Chapter = {
   ],
   nemesisId: 'gaz',
   narratorId: 'gaz',
-  scene: { palette: { wall: '#121418', light: '#f2e6c8', felt: '#1f4a3a', rim: '#2a2a2a' } },
+  scene: { music: music('big-o'), palette: { wall: '#121418', light: '#f2e6c8', felt: '#1f4a3a', rim: '#2a2a2a' } },
   playerPlate: { x: 800, y: 760 },
   keepsake: { name: 'Gaz Whitlock', line: 'The Big O, 2019. He had seen everything, except you.' },
   story: {

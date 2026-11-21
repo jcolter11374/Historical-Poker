@@ -7,7 +7,7 @@
  * green) are painted (docs/ART.md).
  */
 import { BRAG_ID } from '../games/brag';
-import { cutout, lines, rival, say } from './cast';
+import { cutout, lines, music, rival, say } from './cast';
 import type { Chapter } from './types';
 
 const art = (file: string) => `${import.meta.env.BASE_URL}art/north-road/${file}`;
@@ -143,6 +143,7 @@ export const NORTH_ROAD: Chapter = {
   nemesisId: 'pike',
   narratorId: 'hannah',
   scene: {
+    music: music('north-road'),
     background: art('background.webp'),
     tableFront: art('table-front.webp'),
     title: art('title.webp'),

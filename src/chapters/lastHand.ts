@@ -7,7 +7,7 @@
  * until they are painted on green, and there is no title painting yet.
  */
 import { DRAW5_ID } from '../games/fiveCardDraw';
-import { cutout, lines, rival, say } from './cast';
+import { cutout, lines, music, rival, say } from './cast';
 import type { Chapter } from './types';
 
 const art = (file: string) => `${import.meta.env.BASE_URL}art/last-hand/${file}`;
@@ -145,6 +145,7 @@ export const LAST_HAND: Chapter = {
   nemesisId: 'ruby',
   narratorId: 'ruby',
   scene: {
+    music: music('last-hand'),
     background: art('background.webp'),
     tableFront: art('table-front.webp'),
     palette: { wall: '#21170f', light: '#f0b75e', felt: '#3b4a2a', rim: '#5b3b20' },

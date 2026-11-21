@@ -638,7 +638,7 @@ Match the attached image's art style exactly: a painted, hand-inked game illustr
 **Title painting** → `title.jpg`
 
 ```
-Match the attached image's art style exactly: painted, hand-inked lines, worn textures. Use it for the style only, and paint a completely different scene. A wide establishing painting: an ordinary terraced house on a rainy evening today, one kitchen window glowing warm, silhouettes of family and friends laughing around a table inside, a ribbon and a few flowers still tied to the front gate from a wedding, a bike against the railings, puddles reflecting streetlight. Calm sky in the upper-left third, left empty for a title the game adds. No text, no lettering, no border. 16:9.
+Match the attached image's art style exactly: painted, hand-inked lines, worn textures. Use it for the style only, and paint a completely different scene. A wide establishing painting: an ordinary American house on a quiet street on a rainy evening today, one kitchen window glowing warm, silhouettes of family and friends laughing around a table inside, a ribbon and a few flowers still tied to the front gate from a wedding, a bike against the porch steps, puddles reflecting streetlight. Calm sky in the upper-left third, left empty for a title the game adds. No readable text, no house numbers, no lettering, no border. 16:9.
 ```
 
 **Props:** mismatched home-game chips; the old leather case, full, on the counter; a slice of wedding cake.

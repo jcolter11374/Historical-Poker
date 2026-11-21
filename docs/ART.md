@@ -108,7 +108,7 @@ Each chapter needs: a **background** (the empty room and table, first-person fro
 | 10 The Boom | both done: the café's monitor with the online table on its screen, and the televised final table (red felt, black rail) | the three avatars done (shark, star, tiger cub); in person, all done (Nat Crane fixed by hand to two cards) | chat window, TV graphics (title painting done: the café and the TV stage side by side) |
 | 11 The Big O | done (rows of tables, a bar, waiting-list screens blurred by hand) | all done (five cards each) | modern chips (title painting done: the casino by a canal on a wet evening) |
 | 12 The Last Table | done (private room over Macau harbour at night: red felt, the bridge and the observation tower; the lampshade painted out) | all done (Mei Lin fixed by hand to one card; Victor's lamp painted out) | the tablet menu, tea set (title painting done: the old street, the tower and the bridge at night) |
-| Epilogue The Kitchen Table | done (a kitchen at night: wedding cake, flowers, the leather case on the counter, a green folding felt) | Dee done; Victor and Elena reuse their chapter 12 pictures (Marcus and Priya speak but are not seen) | the full leather case on the counter |
+| Epilogue The Kitchen Table | done (a kitchen at night: wedding cake, flowers, the leather case on the counter, a green folding felt) | Dee done; Victor and Elena reuse their chapter 12 pictures (Marcus and Priya speak but are not seen) | the full leather case on the counter (title painting done: the house on a rainy street) |
 | The opening and the ending | nine paintings in the style of the title paintings, one per slide (three more are optional) | none | see [ART_PROMPTS.md](ART_PROMPTS.md), "The opening and the ending" |
 
 The player is never shown, so no art is needed for the Averys. Faces on the chapter select and keepsakes are cropped from the character art, so no separate portraits are needed.
@@ -118,8 +118,8 @@ The player is never shown, so no art is needed for the Averys. Faces on the chap
 - Background and table front: done. The first picture had two fridges side by side, fake handwriting on the fridge notes and the lamp low over the seat across; a redo with only those changed fixed all three (the first try is art/redo/kitchen-to-fix.jpg). The two notes on the wall have scribbled lines, not letters, and were kept.
 - Elena and Victor reuse their chapter 12 pictures in the same seats (`src/chapters/kitchenTable.ts`). Elena sits a little lower than in Macau so the lamp shows above her head instead of behind it.
 - Dee: done, cut out from green, two cards and a fist pump. Her T-shirt print shows only broken shapes, no readable word, and most of it sits behind the table.
-- Title painting: still to come.
-- Screenshot: `docs/screenshots/epilogue-table.jpg`.
+- Title painting: done, a house on a rainy street, the kitchen window glowing with the party inside and a wedding ribbon on the gatepost. The epilogue is fully painted.
+- Screenshots: `docs/screenshots/epilogue-table.jpg`, `epilogue-intro.jpg`.
 
 ## Current state, chapter 12
 

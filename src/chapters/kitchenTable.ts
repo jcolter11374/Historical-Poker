@@ -148,7 +148,7 @@ export const KITCHEN_TABLE: Chapter = {
   ]),
   nemesisId: 'crane',
   narratorId: 'dee',
-  scene: { music: music('kitchen-table'), background: art('background.webp'), tableFront: art('table-front.webp'), palette: { wall: '#1a1612', light: '#ffe2a8', felt: '#6a4a2a', rim: '#3a2a1a' } },
+  scene: { music: music('kitchen-table'), title: art('title.webp'), background: art('background.webp'), tableFront: art('table-front.webp'), palette: { wall: '#1a1612', light: '#ffe2a8', felt: '#6a4a2a', rim: '#3a2a1a' } },
   playerPlate: { x: 800, y: 760 },
   keepsake: { name: 'Avery and Crane', line: 'The Kitchen Table, the night after the wedding. One deck, one family.' },
   story: {

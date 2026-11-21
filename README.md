@@ -54,7 +54,8 @@ src/table         The table between hands: seats, money, stages, stakes, story b
 src/bots          How rivals decide: hand strength by simulation, plus a personality.
 src/chapters      One file per chapter: story, stages, lessons, characters; index.ts sets the order.
 src/practice      Practice mode: any game outside the story, built from the chapters.
-src/progress      Saved progress (chapters won, hints on or off).
+src/math          Math Mode: sums for young players made from the hand being played (counting outs, pot odds).
+src/progress      Saved progress (chapters won, settings, Math Mode stars).
 src/ui            React screens: chapter select, intro, table, ending, rules sheet.
 public/art        Game-ready art, one folder per chapter.
 public/music      Each chapter's music loop (docs/MUSIC.md).

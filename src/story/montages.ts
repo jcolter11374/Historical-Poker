@@ -53,8 +53,7 @@ export const OPENING: Slide[] = [
   {
     when: 'Deadwood, 1876',
     caption: 'Forty years on, Crane’s grandson rides into a gold town for what he calls “the Crane deck”, with his grandfather’s trick in his thumb. An Avery is waiting for him.',
-    image: 'last-hand/title.webp',
-    standIn: true,
+    image: 'montage/opening-3-deadwood.webp',
   },
   {
     when: 'Chicago, Las Vegas, Paris: 1926 to 1992',

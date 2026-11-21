@@ -214,14 +214,14 @@ Every rival thinks with RSDP Live's practice bot at the level shown, bent by the
 | big-o | Kerry-Ann | easy | 1.3 | 0.15 | -0.03 | 0.7 |  | 0.5 | 0.3 | 0.08 | 55 | 18 | 18 |
 | big-o | Gaz | normal | 1.35 | 0.14 | 0 | 0.75 | 0.25 | 0.6 | 0.9 |  | 29 | 15 | 50 |
 | big-o | Mr. Okafor | normal | 1.7 | 0.04 | 0.07 | 0.6 |  | 0.8 | 0.4 |  | 28 | 10 | 53 |
-| last-table | Mei Lin | hard | 1.5 | 0.08 | 0.04 | 0.65 |  | 0.6 | 1 |  | 31 | 19 | 39 |
-| last-table | Victor | normal | 1.3 | 0.2 | 0 | 0.75 | 0.25 | 0.5 | 0.7 | 0.1 | 45 | 27 | 23 |
-| last-table | Rafael | easy | 1.2 | 0.22 | 0.05 | 0.75 |  | 0.3 | 0.2 | 0.1 | 49 | 20 | 10 |
-| kitchen-table | Priya | easy | 1.2 | 0.22 | -0.06 | 0.7 |  | 0.3 | 0.2 |  | 41 | 23 | 27 |
-| kitchen-table | Marcus | normal | 1.45 | 0.1 | 0.03 | 0.65 | 0.3 | 0.6 | 0.7 | 0.08 | 33 | 18 | 36 |
-| kitchen-table | Dee | easy | 1.35 | 0.18 | -0.02 | 0.6 |  | 0.45 | 0.3 |  | 57 | 18 | 21 |
+| last-table | Mei Lin | normal | 1.5 | 0.08 | 0.04 | 0.65 |  | 0.6 | 1 |  | 33 | 22 | 38 |
+| last-table | Elena | hard | 1.35 | 0.18 | 0.01 | 0.75 | 0.25 | 0.6 | 0.9 |  | 39 | 26 | 26 |
+| last-table | Victor | normal | 1.3 | 0.2 | 0 | 0.75 | 0.25 | 0.5 | 0.7 | 0.1 | 41 | 26 | 19 |
+| kitchen-table | Dee | easy | 1.35 | 0.18 | -0.02 | 0.6 |  | 0.45 | 0.3 |  | 35 | 18 | 36 |
+| kitchen-table | Elena | hard | 1.35 | 0.18 | 0.01 | 0.75 | 0.25 | 0.6 | 0.9 |  | 41 | 25 | 35 |
+| kitchen-table | Victor | easy | 1.3 | 0.2 | 0 | 0.75 | 0.25 | 0.5 | 0.7 | 0.1 | 38 | 14 | 16 |
 
-Levels: 16 Easy, 24 Normal, 2 Hard (N0rthStar and Mei Lin). Part One has two Easy rivals at every table (one in the finale). An Easy rival bets and raises less than the same numbers did on the old bot, because RSDP's Easy only raises its best hands: Silas, Roland, Pike and Lacroix are still the loudest at their tables, but they are loose callers who bluff rather than raisers.
+Levels: 14 Easy, 24 Normal, 2 Hard (N0rthStar and Elena, both Cranes). Victor is Normal in Macau and Easy at the kitchen table. Part One has two Easy rivals at every table (one in the finale). An Easy rival bets and raises less than the same numbers did on the old bot, because RSDP's Easy only raises its best hands: Silas, Roland, Pike and Lacroix are still the loudest at their tables, but they are loose callers who bluff rather than raisers.
 
 Stand-ins in your seat, in betting units won per 100 hands (negative means the rivals beat them):
 
@@ -239,7 +239,7 @@ Stand-ins in your seat, in betting units won per 100 hands (negative means the r
 | boardwalk | -85 | -87 | -46 | 10 |
 | boom | -225 | -149 | -131 | 13 |
 | big-o | -109 | -48 | -36 | 0 |
-| last-table | -101 | -115 | -304 | -15 |
-| kitchen-table | -103 | -754 | -206 | -18 |
+| last-table | -148 | -328 | -503 | 14 |
+| kitchen-table | -12 | -597 | -546 | 103 |
 
 The teacher follows the hints (RSDP's coach, steadied for beginners). Compared with the old bots (2026-11-20), a player who only calls loses more slowly in most chapters (the riverboat 50 a hundred hands against 82, the gaming house 77 against 353), so the short chapters are no quicker to bust a beginner than before.

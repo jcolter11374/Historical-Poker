@@ -52,7 +52,7 @@ Honest limits, so nobody over-claims:
 
 ## What this game adds on top: the character
 
-`src/bots/personality.ts`. RSDP's bot is one player at three strengths; the story needs forty-two people. Each rival has a `Personality` in their chapter file: RSDP's **level**, plus the numbers that make them themselves. The numbers reach RSDP's bot in three places:
+`src/bots/personality.ts`. RSDP's bot is one player at three strengths; the story needs forty people. Each rival has a `Personality` in their chapter file: RSDP's **level**, plus the numbers that make them themselves. The numbers reach RSDP's bot in three places:
 
 | Number | What it does to RSDP's bot |
 | --- | --- |
@@ -74,7 +74,8 @@ John's rule (2026-11-21): the rivals must not all be hard. Beginner friendliness
 
 - **Part One (chapters 1 to 5 and the bonus):** two Easy rivals and one Normal at every table, except the finale (chapter 5), which has one Easy and two Normal.
 - **Part Two:** mostly Normal, with an Easy friend at most tables.
-- **Hard:** two characters in the whole game, both late bosses: N0rthStar (chapter 10) and Mei Lin (chapter 12).
+- **Hard:** two characters in the whole game, both late bosses: both Cranes: N0rthStar (Nat Crane, chapter 10) and Elena Crane, the best player in the story (chapter 12 and the home game after). Elena is the toughest rival in the game: RSDP's Hard, a full read of the betting and of you. She is still beatable (the hints finish about even at her table in the bot lab), and her tell is there to be used.
+- **The last two tables:** in Macau Mei Lin and Victor are Normal beside Elena. At the kitchen table Dee and Victor are Easy (it is his first home game, with bomb pots and a prize for seven-deuce).
 
 Every character's level is in [CHAPTERS.md](CHAPTERS.md), "How the rivals play". To make a rival gentler, set `level: 'easy'` in their chapter file and run the bot lab.
 

@@ -1,10 +1,10 @@
-# Historical Poker: Full Game Outline
+# Still Ours: Full Game Outline
 
 2026-11-19 · John Colter
 
 ## Overview
 
-Historical Poker is a single-player story game in the browser: you follow one heirloom deck of cards through 330 years of card tables, from a Tudor hall in 1543 to a Deadwood saloon in 1876 and on to the present day, and play each era's real game against painted rival characters. It opens on a Mississippi steamboat in 1836, the first game actually called poker, and reaches back and forward from there.
+Still Ours (first called Historical Poker; John renamed it on 2026-11-21, after Clara Avery's line in the deck's case) is a single-player story game in the browser: you follow one heirloom deck of cards through 330 years of card tables, from a Tudor hall in 1543 to a Deadwood saloon in 1876 and on to the present day, and play each era's real game against painted rival characters. It opens on a Mississippi steamboat in 1836, the first game actually called poker, and reaches back and forward from there.
 
 - **Platform:** static website, played in any modern browser, hosted free on GitHub Pages. No server, no accounts; progress saves in the browser.
 - **Engine:** a copy of the RSDP Live poker engine (pure TypeScript), extended with the historical games. RSDP Live itself is never changed.
@@ -382,7 +382,7 @@ Each chapter also needs a title card, and the game needs a title screen and the 
 
 ## Tech approach
 
-A static TypeScript web app in the repo `jcolter11374/Historical-Poker`, built on a copy of the RSDP Live engine and published to GitHub Pages. The chapter 1 build is setting up the repo now; its README and `docs/` folder are where file-level details live, and they win if they differ from this summary.
+A static TypeScript web app in the repo `jcolter11374/Historical-Poker` (the repo and the live address keep the game's first name), built on a copy of the RSDP Live engine and published to GitHub Pages. The chapter 1 build is setting up the repo now; its README and `docs/` folder are where file-level details live, and they win if they differ from this summary.
 
 ### Pieces
 

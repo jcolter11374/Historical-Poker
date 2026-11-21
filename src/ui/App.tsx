@@ -156,8 +156,8 @@ export function App() {
           finish={
             <>
               <div className="eyebrow">The Ashcombe deck, 1543 to today</div>
-              <h1>Historical Poker</h1>
-              <p>One painted deck. Two families. Every table it was ever played on.</p>
+              <h1>Still Ours</h1>
+              <p>Five hundred years, two families, one deck of cards.</p>
               <div className="story-buttons">
                 <button
                   type="button"
@@ -183,7 +183,7 @@ export function App() {
           finish={
             <>
               <div className="eyebrow">The Ashcombe deck, 1543 to today</div>
-              <h1>Historical Poker</h1>
+              <h1>Still Ours</h1>
               <p>Every one of those games still has a table somewhere. Start your own.</p>
               <PoweredBy />
               <p className="credits">Story, paintings and music made for this game. Every chapter is dealt by the rules of its own year.</p>

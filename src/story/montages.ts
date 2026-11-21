@@ -63,8 +63,7 @@ export const OPENING: Slide[] = [
   {
     when: 'Las Vegas, 2005',
     caption: 'A stranger who never says a word sits down at an Avery’s table, in front of the cameras, and plays as if the deck were already theirs.',
-    image: 'boom/background-final.webp',
-    standIn: true,
+    image: 'montage/opening-5-stranger.webp',
   },
   {
     when: 'Today',

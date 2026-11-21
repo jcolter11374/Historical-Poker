@@ -7,7 +7,7 @@
  * green) are painted (docs/ART.md).
  */
 import { STUD5_ID } from '../games/fiveCardStud';
-import { cutout, lines, rival, say } from './cast';
+import { cutout, lines, music, rival, say } from './cast';
 import type { Chapter } from './types';
 
 const art = (file: string) => `${import.meta.env.BASE_URL}art/camp/${file}`;
@@ -149,6 +149,7 @@ export const CAMP: Chapter = {
   nemesisId: 'reed',
   narratorId: 'hattie',
   scene: {
+    music: music('camp'),
     background: art('background.webp'),
     tableFront: art('table-front.webp'),
     title: art('title.webp'),

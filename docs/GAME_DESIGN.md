@@ -4,11 +4,13 @@
 
 ## The shape of the game
 
-- **Chapter select** (the Ashcombe deck's leather case): one card per chapter in two rows, Part One and Part Two. Won chapters show the beaten rival's face (the keepsake); the next chapter glows; later ones say "Jump ahead". A first-time visitor goes straight to chapter 1's intro.
+- **Chapter select** (the Ashcombe deck's leather case): one card per chapter in two rows, Part One and Part Two. Every card names the game it teaches. Won chapters show the beaten rival's face (the keepsake) and a green "Won" ribbon; a chapter left part-way shows a red "At hand 12" ribbon; the chapter you'd continue glows; chapters you haven't reached are face down but open like any other (after "the story so far"). "Continue" goes straight back to the table you left most recently, or to the next chapter's intro if there is none. The game always opens here, first visit included ("Begin the story" opens chapter 1), so a friend can go straight to the game they want to learn.
 - **Intro:** the setting, who you play, what game is taught, the cast. If you jumped ahead, "The story so far" comes first.
 - **The table:** one sitting of the chapter's games (below).
 - **Ending:** the chapter's won or lost text, the keepsake, a "From the history book" note, and "On to" the next chapter. Losing offers "Try again". The last chapter links to RSDP Live.
-- **Saved progress:** which chapters were started and won, and whether teacher hints are on, are kept in the browser's local storage (`src/progress/save.ts`). "Start over" clears them.
+- **Practice** ("Practice any game" on the chapter select): any game the story teaches, on its own, outside the story. See "Practice" below.
+- **Saved progress:** which chapters were started and won, and the hints, sound and music switches, are kept in the browser's local storage (`src/progress/save.ts`). No account: another browser or device starts fresh, and clearing the browser's data resets it.
+- **Leaving part-way:** after every hand the table is saved for that chapter: money, the buck, the stage and stakes, which lessons were given, story beats already played (the stake, the cheat, the finale), and any scene still to read. Leaving the table, closing the tab or reloading the page loses at most the hand in play. Opening that chapter again offers "Back to the table (hand 12)" or "Start the chapter over". Each chapter keeps its own table, so a friend can leave Brag half-way, try Omaha, and come back. Finishing a chapter (won or lost) or "Play this chapter again" clears its table. "Start over" on the case clears everything.
 
 ## How a chapter plays
 
@@ -72,8 +74,12 @@ Set per stage in `extras`: a **bomb pot** every N hands (everyone puts in N unit
 
 ### Help at the table
 
-- **The rules object:** a corner link named for the era ("The tavern slate", "The help screen") opens the current game's rules card: the deal, the betting, what wins, plus how to win the chapter and a history note. Rules cards are in `src/games/catalog.ts`.
-- **Teacher hints:** "Ask for a hint" (on by default, can be turned off on the chapter select). The chapter's teacher suggests fold, call or raise in one line, with your chance of winning and the pot odds, from the same simulation the bots use. The teacher is steadier than the bots so a beginner isn't led into a raising war (`Session.steady` and `teacherAdvice`): your chance is marked down by a fifth for every raise a player still in has made (`RAISE_DISCOUNT`); short of a near-certain hand (85%, `NUTS`) the teacher won't bet or raise more than a quarter of your purse into one pot (`STEADY_SHARE`), raises once a round at most, and wants 12 points more than the pot odds before calling a third of your purse (`BIG_CALL`). Once only two players are left at the table, the teacher plays it straight.
+- **The rules object:** a corner link named for the era ("The tavern slate", "The help screen") opens the current game's rules sheet, in three short pages:
+  - *The rules:* how a hand goes; the betting in words (antes, blinds or bring-in; what fold, check, call and raise mean; what no limit, pot limit or limit allows); the hands, best first; and any house extras in play (bomb pots, two boards, the 7-2 bounty).
+  - *Playing it well:* three to five tips for someone who has just learned the game, and the easy mistakes new players make in it.
+  - *This chapter:* how to win it, and the history book.
+  Rules cards are in `src/games/catalog.ts`; tips, mistakes and the betting words in `src/games/guide.ts`.
+- **Teacher hints:** "Ask for a hint" (on by default, can be turned off on the chapter select). The game's teacher names your hand, says how big a share of the pot a hand like yours takes against this many players (the same simulation the bots use), and, when there is a bet to call, what the call costs and the share it needs to pay ("Calling costs $2 to win $6, so it pays if you take more than 25%"). Then fold, check, call, bet or raise. In a draw, they say which cards they'd keep. Under the line, in smaller gold italic, a reminder about this game and betting round (from `coach` in `guide.ts`); asking again on the same round gives the next one, so hints teach the game as you play. The teacher is steadier than the bots so a beginner isn't led into a raising war (`Session.steady` and `teacherAdvice`): your chance is marked down by a fifth for every raise a player still in has made (`RAISE_DISCOUNT`); short of a near-certain hand (85%, `NUTS`) the teacher won't bet or raise more than a quarter of your purse into one pot (`STEADY_SHARE`), raises once a round at most, and wants 12 points more than the pot odds before calling a third of your purse (`BIG_CALL`). Once only two players are left at the table, the teacher plays it straight.
 - **Your hand:** your best hand's name (and best low, in split games) shows under your cards.
 - **Between hands:** the finished hand stays on the felt, described by its own game, while the next game's name (and its lesson, in a rotation) is already shown at the top.
 - **Calling out the deal:** the "Call out the deal" chip sits above the other chips.
@@ -85,8 +91,8 @@ Set per stage in `extras`: a **bomb pot** every N hands (everyone puts in N unit
 
 - **Motion:** cards fly in from whoever holds the buck, one at a time, and turn over when shown; antes and bets slide from the seat to the pot; the pot slides to the winner when the hand ends, and "wins $N" pops up. Lines of dialogue fade in. Anyone whose system asks for reduced motion gets none of this.
 - **Sound effects:** a swish per card dealt, a flip for board cards, a riffle when you draw, a clack of chips for a bet (a bigger one for all in), two knocks for a check, a soft swish for a fold, chips gathering for a pot, a flourish with a little bell when you take a good pot, a low two-note sigh when you lose a showdown, and a quiet bell when it's your turn. All made in code (`src/ui/sound.ts`), no recordings.
-- **Music:** each chapter (or stage) can name a looping music file; none are in the game yet ([ART.md](ART.md), "Music").
-- **Switches:** "Sound on/off" in the table's corner links; Sound and Music boxes on the chapter select. Saved with your progress.
+- **Music:** every chapter has its own original loop in the sound of its era (a steamboat waltz, a Tudor galliard, a speakeasy stomp, a Paris musette, a Macau night...), quiet under the table, fading between chapters ([MUSIC.md](MUSIC.md)).
+- **Switches:** "Sound on/off" and "Music on/off" in the table's corner links, "Music on/off" on the intro and ending, and Sound and Music boxes on the chapter select. Saved with your progress.
 
 ### Phones and tablets
 
@@ -95,6 +101,17 @@ Set per stage in `extras`: a **bomb pot** every N hands (everyone puts in N unit
 - **Room for your cards:** on small screens your hand name and your purse sit on two lines under your cards, the raise's "−, +, Max" stand in a column beside the raise chip, and the draw note sits beside the Draw chip, so nothing covers your cards or the right-hand seat. A long showdown line grows upward from above the seat across, and in flop games the board sits a little lower so the seat across can show its hand.
 - **Story screens start at the top:** the intro and ending scroll on a phone; they open at the first line, not at the button.
 - **Full screen:** added to the home screen, the game opens full screen and sideways (`public/manifest.webmanifest`).
+
+## Practice
+
+The outline's Free Play, built for John's friends to learn any RSDP Live game risk-free (`src/practice/index.ts`, `src/ui/PracticeScreen.tsx`).
+
+- **The list** is the deck case again, with one small card per game, in four groups: the old games (by date), Hold'em and Omaha, stud and draw, and mixed games and house rules. It is built from the chapters, not written by hand: every game and betting the story deals is one card (20 of them, including Limit Omaha Hi-Lo from HORSE), plus HORSE, the 8-Game and the epilogue's Home Game (bomb pots on two boards, the 7-2 bounty). A chapter added later appears by itself.
+- **Where it's played:** at the table of the first chapter that teaches the game, with that chapter's room, music, rivals and stake unit, and its teacher giving the hints. Razz is at the Back Room with Nora; Primero in the great hall with Brother Anselm.
+- **The lesson** ("Nora explains it first", on by default): before the first hand the teacher reads out the game's rules card (how a hand goes), plus one line on the betting (limit, pot limit or no limit) for the modern games. The chapter's own street-by-street remarks then guide that first hand. The rules card is used rather than the chapter's lesson because chapter lessons lean on the story ("Same game, but no limit", "It's a tournament"). Mixed games use the chapter's own short lessons (Mei Lin's one-liners), borrowing the HORSE ones for the 8-Game's first five games. Straight poker has no lesson (chapter 1 teaches it with its scripted tutorial hand, which practice doesn't use), so it has no checkbox.
+- **The table:** one stage, steady stakes (no rises), no story beats, no stake, cheat or finale. Nobody is ever knocked out: anyone who runs out, you included, buys back in for a fresh starting stack. The rules object, hints, sound and the rest work as in a chapter. "Leave the table" goes back to the practice list with the same game picked.
+- **Nothing is saved.** Practice doesn't count as starting or winning a chapter. Practice tables have ids starting `practice:` and `practice: true` on their Chapter.
+- **Open to everyone.** The outline first unlocked Free Play after the Part One finale; John agreed to open it from the start, because every chapter can already be opened at once and the point is letting friends go straight to a game ([DECISIONS.md](DECISIONS.md)).
 
 ## The games
 

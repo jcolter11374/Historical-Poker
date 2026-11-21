@@ -3,7 +3,7 @@
  * speakeasy in 1926. The first chapter of Part Two. (docs/GAME_OUTLINE.md,
  * "Part Two".) All people and places are fictional.
  */
-import { lines, rival, say } from './cast';
+import { lines, music, rival, say } from './cast';
 import { RAZZ_1926, STUD_1926 } from '../games/catalog';
 import type { Chapter } from './types';
 
@@ -160,7 +160,7 @@ export const BACK_ROOM: Chapter = {
   ],
   nemesisId: 'nora',
   narratorId: 'nora',
-  scene: { palette: { wall: '#16110f', light: '#e9b86a', felt: '#2a3a2e', rim: '#4a3020' } },
+  scene: { music: music('back-room'), palette: { wall: '#16110f', light: '#e9b86a', felt: '#2a3a2e', rim: '#4a3020' } },
   playerPlate: { x: 800, y: 760 },
   keepsake: { name: 'Nora Shea', line: 'The Back Room, 1926. Stud for winners, after all.' },
   story: {

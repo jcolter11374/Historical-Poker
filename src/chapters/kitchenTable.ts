@@ -3,7 +3,7 @@
  * RSDP Live was made for. No-Limit Hold'em with the house extras RSDP Live
  * offers: bomb pots, double board, and the 7-2 bounty. All people are fictional.
  */
-import { lines, rival, say } from './cast';
+import { lines, music, rival, say } from './cast';
 import type { Chapter } from './types';
 
 export const KITCHEN_TABLE: Chapter = {
@@ -125,7 +125,7 @@ export const KITCHEN_TABLE: Chapter = {
   ],
   nemesisId: 'marcus',
   narratorId: 'marcus',
-  scene: { palette: { wall: '#1a1612', light: '#ffe2a8', felt: '#6a4a2a', rim: '#3a2a1a' } },
+  scene: { music: music('kitchen-table'), palette: { wall: '#1a1612', light: '#ffe2a8', felt: '#6a4a2a', rim: '#3a2a1a' } },
   playerPlate: { x: 800, y: 760 },
   keepsake: { name: 'Your friends', line: 'The Kitchen Table, today. Where every poker player starts.' },
   story: {

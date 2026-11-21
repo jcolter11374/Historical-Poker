@@ -199,6 +199,7 @@ button:disabled { opacity: 0.4; cursor: default; }
 
 .sheet-backdrop { position: absolute; inset: 0; z-index: 5; background: rgba(5, 2, 0, 0.6); display: grid; place-items: center; }
 .sheet {
+  min-height: 640px;
   width: 980px; max-height: 820px; overflow: auto; padding: 40px 52px; color: var(--ink); border-radius: 6px;
   background:
     radial-gradient(ellipse at 20% 10%, rgba(255, 255, 255, 0.45), transparent 50%),
@@ -215,6 +216,15 @@ button:disabled { opacity: 0.4; cursor: default; }
 .rankings li span { display: inline-block; min-width: 160px; }
 .rankings .example { font-family: var(--display); font-size: 16px; color: #5a3a20; }
 .note { font-style: italic; font-size: 17px; }
+.sheet-eyebrow { font-family: var(--story); font-style: italic; font-size: 18px; color: #6b2a10; }
+.sheet-pages { display: flex; gap: 22px; margin: -4px 0 4px; }
+.sheet-pages button {
+  padding: 2px 0; border: 0; background: none; color: #6b2a10;
+  font-family: var(--story); font-style: italic; font-size: 19px; text-decoration: underline; text-underline-offset: 4px;
+}
+.sheet-pages button.current { color: var(--ink); font-weight: 700; text-decoration: none; }
+.tips { margin: 0; padding-left: 22px; }
+.tips li { margin: 0 0 8px; }
 .sheet-close {
   margin-top: 18px; padding: 10px 22px; border-radius: 999px; border: 2px solid var(--ink); background: transparent;
   font-family: var(--display); font-size: 18px; color: var(--ink);
@@ -245,6 +255,10 @@ button:disabled { opacity: 0.4; cursor: default; }
 
 /* ---------------------------------------------------------------- story */
 .dialogue-narration p { font-style: italic; color: var(--muted); }
+/* A hint says more than a line of talk: a little smaller, and a reminder under it in the teacher's margin-note style. */
+.dialogue-hint { width: 500px; }
+.dialogue-hint p { font-size: 22px; }
+.dialogue-hint .aside { margin-top: 8px; font-size: 18px; font-style: italic; color: var(--gold); }
 .tell-line { display: block; }
 .tell-line + .tell-line { margin-top: 6px; }
 .deck-case { position: absolute; right: -54px; top: -6px; filter: drop-shadow(0 3px 4px #000a); }
@@ -317,11 +331,40 @@ button:disabled { opacity: 0.4; cursor: default; }
 .case-seal { font-size: 40px; line-height: 1; margin: 6px 0; opacity: 0.75; }
 .case-face { width: 56px; height: 56px; font-size: 22px; margin: 2px 0; }
 .case-game { font-family: var(--ui); font-size: 13px; line-height: 1.2; font-weight: 700; }
-.case-badge { position: absolute; top: 8px; right: 8px; font-family: var(--ui); font-weight: 800; font-size: 11px; color: #fff; background: #3c6b3a; border-radius: 6px; padding: 2px 6px; }
-.case-badge-jump { background: rgba(0, 0, 0, 0.45); }
+/* A ribbon across the foot of the card: "Won", or the hand a chapter was left at. */
+.case-badge {
+  position: absolute; bottom: -9px; left: 50%; translate: -50% 0; white-space: nowrap;
+  font-family: var(--story); font-style: italic; font-size: 15px; color: #fbeed2; padding: 1px 14px 2px;
+  background: #3c6b3a; clip-path: polygon(0 0, 100% 0, 94% 50%, 100% 100%, 0 100%, 6% 50%);
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.5));
+}
+.case-badge-saved { background: #8a2a1e; }
 .select-foot { margin-top: auto; display: flex; align-items: center; gap: 28px; }
 .toggle { font-family: var(--story); font-size: 19px; color: var(--muted); display: flex; align-items: center; gap: 8px; }
+.toggle input { accent-color: var(--gold); width: 18px; height: 18px; }
 .reset { font-family: var(--story); font-size: 18px; color: var(--muted); }
+/* ---------------------------------------------------------------- practice: the same case, one small card per game */
+.practice-case { gap: 6px; padding: 14px 24px 16px; }
+.practice-case .case-part h2 { margin-bottom: 6px; font-size: 19px; }
+.practice-row { flex-wrap: wrap; gap: 10px; max-width: 1480px; }
+.practice-card {
+  width: 196px; height: 78px; padding: 6px 10px 6px 8px; border-radius: 9px; border: 2px solid #3a2a18;
+  display: flex; align-items: center; gap: 8px; color: var(--ink); text-align: left;
+  background:
+    radial-gradient(ellipse at 30% 15%, rgba(255, 255, 255, 0.5), transparent 60%),
+    radial-gradient(ellipse at 80% 90%, rgba(120, 90, 40, 0.25), transparent 55%),
+    var(--paper);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.55); transition: transform 0.12s;
+}
+.practice-card:hover { transform: translateY(-4px) rotate(-1deg); }
+.practice-picked { box-shadow: 0 0 0 3px var(--gold), 0 0 22px rgba(255, 209, 102, 0.55), 0 6px 12px rgba(0, 0, 0, 0.55); transform: translateY(-4px); }
+.practice-face { width: 42px; height: 42px; font-size: 18px; }
+.practice-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.practice-name { font-family: var(--display); font-size: 15px; line-height: 1.05; }
+.practice-where { font-family: var(--story); font-style: italic; font-size: 14px; line-height: 1.15; color: #5a3a20; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.practice-foot { min-height: 90px; }
+.practice-foot .chip, .practice-foot .toggle, .practice-foot .text-link { white-space: nowrap; }
+.practice-at { font-family: var(--story); font-style: italic; font-size: 20px; color: var(--muted); }
 .card-button[aria-pressed='true'] .card { box-shadow: 0 0 0 4px var(--gold), 0 14px 24px rgba(0, 0, 0, 0.6); }
 .boards-2 { flex-direction: row; gap: 36px; }
 .card-slot-medium { width: 70px; height: 100px; }
@@ -386,6 +429,8 @@ button:disabled { opacity: 0.4; cursor: default; }
 .stage-compact .tell-left { transform-origin: top right; }
 .stage-compact .dialogue { scale: calc(var(--boost) * 0.76); transform-origin: bottom left; width: 410px; left: 28px; bottom: 30px; }
 .stage-compact .dialogue p { font-size: 22px; }
+.stage-compact .dialogue-hint p { font-size: 19px; }
+.stage-compact .dialogue-hint .aside { font-size: 16px; }
 .stage-compact .controls { scale: calc(var(--boost) * 0.72); transform-origin: bottom right; right: 18px; bottom: 18px; gap: 14px; }
 .stage-compact .chip-row { gap: 14px; }
 /* Less, more and max stand in a column beside the raise chip, below the right-hand seat's cards. */
@@ -426,3 +471,12 @@ button:disabled { opacity: 0.4; cursor: default; }
 }
 @keyframes turn { 0%, 30% { transform: rotate(0); } 60%, 100% { transform: rotate(-90deg); } }
 @media (prefers-reduced-motion: reduce) { .rotate-hint svg { animation: none; } }
+/* Practice on a small screen: drop the faces so the names can be bigger, and keep the footer on the stage. */
+.stage-compact .practice-screen .select-head p { display: none; }
+.stage-compact .practice-face { display: none; }
+.stage-compact .practice-card { height: 92px; padding: 6px 12px; }
+.stage-compact .practice-name { font-size: 21px; }
+.stage-compact .practice-where { font-size: 17px; }
+.stage-compact .practice-at { display: none; }
+.stage-compact .select-foot { gap: 20px; }
+.stage-compact .select-foot .chip-wide { min-width: 0; padding: 16px 24px; }

@@ -7,6 +7,7 @@
  */
 import type { Chapter } from './types';
 import { GAME_ID } from '../games/straightPoker';
+import { music } from './cast';
 
 const art = (file: string) => `${import.meta.env.BASE_URL}art/riverboat/${file}`;
 
@@ -103,6 +104,7 @@ export const RIVERBOAT: Chapter = {
   nemesisId: 'silas',
   narratorId: 'delphine',
   scene: {
+    music: music('riverboat'),
     background: art('background.webp'),
     tableFront: art('table-front.webp'),
     title: art('title.webp'),

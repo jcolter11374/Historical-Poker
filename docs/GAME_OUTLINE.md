@@ -263,7 +263,7 @@ Every game, old or modern, is taught by a character at the moment it first appea
 - **Hints from the teacher.** An optional hint button where the teacher suggests an action in one line, built on the engine's existing advice code. On by default at Story level, off at Gambler level.
 - **Your hand, explained.** A small label always shows your current best hand (and your best low, in split games).
 - **Showdown summary.** After each hand, one line: who won, with what, and why it beat yours.
-- **Practice is replay.** Any finished chapter can be replayed, and its games played in Free Play with that chapter's characters, with chips that reset.
+- **Practice is replay.** Any finished chapter can be replayed, and its games played in Free Play (the game's "Practice any game") with that chapter's characters, with chips that reset.
 
 ### Where every RSDP Live game is taught
 
@@ -289,7 +289,7 @@ The story runs in a straight line, one chapter unlocking the next, and every cha
 1. **The River (1836)** is open from the start and teaches the basics.
 1. Winning it unlocks **The Painted Deck (1543)**, then **The North Road (1763)**.
 1. Finishing both flashbacks returns the story to the Averys and unlocks **The Camp (1863)**, then **The Last Hand (1876)**.
-1. Finishing the finale unlocks the bonus, **The Gaming House (1817)**, and **Free Play**.
+1. Finishing the finale unlocks the bonus, **The Gaming House (1817)**. **Free Play** is open from the start (John agreed, 2026-11-21), so friends can go straight to the game they want to learn.
   In the later release, finishing Part One unlocks **Part Two**, played in order from The Back Room (1926) to the Epilogue, The Kitchen Table.
 
 ### How a chapter plays
@@ -304,7 +304,7 @@ The story runs in a straight line, one chapter unlocking the next, and every cha
 - **Keepsake cards.** Beating a rival adds a painted portrait card of them to the deck's case. The case is the chapter select screen; empty slots show which chapters remain.
 - **Almanac.** Each chapter's history notes and rules are collected in a book the player can browse, with a short "how this game led to poker" line per era.
 - **Difficulty.** Two levels: Story (bots make more mistakes, hints on) and Gambler (sharper bots, no hints).
-- **Free Play.** Any unlocked game against any unlocked characters, for practice or fun.
+- **Free Play** ("Practice any game"). Any game, open from the start, against the characters of the chapter that teaches it, for practice or fun. Nobody is knocked out and nothing is saved (John agreed, 2026-11-21).
 - **Saving.** Progress, keepsakes and settings save in the browser automatically. There are no accounts; clearing the browser's data resets it.
 
 ## Art and UI direction

@@ -7,7 +7,7 @@
  * from green) are painted (docs/ART.md).
  */
 import { PRIMERO_ID } from '../games/primero';
-import { cutout, lines, rival, say } from './cast';
+import { cutout, lines, music, rival, say } from './cast';
 import type { Chapter } from './types';
 
 const art = (file: string) => `${import.meta.env.BASE_URL}art/painted-deck/${file}`;
@@ -151,6 +151,7 @@ export const PAINTED_DECK: Chapter = {
   nemesisId: 'margery',
   narratorId: 'anselm',
   scene: {
+    music: music('painted-deck'),
     background: art('background.webp'),
     tableFront: art('table-front.webp'),
     title: art('title.webp'),

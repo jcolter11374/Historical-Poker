@@ -69,6 +69,8 @@ export interface GameDef {
   drawRule?(cards: Card[], discard: number[]): string | null;
   /** Draw games with a table rule: how many may be thrown, in words ("up to three, or four if you keep an ace"). */
   drawLimitWords?: string;
+  /** The name in the practice list, when the table name alone would repeat another game's ("Razz, 1926 rules"). */
+  practiceName?: string;
   /** One of the historical games (their names don't carry the betting). */
   historical?: boolean;
   /** Relative cost of valuing a hand by simulation (Omaha with many cards is slow); bots run fewer trials. */
@@ -412,7 +414,7 @@ const OPEN_BASE: Record<string, VariantId> = { [STUD_1926]: 'stud', [RAZZ_1926]:
 
 function openStud(id: string, extra: Pick<GameDef, 'name' | 'card'>): GameDef {
   const base = OPEN_BASE[id];
-  return { ...engineGame(base, extra), id, spec: { ...VARIANTS[base], id }, forced: 'stud-open', historical: true };
+  return { ...engineGame(base, extra), practiceName: `${extra.name}, 1926 rules`, id, spec: { ...VARIANTS[base], id }, forced: 'stud-open', historical: true };
 }
 
 const openStuds: GameDef[] = [
@@ -523,8 +525,11 @@ export function highDrawDiscards(cards: Card[], max: number): number[] {
   if (four) return cards.map((_, i) => i).filter((i) => !four.includes(i));
   const order = '23456789TJQKA';
   const top = cards.reduce((a, _, i) => (order.indexOf(cards[i][0]) > order.indexOf(cards[a][0]) ? i : a), 0);
-  const throwAll = cards.map((_, i) => i).filter((i) => i !== top);
-  // Keeping an ace, draw four; otherwise draw three. (Drawing all five is legal in 1876, and a beginner's mistake.)
+  // Throw the lowest first, so a three-card limit keeps the two highest.
+  const throwAll = cards
+    .map((_, i) => i)
+    .filter((i) => i !== top)
+    .sort((a, b) => order.indexOf(cards[a][0]) - order.indexOf(cards[b][0]));
   return throwAll.slice(0, cards[top][0] === 'A' ? Math.min(4, max) : Math.min(3, max));
 }
 

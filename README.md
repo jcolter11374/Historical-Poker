@@ -2,7 +2,7 @@
 
 A single-player card game that tells the history of poker, one chapter per era. You follow one heirloom deck, the Ashcombe deck, from table to table: a Mississippi steamboat in 1836, then flashbacks to a Tudor hall and a coaching inn, forward to a Civil War camp and a Deadwood saloon, and on through a Chicago speakeasy, Las Vegas, Paris, Atlantic City, the online boom, an English card room and Macau, to a kitchen table today. It teaches every game RSDP Live offers inside the story, so friends can learn one here before playing it for money. Each chapter is played with the poker of its time, against painted rivals with their own personalities and tells.
 
-**All fourteen chapters are built and playable.** Chapter 1, "The River", has its painted art; the others use placeholders drawn in code until their art is made. The whole game is designed in [docs/GAME_OUTLINE.md](docs/GAME_OUTLINE.md); what's built and what's next is in [docs/ROADMAP.md](docs/ROADMAP.md).
+**All fourteen chapters are built and playable.** Chapters 1 to 4 have their painted art and chapter 5 some of it; the others use placeholders drawn in code until their art is made. Every chapter has its own original music. The whole game is designed in [docs/GAME_OUTLINE.md](docs/GAME_OUTLINE.md); what's built and what's next is in [docs/ROADMAP.md](docs/ROADMAP.md).
 
 It runs entirely in the browser: no server, no accounts. Progress is saved in the browser's local storage. It is hosted for free on GitHub Pages.
 
@@ -28,6 +28,7 @@ For looking things up:
 | Know why something is the way it is | [docs/DECISIONS.md](docs/DECISIONS.md) |
 | Check a history fact, or add one with its source | [docs/HISTORY_SOURCES.md](docs/HISTORY_SOURCES.md) |
 | Understand or update the copied RSDP engine | [docs/ENGINE.md](docs/ENGINE.md) |
+| Change a chapter's music | [docs/MUSIC.md](docs/MUSIC.md) |
 | See the software, fonts and art this uses | [docs/CREDITS.md](docs/CREDITS.md) |
 | Know the rules AI coding sessions follow | [CLAUDE.md](CLAUDE.md) |
 
@@ -48,14 +49,16 @@ npm run test:engine  # the copied RSDP engine's own tests
 
 ```
 packages/engine   The RSDP Live poker engine, copied unchanged (docs/ENGINE.md).
-src/games         The game catalog: every game's rules card, and the historical games' rules.
+src/games         The game catalog: every game's rules card and teaching guide, and the historical games' rules.
 src/table         The table between hands: seats, money, stages, stakes, story beats, win/loss.
 src/bots          How rivals decide: hand strength by simulation, plus a personality.
 src/chapters      One file per chapter: story, stages, lessons, characters; index.ts sets the order.
+src/practice      Practice mode: any game outside the story, built from the chapters.
 src/progress      Saved progress (chapters won, hints on or off).
 src/ui            React screens: chapter select, intro, table, ending, rules sheet.
 public/art        Game-ready art, one folder per chapter.
-tools             Scripts that turn original art into game art (docs/ART.md).
+public/music      Each chapter's music loop (docs/MUSIC.md).
+tools             Scripts that turn original art into game art (docs/ART.md), and tools/music, which writes the music.
 test              Unit tests and whole-game simulations.
 ```
 

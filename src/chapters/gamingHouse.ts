@@ -4,7 +4,7 @@
  * deck. (docs/GAME_OUTLINE.md, "Bonus".) Poque's rules are a reconstruction.
  */
 import { POQUE_ID } from '../games/poque';
-import { lines, rival, say } from './cast';
+import { lines, music, rival, say } from './cast';
 import type { Chapter } from './types';
 
 export const GAMING_HOUSE: Chapter = {
@@ -127,7 +127,7 @@ export const GAMING_HOUSE: Chapter = {
   ],
   nemesisId: 'elodie',
   narratorId: 'elodie',
-  scene: { palette: { wall: '#1c120f', light: '#f2a65a', felt: '#2a4a3a', rim: '#9a7a3a' } },
+  scene: { music: music('gaming-house'), palette: { wall: '#1c120f', light: '#f2a65a', felt: '#2a4a3a', rim: '#9a7a3a' } },
   playerPlate: { x: 800, y: 760 },
   keepsake: { name: 'Madame Élodie Fontaine', line: 'The Gaming House, 1817. She read everyone but her niece.' },
   story: {

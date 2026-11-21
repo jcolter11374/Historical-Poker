@@ -39,7 +39,7 @@ You play **Kit Avery**, a young traveler on the steamboat *Magnolia Queen* (fict
 
 ### The family lines
 
-Every chapter's player is an Avery, and the dates have to allow it. This is the tree the script follows (birth years are a guide for writing, not shown in the game). Checked end to end on 2026-11-21; keep new story text consistent with it.
+Every chapter's player is an Avery, and the dates have to allow it. This is the tree the script follows (John agreed, 2026-11-21). Birth years are a guide for writing and are not shown in the game. Keep new story text consistent with it.
 
 | Who | Born about | Chapter | Relation |
 | --- | --- | --- | --- |

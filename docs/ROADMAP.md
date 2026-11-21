@@ -28,8 +28,10 @@ Done:
 - [x] Phones and tablets: played sideways, with enlarged words and chips on small screens, a "turn sideways" card, and home-screen full screen (2026-11-20).
 - [x] Practice: any game, on its own, against the chapter's rivals, with its teacher's lesson and hints, never ending and never saved (2026-11-21). This is the outline's Free Play.
 - [x] Bots that read the betting, size you up over the evening (the sharp ones), and go on tilt (the hot-headed ones); a bot lab to measure them (2026-11-20).
+- [x] Math Mode, first version (2026-11-21): a switch, off by default, that asks young players sums from the hand being played: counting outs as a fraction of the unseen cards, and "is this call a good deal?" (pot odds). Stars for right answers (GAME_DESIGN.md, "Math Mode").
 
 To do:
+- [ ] **Math Mode, next ideas** (not agreed in detail yet): a chance meter (your chance as a fraction, a percent and a pie, guess first); chip math (making change, splitting a pot, odd chips as remainders); easy, medium and hard levels (for example the fraction shown for you on easy, typed answers on hard); outs in draw games and low games; a separate "Math Table" on the chapter list; play-testing with children for wording and reading level.
 - [ ] **Art** for chapters 2 to 12 and the epilogue, and the rest of chapter 1 ([ART.md](ART.md), "Art needed, per chapter").
 - [ ] **Play-testing** every chapter: length, stakes, bot difficulty, and lesson wording.
 - [ ] Story choices made while building that John should confirm ([DECISIONS.md](DECISIONS.md), 2026-11-20 entries).

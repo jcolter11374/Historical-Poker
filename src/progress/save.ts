@@ -20,9 +20,13 @@ export interface Progress {
   sound: boolean;
   /** Music, where a chapter has some (on by default). */
   music: boolean;
+  /** Math Mode: sums at the table for young players (off by default). See src/math. */
+  math: boolean;
+  /** Stars earned for right answers in Math Mode. */
+  mathStars: number;
 }
 
-const empty = (): Progress => ({ version: VERSION, won: {}, played: {}, hints: true, sound: true, music: true });
+const empty = (): Progress => ({ version: VERSION, won: {}, played: {}, hints: true, sound: true, music: true, math: false, mathStars: 0 });
 
 /** Somewhere to keep progress. The browser's localStorage, or a stand-in in tests. */
 export interface Store {
@@ -73,9 +77,16 @@ export function setHints(p: Progress, hints: boolean, s: Store | null = store())
   return setOption(p, 'hints', hints, s);
 }
 
-/** Turns a setting (hints, sound, music) on or off and saves. */
-export function setOption(p: Progress, option: 'hints' | 'sound' | 'music', on: boolean, s: Store | null = store()): Progress {
+/** Turns a setting (hints, sound, music, Math Mode) on or off and saves. */
+export function setOption(p: Progress, option: 'hints' | 'sound' | 'music' | 'math', on: boolean, s: Store | null = store()): Progress {
   const next = { ...p, [option]: on };
+  saveProgress(next, s);
+  return next;
+}
+
+/** One more star for a right answer in Math Mode. */
+export function addMathStar(p: Progress, s: Store | null = store()): Progress {
+  const next = { ...p, mathStars: p.mathStars + 1 };
   saveProgress(next, s);
   return next;
 }

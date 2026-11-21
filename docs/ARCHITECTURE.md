@@ -21,7 +21,8 @@ How the code fits together. Read the README first.
 - **Bots** (`src/bots/`): `strength.ts` simulates the rest of the hand a few hundred times, for any game, to estimate how often a hand wins (its equity), weighting the deals by how believable each opponent's betting is; `personality.ts` turns equity and pot odds into fold, call or raise, shaped by the character's numbers (and their temper, if they're on tilt). The Session keeps what the bots remember: how often you bet tonight, who is on tilt (`pressureOn`, `credibility`, `checkTempers`). See GAME_DESIGN.md, "How the bots think".
 - **A chapter** (`src/chapters/<name>.ts`) is data: story text, stages and lessons, the three rivals (personality, tell, lines, art), story beats and the ending. `types.ts` documents every field; `cast.ts` has helpers so a chapter file stays short (`rival()`, `lines()`, `say()`, standard seat positions); `index.ts` is the order of chapters and the unlock rules.
 - **Practice** (`src/practice/index.ts`) builds the practice list from the chapters and turns a pick into an ordinary `Chapter` with `practice: true` (one stage, no story), so the same Session and table screen play it. The only change in the Session for practice: `inFinalStage()` is always false, so everyone buys back in and the table never ends. See GAME_DESIGN.md, "Practice".
-- **Progress** (`src/progress/save.ts`) is a small JSON object in local storage: chapters started and won, and the hints setting.
+- **Math Mode** (`src/math/index.ts`) makes sums for young players from what the player can already see: `outsQuestion()` counts the unseen cards that make a better kind of hand, `dealQuestion()` compares the pot with the price of a call. It has no React and changes nothing in the game. `TableScreen` builds the questions from the snapshot (and `session.teacherAdvice()` for the winning chance) once per decision, and `src/ui/MathStrip.tsx` shows them on the dialogue strip. See GAME_DESIGN.md, "Math Mode".
+- **Progress** (`src/progress/save.ts`) is a small JSON object in local storage: chapters started and won, the settings (hints, sound, music, Math Mode) and the Math Mode stars.
 - **The UI** (`src/ui/`) shows `session.snapshot()` and calls session methods. It never changes game state itself.
 - **Sound** (`src/ui/sound.ts`): sound effects made in code with the Web Audio API, and the music player, which loops each chapter's music file without a gap. The music itself is written in `tools/music/` ([MUSIC.md](MUSIC.md)). `src/ui/useTableFx.ts` compares each snapshot with the last and turns the difference into sounds and chips flying across the felt.
 
@@ -56,7 +57,7 @@ Everything is laid out on a fixed 1600 x 900 stage (`Stage.tsx`) that scales to 
 2. **Rivals**: each character's picture, from `art.place`. A character without art is a painted silhouette in their colour (`kind: 'placeholder'`).
 3. **Table front**: the table, drawn over the rivals so they sit behind it. A cut-out image, or a felt ellipse in the palette's colours.
 4. **On the felt**: name plates (with money, cards and hand names at showdown), the buck, the board or boards, the pot, the player's hand.
-5. **On top**: the game name and stage label, the corner links (rules, hint, sound, music, leave), dialogue (a hint adds a smaller reminder under it), chip controls, tells, chips in flight, the rules sheet.
+5. **On top**: the game name and stage label, the corner links (rules, hint, math, sound, music, leave), dialogue (a hint adds a smaller reminder under it; in Math Mode a sum takes the strip on the player's turn, and the deck is laid out over the felt after an outs answer), chip controls, tells, chips in flight, the rules sheet.
 
 ### The rules sheet
 
@@ -93,6 +94,7 @@ The Session keeps a queue of scene lines (`SceneLine`: who speaks and what). Whi
 - `test/practice.test.ts`: the practice list has every RSDP Live game, both Hold'em bettings, every historical game and the three mixed games; every practice table's teacher and speakers sit at it; each one plays hands with nobody knocked out and every dollar accounted for; the lesson checkbox; a broke player buys back in.
 - `test/session.test.ts`: many complete games of chapter 1 with seeded dealing (some calling out the dealer at random), checking every dollar after each hand.
 - `test/guide.test.ts`: every game has tips, mistakes and reminders that match its own betting rounds; every chapter has its own music loop, on disk and in `music.json`.
+- `test/math.test.ts`: Math Mode's sums: outs for flush and straight draws, board cards that help everyone, stud's face-up cards, Omaha's two-card rule, when no question is asked; the "good deal?" fractions and verdicts; the setting and stars being saved.
 - `test/story.test.ts`: chapter 1's story beats: the tutorial deal and tell, the stake, catching the cheat, a wrong accusation, the finale.
 - `test/bots.test.ts`: reading bets in the strength simulation, tilt, bluffing less into more players, rivals reading a player who always bets, reckless styles losing in chapters 1 and 4, Silas, Delphine and Ezra playing like themselves.
 - `test/play.ts` and `test/helpers.ts`: play a chapter with a simple player, clicking through scenes, checking money and summaries after every hand.

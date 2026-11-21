@@ -14,7 +14,7 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import { CHAPTERS, followingChapter, isUnlocked, nextChapter } from '../chapters';
 import type { Chapter } from '../chapters/types';
-import { loadProgress, record, resetProgress, setHints, setOption, type Progress } from '../progress/save';
+import { addMathStar, loadProgress, record, resetProgress, setHints, setOption, type Progress } from '../progress/save';
 import { practiceChapter, type PracticeGame } from '../practice';
 import { Session } from '../table/session';
 import { ChapterSelect } from './ChapterSelect';
@@ -99,6 +99,10 @@ export function App() {
           sound={progress.sound}
           onSound={(on) => setProgress(setOption(progress, 'sound', on))}
           musicLink={musicLink}
+          math={progress.math}
+          mathStars={progress.mathStars}
+          onMath={(on) => setProgress((p) => setOption(p, 'math', on))}
+          onMathStar={() => setProgress((p) => addMathStar(p))}
           onFinished={() => finished(screen.session)}
           onLeave={() => setScreen(screen.session.chapter.practice ? { name: 'practice' } : { name: 'select' })}
         />

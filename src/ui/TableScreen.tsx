@@ -10,11 +10,13 @@
  * shows session.snapshot() and calls session methods; `version` is bumped
  * after each call to re-render.
  */
-import { useEffect, useState, type CSSProperties, type ReactNode } from 'react';
+import { useEffect, useMemo, useState, type CSSProperties, type ReactNode } from 'react';
 import type { Action, LegalActions, SeatIndex } from '@rsdp/engine/core';
 import type { Character } from '../chapters/types';
 import { HUMAN, type SceneView, type Session, type Snapshot } from '../table/session';
 import { Card, type CardSize } from './Card';
+import { dealQuestion, outsQuestion, type MathQuestion } from '../math';
+import { MathStrip } from './MathStrip';
 import { PoweredBy } from './PoweredBy';
 import { RulesPanel } from './RulesPanel';
 import { Rival, SceneBack, SceneFront } from './Scene';
@@ -31,6 +33,10 @@ export function TableScreen({
   sound,
   onSound,
   musicLink,
+  math,
+  mathStars,
+  onMath,
+  onMathStar,
   onFinished,
   onLeave,
 }: {
@@ -40,6 +46,12 @@ export function TableScreen({
   onSound: (on: boolean) => void;
   /** The "Music on/off" link, owned by App (it also sits on the story screens). */
   musicLink: ReactNode;
+  /** Math Mode is on: sums about the hand while it is the player's turn (src/math). */
+  math: boolean;
+  mathStars: number;
+  onMath: (on: boolean) => void;
+  /** A right answer. */
+  onMathStar: () => void;
   onFinished: () => void;
   onLeave: () => void;
 }) {
@@ -119,6 +131,19 @@ export function TableScreen({
   const drawing = hand?.draw ?? null;
   const drawProblem = drawing ? session.drawProblem(selected) : null;
 
+  // Math Mode: the sums for this decision, worked out once when the turn comes round.
+  const legal = hand && !hand.complete && !snap.scene ? hand.legal : null;
+  const mathKey = math && legal ? `${snap.handNumber}/${hand!.street}/${hand!.pot}/${legal.callAmount}` : null;
+  const questions = useMemo<MathQuestion[]>(() => {
+    const h = session.snapshot().hand;
+    if (!mathKey || !h?.legal) return [];
+    const shown = Object.entries(h.players).flatMap(([seat, p]) => (Number(seat) === HUMAN ? [] : p.cards.filter((c): c is string => c !== null)));
+    const outs = h.boards.length > 1 ? null : outsQuestion({ game: session.currentGame, mine: h.myCards.map((c) => c.card), board: h.boards[0] ?? [], shown, street: h.street });
+    const advice = h.legal.canCheck || !h.legal.callAmount ? null : session.teacherAdvice();
+    const deal = advice ? dealQuestion(h.pot, h.legal.callAmount, advice.equity, (n) => session.money(n)) : null;
+    return [outs, deal].filter((q): q is MathQuestion => q !== null);
+  }, [session, mathKey]);
+
   return (
     <div className={`table-screen${flop ? ' table-flop' : ''}`}>
       <SceneBack scene={scene} />
@@ -148,6 +173,9 @@ export function TableScreen({
             Ask for a hint
           </button>
         )}
+        <button type="button" onClick={() => onMath(!math)} aria-pressed={math} title="Sums about your hand, for young players">
+          {math ? 'Math on' : 'Math off'}
+        </button>
         <button type="button" onClick={() => onSound(!sound)} aria-pressed={sound}>
           {sound ? 'Sound on' : 'Sound off'}
         </button>
@@ -212,6 +240,8 @@ export function TableScreen({
           <p>{line.name ? `“${line.text}”` : line.text}</p>
           {line.aside && <p className="aside">{line.aside}</p>}
         </div>
+      ) : questions.length ? (
+        <MathStrip key={mathKey} questions={questions} stars={mathStars} onStar={onMathStar} unit={snap.play.unit} money={money} />
       ) : (
         snap.speech &&
         speaker && (

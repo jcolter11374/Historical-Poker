@@ -105,7 +105,7 @@ export const BIG_O: Chapter = {
   ],
   recap: [
     'The Ashcombe deck was painted in Kent in 1543. It left England for America in 1763, and the Averys kept it for two and a half centuries.',
-    'In 2005, Jamie Avery beat Nate Crane on television with it. Now, by chance, the deck is back in England.',
+    'In 2005, Jamie Avery beat Nate Crane on television with it. Now Jamie’s niece Sophie has it and, by chance, the deck is back in England.',
   ],
   history: [
     'Five-card Omaha, “Big O”, spread through American card rooms from about 2008.',
@@ -204,7 +204,7 @@ export const BIG_O: Chapter = {
   },
   outro: {
     won: [
-      'Gaz pushes his last chips over and shakes his head, grinning. “Two hundred and fifty years in America, and the first night it’s back in England it cleans me out.”',
+      'Gaz pushes his last chips over and shakes his head, grinning. “Two hundred and fifty years in America, and the first time I sit down with it, it cleans me out.”',
       'He buys you a drink at the bar, and tells you about every big hand he has ever seen. It takes a while.',
     ],
     lost: [

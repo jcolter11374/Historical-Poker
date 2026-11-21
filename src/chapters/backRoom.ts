@@ -28,7 +28,7 @@ export const BACK_ROOM: Chapter = {
           lesson: {
             teacher: 'sal',
             before: [
-              say('sal', 'Seven-card stud, Miss Avery. It’s the coming game: two more cards than your grandmother’s, and a lot more to think about.'),
+              say('sal', 'Seven-card stud, Miss Avery. It’s the coming game: two more cards than your mother’s game, and a lot more to think about.'),
               say('sal', 'Everybody antes. You get two cards down and one up. Low card up has to bring it in, a small forced bet. Then betting.'),
               say('sal', 'Then three more cards up, one at a time, a bet after each. Then the last card face down. Best five of your seven wins.'),
               say('sal', 'It’s a limit game: bets come in fixed sizes. Ten a bet on the early streets, twenty later. Nobody gets pushed out by one big bet; you get bled slowly. I keep books, I know.'),

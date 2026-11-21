@@ -54,12 +54,12 @@ export const CAMP: Chapter = {
   levelLines: [say('narration', 'The rain stops. Somewhere a bugle sounds for no reason, and the bets get bigger.')],
   intro: [
     'November 22, 1863. Rain drums on the canvas of a lantern-lit tent outside Chattanooga. Tomorrow, the army attacks.',
-    'Kit Avery’s son Sam is a corporal now, and the Ashcombe deck rides in his knapsack, as it has all through the war. It was his father’s, and his father’s before that.',
+    'Twenty-seven years have passed since the Magnolia Queen. Kit Avery’s son Sam is a corporal now, and the Ashcombe deck rides in his knapsack, as it has all through the war. It was his father’s, and his father’s before that.',
     'It is payday. Sergeant Amos Reed has seen the old deck, and has heard the legend. Tonight, he wants it.',
   ],
   recap: [
     'The Ashcombe deck was painted in 1543 and won at Primero; it crossed to America in 1763 when Will Avery won his passage at Brag.',
-    'In 1836, Kit Avery won it back from the riverboat gambler Silas Crane, who had cheated Kit’s father out of it. Kit kept it the rest of his life.',
+    'In 1836, Kit Avery won it back from the riverboat gambler Silas Crane, who had cheated Kit’s father out of it. When the war came, he gave it to his son Sam to carry.',
   ],
   history: [
     'Five-card stud first appears in print in The American Hoyle of 1864, and was much played by soldiers on both sides of the Civil War.',

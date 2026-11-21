@@ -19,6 +19,7 @@ export const NORTH_ROAD: Chapter = {
   title: 'The North Road',
   year: 1763,
   place: 'The Pewter Lamb, Great North Road, England',
+  toldBy: 'Delphine’s tale',
   youAre: 'Will Avery, guard on the York stagecoach',
   teaches: 'Brag, the bluffing game of English inns',
   rulesObject: 'The tavern slate',
@@ -51,13 +52,13 @@ export const NORTH_ROAD: Chapter = {
   levelEvery: 10,
   levelLines: [say('narration', 'The snow piles against the windows. Hannah stokes the fire, and Captain Pike calls for higher stakes.')],
   intro: [
-    'January 1763. Snow has closed the Great North Road, and the York coach is stuck at the Pewter Lamb until it thaws.',
+    '“Now come forward two hundred years,” Delphine says, as the Magnolia Queen steams on. January 1763. Snow has closed the Great North Road, and the York coach is stuck at the Pewter Lamb until it thaws.',
     'The Ashcombe deck has passed down the Avery family for two hundred years. Now it rides in your coat: you, Will Avery, guard of the York coach and of the strongbox in its boot.',
     'A retired sea captain has heard of the lucky deck. He wants it for his voyage to the colonies. And the well-dressed stranger by the fire has asked about the strongbox twice.',
   ],
   recap: [
     'In 1836, Kit Avery won back the family’s old hand-painted deck from a riverboat gambler. Delphine Arceneaux is telling its story.',
-    'In 1543, Nan Avery won it at Primero from Lady Margery Ashcombe, who stamped “M.A. 1543” in its case and started a legend: whoever holds it never loses. The deck stayed with the Averys.',
+    'In 1543, Nan Avery won it at Primero from Lady Margery Ashcombe, who paid for it, gave it back with “M.A. 1543” written in its case, and started a legend: whoever holds it never loses.',
   ],
   history: [
     'Brag grew out of post and pair, a game recorded in the 1500s. English card books described it from 1721, with a wild card called a “bragger”: the jack of clubs, later joined by the nine of diamonds.',
@@ -192,6 +193,7 @@ export const NORTH_ROAD: Chapter = {
     won: [
       'Captain Pike roars with laughter and claps you on the back. “A captain’s word is good, lad. The Constance sails in March, and you’re on her.”',
       'In the spring of 1763, Will Avery and the Ashcombe deck cross the Atlantic. The Averys will be Americans now.',
+      'Delphine closes her fan. “And that is how an English deck came to an American river, darling. I have told you where it has been. Where it goes next is up to the Averys.”',
     ],
     lost: [
       'Your last shilling goes to the captain. He tucks the deck into his sea chest with a wink.',

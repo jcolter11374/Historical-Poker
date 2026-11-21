@@ -27,6 +27,12 @@ Each chapter's music (its own original tune, set in `scene.music`) is listed in 
 
 Every rival's personality numbers and tell chances are in the chapter file; the tables below give the character of each so you know what to expect. The numbers are explained in [GAME_DESIGN.md](GAME_DESIGN.md), "How the bots think".
 
+### Chapters that go back in time
+
+Play order is not date order in Part One: 1836, then 1543 and 1763, then 1863 and 1876, with the 1817 bonus last. The game makes that plain instead of hiding it. Chapters 2 and 3 and the bonus set `toldBy` ("Delphine's tale", "Delphine's own tale"), which is printed under the year on their card in the chapter select and on their intro screen; Part One's heading on the chapter select says "It opens in 1836, looks back to 1543, and goes on to 1876"; and the story text carries the frame: chapter 1's ending starts Delphine's telling, chapters 2 and 3 open and close on the riverboat with her, and chapter 4 opens "twenty-seven years" after the riverboat. Part Two runs in date order.
+
+Who is related to whom, with the dates that make it possible, is in [GAME_OUTLINE.md](GAME_OUTLINE.md), "The family lines". Check new story text against it.
+
 ## Part One
 
 ### 1. The River (1836), straight poker
@@ -40,7 +46,7 @@ Ashcombe Hall, Twelfth Night. Nan Avery plays Lady Margery for the deck Nan's fa
 - **Game:** Primero as reconstructed in `src/games/primero.ts` (40 cards, two down, bet, two down, bet, change up to two once, bet). Pot-limit, 2s unit, 100s each, stakes rise every 10 hands.
 - **Teacher:** Brother Anselm, before the first deal and on each street of the first hand.
 - **Cast:** Sir Roland (very loose, drains his cup before a bluff), Lady Margery (tight and strong, turns her signet ring when strong), Brother Anselm (careful, mutters a prayer when weak).
-- **Beats:** before hand 4 Roland wagers and loses his horse; before hand 7 Anselm talks about his abbey. Margery puts the deck on the table once Nan has won a few pots. Finale: Roland or Anselm bows out. Win: she has the case stamped "M.A. 1543".
+- **Beats:** before hand 4 Roland wagers and loses his horse; before hand 7 Anselm talks about his abbey. Margery puts the deck on the table once Nan has won a few pots. Finale: Roland or Anselm bows out. Win: she pays, gives the deck back to Nan, and writes "M.A. 1543" in its case. The intro opens, and the win ending closes, with Delphine telling the tale on the riverboat.
 
 ### 3. The North Road (1763), Brag
 
@@ -74,7 +80,7 @@ The Lucky Nugget, Deadwood. Clara Avery, Kit's granddaughter. The end of Part On
 Maison Fontaine, New Orleans. You play young Delphine, at her aunt's table.
 
 - **Game:** Poque as reconstructed in `src/games/poque.ts`: 32-card piquet deck, five cards each, one betting round, only fours, triplets, two pairs and pairs count. Pot-limit, $2 unit, $100 each. The payout board is not built.
-- **Teacher:** Henri Avery, Kit's grandfather.
+- **Teacher:** Henri Avery, Will's son and Kit's grandfather.
 - **Cast:** Henri (solid, hums when strong), Madame Élodie (tricky, fans her cards slowly when strong), Captain Lacroix (privateer, loose, laughs too loudly when bluffing).
 - **Beats:** Élodie has won the Ashcombe deck from Henri, and stakes it; Delphine wins it back for him. Finale: Henri or Lacroix bows out.
 

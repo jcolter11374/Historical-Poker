@@ -71,7 +71,7 @@ export const LAST_TABLE: Chapter = {
   levelLines: [say('narration', 'Midnight over the harbour. A host in a dark suit brings tea, and the limits go up.')],
   intro: [
     'Macau, today. On the top floor of a hotel over the harbour, a private room with one table, a dealer, and four chairs.',
-    'You are the last of the Averys to hold the Ashcombe deck. You have brought it because of an invitation from Victor Crane, the last of the Cranes: one game, every game, for the deck, and the end of the feud.',
+    'You are the latest of the Averys to hold the Ashcombe deck. You have brought it because of an invitation from Victor Crane, Nate’s uncle and, by his own account, the last Crane who still wants it: one game, every game, for the deck, and the end of the feud.',
     'He has asked a local legend, Mei Lin Chau, to sit in and explain each game. She has played every one of them, everywhere.',
   ],
   recap: [
@@ -115,7 +115,7 @@ export const LAST_TABLE: Chapter = {
         id: 'victor',
         name: 'Victor',
         fullName: 'Victor Crane',
-        role: 'The last of the Cranes',
+        role: 'The last Crane who still wants the deck',
         personality: { valueAt: 1.3, bluff: 0.2, caution: 0.0, betSize: 0.75, trap: 0.25, respect: 0.5, reads: 0.7, tilt: 0.1 },
         tell: { text: 'He straightens his cufflinks: little gold riverboats.', signals: 'bluffing', showsWhenTrue: 0.65, showsWhenFalse: 0.25 },
         lines: lines({

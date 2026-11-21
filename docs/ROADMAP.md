@@ -23,6 +23,7 @@ Done:
 - [x] Chapter 4's own art: the tent, Toby, Reed and Hattie cut out from green, and the title painting (2026-11-20).
 - [x] Chapter 5: the saloon background and Doc (2026-11-20); Ruby, Jasper and the title painting (2026-11-21). Chapters 1 to 5 are fully painted.
 - [x] The bonus chapter's own art: the salon, Henri, Madame Élodie and Captain Lacroix cut out from green, and the title painting (2026-11-21).
+- [x] Chapter 7's own art: the tournament room, Weiss, Tex and Lorraine cut out from green, and the title painting (2026-11-21).
 - [x] Motion: cards dealt from the dealer and turned over, chips sliding to the pot and to the winner (2026-11-20).
 - [x] Sound effects made in code, with on/off switches (2026-11-20).
 - [x] Chapter 8's own art: the Paris club room, the Comte Varenne, Siobhan and Dmitri cut out from green, and the title painting (2026-11-21).

@@ -152,7 +152,7 @@ A big card room in the English Midlands. Sophie Avery. Pounds ("£200").
 
 - **Stages:** hands 1 to 4, 5-Card Omaha; 5 to 8, 6-Card Omaha; from 9, "Last round: Hi-Lo", alternating 5-Card and 6-Card Omaha Hi-Lo two hands each. All pot-limit, all taught by Gaz. £4 unit, £200 each, rising every 6 hands.
 - **Cast:** Kerry-Ann Booth (loose, checks her phone when weak), Gaz Whitlock (a regular who has seen everything, goes quiet when strong), Mr. Okafor (tight, perfect chip towers when strong).
-- **Art:** the card room, Kerry-Ann, Gaz and Mr. Okafor are painted (docs/ART.md).
+- **Art:** fully painted: the card room, Kerry-Ann, Gaz, Mr. Okafor and the title painting (docs/ART.md).
 - **Beats:** the intro has the first warm word from a Crane: a handwritten note signed "E. Crane", sorry for the old letters and asking only to see the deck. Before hand 3 Gaz recognises the old deck; before hand 7 he sees Sophie reading the note and tells her to write back. Jamie gave Sophie the deck when she moved. Finale: Kerry-Ann or Okafor bows out.
 
 ### 12. The Last Table (today), HORSE then the 8-Game

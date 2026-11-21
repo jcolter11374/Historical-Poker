@@ -194,7 +194,7 @@ export const BIG_O: Chapter = {
   ]),
   nemesisId: 'gaz',
   narratorId: 'gaz',
-  scene: { music: music('big-o'), background: art('background.webp'), tableFront: art('table-front.webp'), palette: { wall: '#121418', light: '#f2e6c8', felt: '#1f4a3a', rim: '#2a2a2a' } },
+  scene: { music: music('big-o'), title: art('title.webp'), background: art('background.webp'), tableFront: art('table-front.webp'), palette: { wall: '#121418', light: '#f2e6c8', felt: '#1f4a3a', rim: '#2a2a2a' } },
   playerPlate: { x: 800, y: 760 },
   keepsake: { name: 'Gaz Whitlock', line: 'The Big O, 2019. He had seen everything, except you.' },
   story: {

@@ -106,7 +106,7 @@ Each chapter needs: a **background** (the empty room and table, first-person fro
 | 8 The Cercle | done | all done (four cards each; Siobhan is cut off at her waist; the table hides the rest) | plaques (rectangular chips) (title painting done: a Paris boulevard at night, the tower across the river) |
 | 9 The Boardwalk | done | all done | Delphine's diary (title painting done: the boardwalk at dusk) |
 | 10 The Boom | both done: the café's monitor with the online table on its screen, and the televised final table (red felt, black rail) | the three avatars done (shark, star, tiger cub); in person, all done (Nat Crane fixed by hand to two cards) | chat window, TV graphics (title painting done: the café and the TV stage side by side) |
-| 11 The Big O | done (rows of tables, a bar, waiting-list screens blurred by hand) | all done (five cards each) | modern chips |
+| 11 The Big O | done (rows of tables, a bar, waiting-list screens blurred by hand) | all done (five cards each) | modern chips (title painting done: the casino by a canal on a wet evening) |
 | 12 The Last Table | private room over Macau harbour at night: one table, city lights | Mei Lin Chau, Elena Crane (the love interest, a top pro), Victor Crane (riverboat cufflinks, now in the right seat) | the tablet menu, tea set |
 | Epilogue The Kitchen Table | a kitchen at night, the evening after a wedding: warm light, wedding cake, mismatched chips | Dee only: Victor and Elena reuse their chapter 12 pictures (Marcus and Priya speak but are not seen) | the full leather case on the counter |
 | The opening and the ending | nine paintings in the style of the title paintings, one per slide (three more are optional) | none | see [ART_PROMPTS.md](ART_PROMPTS.md), "The opening and the ending" |
@@ -117,7 +117,8 @@ The player is never shown, so no art is needed for the Averys. Faces on the chap
 
 - Background and table front: done. The image tool wrote fake lettering on the two waiting-list screens, so their insides are blurred by `big-o-fix.py` (in the project's art/layers/cleanup-scripts; the untouched picture is art/big-o-background-original.jpg). A first try, with a big blank wall over the left third, was not used.
 - Kerry-Ann, Gaz and Mr. Okafor: done, cut out from green, five cards each. Kerry-Ann's card backs came out old tan, copied from Jasper's picture, and were turned modern blue with `kerryann-fix.py` (it recolours warm pixels in the fan, skipping a traced outline of her hand). Gaz came with a table edge drawn under his arms, cut away with `gaz-fix.py`. Mr. Okafor's picture ends in a flat cut below the tie, which the table rim hides. Later prompts for this chapter ask for blue card backs and no table edge.
-- Screenshot: `docs/screenshots/chapter-11-table.jpg`.
+- Title painting: done, the casino beside a canal and old warehouses on a wet evening, with a red double-decker bus. The couple at the bottom right wear a cloche and a trilby, a little old-fashioned but worn in 2019 too, so they were kept. Chapter 11 is fully painted.
+- Screenshots: `docs/screenshots/chapter-11-table.jpg`, `chapter-11-intro.jpg`.
 
 ## Current state, chapter 10
 

@@ -117,8 +117,8 @@ The player is never shown, so no art is needed for the Averys. Faces on the chap
 
 Every rival must hold the number of cards their chapter's game deals (table at the top of ART_PROMPTS.md). Eight early pictures did not; status as of 2026-11-21, with the details in ART_PROMPTS.md, "Painted pictures to redo for card count":
 
-- Done: Silas (five, new picture), Sir Roland (four, new picture plus one card added by hand), Brother Anselm (four, one added by hand), Doc Whitcomb (five, one added by hand), Hattie (one hole card, the others painted out), Ruby (five: a new picture still had nine, so four were painted out by hand; it shows her lower, so its proportions changed, but she sits in the same place). Screenshots `docs/screenshots/chapter-1-silas-five-cards.jpg`, `chapter-2-card-counts.jpg`, `chapter-5-card-counts.jpg`.
-- Still to do, as new pictures: Toby and Sergeant Reed (fanned hands instead of one hole card).
+- Done: Silas (five, new picture), Sir Roland (four, new picture plus one card added by hand), Brother Anselm (four, one added by hand), Doc Whitcomb (five, one added by hand), Hattie (one hole card, the others painted out), Ruby (five: a new picture still had nine, so four were painted out by hand; it shows her lower, so its proportions changed, but she sits in the same place), Toby (one hole card, new picture; cropped at the waist to keep his old size). Screenshots `docs/screenshots/chapter-1-silas-five-cards.jpg`, `chapter-2-card-counts.jpg`, `chapter-4-card-counts.jpg`, `chapter-5-card-counts.jpg`.
+- Still to do, as a new picture: Sergeant Reed (a fan of four instead of one hole card).
 
 ## Current state, game-wide pictures
 

@@ -4,14 +4,14 @@ Copy-ready image prompts for every picture the game needs: each chapter's backgr
 
 ## How to use these
 
-1. **Attach one clean reference image** to every prompt, from the project's `art` folder. Never attach `art/style-target-riverboat.jpg`: it is a full game mockup with dialogue text, a lace fan and Fold/Call/Raise chips painted in, and the image tool copies those into new pictures (ghost fans, stray text, chips).
+1. **One picture at a time.** Each prompt is handed over together with its one reference picture, and the next one waits until that picture is checked and saved (the format John confirmed, 2026-11-21). **Attach one clean reference image** to every prompt, from the project's `art` folder. Never attach `art/style-target-riverboat.jpg`: it is a full game mockup with dialogue text, a lace fan and Fold/Call/Raise chips painted in, and the image tool copies those into new pictures (ghost fans, stray text, chips).
    - for a **character**: a finished character on flat green who holds the **same number of cards** as the prompt asks for, because the tool copies the reference's hand of cards whatever the words say:
      - five cards: `art/layers/jasper-green.jpg`;
      - two cards, or chapter 12's closed stack: `art/layers/tex-green.jpg`;
      - four cards: `art/layers/margery-green.jpg`; three cards: `art/layers/pike-green.jpg`;
      - one card (a redo of chapter 4): none exists yet, so use `art/layers/tex-green.jpg` and check the count;
-   - for an avatar or a prop: `art/layers/tex-green.jpg`;
-   - for a **background**: `art/layers/background-riverboat.jpg` (the style and the layout: table rim across the middle, wall above);
+   - for an **avatar**: `art/layers/deuceseven-avatar-green.jpg`, the finished first avatar, so the frames match. For a prop: `art/layers/tex-green.jpg`;
+   - for a **background**: `art/layers/background-clean-table.jpg`, a clean table with no wear (the style and the layout: table rim across the middle, wall above). It replaces the riverboat table, whose stains and scuffs were being copied;
    - for a **title painting** or a still life: `art/last-hand-title.jpg`, a finished title.
 
    Where a prompt says "the second attached image" (a family likeness, or the same person again), attach that picture second.
@@ -66,10 +66,10 @@ Already right: Delphine and Ezra (five), Lady Margery (four), and all of chapter
 **Checklist for a background**
 
 - No people and no chairs.
-- The table is an oval whose far rim curves across the middle of the picture, and the table fills the bottom half, edge to edge, as in the riverboat background. `prepare-art.py` cuts the table front along that curve, so a square or rectangular table won't work.
+- The table is an oval whose far rim curves across the middle of the picture, and the table fills the bottom half, edge to edge, as in `background-clean-table.jpg`. `prepare-art.py` cuts the table front along that curve, so a square or rectangular table won't work.
 - Nothing on the table.
 - The wall just above the far rim is fairly plain, because the three rivals are placed there.
-- The reference's wear is not copied. The riverboat table is stained and scuffed; a casino, a club or a TV studio (anything from the 1970s on) has clean, well-kept felt and an undamaged rim, and those prompts say so.
+- No wear the room wouldn't have. A casino, a club or a TV studio (anything from the 1970s on) has clean, well-kept felt and an undamaged rim, and those prompts say so.
 
 **Seats.** Each chapter has a rival on the left, one across, and one on the right. The prompts already say which way each one turns: the side players turn a little toward the middle of the table, the one across faces you.
 

@@ -8,7 +8,7 @@ John makes the art with an image tool from the prompts below. This page covers t
 
 The style target is John's painted riverboat scene: painted and hand-inked, worn textures, warm lamplight against blue moonlight. Every chapter matches its finish with its own era palette (see the outline's "Art and UI direction"). No boxes or panels in the UI: controls are chips on the table, dialogue is plain text on a shaded strip across the bottom.
 
-Attach one clean finished picture as the reference to every prompt, so the style stays the same: a finished character on green for characters, the riverboat background for backgrounds, a finished title for titles (the exact files are listed at the top of ART_PROMPTS.md). Do not attach `style-target-riverboat.jpg`: it is a full game mockup, and the image tool copies its dialogue text, fan and chips into new pictures.
+Attach one clean finished picture as the reference to every prompt, so the style stays the same: a finished character on green for characters, the clean table (`background-clean-table.jpg`) for backgrounds, a finished title for titles (the exact files are listed at the top of ART_PROMPTS.md). Do not attach `style-target-riverboat.jpg`: it is a full game mockup, and the image tool copies its dialogue text, fan and chips into new pictures.
 
 ## Layers
 

@@ -100,7 +100,7 @@ Each chapter needs: a **background** (the empty room and table, first-person fro
 | 3 The North Road | done | all done (one Sorrel, not masked) | Georgian cards, coins, the coach's strongbox (title painting done) |
 | 4 The Camp | done | all done (Toby is cut off at the chest; the table hides the rest) | greenbacks, the silver presentation watch (title painting done) |
 | 5 The Last Hand | done | all done | gold-dust pouch, 1870s indexed cards; an epilogue painting of the full case (title painting done: Deadwood's main street) |
-| Bonus The Gaming House | New Orleans gaming house: candlelight, iron balconies | Madame Élodie Fontaine, Henri Avery, Captain Lacroix | piquet cards, Spanish silver, a payout board |
+| Bonus The Gaming House | done (a salon with a red table, a chandelier and an open balcony door) | all done | piquet cards, Spanish silver, a payout board (title painting done: a French Quarter street at night) |
 | 6 The Back Room | done | all done (Nora is cut off at her waistband, Gus above his lap; the table hides the rest) | a matchbook, chips in a flowerpot (title painting done: the florist's shop in the rain) |
 | 7 The Desert Classic | done | all done (Weiss's lap and Lorraine's knee are cut away; the table hides the cuts) | clay chips, a tournament program (title painting done: the strip at dusk) |
 | 8 The Cercle | done | all done (four cards each; Siobhan is cut off at her waist; the table hides the rest) | plaques (rectangular chips) (title painting done: a Paris boulevard at night, the tower across the river) |
@@ -117,6 +117,12 @@ The player is never shown, so no art is needed for the Averys. Faces on the chap
 - Café background and table front, the three avatars, the final table background and table front, DeuceSeven in person: done. Nothing needed cleaning up: no lettering or stray marks in any of the six.
 - The café picture differs from its prompt in two ways that were kept: the table on the screen is cut off by the monitor frame at the sides, and its rim is brown wood, not a dark rail. Seats, cards, the board and the pot all sit on it (screenshot: `docs/screenshots/chapter-10-table.jpg`).
 - Still to make: Nate Crane and Hanbit in person (silhouettes at the final table until then; screenshot `docs/screenshots/chapter-10-final-table.jpg`), and the title painting (the intro shows the café until then).
+
+## Current state, bonus chapter (The Gaming House)
+
+- Background, table front and title painting: done (2026-11-21).
+- Henri Avery, Madame Élodie and Captain Lacroix: done, cut out from green, each holding five cards (Poque deals five).
+- Cleanups after the cutout, in pixels of the 2752 x 1536 originals: both men were painted on a chair with their legs showing, so the chair is cut away along the coat's ink outline and everything from y = 1440 down is removed (the table hides it), along with Henri's raised knee. A brownish blotch in the green beside Henri went by keeping only the largest connected piece. Élodie's picture had a ghostly lace fan floating beside her head, which is removed; the two teal gems in her comb are kept solid so the key leaves no holes. The script is kept with the originals as `gaming-house-fix.py`.
 
 ## Current state, chapter 1
 

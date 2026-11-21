@@ -2,10 +2,15 @@
  * Bonus chapter, "The Gaming House": Poque at Maison Fontaine, New Orleans,
  * 1817. Unlocks after the Part One finale and answers how Delphine knows the
  * deck. (docs/GAME_OUTLINE.md, "Bonus".) Poque's rules are a reconstruction.
+ *
+ * Art: the salon, the title painting and the three rivals (cut out from
+ * pictures painted on green) are in public/art/gaming-house/.
  */
 import { POQUE_ID } from '../games/poque';
-import { lines, music, rival, say } from './cast';
+import { cutout, lines, music, rival, say } from './cast';
 import type { Chapter } from './types';
+
+const art = (file: string) => `${import.meta.env.BASE_URL}art/gaming-house/${file}`;
 
 export const GAMING_HOUSE: Chapter = {
   id: 'gaming-house',
@@ -65,70 +70,85 @@ export const GAMING_HOUSE: Chapter = {
     'Your aunt holds the Avery deck. Take her last dollar and it is yours to give back.',
   ],
   rivals: [
-    rival(
-      {
-        id: 'henri',
-        name: 'Henri',
-        fullName: 'Henri Avery',
-        role: 'Kit’s grandfather, an American with one thing left to lose',
-        personality: { valueAt: 1.5, bluff: 0.08, caution: 0.03, betSize: 0.6, respect: 0.7, reads: 0.5, tilt: 0.1 },
-        tell: { text: 'He hums an old tune under his breath.', signals: 'strong', showsWhenTrue: 0.65, showsWhenFalse: 0.12 },
-        lines: lines({
-          bet: ['Je poque, as they say.', 'A wager, then.'],
-          call: ['I’ll see it.', 'Why not.'],
-          fold: ['Not this time.', 'Too rich for an American.'],
-          check: ['I’ll wait.'],
-          win: ['Ah! Luck returns.', 'Merci, merci.'],
-          bust: 'Well. That is everything, truly. Good night, mesdames, messieurs.',
-        }),
-      },
-      'left',
-      '#3a4a5a',
-    ),
-    rival(
-      {
-        id: 'elodie',
-        name: 'Madame Élodie',
-        fullName: 'Madame Élodie Fontaine',
-        role: 'Owner of the house, Delphine’s aunt, who reads everyone',
-        personality: { valueAt: 1.45, bluff: 0.12, caution: 0.04, betSize: 0.7, trap: 0.4, respect: 0.6, reads: 1 },
-        tell: { text: 'She fans her cards slowly open.', signals: 'strong', showsWhenTrue: 0.55, showsWhenFalse: 0.2 },
-        lines: lines({
-          bet: ['Je poque.', 'Shall we, chérie?', 'Double, I think.'],
-          call: ['I see it.', 'Bien.'],
-          fold: ['Non.', 'Take it, child.'],
-          check: ['Passe.'],
-          win: ['The house thanks you.', 'Patience, chérie. Always patience.'],
-          bust: 'My own niece. I taught you too well. Bravo, chérie.',
-        }),
-      },
-      'across',
-      '#5a1f3a',
-    ),
-    rival(
-      {
-        id: 'lacroix',
-        name: 'Lacroix',
-        fullName: 'Captain Jean-Baptiste Lacroix',
-        role: 'A privateer spending his prize money fast',
-        personality: { valueAt: 1.15, bluff: 0.3, caution: -0.06, betSize: 0.85, respect: 0.25, reads: 0.2, tilt: 0.12 },
-        tell: { text: 'He laughs, a little too loudly.', signals: 'bluffing', showsWhenTrue: 0.7, showsWhenFalse: 0.2 },
-        lines: lines({
-          bet: ['Ha! Je poque! Double!', 'Spanish silver, and plenty of it!', 'Raise, by the Gulf!'],
-          call: ['I see you, madame.', 'Call!'],
-          fold: ['Bah!', 'A storm. I run for port.'],
-          check: ['I wait, for once.'],
-          win: ['A prize! Another prize!', 'Ha ha!'],
-          bust: 'Out of silver! To sea again, then. There is always another Spanish ship.',
-        }),
-      },
-      'right',
-      '#2a4a4a',
-    ),
+    {
+      ...rival(
+        {
+          id: 'henri',
+          name: 'Henri',
+          fullName: 'Henri Avery',
+          role: 'Kit’s grandfather, an American with one thing left to lose',
+          personality: { valueAt: 1.5, bluff: 0.08, caution: 0.03, betSize: 0.6, respect: 0.7, reads: 0.5, tilt: 0.1 },
+          tell: { text: 'He hums an old tune under his breath.', signals: 'strong', showsWhenTrue: 0.65, showsWhenFalse: 0.12 },
+          lines: lines({
+            bet: ['Je poque, as they say.', 'A wager, then.'],
+            call: ['I’ll see it.', 'Why not.'],
+            fold: ['Not this time.', 'Too rich for an American.'],
+            check: ['I’ll wait.'],
+            win: ['Ah! Luck returns.', 'Merci, merci.'],
+            bust: 'Well. That is everything, truly. Good night, mesdames, messieurs.',
+          }),
+        },
+        'left',
+        '#3a4a5a',
+      ),
+      art: cutout(art('henri.webp'), 1.2078, { x: 330, bottom: 560, height: 420 }),
+    },
+    {
+      ...rival(
+        {
+          id: 'elodie',
+          name: 'Madame Élodie',
+          fullName: 'Madame Élodie Fontaine',
+          role: 'Owner of the house, Delphine’s aunt, who reads everyone',
+          personality: { valueAt: 1.45, bluff: 0.12, caution: 0.04, betSize: 0.7, trap: 0.4, respect: 0.6, reads: 1 },
+          tell: { text: 'She fans her cards slowly open.', signals: 'strong', showsWhenTrue: 0.55, showsWhenFalse: 0.2 },
+          lines: lines({
+            bet: ['Je poque.', 'Shall we, chérie?', 'Double, I think.'],
+            call: ['I see it.', 'Bien.'],
+            fold: ['Non.', 'Take it, child.'],
+            check: ['Passe.'],
+            win: ['The house thanks you.', 'Patience, chérie. Always patience.'],
+            bust: 'My own niece. I taught you too well. Bravo, chérie.',
+          }),
+        },
+        'across',
+        '#5a1f3a',
+      ),
+      art: cutout(art('elodie.webp'), 0.7156, { x: 800, bottom: 560, height: 500 }),
+    },
+    {
+      ...rival(
+        {
+          id: 'lacroix',
+          name: 'Lacroix',
+          fullName: 'Captain Jean-Baptiste Lacroix',
+          role: 'A privateer spending his prize money fast',
+          personality: { valueAt: 1.15, bluff: 0.3, caution: -0.06, betSize: 0.85, respect: 0.25, reads: 0.2, tilt: 0.12 },
+          tell: { text: 'He laughs, a little too loudly.', signals: 'bluffing', showsWhenTrue: 0.7, showsWhenFalse: 0.2 },
+          lines: lines({
+            bet: ['Ha! Je poque! Double!', 'Spanish silver, and plenty of it!', 'Raise, by the Gulf!'],
+            call: ['I see you, madame.', 'Call!'],
+            fold: ['Bah!', 'A storm. I run for port.'],
+            check: ['I wait, for once.'],
+            win: ['A prize! Another prize!', 'Ha ha!'],
+            bust: 'Out of silver! To sea again, then. There is always another Spanish ship.',
+          }),
+        },
+        'right',
+        '#2a4a4a',
+      ),
+      art: cutout(art('lacroix.webp'), 1.3211, { x: 1270, bottom: 560, height: 440 }),
+    },
   ],
   nemesisId: 'elodie',
   narratorId: 'elodie',
-  scene: { music: music('gaming-house'), palette: { wall: '#1c120f', light: '#f2a65a', felt: '#2a4a3a', rim: '#9a7a3a' } },
+  scene: {
+    music: music('gaming-house'),
+    background: art('background.webp'),
+    tableFront: art('table-front.webp'),
+    title: art('title.webp'),
+    palette: { wall: '#1c120f', light: '#f2a65a', felt: '#2a4a3a', rim: '#9a7a3a' },
+  },
   playerPlate: { x: 800, y: 760 },
   keepsake: { name: 'Madame Élodie Fontaine', line: 'The Gaming House, 1817. She read everyone but her niece.' },
   story: {

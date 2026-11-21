@@ -66,3 +66,16 @@ export function engineBetting(betting: Betting): BettingKind {
 export function spreadLimit(unit: number, limitUnits = 5): number {
   return unit * limitUnits;
 }
+
+/**
+ * Pot limit: the sum behind the biggest bet or raise allowed, in words, so
+ * "raise to 70" with 30 in the pot makes sense. Null when the limit is not
+ * the pot (your purse is smaller, or the pot is below the smallest bet).
+ */
+export function potLimitWords(legal: { canRaise: boolean; callAmount: number; maxTo: number }, pot: number, myBet: number, money: (n: number) => string): string | null {
+  if (!legal.canRaise) return null;
+  const call = legal.callAmount;
+  if (legal.maxTo !== myBet + call + pot + call) return null;
+  if (!call) return myBet ? `Pot limit: the pot is ${money(pot)}, so you can raise by ${money(pot)}, to ${money(legal.maxTo)}.` : `Pot limit: the pot is ${money(pot)}, so you can bet up to ${money(legal.maxTo)}.`;
+  return `Pot limit: pot ${money(pot)} + your call ${money(call)} = ${money(pot + call)}, so you can raise by ${money(pot + call)}, to ${money(legal.maxTo)}.`;
+}

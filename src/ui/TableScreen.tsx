@@ -22,6 +22,7 @@ import { RulesPanel } from './RulesPanel';
 import { Rival, SceneBack, SceneFront } from './Scene';
 import { playMusic } from './sound';
 import { useCompact } from './Stage';
+import { potLimitWords } from '../table/stakes';
 import { PLAYER_SPOT, potSpot, seatSpot, useTableFx, type Flight, type Point } from './useTableFx';
 
 /** How long a rival "thinks" before acting, in ms. */
@@ -74,7 +75,7 @@ export function TableScreen({
   const rivals = useMemo(() => (stage.seats ? chapter.rivals.map((c) => ({ ...c, ...stage.seats![c.id] })) : chapter.rivals), [chapter, stage]);
   const money = (n: number) => session.money(n);
   const compact = useCompact();
-  const flights = useTableFx(rivals, snap, compact, scene.pot);
+  const flights = useTableFx(rivals, snap, compact);
   // A stage with its own scene keeps the chapter's music unless it names its own.
   const music = stage.scene?.music ?? chapter.scene.music ?? null;
   useEffect(() => playMusic(music), [music]);
@@ -221,7 +222,7 @@ export function TableScreen({
       )}
 
       {hand && !hand.complete && (
-        <div className="pot" style={{ left: potSpot(flop, compact, scene.pot).x, top: potSpot(flop, compact, scene.pot).y }}>
+        <div className="pot" style={{ left: potSpot(flop, compact).x, top: potSpot(flop, compact).y }}>
           <Coins key={hand.pot > 0 ? 'full' : 'empty'} />
           <div className="pot-amount">{money(hand.pot)}</div>
         </div>
@@ -278,7 +279,7 @@ export function TableScreen({
           </button>
         ) : (
           <>
-            {hand && !hand.complete && hand.legal && <ChipControls legal={hand.legal} pot={hand.pot} unit={snap.play.unit} money={money} onAct={act} />}
+            {hand && !hand.complete && hand.legal && <ChipControls legal={hand.legal} pot={hand.pot} unit={snap.play.unit} money={money} onAct={act} potLimit={snap.play.betting === 'pot-limit'} myBet={hand.players[HUMAN]?.bet ?? 0} />}
             {drawing && (
               <div className="draw-group">
                 <div className="draw-note">{drawProblem ?? (selected.length ? `Throw ${selected.length}, draw ${selected.length}.` : 'Pick cards to throw away, or keep them all.')}</div>
@@ -422,7 +423,7 @@ function ChipFlight({ flight }: { flight: Flight }) {
 
 function Coins() {
   return (
-    <svg width="150" height="44" viewBox="0 0 150 44" aria-hidden="true">
+    <svg width="122" height="44" viewBox="16 0 122 44" aria-hidden="true">
       {[0, 1, 2].map((i) => <ellipse key={`a${i}`} cx="40" cy={34 - i * 6} rx="22" ry="7" fill={i === 2 ? '#f4f1e6' : '#cfc9b8'} stroke="#6f6a5c" />)}
       {[0, 1, 2, 3].map((i) => <ellipse key={`b${i}`} cx="80" cy={36 - i * 6} rx="22" ry="7" fill={i === 3 ? '#f4f1e6' : '#cfc9b8'} stroke="#6f6a5c" />)}
       <ellipse cx="120" cy="36" rx="14" ry="5" fill="#e3b24c" stroke="#8a6420" />
@@ -533,7 +534,8 @@ function PlayerHand({
   );
 }
 
-function ChipControls({ legal, pot, unit, money, onAct }: { legal: LegalActions; pot: number; unit: number; money: (n: number) => string; onAct: (a: Action) => void }) {
+function ChipControls({ legal, pot, unit, money, onAct, potLimit, myBet }: { legal: LegalActions; pot: number; unit: number; money: (n: number) => string; onAct: (a: Action) => void; potLimit: boolean; myBet: number }) {
+  const limitNote = potLimit ? potLimitWords(legal, pot, myBet, money) : null;
   const [to, setTo] = useState(legal.minTo);
   // Reset the raise amount whenever the situation changes.
   useEffect(() => setTo(Math.min(legal.maxTo, Math.max(legal.minTo, Math.round(pot / 2)))), [legal.minTo, legal.maxTo, pot]);
@@ -542,6 +544,7 @@ function ChipControls({ legal, pot, unit, money, onAct }: { legal: LegalActions;
   const fixed = legal.minTo === legal.maxTo;
   return (
     <div className="chip-row">
+      {limitNote && <div className="limit-note">{limitNote}</div>}
       {legal.canFold && !legal.canCheck && (
         <button type="button" className="chip chip-fold" onClick={() => onAct({ type: 'fold' })}>
           Fold

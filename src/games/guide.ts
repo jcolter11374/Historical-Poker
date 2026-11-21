@@ -307,7 +307,7 @@ export function bettingWords(betting: Betting, forced: ForcedStyle, family: 'flo
   lines.push('On your turn: fold (give up the hand), check (pass, if nobody has bet), call (match the bet), or bet and raise.');
   if (betting === 'no-limit') lines.push(historical ? 'Table stakes: you may bet any amount up to all the money in front of you. A raise must be at least as big as the last bet or raise.' : 'No limit: you may bet any amount up to all your chips. A raise must be at least as big as the last bet or raise.');
   else if (betting === 'spread-limit') lines.push('The table’s limit: a bet or raise may be any amount up to the limit the table has agreed, and no more. There is no end to the number of raises.');
-  else if (betting === 'pot-limit') lines.push('Pot limit: the most you may bet is what’s in the pot. To raise the most, call first, then raise the size of the pot.');
+  else if (betting === 'pot-limit') lines.push('Pot limit: the most you may bet is what’s in the pot. To raise the most, call first, then raise by the size of the pot with your call in it: with 30 in the pot and 20 to call, that is 30 + 20 = 50 more, a raise to 70. The table shows this sum above your chips.');
   else
     lines.push(
       family === 'flop'

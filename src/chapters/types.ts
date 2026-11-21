@@ -192,12 +192,6 @@ export interface ChapterScene {
   title?: string;
   palette: Palette;
   /**
-   * Where the pot sits in flop games, in stage pixels, when the usual spot
-   * (between the left and middle seats) is taken: the Boom's online table,
-   * where the seats sit close together on a monitor.
-   */
-  pot?: { x: number; y: number };
-  /**
    * Music that loops while at this table: `music('<chapter-id>')` from
    * cast.ts, a file in public/music/ listed in src/ui/music.json. The loops
    * are written in tools/music/ (docs/MUSIC.md). A stage's scene without

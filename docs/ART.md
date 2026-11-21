@@ -69,7 +69,7 @@ Every chapter is playable with no art at all:
 
 ## RSDP Live logo
 
-The RSDP Live credit in the top right corner (`src/ui/PoweredBy.tsx`) is RSDP Live's "RSDP Live!" wordmark on its own: "RSDP" in off-white, "Live!" in red italic, as at the top of RSDP Live's home page. John chose this over the red chip icon with "Powered by" text. It links to RSDP Live, and its hover text and alt text say "Powered by RSDP Live".
+The RSDP Live credit in the top right corner (`src/ui/PoweredBy.tsx`) reads "Powered by" in small plain text, then RSDP Live's "RSDP Live!" wordmark: "RSDP" in off-white, "Live!" in red italic, as at the top of RSDP Live's home page. John chose the wordmark over the red chip icon. It links to RSDP Live.
 
 The file is `public/brand/rsdp-live-wordmark.svg`, drawn by `tools/make-rsdp-wordmark.cjs` to match RSDP Live's `.logo` style (Inter Black, #eef1f4 and #ef5a4c), with the letters as outlines so it needs no font. If RSDP Live's logo ever changes, re-run the script (instructions are at the top of it). Never edit the RSDP Live repo from here. Keep the credit small: it is a credit, not a banner.
 

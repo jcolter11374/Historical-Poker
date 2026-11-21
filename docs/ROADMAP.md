@@ -21,10 +21,10 @@ Done:
 - [x] Chapter 2's own art: the great hall, Margery, Roland and Anselm cut out from green, and the title painting (2026-11-20).
 - [x] Chapter 3's own art: the Pewter Lamb's taproom, Hannah, Pike and Sorrel cut out from green, and the title painting (2026-11-20).
 - [x] Chapter 4's own art: the tent, Toby, Reed and Hattie cut out from green, and the title painting (2026-11-20).
-- [x] Chapter 6's own art: the back room, Sal, Nora and Gus cut out from green, and the title painting (2026-11-21).
 - [x] Chapter 5: the saloon background and Doc (2026-11-20). Ruby, Jasper and the title painting are still placeholders; art paused here at John's request.
 - [x] Motion: cards dealt from the dealer and turned over, chips sliding to the pot and to the winner (2026-11-20).
 - [x] Sound effects made in code, with on/off switches (2026-11-20).
+- [x] Chapter 6's own art: the back room, Sal, Nora and Gus cut out from green, and the title painting (2026-11-21).
 - [x] Music: an original loop for every chapter, with Music on/off at the table and on the story screens ([MUSIC.md](MUSIC.md), 2026-11-21).
 - [x] Stronger teaching: the rules sheet in three pages (rules and betting, tips and easy mistakes, this chapter), and hints that name your hand, explain the pot odds and add a reminder for the game and round (2026-11-21).
 - [x] Phones and tablets: played sideways, with enlarged words and chips on small screens, a "turn sideways" card, and home-screen full screen (2026-11-20).

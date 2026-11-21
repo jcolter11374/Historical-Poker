@@ -35,7 +35,7 @@ How the code fits together. Read the README first.
 
 Everything is laid out on a fixed 1600 x 900 stage (`Stage.tsx`) that scales to fit the window, so positions in chapter files are plain stage pixels.
 
-**Small screens.** When the stage is drawn at less than 0.75 scale, `Stage` sets the CSS variable `--boost` (1 to 1.6) and the class `stage-compact`, and `useCompact()` returns true. The "Small screens" block at the end of `styles.css` enlarges words and controls by `--boost` with the CSS `scale` property, leaving the painting alone. A phone held upright gets the "turn sideways" card (`RotateHint`, shown by a CSS media query). `Stage` also undoes any scrolling a focused button causes (`unscroll`), since the stage is bigger than the window before it is scaled.
+**Small screens.** When the stage is drawn at less than 0.75 scale, `Stage` sets the CSS variable `--boost` (1 to 1.6) and the class `stage-compact`, and `useCompact()` returns true. The "Small screens" block at the end of `styles.css` enlarges words and controls by `--boost` with the CSS `scale` property, leaving the painting alone. A phone held upright gets the "turn sideways" card (`RotateHint`, shown by a CSS media query). `Stage` also undoes any scrolling a focused button causes (`unscroll`), since the stage is bigger than the window before it is scaled. The story screens' cards do scroll on a phone, so their buttons take focus with `ref={focusOnMount}` (no scrolling) instead of `autoFocus`.
 
 ## One hand, start to finish
 
@@ -53,7 +53,7 @@ Everything is laid out on a fixed 1600 x 900 stage (`Stage.tsx`) that scales to 
 1. **Background**: the room. A painting if the chapter has one (`scene.background`), else a placeholder drawn in code from the chapter's `palette`: a dark wall, lamp glow and grain.
 2. **Rivals**: each character's picture, from `art.place`. A character without art is a painted silhouette in their colour (`kind: 'placeholder'`).
 3. **Table front**: the table, drawn over the rivals so they sit behind it. A cut-out image, or a felt ellipse in the palette's colours.
-4. **On the felt**: name plates (with money, cards and hand names at showdown), the buck, the board or boards, the pot, the player's hand.
+4. **On the felt**: name plates (with money, cards and hand names at showdown), the buck, the board or boards, the pot, the player's hand. The felt is laid out for the hand on it (`snap.hand.family`), not for `snap.play`: between hands `play` is already the next game, which in a rotation can be another family. Likewise the Session describes a finished hand with that hand's own game (`handGame`), not the next one.
 5. **On top**: the game name and stage label, the corner links (rules, hint, sound, leave), dialogue, chip controls, tells, chips in flight, the rules sheet.
 
 ### Motion and sound
@@ -83,7 +83,7 @@ The Session keeps a queue of scene lines (`SceneLine`: who speaks and what). Whi
 - `test/straightPoker.test.ts`: chapter 1's deck and hand rankings.
 - `test/games.test.ts`: the other historical games' rankings, and every game in the catalog playing whole sittings at the table.
 - `test/chapters.test.ts`: every chapter's speakers, teachers and games exist; every RSDP Live game has a lesson; the unlock order; every chapter plays to an end and reaches its last stage.
-- `test/session.test.ts`: many complete games of chapter 1 with seeded dealing (some calling out the dealer at random), checking every dollar after each hand.
+- `test/session.test.ts`: many complete games of chapter 1 with seeded dealing (some calling out the dealer at random), checking every dollar after each hand; and a HORSE sitting checking that a finished hand is still described by its own game once the next game is set up.
 - `test/story.test.ts`: chapter 1's story beats: the tutorial deal and tell, the stake, catching the cheat, a wrong accusation, the finale.
 - `test/bots.test.ts`: reading bets in the strength simulation, tilt, bluffing less into more players, rivals reading a player who always bets, reckless styles losing in chapters 1 and 4, Silas, Delphine and Ezra playing like themselves.
 - `test/play.ts` and `test/helpers.ts`: play a chapter with a simple player, clicking through scenes, checking money and summaries after every hand.

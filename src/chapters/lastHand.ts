@@ -40,7 +40,7 @@ export const LAST_HAND: Chapter = {
             ],
             streets: {
               0: [say('ruby', 'Look at your five. A pair of jacks or better is worth a bet. Less than that, you’re hoping the draw saves you.')],
-              1: [say('ruby', 'Time to draw. Click the cards you want to throw away, then draw. Keep your pairs, throw the rest. Four to a flush? Throw the odd one.')],
+              1: [say('ruby', 'Time to draw. Pick the cards you want to throw away, then draw. Keep your pairs, throw the rest. Four to a flush? Throw the odd one.')],
             },
           },
         },

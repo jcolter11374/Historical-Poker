@@ -56,7 +56,8 @@ export function TableScreen({
   const compact = useCompact();
   const flights = useTableFx(chapter, snap, compact);
   useEffect(() => playMusic(scene.music ?? null), [scene.music]);
-  const flop = snap.play.family === 'flop';
+  // Lay out the felt for the hand on it: between hands `play` is already the next game.
+  const flop = (snap.hand?.family ?? snap.play.family) === 'flop';
   // Cards fly in from whoever holds the buck.
   const dealer = seatSpot(chapter, snap.button);
   const from = (to: Point): CSSProperties => ({ '--dx': `${dealer.x - to.x}px`, '--dy': `${dealer.y - to.y}px` }) as CSSProperties;
@@ -225,7 +226,7 @@ export function TableScreen({
             {hand && !hand.complete && hand.legal && <ChipControls legal={hand.legal} pot={hand.pot} unit={snap.play.unit} money={money} onAct={act} />}
             {drawing && (
               <div className="draw-group">
-                <div className="draw-note">{drawProblem ?? (selected.length ? `Throw ${selected.length}, draw ${selected.length}.` : `Click the cards to throw away (up to ${drawing.max}).`)}</div>
+                <div className="draw-note">{drawProblem ?? (selected.length ? `Throw ${selected.length}, draw ${selected.length}.` : `Pick the cards to throw away (up to ${drawing.max}).`)}</div>
                 <button type="button" className="chip chip-raise" onClick={draw} disabled={!!drawProblem}>
                   {selected.length ? (
                     <>
@@ -300,7 +301,14 @@ function SeatPlate({
               : '';
   const inHand = snap.hand && !s.out && p && !p.folded;
   const won = snap.hand?.complete ? snap.hand.winners.filter((w) => w.seat === seat).reduce((n, w) => n + w.amount, 0) : 0;
-  const size: CardSize = small && !(p?.handName) ? 'tiny' : 'small';
+  // Flop games: cards stay tiny before the showdown. The seat across stays
+  // tiny at the showdown too, and its win goes on the hand line, so its
+  // cards never reach the board below.
+  const across = seat === 2;
+  const size: CardSize = small && (across || !p?.handName) ? 'tiny' : 'small';
+  const winInLine = small && across;
+  const winText = won > 0 ? `wins ${money(won)}` : '';
+  const showHand = !!p?.handName && !p.folded;
   return (
     <div className={`plate${s.out || p?.folded ? ' plate-dim' : ''}`} style={{ left: character.plate.x, top: character.plate.y }}>
       {snap.button === seat && <Buck />}
@@ -309,6 +317,7 @@ function SeatPlate({
       <div className="plate-stack">
         {money(s.stack)}
         {status ? ` · ${status}` : ''}
+        {winInLine && !showHand && winText && <span className="plate-win pop-in"> · {winText}</span>}
       </div>
       {inHand && (
         <div className={`plate-cards plate-cards-${size}`}>
@@ -320,8 +329,13 @@ function SeatPlate({
           ))}
         </div>
       )}
-      {p?.handName && !p.folded && <div className="plate-hand">{p.handName}</div>}
-      {won > 0 && <div className="plate-win pop-in">wins {money(won)}</div>}
+      {showHand && (
+        <div className="plate-hand">
+          {p.handName}
+          {winInLine && winText && <span className="plate-win pop-in"> · {winText}</span>}
+        </div>
+      )}
+      {winText && !winInLine && <div className="plate-win pop-in">{winText}</div>}
     </div>
   );
 }
@@ -437,10 +451,13 @@ function PlayerHand({
         })}
       </div>
       <div className="my-line">
-        {folded ? 'You folded' : hand.myHandName}
-        {' · '}your purse {money(me.stack)}
-        {snap.button === HUMAN ? ' · you hold the buck' : ''}
-        {won ? ` · you win ${money(won)}` : ''}
+        <span className="my-hand-name">{folded ? 'You folded' : hand.myHandName}</span>
+        {/* On small screens the purse goes on a second line (styles.css, "Small screens"). */}
+        <span className="my-purse">
+          your purse {money(me.stack)}
+          {snap.button === HUMAN ? ' · you hold the buck' : ''}
+          {won ? ` · you win ${money(won)}` : ''}
+        </span>
       </div>
     </div>
   );

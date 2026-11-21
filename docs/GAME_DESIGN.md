@@ -59,6 +59,8 @@ Set per stage in `extras`: a **bomb pot** every N hands (everyone puts in N unit
 - **The rules object:** a corner link named for the era ("The tavern slate", "The help screen") opens the current game's rules card: the deal, the betting, what wins, plus how to win the chapter and a history note. Rules cards are in `src/games/catalog.ts`.
 - **Teacher hints:** "Ask for a hint" (on by default, can be turned off on the chapter select). The chapter's teacher suggests fold, call or raise in one line, with your chance of winning and the pot odds, from the same simulation the bots use.
 - **Your hand:** your best hand's name (and best low, in split games) shows under your cards.
+- **Between hands:** the finished hand stays on the felt, described by its own game, while the next game's name (and its lesson, in a rotation) is already shown at the top.
+- **Calling out the deal:** the "Call out the deal" chip sits above the other chips.
 - **Showdown summary:** one line after each hand: who won, with what, and your hand if you lost. Split pots say who took the high and the low.
 - **Drawing:** in draw games, click cards to throw them (they lift), then "Draw N" or "Stand pat". The chip says what is not allowed (more than the limit).
 
@@ -73,6 +75,8 @@ Set per stage in `extras`: a **bomb pot** every N hands (everyone puts in N unit
 
 - **Sideways:** the table is a wide painting, so on a phone it's played sideways. Held upright, the phone shows "Turn your phone sideways" (with "Play upright anyway").
 - **Bigger words and chips:** when the screen draws the table at less than three quarters size, names, money, dialogue, links and chips are enlarged (up to 1.6 times) while the painting stays the same. The pot then sits up between the left and middle seats in every game (it always does in flop games, where the board has the middle of the felt).
+- **Room for your cards:** on small screens your hand name and your purse sit on two lines under your cards, the raise's "−, +, Max" stand in a column beside the raise chip, and the draw note sits beside the Draw chip, so nothing covers your cards or the right-hand seat. A long showdown line grows upward from above the seat across, and in flop games the board sits a little lower so the seat across can show its hand.
+- **Story screens start at the top:** the intro and ending scroll on a phone; they open at the first line, not at the button.
 - **Full screen:** added to the home screen, the game opens full screen and sideways (`public/manifest.webmanifest`).
 
 ## The games

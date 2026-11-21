@@ -133,6 +133,8 @@ export interface HandView {
   /** The human's cards, with which are face up (stud). */
   myCards: { card: Card; up: boolean }[];
   myHandName: string;
+  /** The family of this hand's game. Between hands, `play` is already the next hand's game, which may differ. */
+  family: 'flop' | 'stud' | 'draw';
   /** Shared cards: one array per board (two in a double-board hand). */
   boards: Card[][];
   players: Record<SeatIndex, PlayerView>;
@@ -182,6 +184,12 @@ export class Session {
   private handNumber = 0;
   private state: HandState | null = null;
   private game: GameDef;
+  /**
+   * The game of the hand on the table. Once a hand ends, `game` moves on to
+   * the next hand's game (a rotation), but the finished hand stays on screen
+   * and must still be described by its own rules.
+   */
+  private handGame: GameDef;
   private play: GamePlay;
   private stageIndex = 0;
   private level = 0;
@@ -241,6 +249,7 @@ export class Session {
     this.cheat = this.story.cheat ? 'waiting' : 'none';
     this.play = chapter.stages[0].games[0];
     this.game = getGame(this.play.game);
+    this.handGame = this.game;
     if (this.tutorial) this.scene.push(...this.story.tutorial!.before);
     this.prepareNextHand();
   }
@@ -330,6 +339,7 @@ export class Session {
     this.guiding = !isRedeal && !!this.play.lesson && !this.taught.has(key);
     this.taught.add(key);
 
+    this.handGame = this.game;
     let deck = shuffle(this.game.deck(), this.dealRng);
     if (this.tutorial && this.handNumber === 1) {
       deck = this.arrangeDeck(deck, this.tutorialHands());
@@ -881,6 +891,7 @@ export class Session {
   }
 
   private handView(s: HandState): HandView {
+    const game = this.handGame;
     const winners: HandView['winners'] = [];
     for (const e of s.events) {
       if (e.t === 'award') {
@@ -902,7 +913,7 @@ export class Session {
         bet: x.bet,
         lastAction: x.lastAction,
         cards,
-        handName: revealed ? this.game.describe(x.cards.map((c) => c.card), board) || null : null,
+        handName: revealed ? game.describe(x.cards.map((c) => c.card), board) || null : null,
       };
     }
     const me = s.seats.find((x) => x.seat === HUMAN);
@@ -917,7 +928,8 @@ export class Session {
       toAct: (s.phase === 'betting' || s.phase === 'drawing') && !this.scene.length ? s.toAct : null,
       pot: s.seats.reduce((n, x) => n + x.total, 0),
       myCards,
-      myHandName: myCards.length ? this.game.describe(myCards.map((c) => c.card), board) : '',
+      myHandName: myCards.length ? game.describe(myCards.map((c) => c.card), board) : '',
+      family: s.input.game.family,
       boards: boards.map((b) => [...b]),
       players,
       winners,
@@ -937,13 +949,13 @@ export class Session {
       if (w) parts.push(`Everyone else folded. ${name(w.seat)} ${takes(w.seat)} ${this.money(w.amount)}.`);
     } else {
       for (const w of winners) {
-        const split = this.game.spec.split === 'hi-lo';
+        const split = s.input.game.split === 'hi-lo';
         const half = !split ? '' : w.half === 'high' ? ' the high half,' : w.half === 'low' ? ' the low half,' : '';
         parts.push(`${name(w.seat)} ${takes(w.seat)}${half} ${this.money(w.amount)}${w.handName ? ` with ${w.handName}` : ''}.`);
       }
       const me = s.seats.find((x) => x.seat === HUMAN);
       if (me && !me.folded && !winners.some((w) => w.seat === HUMAN)) {
-        const mine = this.game.describe(me.cards.map((c) => c.card), s.runs[0][0] ?? []);
+        const mine = this.handGame.describe(me.cards.map((c) => c.card), s.runs[0][0] ?? []);
         if (mine) parts.push(`Yours: ${mine}.`);
       }
     }

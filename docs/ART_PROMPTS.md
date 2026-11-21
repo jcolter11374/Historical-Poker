@@ -686,7 +686,7 @@ Match the attached image's art style exactly: painted, hand-inked lines, worn te
 **6. Today** → `opening-6-today.jpg` (stand-in: an empty lamplit table)
 
 ```
-Match the attached image's art style exactly: painted, hand-inked lines, worn textures. Use it for the style only, and paint a completely different scene. A private card room high above a harbour city at night, today: one oval table with deep red felt under a single low lamp, four empty chairs, glittering towers through a wall of windows. In the exact middle of the table, alone in the pool of light, a small worn leather card case, closed. Nobody in the room. Still, expectant, like a stage before the play. Let the bottom quarter of the picture fall gently into shadow and stay plain, for a caption the game adds, with no band or line across it. No text, no lettering, no border. 16:9.
+Match the attached image's art style exactly: painted, hand-inked lines, worn textures. Use it for the style only, and paint a completely different scene. A private card room high above Macau harbour at night, today: one oval table with deep red felt under a single low lamp, four empty chairs, and through a wall of windows the glittering gold and white casino towers, a slender observation tower with a round disc near its top, and a long low bridge over dark water. In the exact middle of the table, alone in the pool of light, a small worn leather card case, closed. Nobody in the room. Still, expectant, like a stage before the play. Let the bottom quarter of the picture fall gently into shadow and stay plain, for a caption the game adds, with no band or line across it. No readable signs, no text, no lettering, no border. 16:9.
 ```
 
 ### The ending (three pictures needed, three optional)

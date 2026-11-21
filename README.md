@@ -2,7 +2,7 @@
 
 A single-player card game that tells the history of poker, one chapter per era. You follow one heirloom deck, the Ashcombe deck, from table to table: a Mississippi steamboat in 1836, then flashbacks to a Tudor hall and a coaching inn, forward to a Civil War camp and a Deadwood saloon, and on through a Chicago speakeasy, Las Vegas, Paris, Atlantic City, the online boom, an English card room and Macau, to a kitchen table today. It teaches every game RSDP Live offers inside the story, so friends can learn one here before playing it for money. Each chapter is played with the poker of its time, against painted rivals with their own personalities and tells.
 
-**All fourteen chapters are built and playable.** Chapters 1 to 5 have their painted art; the others use placeholders drawn in code until their art is made. Every chapter has its own original music. The whole game is designed in [docs/GAME_OUTLINE.md](docs/GAME_OUTLINE.md); what's built and what's next is in [docs/ROADMAP.md](docs/ROADMAP.md).
+**All fourteen chapters are built and playable.** Chapters 1 to 6 have their painted art; the others use placeholders drawn in code until their art is made. Every chapter has its own original music. The whole game is designed in [docs/GAME_OUTLINE.md](docs/GAME_OUTLINE.md); what's built and what's next is in [docs/ROADMAP.md](docs/ROADMAP.md).
 
 It runs entirely in the browser: no server, no accounts. Progress is saved in the browser's local storage. It is hosted for free on GitHub Pages.
 

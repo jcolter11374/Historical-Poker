@@ -16,6 +16,8 @@ export const BIG_O: Chapter = {
   youAre: 'Sophie Avery',
   teaches: '5- and 6-Card Omaha, then their Hi-Lo versions',
   rulesObject: 'The card room’s house rules',
+  dealerMarker: 'button',
+  houseDeals: true,
   money: { prefix: '£' },
   stages: [
     {
@@ -100,12 +102,13 @@ export const BIG_O: Chapter = {
   levelLines: [say('narration', 'The tournament next door finishes, the room gets louder, and the floor manager moves your game up a level.')],
   intro: [
     '2019. A huge, noisy card room on a retail park in the English Midlands: forty tables, a carvery, and every big Omaha game in the region on a Friday night.',
-    'Sophie Avery, Anna’s daughter, has moved to England for work. She plays on Fridays, and keeps the family deck in her coat.',
+    'Sophie Avery, Anna’s daughter and an Avery like her mother, because in this family the name goes with the deck, has moved to England for work. Jamie gave her the deck the day she left. She plays on Fridays, and keeps it in her coat.',
+    'This spring a letter followed her across the ocean. Not a lawyer’s, this time: handwritten, and signed. “My family has asked to buy your deck for ninety years, and I am sorry for most of those letters. I would only like to see it, once. E. Crane.” She has not decided whether to answer.',
     'The regular everyone knows is Gaz Whitlock, who has been in this room since it opened, has seen everything, and will tell you about all of it.',
   ],
   recap: [
     'The Ashcombe deck was painted in Kent in 1543. It left England for America in 1763, and the Averys kept it for two and a half centuries.',
-    'In 2005, Jamie Avery beat Nate Crane on television with it. Now Jamie’s niece Sophie has it and, by chance, the deck is back in England.',
+    'In 2005, Jamie Avery beat Nat Crane on television with it, and she shook Jamie’s hand. Now Jamie’s niece Sophie has it and, by chance, the deck is back in England.',
   ],
   history: [
     'Five-card Omaha, “Big O”, spread through American card rooms from about 2008.',
@@ -191,6 +194,14 @@ export const BIG_O: Chapter = {
         lines: [
           say('gaz', 'Old deck you’ve got there, duck. Made in Kent, you say? My nan was from Kent.'),
           say('narration', '“Everybody’s nan was from Kent, Gaz,” says the dealer.'),
+        ],
+      },
+      {
+        beforeHand: 7,
+        lines: [
+          say('gaz', 'What’s that you keep reading between hands, duck? A love letter?'),
+          say('narration', 'Sophie folds E. Crane’s note back into the case. “It’s from a family that has hated mine for nearly five hundred years,” she says. “It’s the first nice thing any of them ever wrote.”'),
+          say('gaz', 'Then write back, duck. Five hundred years is long enough for anybody.'),
         ],
       },
     ],

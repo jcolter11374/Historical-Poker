@@ -22,6 +22,7 @@ export const LAST_HAND: Chapter = {
   youAre: 'Clara Avery, Kit’s granddaughter',
   teaches: 'Five-card draw, the great American game',
   rulesObject: 'House rules on the wall',
+  dealerMarker: 'buck',
   stages: [
     {
       fromHand: 1,
@@ -202,23 +203,34 @@ export const LAST_HAND: Chapter = {
         beforeHand: 3,
         lines: [say('ruby', 'Mind Jasper when he deals, honey. I’ve heard about his grandfather. I hear things.')],
       },
+      {
+        beforeHand: 5,
+        lines: [
+          say('jasper', 'My grandfather never won a big hand again after that night on the river. Forty years. He said our luck went downriver with that deck. I mean to fetch it home.'),
+          say('ruby', 'Luck. Honey, the way I heard it, your grandfather dealt seconds.'),
+          say('jasper', 'That is the Avery story, ma’am. We have our own, and it starts in England three hundred years back, with a deck that was promised to a Crane.'),
+        ],
+      },
     ],
     finale: {
       bowOut: {
         doc: [say('doc', 'I’m gonna quit while I got dust in the pouch. Go get ’em, Miss Clara.'), say('narration', 'Doc ties his pouch shut and leans on the bar to watch.')],
       },
-      headsUp: [say('ruby', 'Well, honey. Seems the real game was always between you and me.')],
+      headsUp: [say('ruby', 'Jasper Crane offered me a thousand dollars to win that deck for him. I told him I’d sooner win it for myself. Seems the real game was always between you and me, honey.')],
     },
     exits: {
       doc: [say('narration', 'Doc tips his hat, misses the door, and finds it on the second try.')],
-      jasper: [say('ruby', 'Off you go, Jasper. Tell your family the Averys keep their deck.')],
+      jasper: [
+        say('ruby', 'Off you go, Jasper. Tell your family the Averys keep their deck.'),
+        say('narration', 'At the door Jasper stops. “He was a hard old man, my grandfather,” he says, to nobody. “That deck was the only thing he ever talked about soft.” Then he is gone.'),
+      ],
     },
   },
   outro: {
     won: [
       'Ruby Calloway pushes her last coins across the table and raises a glass. “To the Avery deck. And to the only player who ever beat me fair.”',
       'Jasper Crane is on the morning stage out of Deadwood. The feud is over. For now.',
-      'Clara opens the leather case. Inside, beside “M.A. 1543”, she adds a line in pencil: “The Ashcombe Deck, 1543 to 1876. Still ours.”',
+      'Clara opens the leather case. Inside, beside “M.A. 1543”, she adds a line in pencil: “The Ashcombe Deck, 1543 to 1876. Still ours.” And she makes herself a promise: whoever she marries, the name goes with the deck. Her children will be Averys.',
     ],
     lost: [
       'Your last dollar is gone. Ruby holds the old deck up to the lamplight, and sets it aside for whoever wins the next game.',

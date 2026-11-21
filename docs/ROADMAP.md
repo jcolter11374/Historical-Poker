@@ -7,6 +7,7 @@ The full plan, every chapter, and the open questions are in [GAME_OUTLINE.md](GA
 **Every chapter is built and playable, with placeholder art.** All fourteen chapters (1 to 5, the Poque bonus, 6 to 12 and the epilogue) have their games, cast, lessons, story beats and endings, and every RSDP Live game is taught in the story. Part Two was built alongside Part One, at John's request, rather than as a later release. What's left is art, play-testing and polish.
 
 Done:
+- [x] The story as a family feud with a happy ending (2026-11-21): the Cranes written from hateful (1836) to loved (today); the lawyers' letters through the 1900s; Elena Crane, a top pro, as the last rival and the love interest; the epilogue as the home game after the wedding; the opening and ending pictures; nine fixes to holes in the plot ([DECISIONS.md](DECISIONS.md), [CHAPTERS.md](CHAPTERS.md) "The feud, chapter by chapter").
 - [x] Chapter 1, The River, complete with its painted background and Silas (see below).
 - [x] The six historical games: Primero, Brag, Poque, straight poker, five-card stud, five-card draw.
 - [x] All RSDP Live games at the table: Hold'em (limit, pot-limit, no-limit), Omaha 4/5/6 and their Hi-Lo versions, Seven Card Stud, Razz, Stud Hi-Lo, 2-7 Triple Draw, Badugi, plus bomb pots, double board and the 7-2 bounty.
@@ -39,7 +40,7 @@ Done:
 
 To do:
 - [ ] **Math Mode, next ideas** (not agreed in detail yet): a chance meter (your chance as a fraction, a percent and a pie, guess first); chip math (making change, splitting a pot, odd chips as remainders); easy, medium and hard levels (for example the fraction shown for you on easy, typed answers on hard); outs in draw games and low games; a separate "Math Table" on the chapter list; play-testing with children for wording and reading level.
-- [x] Chapter 10, The Boom: both rooms, the three avatars and DeuceSeven in person (2026-11-21). Still to paint: Nate Crane, Hanbit in person, the title.
+- [x] Chapter 10, The Boom: both rooms, the three avatars and DeuceSeven in person (2026-11-21). Still to paint: Nat Crane, Hanbit in person, the title.
 - [ ] **Art** for chapters 2 to 12 and the epilogue, and the rest of chapter 1 ([ART.md](ART.md), "Art needed, per chapter").
 - [x] Play-test pass of every chapter, by a scripted player following the teacher's hints, at desktop (1600x900, 1280x720) and phone sizes (844x390, 667x375) (2026-11-21). Fixed: the last hand of a game in a rotation was named by the next game's rules at the showdown and laid out for it; story screens opened scrolled to the bottom on phones; on phones the chips covered your cards, the hand line ran under the dialogue and chips, the raise's −/+ covered the right-hand seat, and long showdown lines covered the seat across; on desktop the pot sat under your cards, the seat across was hidden by the board at Omaha showdowns, seven-card stud plates ran into your cards, and "Call out the deal" pushed the chips onto your cards. No crashes, console errors or stuck hands.
 - [x] Rules audit of every game, locked in by `test/rules.test.ts`; the Camp's stud made a true limit game; the draw announced on the felt; live purses; steadier hints and more starting money in The Last Hand and The Painted Deck (2026-11-21, [DECISIONS.md](DECISIONS.md)).
@@ -69,3 +70,11 @@ To do:
 ## Open questions
 
 Tracked in the outline's "Open questions". Two were answered by building: Part Two was built together with Part One, and any chapter can be started straight away after "the story so far". Betting limits per game are set (see CHAPTERS.md) and open to change after play-testing.
+
+## Story: waiting on John (2026-11-21)
+
+- [ ] **Art for the new story:** Elena Crane (chapter 12 and the epilogue), nine paintings for the opening and the ending, and three optional ones. Prompts are in [ART_PROMPTS.md](ART_PROMPTS.md). Until then: a silhouette for Elena, and chapter paintings standing in on the slides.
+- [ ] **John to approve the opening's and ending's moments and captions** (`src/story/montages.ts`) before their art is made.
+- [x] **1543 is the start of the feud** (John said yes, 2026-11-21). Sir Roland is a Crane who was promised the deck; a Crane hires the highwayman in 1763; the opening starts in 1543. See [DECISIONS.md](DECISIONS.md).
+- [x] **A Crane who is a woman before Elena** (John said yes, 2026-11-21). "N0rthStar" is Nat Crane, Victor's niece. Her picture is not painted yet; the prompt is updated. See [DECISIONS.md](DECISIONS.md).
+- [ ] **For the RSDP bots work:** Elena Crane is a top professional in the story. She is one of the few rivals where RSDP Live's Hard setting may fit; Victor should stay Normal, and Dee Easy ([CHAPTERS.md](CHAPTERS.md), chapter 12).

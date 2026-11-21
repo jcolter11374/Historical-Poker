@@ -32,9 +32,11 @@ export interface Progress {
   math: boolean;
   /** Stars earned for right answers in Math Mode. */
   mathStars: number;
+  /** The opening pictures have been shown once (they play before the chapter select on the first visit). */
+  seenOpening: boolean;
 }
 
-const empty = (): Progress => ({ version: VERSION, won: {}, played: {}, hints: true, sound: true, music: true, math: false, mathStars: 0 });
+const empty = (): Progress => ({ version: VERSION, won: {}, played: {}, hints: true, sound: true, music: true, math: false, mathStars: 0, seenOpening: false });
 
 /** Somewhere to keep progress. The browser's localStorage, or a stand-in in tests. */
 export interface Store {
@@ -88,6 +90,13 @@ export function setHints(p: Progress, hints: boolean, s: Store | null = store())
 /** Turns a setting (hints, sound, music, Math Mode) on or off and saves. */
 export function setOption(p: Progress, option: 'hints' | 'sound' | 'music' | 'math', on: boolean, s: Store | null = store()): Progress {
   const next = { ...p, [option]: on };
+  saveProgress(next, s);
+  return next;
+}
+
+/** The opening has been watched (or skipped); it won't play by itself again. */
+export function sawOpening(p: Progress, s: Store | null = store()): Progress {
+  const next = { ...p, seenOpening: true };
   saveProgress(next, s);
   return next;
 }

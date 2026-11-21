@@ -58,7 +58,7 @@ Every chapter is playable with no art at all:
 
 - **Room:** with no `scene.background`, the table screen paints the room from the chapter's `scene.palette` (wall, lamp light, felt, rim colours): a dark wall, a warm lamp glow, a felt table ellipse and grain. Pick the palette from the era's colours so the placeholder already feels right.
 - **Characters:** `art.kind: 'placeholder'` draws a painted head-and-shoulders silhouette in the character's `color` (made by `rival()` in `src/chapters/cast.ts`). Faces in the chapter select, intro and keepsake show the character's initial on that colour.
-- **Cards, chips, the buck:** drawn in code for every chapter.
+- **Cards, chips, the dealer's marker:** drawn in code for every chapter. The marker is a buck knife or a dealer button by chapter (`Marker` in `src/ui/TableScreen.tsx`; GAME_DESIGN.md, "The dealer's marker").
 
 ## Swapping in art for a chapter
 
@@ -71,7 +71,7 @@ Every chapter is playable with no art at all:
 
 The Boom is played in two rooms, so its files carry the room's name: `background-cafe.jpg` and `background-final.jpg` in the originals folder, and `python3 tools/prepare-art.py <originals-folder> boom cafe` (then `... boom final`) writes `background-cafe.webp`, `table-front-cafe.webp` and so on. The rims are in `TABLE_ELLIPSE` as `boom-cafe` and `boom-final`.
 
-- **The café** is the chapter's own `scene`. Its table is a picture on a monitor, cut off by the monitor's frame at both sides, so `TABLE_CLIP` in `prepare-art.py` keeps the table front inside the screen. The screen covers about x 305 to 1315 of the 1600-wide stage, so the three rivals sit closer together than usual (`ONLINE` in `boom.ts`): square avatars standing above the far rim, name plates under them. Two things follow from the tight seats: the scene sets `pot` (where the pot sits in flop games), and the avatars set `tellAbove` (tells show over the avatar, not beside it).
+- **The café** is the chapter's own `scene`. Its table is a picture on a monitor, cut off by the monitor's frame at both sides, so `TABLE_CLIP` in `prepare-art.py` keeps the table front inside the screen. The screen covers about x 305 to 1315 of the 1600-wide stage, so the three rivals sit closer together than usual (`ONLINE` in `boom.ts`): square avatars standing above the far rim, name plates under them. One thing follows from the tight seats: the avatars set `tellAbove` (tells show over the avatar, not beside it). The pot sits in the middle of the screen's felt, as at every table.
 - **The avatars** are square icons in a silver frame on green, cut out like any character: `python3 tools/greenscreen-cutout.py deuceseven-avatar-green.jpg deuceseven-avatar.png`. They are also the faces on the chapter select, intro and keepsake.
 - **The final table** is the last stage's `scene`, and that stage's `seats` gives each rival their in-person art and the standard seat places (see `Stage.seats` in `types.ts`). A rival not yet painted keeps the placeholder there: `standardSeat('across', colour)`.
 
@@ -105,10 +105,11 @@ Each chapter needs: a **background** (the empty room and table, first-person fro
 | 7 The Desert Classic | done | all done (Weiss's lap and Lorraine's knee are cut away; the table hides the cuts) | clay chips, a tournament program (title painting done: the strip at dusk) |
 | 8 The Cercle | done | all done (four cards each; Siobhan is cut off at her waist; the table hides the rest) | plaques (rectangular chips) (title painting done: a Paris boulevard at night, the tower across the river) |
 | 9 The Boardwalk | done | all done | Delphine's diary (title painting done: the boardwalk at dusk) |
-| 10 The Boom | both done: the café's monitor with the online table on its screen, and the televised final table (red felt, black rail) | the three avatars done (shark, star, tiger cub); in person, DeuceSeven done; Nate Crane and Hanbit still needed | title painting, chat window, TV graphics |
+| 10 The Boom | both done: the café's monitor with the online table on its screen, and the televised final table (red felt, black rail) | the three avatars done (shark, star, tiger cub); in person, DeuceSeven done; Nat Crane and Hanbit still needed | title painting, chat window, TV graphics |
 | 11 The Big O | big modern card room in the English Midlands: rows of tables, bright lights | Gaz Whitlock, Kerry-Ann Booth, Mr. Emeka Okafor | |
-| 12 The Last Table | private room over Macau harbour at night: one table, city lights | Victor Crane (riverboat cufflinks), Mei Lin Chau, Rafael Duarte | the tablet menu, tea set |
-| Epilogue The Kitchen Table | a kitchen at night: warm light, pizza box, mismatched chips | Marcus, Priya, Dee | the full leather case on the counter |
+| 12 The Last Table | private room over Macau harbour at night: one table, city lights | Mei Lin Chau, Elena Crane (the love interest, a top pro), Victor Crane (riverboat cufflinks, now in the right seat) | the tablet menu, tea set |
+| Epilogue The Kitchen Table | a kitchen at night, the evening after a wedding: warm light, wedding cake, mismatched chips | Dee only: Victor and Elena reuse their chapter 12 pictures (Marcus and Priya speak but are not seen) | the full leather case on the counter |
+| The opening and the ending | nine paintings in the style of the title paintings, one per slide (three more are optional) | none | see [ART_PROMPTS.md](ART_PROMPTS.md), "The opening and the ending" |
 
 The player is never shown, so no art is needed for the Averys. Faces on the chapter select and keepsakes are cropped from the character art, so no separate portraits are needed.
 
@@ -116,7 +117,7 @@ The player is never shown, so no art is needed for the Averys. Faces on the chap
 
 - Café background and table front, the three avatars, the final table background and table front, DeuceSeven in person: done. Nothing needed cleaning up: no lettering or stray marks in any of the six.
 - The café picture differs from its prompt in two ways that were kept: the table on the screen is cut off by the monitor frame at the sides, and its rim is brown wood, not a dark rail. Seats, cards, the board and the pot all sit on it (screenshot: `docs/screenshots/chapter-10-table.jpg`).
-- Still to make: Nate Crane and Hanbit in person (silhouettes at the final table until then; screenshot `docs/screenshots/chapter-10-final-table.jpg`), and the title painting (the intro shows the café until then).
+- Still to make: Nat Crane and Hanbit in person (silhouettes at the final table until then; screenshot `docs/screenshots/chapter-10-final-table.jpg`), and the title painting (the intro shows the café until then).
 
 ## Current state, bonus chapter (The Gaming House)
 

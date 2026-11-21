@@ -31,6 +31,7 @@ export const BACK_ROOM: Chapter = {
   youAre: 'Edith Avery, Clara’s daughter',
   teaches: 'Seven Card Stud, then Razz',
   rulesObject: 'Rules on a matchbook',
+  dealerMarker: 'buck',
   stages: [
     {
       fromHand: 1,
@@ -93,12 +94,12 @@ export const BACK_ROOM: Chapter = {
   levelLines: [say('narration', 'Somebody turns up the phonograph. Nora doubles the limits: “Keeps you awake.”')],
   intro: [
     'Chicago, 1926. Prohibition. Behind the cold room of a florist’s shop on the North Side, a door with no handle opens onto a smoky back room with a bar and a poker table.',
-    'Edith Avery, Clara’s daughter, works days as a stenographer. At night she plays cards, with the family deck in her handbag for luck.',
+    'Edith Avery, Clara’s daughter, an Avery by her mother’s rule that the name goes with the deck, works days as a stenographer. At night she plays cards, with the family deck in her handbag for luck.',
     'Nora Shea owns the room, and everybody in it. She has heard about the Avery deck. She would like to see if it is as lucky as they say.',
   ],
   recap: [
     'The Ashcombe deck was painted in 1543 for Lady Margery Ashcombe. It crossed to America in 1763 with the Averys.',
-    'In 1836, Kit Avery won it back on a Mississippi steamboat from the card sharp Silas Crane. In 1876, Kit’s granddaughter Clara kept it at a Deadwood table against Silas’s grandson, and the Crane feud went quiet.',
+    'In 1836, Kit Avery won it back on a Mississippi steamboat from the card sharp Silas Crane. In 1876, Kit’s granddaughter Clara kept it at a Deadwood table against Silas’s grandson, who swore his family had been robbed of it. Then the Cranes went quiet.',
     'Fifty years on, Clara’s daughter Edith has it in Chicago.',
   ],
   history: [
@@ -191,6 +192,14 @@ export const BACK_ROOM: Chapter = {
           say('narration', 'A knock at the door: three short, two long. Everyone freezes. Gus sweeps the chips into a flowerpot.'),
           say('nora', 'Relax. It’s the ice man. Gus, put the money back. All of it, Gus.'),
           say('gus', 'Ja, ja. All of it.'),
+        ],
+      },
+      {
+        beforeHand: 6,
+        lines: [
+          say('nora', 'Funny thing, Avery. A lawyer has been asking around the North Side about an old painted deck. Cash for whoever brings it in, and no name on his letter. He wrote to you too?'),
+          say('narration', 'He did. It said: name your price, or the deck will be taken from you at a card table, as it was taken from us. Edith did not answer it.'),
+          say('nora', 'I don’t run errands for men with no name. I’ll win it for myself, thanks.'),
         ],
       },
     ],

@@ -1,3 +1,4 @@
+import { potLimitWords } from '../src/table/stakes';
 import { describe, expect, it } from 'vitest';
 import { CHAPTERS } from '../src/chapters';
 import { GAMES, getGame } from '../src/games/catalog';
@@ -54,5 +55,19 @@ describe('the music', () => {
   it('gives every chapter a different tune', () => {
     const files = CHAPTERS.map((e) => e.chapter.scene.music);
     expect(new Set(files).size).toBe(files.length);
+  });
+});
+
+describe('pot limit shows its sum', () => {
+  const f = (n: number) => `${n} F`;
+  it('gives the working for a raise: pot + call, then that much more', () => {
+    // Blinds 10 and 20, you have put in nothing: call 20, then raise by 50, to 70.
+    expect(potLimitWords({ canRaise: true, callAmount: 20, maxTo: 70 }, 30, 0, f)).toBe('Pot limit: pot 30 F + your call 20 F = 50 F, so you can raise by 50 F, to 70 F.');
+  });
+  it('is the pot itself when nothing has been bet', () => {
+    expect(potLimitWords({ canRaise: true, callAmount: 0, maxTo: 40 }, 40, 0, f)).toBe('Pot limit: the pot is 40 F, so you can bet up to 40 F.');
+  });
+  it('says nothing when your purse, not the pot, is the limit', () => {
+    expect(potLimitWords({ canRaise: true, callAmount: 20, maxTo: 55 }, 30, 0, f)).toBeNull();
   });
 });

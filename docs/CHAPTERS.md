@@ -16,10 +16,10 @@ One section per chapter: what you play, who teaches it, the cast as coded, and t
 | 7 | The Desert Classic | `desertClassic.ts` | 1972 | Limit, then No-Limit Hold'em | Lou Avery | "Tex" Dawson Pruitt | 6 |
 | 8 | The Cercle | `cercle.ts` | 1992 | Pot-Limit Omaha, then Omaha Hi-Lo | Anna Avery | Comte Lucien Varenne | 7 |
 | 9 | The Boardwalk | `boardwalk.ts` | 1995 | Stud Hi-Lo | Ray Avery | Margot Arceneaux | 8 |
-| 10 | The Boom | `boom.ts` | 2005 | No-Limit Hold'em, 2-7 Triple Draw, Badugi | Jamie Avery | "N0rthStar" (Nate Crane) | 9 |
+| 10 | The Boom | `boom.ts` | 2005 | No-Limit Hold'em, 2-7 Triple Draw, Badugi | Jamie Avery | "N0rthStar" (Nat Crane) | 9 |
 | 11 | The Big O | `bigO.ts` | 2019 | 5- and 6-Card Omaha, then their Hi-Lo versions | Sophie Avery | Gaz Whitlock | 10 |
-| 12 | The Last Table | `lastTable.ts` | Today | HORSE, then the 8-Game | You | Victor Crane | 11 |
-| Epilogue | The Kitchen Table | `kitchenTable.ts` | Today | No-Limit Hold'em with bomb pots, double board, 7-2 bounty | You | Marcus | 12 |
+| 12 | The Last Table | `lastTable.ts` | Today | HORSE, then the 8-Game | You, the last Avery | Elena Crane | 11 |
+| Epilogue | The Kitchen Table | `kitchenTable.ts` | Today | No-Limit Hold'em with bomb pots, double board, 7-2 bounty | You, the last Avery | Elena, now your wife | 12 |
 
 Each chapter's music (its own original tune, set in `scene.music`) is listed in [MUSIC.md](MUSIC.md).
 
@@ -33,11 +33,29 @@ Play order is not date order in Part One: 1836, then 1543 and 1763, then 1863 an
 
 Who is related to whom, with the dates that make it possible, is in [GAME_OUTLINE.md](GAME_OUTLINE.md), "The family lines". Check new story text against it.
 
+### The feud, chapter by chapter
+
+The story is a family feud with a happy ending (John, 2026-11-21: "a Hatfields and McCoys story with a happy ending"). The player should dislike the Cranes at first, warm to them over the years, and end by marrying one. Each Crane is written to that curve; keep new lines on it.
+
+| When | Who | How they come across | Where it is written |
+| --- | --- | --- | --- |
+| 1543 | Sir Roland Crane | Where it starts, as a sulk and not a crime: Lady Margery's nephew, a likeable fool who was promised the deck and watches a painter's daughter win it. "A Crane does not forget." | `paintedDeck.ts`: his role, the stake, his bust line, Delphine's ending |
+| 1763 | A Crane of Kent, never seen | The grudge is already a family habit: he pays the highwayman Jack Sorrel ten guineas to take the deck off the York coach. | `northRoad.ts`: Sorrel's unmasking, Delphine's ending |
+| 1836 | Silas Crane | Hateful: a cheat with no redeeming moment. He gloats about Kit's father, and loses saying the Cranes have been robbed again after three hundred years. The bitterness starts here. | `riverboat.ts`: the stake, his bust line, the ending |
+| 1876 | Jasper Crane | Still an enemy and still a cheat, but with the first human note: he believes the family's luck "went downriver" with the deck, and leaves saying it was the only thing his hard grandfather ever spoke softly about. | `lastHand.ts`: the moment before hand 5, his exit |
+| 1926, 1972, 1992 | A lawyer, no name | Letters offering to buy the deck, more polite every time: a threat in 1926, "a fair price, at your convenience" in 1972, "with respect" in 1992. No Avery answers. The reader only learns in 2005 that they were the Cranes'. | `backRoom.ts` (before hand 6), `desertClassic.ts` (before hand 3), `cercle.ts` (before hand 4) |
+| 2005 | Nat Crane | A rival to respect, and the first Crane woman at the table: cold, fair, no cheating. She names the letters, wants to win the deck "fair, with the whole country watching", and shakes hands when she loses. | `boom.ts`: the final table's opening, her bust line, the ending |
+| 2019 | "E. Crane" | The first warm word: a handwritten, signed note that apologises for the old letters and only asks to see the deck. | `bigO.ts`: the intro, the moment before hand 7 |
+| Today | Elena Crane | Likeable from the first hand: a top professional, funny, honest about Silas. The player falls for her across the table. | `lastTable.ts` |
+| Today | Victor Crane | The old grudge, in person, until the last scene lets it go. Baffled and delighted at a kitchen table a year later. | `lastTable.ts`, `kitchenTable.ts` |
+
+The game opens and closes on this arc in pictures: see [GAME_DESIGN.md](GAME_DESIGN.md), "The opening and the ending".
+
 ## Part One
 
 ### 1. The River (1836), straight poker
 
-Built first, and the model for the rest. Table stakes (no limit), $1 ante, $2 minimum bet, $100 each, no rising stakes. Full detail is in [GAME_DESIGN.md](GAME_DESIGN.md), "Chapter 1". Beats: scripted tutorial hand with Delphine pointing out Ezra's tell; Silas stakes the Ashcombe deck; Silas deals himself four aces once, and you can call out the deal; Delphine or Ezra bows out for the heads-up finale.
+Built first, and the model for the rest. Table stakes (no limit), $1 ante, $2 minimum bet, $100 each, no rising stakes. Full detail is in [GAME_DESIGN.md](GAME_DESIGN.md), "Chapter 1". Beats: scripted tutorial hand with Delphine pointing out Ezra's tell; Silas stakes the Ashcombe deck, gloating that Kit's father begged; Silas deals himself four aces once, and you can call out the deal; Delphine or Ezra bows out for the heads-up finale. Win: Silas says he was robbed and that his family will want the deck back, and Delphine answers the legend ("Your father held it, and lost. It is not the deck, darling. It is who is watching.") before she begins her tale.
 
 ### 2. The Painted Deck (1543), Primero
 
@@ -45,8 +63,8 @@ Ashcombe Hall, Twelfth Night. Nan Avery plays Lady Margery for the deck Nan's fa
 
 - **Game:** Primero as reconstructed in `src/games/primero.ts` (40 cards, two down, bet, two down, bet, change up to two once, bet). Table stakes: wager any part of your "rest". 1s ante, 2s minimum wager, 200s each, stakes rise every 10 hands.
 - **Teacher:** Brother Anselm, before the first deal and on each street of the first hand.
-- **Cast:** Sir Roland (very loose, drains his cup before a bluff), Lady Margery (tight and strong, turns her signet ring when strong), Brother Anselm (careful, mutters a prayer when weak).
-- **Beats:** before hand 4 Roland wagers and loses his horse; before hand 7 Anselm talks about his abbey. Margery puts the deck on the table once Nan has won a few pots. Finale: Roland or Anselm bows out. Win: she pays, gives the deck back to Nan, and writes "M.A. 1543" in its case. The intro opens, and the win ending closes, with Delphine telling the tale on the riverboat.
+- **Cast:** Sir Roland Crane, Lady Margery's nephew (very loose, drains his cup before a bluff), Lady Margery (tight and strong, turns her signet ring when strong), Brother Anselm (careful, mutters a prayer when weak).
+- **Beats:** before hand 4 Roland wagers and loses his horse; he was promised the deck as a New Year's gift, and says so when it is staked and when he loses ("A Crane does not forget"); before hand 7 Anselm talks about his abbey. Margery puts the deck on the table once Nan has won a few pots. Finale: Roland or Anselm bows out. Win: she pays, gives the deck back to Nan, and writes "M.A. 1543" in its case. The intro opens, and the win ending closes, with Delphine telling the tale on the riverboat; she names Roland as the start of the quarrel.
 
 ### 3. The North Road (1763), Brag
 
@@ -55,7 +73,7 @@ The Pewter Lamb, snowbound on the Great North Road. Will Avery, stagecoach guard
 - **Game:** Brag as the 1700s played it (`src/games/brag.ts`): three cards each, one round of bragging, only pairs royal and pairs count (aces high), the knave of clubs and the nine of diamonds are wild "braggers", and a natural hand beats the same hand made with a bragger. No runs, flushes or blind betting: those are the later game. Table stakes, 1s ante, 2s minimum, 100s each.
 - **Teacher:** Hannah Pell, the innkeeper.
 - **Cast:** Hannah (tight, polishes a tankard when strong), Captain Pike (loose, loud: the louder the boast, the weaker the hand), Jack Sorrel (tricky, his hand drifts to his coat pocket when weak).
-- **Beats:** before hand 5 Sorrel is unmasked as a highwayman. Pike stakes a berth on a brig to Philadelphia. Finale: Hannah or Sorrel bows out. Win: the deck crosses the Atlantic.
+- **Beats:** before hand 5 Sorrel is unmasked as a highwayman, and admits a gentleman of Kent named Crane paid him ten guineas to take the deck. Pike stakes a berth on a brig to Philadelphia. Finale: Hannah or Sorrel bows out. Win: the deck crosses the Atlantic. Delphine closes her tale by saying how she knows it (she held the deck herself at nineteen and gave it back to Kit's grandfather, who told her) and why she is on this boat (she heard Silas Crane was showing a painted deck on the river, and bought passage).
 
 ### 4. The Camp (1863), five-card stud
 
@@ -73,7 +91,7 @@ The Lucky Nugget, Deadwood. Clara Avery, Kit's granddaughter. The end of Part On
 - **Game:** five-card draw (`src/games/fiveCardDraw.ts`): the age (left of the dealer) antes $2 blind; five down; $4 to come in and the age makes good last; draw up to five; a second round with the player left of the age first. Ruby's limit is $20 a bet or raise, with no cap on raises (`spread-limit`). No jack pots. $240 each.
 - **Teacher:** Ruby Calloway, who is also the nemesis and the narrator.
 - **Cast:** Doc Whitcomb (prospector, loose, shakes his dust pouch when strong), Ruby (balanced; her smile is a deliberate coin flip), Jasper Crane (Silas's grandson, loose, the same mustache tell as his grandfather).
-- **Beats:** before hand 2 miners talk about the shooting at Saloon No. 10 and the dead man's hand; before hand 3 Ruby warns Clara to watch Jasper when he deals. **The cheat:** from hand 4, Jasper deals himself four kings once, with his own tell and a decoy, exactly like Silas in chapter 1; the player can call out the deal. There is no stake: the deck is already Clara's, and the sitting is to settle it. Finale: Doc bows out, leaving Ruby, who turns out to be the real opponent.
+- **Beats:** before hand 2 miners talk about the shooting at Saloon No. 10 and the dead man's hand; before hand 3 Ruby warns Clara to watch Jasper when he deals; before hand 5 Jasper says why the Cranes want the deck (his grandfather never won a big hand again, and said their luck went downriver with it), Ruby says Silas dealt seconds, and Jasper answers "That is the Avery story. We have our own." **The cheat:** from hand 4, Jasper deals himself four kings once, with his own tell and a decoy, exactly like Silas in chapter 1; the player can call out the deal. There is no stake: the deck is already Clara's, and the sitting is to settle it. Finale: Doc bows out, leaving Ruby, who turns out to be the real opponent, and part of the feud: Jasper offered her a thousand dollars to win the deck for him, and she would sooner win it for herself. If Jasper goes broke he stops at the door for one human line about his grandfather. Win: Clara pencils "Still ours" in the case and decides the name goes with the deck, so her children are Averys (which is why Edith and, later, Sophie carry the name through their mothers).
 
 ### Bonus. The Gaming House (1817), Poque
 
@@ -93,7 +111,7 @@ A Chicago speakeasy behind a florist's shop. Edith Avery, Clara's daughter. Full
 
 - **Stages:** hands 1 to 6, Seven Card Stud, taught by Sal Moretti; from hand 7, "Razz, after midnight", taught by Nora Shea. Limit, $10 unit, $400 each, stakes rise every 8 hands. Both are dealt with no bring-in (`stud-1926`, `razz-1926`): everyone antes and the best hand showing (in Razz the lowest) opens every round and may check. The low card's forced bring-in is a later casino rule; chapters 9 and 12 have it.
 - **Cast:** Sal (bookkeeper, careful, taps his pencil when weak), Nora (owner, tricky, laughs and lights a cigarette when bluffing), Gus Lindqvist (truck driver, calls too much, hums a Swedish song when strong).
-- **Beats:** before hand 4 a knock at the door, which turns out to be the ice man. Finale: Sal or Gus bows out. Players who go broke in the stud stage buy back in so everyone reaches Razz (see "Buy-backs" in GAME_DESIGN.md).
+- **Beats:** before hand 4 a knock at the door, which turns out to be the ice man; before hand 6 Nora mentions a lawyer asking around for an old painted deck, and the first letter (no name: "name your price, or the deck will be taken from you at a card table, as it was taken from us"). Finale: Sal or Gus bows out. Players who go broke in the stud stage buy back in so everyone reaches Razz (see "Buy-backs" in GAME_DESIGN.md).
 
 ### 7. The Desert Classic (1972), Limit then No-Limit Hold'em
 
@@ -101,7 +119,7 @@ A fictional early championship in Las Vegas. Lou Avery. Fully painted: the tourn
 
 - **Stages:** hands 1 to 5, "The side game, the night before", Limit Hold'em; from hand 6, "The Desert Classic: no limit", a tournament where everyone starts again with $500 (`resetStacks`) and blinds rise every 5 hands. Both taught by Professor Weiss.
 - **Cast:** Professor Weiss (careful, polishes his glasses when weak), Tex Pruitt (loose and fast, tips his hat back when bluffing), Lorraine Fisk (former showgirl, her face never moves: a coin flip).
-- **Beats:** no finale bow-out: it's a tournament, played to the last player.
+- **Beats:** before hand 3 Tex says a lawyer wrote to him too, offering good money to anyone who could win the deck from an Avery; the letters have grown polite ("a fair price, at your convenience"). No finale bow-out: it's a tournament, played to the last player.
 
 ### 8. The Cercle (1992), Pot-Limit Omaha then Omaha Hi-Lo
 
@@ -109,7 +127,7 @@ A private card club in Paris. Anna Avery, a translator. Money in francs ("1,000 
 
 - **Stages:** hands 1 to 6, Pot-Limit Omaha, taught by Siobhan Kearney; from hand 7, "Omaha Hi-Lo, after two in the morning", taught by the Comte. 20 F unit, 1,000 F each, rising every 8 hands.
 - **Cast:** Siobhan (Irish pro, drums her fingers when bluffing), the Comte Lucien Varenne (club president, tricky, turns his signet ring when strong), Dmitri Volkov (chess master, perfectly still when weak).
-- **Beats:** before hand 4 the Comte asks to look at the old deck. Finale: Siobhan or Dmitri bows out.
+- **Beats:** before hand 4 the Comte asks to look at the old deck, and tells of a New York lawyer who writes to every collector in Europe on behalf of a client with no name; the family's own latest letter says "with respect" twice. The intro says Ray lent Anna the deck on condition it comes home. Finale: Siobhan or Dmitri bows out.
 
 ### 9. The Boardwalk (1995), Stud Hi-Lo
 
@@ -117,16 +135,16 @@ An Atlantic City poker room, two years after poker became legal there (it was ba
 
 - **Game:** Seven Card Stud Hi-Lo (eight or better), limit, $10 unit, $400 each, rising every 9 hands. Taught by Margot Arceneaux.
 - **Cast:** Benny "the Book" Russo (loose, shuffles his chips faster when strong), Margot (Delphine's descendant and the room manager, twists a pearl earring when strong), Ruth Goldfarb (very tight, adjusts her glasses when weak).
-- **Beats:** Margot stakes Delphine's diary, which tells how the two families shared the deck. Finale: Benny or Ruth bows out.
+- **Beats:** Margot's family held the deck once, for one night, and gave it back; she wants to win it the same way, hold it one night, and send it home. She stakes Delphine's diary. Finale: Benny or Ruth bows out.
 
 ### 10. The Boom (2005), online Hold'em, 2-7 Triple Draw, Badugi, then a final table
 
 Jamie Avery, a broke student, in an internet café at 3 a.m. The rivals are screen names; their tells are about **timing** and chat ("Bets instantly", "types hmm").
 
 - **Stages:** hands 1 to 4, "The $5 qualifier, 3 a.m.", No-Limit Hold'em, taught by DeuceSeven; 5 to 8, "Waiting for the next table: 2-7 Triple Draw", taught by DeuceSeven; 9 to 12, "Still waiting: Badugi", taught by Hanbit; from 13, "The final table, Las Vegas", No-Limit Hold'em with stacks reset, its own room (a stage `scene`) and the rivals in person (the stage's `seats`). $10 unit, $500 each, blinds rise every 4 hands.
-- **Cast:** DeuceSeven (tanks then raises when bluffing), N0rthStar (bets instantly when strong; revealed at the final table as Nate Crane), Hanbit (from Seoul, types "hmm" when weak).
-- **Art:** online, the table is the screen of the café's monitor and the rivals are square avatars above its far rim (a shark, a star, a tiger cub). At the final table DeuceSeven is painted; Nate Crane and Hanbit are silhouettes until their pictures are made, and there is no title painting yet.
-- **Beats:** the final table opens with the reveal. Finale: no bow-outs; it is played to the end like a tournament, with a heads-up line from Nate.
+- **Cast:** DeuceSeven (tanks then raises when bluffing), N0rthStar (bets instantly when strong; revealed at the final table as Nat Crane), Hanbit (from Seoul, types "hmm" when weak).
+- **Art:** online, the table is the screen of the café's monitor and the rivals are square avatars above its far rim (a shark, a star, a tiger cub). At the final table DeuceSeven is painted; Nat Crane and Hanbit are silhouettes until their pictures are made, and there is no title painting yet.
+- **Beats:** the final table opens with the reveal: Nat Crane says her family has wanted the deck since 1543, names the eighty years of lawyers' letters ("You never wrote back") and says she does not cheat and means to win the deck fairly, on television. Finale: no bow-outs; it is played to the end like a tournament, with a heads-up line from Nat, who shakes hands when she loses.
 
 ### 11. The Big O (2019), 5- and 6-Card Omaha, then Hi-Lo
 
@@ -134,23 +152,25 @@ A big card room in the English Midlands. Sophie Avery. Pounds ("£200").
 
 - **Stages:** hands 1 to 4, 5-Card Omaha; 5 to 8, 6-Card Omaha; from 9, "Last round: Hi-Lo", alternating 5-Card and 6-Card Omaha Hi-Lo two hands each. All pot-limit, all taught by Gaz. £4 unit, £200 each, rising every 6 hands.
 - **Cast:** Kerry-Ann Booth (loose, checks her phone when weak), Gaz Whitlock (a regular who has seen everything, goes quiet when strong), Mr. Okafor (tight, perfect chip towers when strong).
-- **Beats:** before hand 3 Gaz recognises the old deck. Finale: Kerry-Ann or Okafor bows out.
+- **Beats:** the intro has the first warm word from a Crane: a handwritten note signed "E. Crane", sorry for the old letters and asking only to see the deck. Before hand 3 Gaz recognises the old deck; before hand 7 he sees Sophie reading the note and tells her to write back. Jamie gave Sophie the deck when she moved. Finale: Kerry-Ann or Okafor bows out.
 
 ### 12. The Last Table (today), HORSE then the 8-Game
 
-A private room in Macau. You, the last Avery, against Victor Crane, the last Crane. Hong Kong dollars.
+A private room in Macau. You are the last Avery (a man; the story ends with his wedding), and Sophie has handed you the deck with its bundle of letters. Victor Crane sends the invitation but does not play for the deck himself: his daughter **Elena Crane**, one of the best professional players in the world, plays for the family. She is the "E. Crane" of the 2019 note. Hong Kong dollars.
 
-- **Stages:** hands 1 to 10, HORSE: Limit Hold'em, Omaha Hi-Lo, Razz, Stud, Stud Hi-Lo, two hands each. From hand 11, the 8-Game: 2-7 Triple Draw, Limit Hold'em, Omaha Hi-Lo, Razz, Stud, Stud Hi-Lo, No-Limit Hold'em, Pot-Limit Omaha, two hands each, round and round. Mei Lin Chau gives a short lesson the first time each game is dealt (the player may have jumped straight here). HK$50 unit, HK$2,500 each, rising every 10 hands. Buy-backs during HORSE; from the 8-Game, broke means out.
-- **Cast:** Mei Lin (quiet legend, sips her tea when weak), Victor (straightens his riverboat cufflinks when bluffing), Rafael Duarte (shipping heir, loose, hums when strong).
-- **Beats:** before hand 6 Victor says the deck does the winning; Mei Lin disagrees. Finale: Mei Lin or Rafael bows out. Win: the feud ends.
+- **Stages:** hands 1 to 10, HORSE: Limit Hold'em, Omaha Hi-Lo, Razz, Stud, Stud Hi-Lo, two hands each. From hand 11, the 8-Game: 2-7 Triple Draw, Limit Hold'em, Omaha Hi-Lo, Razz, Stud, Stud Hi-Lo, No-Limit Hold'em, Pot-Limit Omaha, two hands each, round and round. Mei Lin Chau gives a short lesson the first time each game is dealt (the player may have jumped straight here). HK$50 unit, HK$2,500 each, rising every 10 hands. Buy-backs during HORSE; from the 8-Game, broke means out. The games and rules are unchanged from before the story rework.
+- **Cast:** Mei Lin (quiet legend, sips her tea when weak), Elena (the nemesis: a top pro, she looks up at you before she bets when she is bluffing), Victor (her father, straightens his riverboat cufflinks when bluffing). Rafael Duarte, the shipping heir who used to hold the third seat, is gone.
+- **Elena's strength:** she is written as a top pro in her talk and reputation, not in a punishing difficulty: this is a teaching game. Her numbers are a little sharper than Victor's. When rivals move to RSDP Live's bots, she is one of the few characters where the Hard setting may fit (John, 2026-11-21).
+- **Beats, the two of you warming:** before hand 2 she says she wrote to your family once, and laughs when you say the note reached you last month in a shoebox; before hand 4 you tell her she looks at you when she bluffs; before hand 6 Victor gives the Crane version of the legend (their luck went downriver in 1836), Mei Lin answers that the Averys won by watching people, and Elena says Silas dealt seconds ("That is the Avery version," says Victor); before hand 9 she reads Clara's "Still ours" in the case, and Mei Lin tells Victor these two are no longer playing for the deck.
+- **Finale:** Mei Lin or Victor bows out ("I started this, with a letter. You two finish it."), and the last two are you and Elena, for the deck, loser buys dinner. Win: she laughs, says it was always yours, and you owe her dinner; Victor lets the grudge go ("It was never the deck, was it? Maybe the Cranes can just play cards now"); the case has room for one more line, which you leave empty until after dinner.
 
 ### Epilogue. The Kitchen Table (today), house extras
 
-A home game with friends. No-Limit Hold'em, $1/$2, $200 each, blinds rise every 12 hands ("to keep it spicy").
+The home game the night after your wedding to Elena, a year and a good many dinners after Macau. Both families at one table. No-Limit Hold'em, $1/$2, $200 each, blinds rise every 12 hands ("to keep it spicy").
 
-- **House extras:** every 4th hand is a **bomb pot** (everyone puts in 3 units, no betting before the flop) dealt with a **double board** (half the pot for each board); winning a pot with **7-2** and showing it collects a **bounty** of 2 units from everyone. Taught by Marcus, Dee and Priya before the first deal.
-- **Cast:** Priya (loves chaos, can't stop smiling when strong), Marcus (the host, re-stacks his chips by colour when strong), Dee (always says it's seven-deuce, drums the table when bluffing).
-- **Beats:** before hand 6 your friends ask for the whole story. Finale: Priya or Dee bows out. Win: the case is full, and the ending links to RSDP Live.
+- **House extras:** every 4th hand is a **bomb pot** (everyone puts in 3 units, no betting before the flop) dealt with a **double board** (half the pot for each board); winning a pot with **7-2** and showing it collects a **bounty** of 2 units from everyone. Unchanged. Taught before the first deal by Dee, with Marcus and Priya, while Victor objects ("That is not poker").
+- **Cast, left to right:** Dee (your friend; always says it's seven-deuce, drums the table when bluffing), Elena (your wife, the nemesis; she still looks up before a bluff), Victor (your father-in-law, at his first home game; the cufflinks). Elena and Victor sit where they sat in Macau, so their pictures serve both chapters. **Marcus deals and Priya heckles from the sofa:** they speak in scenes with their names shown but hold no seat (`bystanders` in the chapter file).
+- **Beats:** before hand 3 Victor learns there is a prize for the worst hand in poker; before hand 6 your friends ask for the whole story, Victor tells it again with the Cranes as the injured party, Elena says Silas dealt seconds, and Dee gets the last word ("The Cranes didn't fold. They married in."); before hand 9 Victor says he hasn't enjoyed a game so much in forty years. Finale: Victor or Dee bows out, and the last two are you and Elena again: last time for the deck, this time the loser does the dishes. Win: the case is full, and the last line in its lid is two names, Avery and Crane. Then the ending pictures and the credits, which link to RSDP Live.
 
 ## How the rivals play
 

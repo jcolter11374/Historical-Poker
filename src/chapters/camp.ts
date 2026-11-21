@@ -22,6 +22,7 @@ export const CAMP: Chapter = {
   youAre: 'Corporal Sam Avery, Kit’s son',
   teaches: 'Five-card stud, the soldiers’ game',
   rulesObject: 'Rules in the sutler’s ledger',
+  dealerMarker: 'buck',
   stages: [
     {
       fromHand: 1,

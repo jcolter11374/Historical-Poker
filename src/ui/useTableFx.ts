@@ -44,14 +44,19 @@ export function seatSpot(rivals: Character[], seat: SeatIndex): Point {
 }
 
 /**
- * Where the pot sits: in the middle of the felt, below the seat across.
- * In flop games the board takes the middle, and on small screens the
- * enlarged name plates fill it, so then the pot moves up between the left
- * and middle seats.
+ * Where the pot sits: always on the felt, never on the painted rim.
+ *
+ *   draw and stud games  in the middle, below the seat across
+ *   flop games           in the middle too, between the seat across and the
+ *                        board (styles.css puts the board just below it)
+ *   small screens        the enlarged name plates leave no room above the
+ *                        board, so in flop games the pot sits on the felt
+ *                        between the left and middle seats; other games keep
+ *                        the middle, a little lower
  */
-export function potSpot(flop: boolean, compact = false, scenePot?: Point): Point {
-  if (flop && scenePot) return scenePot;
-  return flop || compact ? { x: 585, y: 462 } : { x: 800, y: 630 };
+export function potSpot(flop: boolean, compact = false): Point {
+  if (flop) return compact ? { x: 596, y: 596 } : { x: 800, y: 595 };
+  return compact ? { x: 800, y: 668 } : { x: 800, y: 630 };
 }
 
 const FLIGHT_MS = 650;
@@ -63,7 +68,7 @@ function cardCount(snap: Snapshot): number {
   return Object.entries(h.players).reduce((n, [seat, p]) => n + (Number(seat) === HUMAN ? 0 : p.cards.length), 0) + h.myCards.length;
 }
 
-export function useTableFx(rivals: Character[], snap: Snapshot, compact: boolean, scenePot?: Point): Flight[] {
+export function useTableFx(rivals: Character[], snap: Snapshot, compact: boolean): Flight[] {
   const prev = useRef<Snapshot | null>(null);
   const [flights, setFlights] = useState<Flight[]>([]);
 
@@ -87,7 +92,7 @@ export function useTableFx(rivals: Character[], snap: Snapshot, compact: boolean
     const h = snap.hand;
     if (!h) return;
     const flop = (snap.hand?.family ?? snap.play.family) === 'flop';
-    const pot = potSpot(flop, compact, scenePot);
+    const pot = potSpot(flop, compact);
     const add: Flight[] = [];
     const sounds: [Sfx, number][] = [];
     const sameHand = !!before?.hand && before.handNumber === snap.handNumber;

@@ -356,6 +356,9 @@ export class Session {
       const stage = chapter.stages[saved.stageIndex];
       const play = stage?.games[saved.playIndex];
       if (!play || saved.seats[saved.button]?.out !== false) return null;
+      // A scene saved before the chapter's cast changed may name someone who no longer sits here.
+      const known = (who: string) => who === 'narration' || chapter.rivals.some((r) => r.id === who) || !!chapter.bystanders?.[who];
+      if (!saved.scene.every((l) => known(l.who))) return null;
       const s = new Session(chapter, { ...opts, skipTutorial: true });
       s.seats.forEach((seat, i) => Object.assign(seat, saved.seats[i]));
       s.button = saved.button;
@@ -1196,6 +1199,9 @@ export class Session {
     const line = this.scene[0];
     if (!line) return null;
     if (line.who === 'narration') return { name: null, seat: null, text: line.text };
+    // Someone in the room without a seat (the epilogue's dealer): named, but nobody at the table lights up.
+    const bystander = this.chapter.bystanders?.[line.who];
+    if (bystander) return { name: bystander, seat: null, text: line.text };
     const seat = this.seatOf(line.who);
     return { name: this.seats[seat].name, seat, text: line.text };
   }

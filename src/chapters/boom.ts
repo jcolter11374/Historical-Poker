@@ -36,6 +36,8 @@ export const BOOM: Chapter = {
   youAre: 'Jamie Avery, a student',
   teaches: 'Online Hold’em, then 2-7 Triple Draw and Badugi',
   rulesObject: 'The help screen',
+  dealerMarker: 'online',
+  houseDeals: true,
   stages: [
     {
       fromHand: 1,
@@ -124,11 +126,13 @@ export const BOOM: Chapter = {
       },
       scene: { background: art('background-final.webp'), tableFront: art('table-front-final.webp'), palette: { wall: '#07070c', light: '#e8f0ff', felt: '#1d2c5a', rim: '#3a3a4a' } },
       structure: { unit: 10 },
+      dealerMarker: 'button',
       opening: [
         say('narration', 'Six weeks later. Las Vegas. Television lights, three cameras, a crowd behind the rail. Out of eight thousand qualifiers, four players are left, and you are one of them.'),
         say('narration', 'So are DeuceSeven and Hanbit, who flew in from Seoul. And the fourth seat belongs to the player who knocked out half the field online: N0rthStar.'),
-        say('northstar', 'Jamie Avery. I knew the name the minute I saw it. My family lost a deck to yours on a riverboat, a hundred and seventy years ago.'),
-        say('northstar', 'Nate Crane. Nice to finally meet you. I want that deck back on national television.'),
+        say('northstar', 'Jamie Avery. I knew the name the minute I saw it. My family has wanted a deck of yours since 1543, and lost it to you on a riverboat, a hundred and seventy years ago.'),
+        say('northstar', 'My family has been writing to yours for eighty years. Lawyers’ letters, no name. You never wrote back.'),
+        say('northstar', 'Nat Crane. I don’t cheat, and I am not here to take it. I am here to win it, fair, with the whole country watching.'),
       ],
       games: [
         {
@@ -143,12 +147,12 @@ export const BOOM: Chapter = {
   levelLines: [say('narration', 'A message flashes across the screen: BLINDS ARE INCREASING.')],
   intro: [
     '2005. Everyone is playing poker on the internet, and anyone can become a champion: a $5 qualifier can win a seat at the biggest tournament in Las Vegas.',
-    'Jamie Avery, Ray’s youngest, is broke, studying at night, and playing in a cramped internet café at 3 a.m. because the dorm Wi-Fi is down. The old family deck sits next to the keyboard, for luck.',
+    'Jamie Avery, Ray’s youngest, is broke, studying at night, and playing in a cramped internet café at 3 a.m. because the dorm Wi-Fi is down. The old family deck, which Ray handed over the day Jamie left for college, sits next to the keyboard, for luck.',
     'At the table: two online pros, DeuceSeven and Hanbit, and a mysterious player called N0rthStar who never types in the chat.',
   ],
   recap: [
     'The Ashcombe deck, painted in 1543, has stayed with the American Avery family for more than two hundred years, through steamboats, wars, speakeasies and casinos.',
-    'In 1995 Ray Avery carried it to Atlantic City; now his youngest, Jamie, has it at college. The Cranes have wanted it back ever since Kit Avery caught Silas Crane cheating on the Mississippi in 1836, and nobody has heard from them since Deadwood in 1876.',
+    'In 1995 Ray Avery carried it to Atlantic City; now his youngest, Jamie, has it at college. The Cranes have wanted it since a deck was promised to one of them in 1543. They held it once, by cheating, until Kit Avery caught Silas Crane on the Mississippi in 1836, and nobody has seen a Crane since Deadwood in 1876. Only letters have come, from a lawyer, with no name on them, offering to buy it.',
   ],
   history: [
     'In the mid-2000s, online poker boomed. Amateurs who qualified online for a few dollars went on to win the biggest live tournaments, and poker was on television every night.',
@@ -194,14 +198,14 @@ export const BOOM: Chapter = {
           fullName: '“N0rthStar”',
           role: 'Never types in the chat. Never loses.',
           personality: { level: 'hard', valueAt: 1.25, bluff: 0.22, caution: -0.01, betSize: 0.8, trap: 0.2, respect: 0.6, reads: 1 },
-          tell: { text: 'Bets instantly, the moment it’s his turn.', signals: 'strong', showsWhenTrue: 0.6, showsWhenFalse: 0.25 },
+          tell: { text: 'Bets instantly, the moment it’s her turn.', signals: 'strong', showsWhenTrue: 0.6, showsWhenFalse: 0.25 },
           lines: lines({
             bet: ['Raise.', 'Bet.', 'All the way.'],
             call: ['Call.'],
             fold: ['Fold.'],
             check: ['Check.'],
             win: ['…', 'The Cranes say thank you.'],
-            bust: 'Again. An Avery, again. Fine. Keep your deck. Every generation, the same story.',
+            bust: 'An Avery, again. Every generation. No excuses: you played it better. Keep your deck.',
             draw: ['One.', 'Two.'],
             pat: ['Pat.'],
           }),
@@ -241,9 +245,9 @@ export const BOOM: Chapter = {
   ],
   nemesisId: 'northstar',
   narratorId: 'deuceseven',
-  scene: { music: music('boom'), background: art('background-cafe.webp'), tableFront: art('table-front-cafe.webp'), pot: { x: 600, y: 500 }, palette: { wall: '#0b0f1a', light: '#6ad0ff', felt: '#1a3a6a', rim: '#2a2f3a' } },
+  scene: { music: music('boom'), background: art('background-cafe.webp'), tableFront: art('table-front-cafe.webp'), palette: { wall: '#0b0f1a', light: '#6ad0ff', felt: '#1a3a6a', rim: '#2a2f3a' } },
   playerPlate: { x: 800, y: 760 },
-  keepsake: { name: '“N0rthStar”, Nate Crane', line: 'The Boom, 2005. From a $5 qualifier to the final table.' },
+  keepsake: { name: '“N0rthStar”, Nat Crane', line: 'The Boom, 2005. From a $5 qualifier to the final table.' },
   story: {
     dealer: ['Blinds posted. Dealing…', 'New hand.', 'Dealing…'],
     finale: {
@@ -254,17 +258,17 @@ export const BOOM: Chapter = {
       ],
     },
     exits: {
-      deuceseven: [say('narration', 'DeuceSeven stands, shakes your hand, and says his first words out loud all night: “Take him down.”')],
+      deuceseven: [say('narration', 'DeuceSeven stands, shakes your hand, and says his first words out loud all night: “Take her down.”')],
       hanbit: [say('narration', 'Hanbit bows to the table and leaves to a big round of applause.')],
     },
   },
   outro: {
     won: [
       'The last chips are yours. Confetti falls. Somewhere in the crowd, someone is waving a sign that says “$5 → CHAMPION”.',
-      'Nate Crane shakes your hand on live television. “Every generation,” he says. “Every single one.” He doesn’t sound angry anymore. He sounds almost impressed.',
+      'Nat Crane shakes your hand on live television. “Every generation,” she says. “Every single one.” She doesn’t sound angry anymore. She sounds almost impressed.',
     ],
     lost: [
-      'Your last chip goes to N0rthStar. The cameras swing to Nate Crane, holding up a battered old deck of cards.',
+      'Your last chip goes to N0rthStar. The cameras swing to Nat Crane, holding up a battered old deck of cards.',
       '“dude you called off your tournament,” DeuceSeven types later. “fold more early. pressure late.” Try again?',
     ],
   },

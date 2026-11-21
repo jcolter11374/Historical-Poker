@@ -43,8 +43,7 @@ export const OPENING: Slide[] = [
   {
     when: 'Ashcombe Hall, 1543',
     caption: 'It starts with a grudge. A young knight named Crane is promised a painted deck of cards, and watches a painter’s daughter named Avery win it at the table instead. “A Crane does not forget,” he says.',
-    image: 'painted-deck/title.webp',
-    standIn: true,
+    image: 'montage/opening-1-ashcombe.webp',
   },
   {
     when: 'The Mississippi, 1836',

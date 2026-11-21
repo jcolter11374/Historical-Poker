@@ -4,6 +4,7 @@
  * "Part Two".) All people and places are fictional.
  */
 import { lines, music, rival, say } from './cast';
+import { RAZZ_1926, STUD_1926 } from '../games/catalog';
 import type { Chapter } from './types';
 
 export const BACK_ROOM: Chapter = {
@@ -23,19 +24,19 @@ export const BACK_ROOM: Chapter = {
       structure: { unit: 10 },
       games: [
         {
-          game: 'stud',
+          game: STUD_1926,
           betting: 'fixed-limit',
           lesson: {
             teacher: 'sal',
             before: [
               say('sal', 'Seven-card stud, Miss Avery. It’s the coming game: two more cards than your grandmother’s, and a lot more to think about.'),
-              say('sal', 'Everybody antes. You get two cards down and one up. Low card up has to bring it in, a small forced bet. Then betting.'),
+              say('sal', 'Everybody antes. You get two cards down and one up. High card up talks first: he can bet or check. Then betting.'),
               say('sal', 'Then three more cards up, one at a time, a bet after each. Then the last card face down. Best five of your seven wins.'),
               say('sal', 'It’s a limit game: bets come in fixed sizes. Ten a bet on the early streets, twenty later. Nobody gets pushed out by one big bet; you get bled slowly. I keep books, I know.'),
             ],
             streets: {
               0: [say('sal', 'Third street. Two down, one up. A pair already, or three cards to a flush, is worth playing. Look at the up cards: if your cards are showing elsewhere, they’re dead.')],
-              1: [say('sal', 'Fourth street. From now on, the best hand showing bets first, not the low card.')],
+              1: [say('sal', 'Fourth street. Best hand showing talks first, same as before: a pair on the board beats any one card.')],
               2: [say('sal', 'Fifth street. The bets double here. If you’re not drawing to something real, this is the cheap time to fold.')],
               4: [say('sal', 'Seventh street: the last card, face down. Pick your best five of the seven. The label under your cards shows it.')],
             },
@@ -53,15 +54,15 @@ export const BACK_ROOM: Chapter = {
       ],
       games: [
         {
-          game: 'razz',
+          game: RAZZ_1926,
           betting: 'fixed-limit',
           lesson: {
             teacher: 'nora',
             before: [
               say('nora', 'Razz. Same deal as stud: two down, one up, three more up, last one down. Same betting.'),
               say('nora', 'But the LOWEST hand wins. Aces are low. Straights and flushes don’t count against you. Five-four-three-two-ace is perfect: a wheel.'),
-              say('nora', 'Pairs are poison. High card up brings it in, because a king is the worst thing you can show.'),
-              say('nora', 'And from fourth street on, the lowest hand showing bets first. Got it? Good. Now give me your money.'),
+              say('nora', 'Pairs are poison, and a king is the worst thing you can show.'),
+              say('nora', 'The lowest hand showing talks first, every street. Got it? Good. Now give me your money.'),
             ],
             streets: {
               0: [say('nora', 'Three small cards, all different? That’s a start. A king up? Get out, honey.')],

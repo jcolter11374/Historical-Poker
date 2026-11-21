@@ -31,13 +31,13 @@ Every rival's personality numbers and tell chances are in the chapter file; the 
 
 ### 1. The River (1836), straight poker
 
-Built first, and the model for the rest. Pot-limit, $2 unit, $100 each, no rising stakes. Full detail is in [GAME_DESIGN.md](GAME_DESIGN.md), "Chapter 1". Beats: scripted tutorial hand with Delphine pointing out Ezra's tell; Silas stakes the Ashcombe deck; Silas deals himself four aces once, and you can call out the deal; Delphine or Ezra bows out for the heads-up finale.
+Built first, and the model for the rest. Table stakes (no limit), $1 ante, $2 minimum bet, $100 each, no rising stakes. Full detail is in [GAME_DESIGN.md](GAME_DESIGN.md), "Chapter 1". Beats: scripted tutorial hand with Delphine pointing out Ezra's tell; Silas stakes the Ashcombe deck; Silas deals himself four aces once, and you can call out the deal; Delphine or Ezra bows out for the heads-up finale.
 
 ### 2. The Painted Deck (1543), Primero
 
 Ashcombe Hall, Twelfth Night. Nan Avery plays Lady Margery for the deck Nan's father painted. Money is in shillings (shown as "12s").
 
-- **Game:** Primero as reconstructed in `src/games/primero.ts` (40 cards, two down, bet, two down, bet, change up to two once, bet). Pot-limit, 2s unit, 100s each, stakes rise every 10 hands.
+- **Game:** Primero as reconstructed in `src/games/primero.ts` (40 cards, two down, bet, two down, bet, change up to two once, bet). Table stakes: wager any part of your "rest". 1s ante, 2s minimum wager, 200s each, stakes rise every 10 hands.
 - **Teacher:** Brother Anselm, before the first deal and on each street of the first hand.
 - **Cast:** Sir Roland (very loose, drains his cup before a bluff), Lady Margery (tight and strong, turns her signet ring when strong), Brother Anselm (careful, mutters a prayer when weak).
 - **Beats:** before hand 4 Roland wagers and loses his horse; before hand 7 Anselm talks about his abbey. Margery puts the deck on the table once Nan has won a few pots. Finale: Roland or Anselm bows out. Win: she has the case stamped "M.A. 1543".
@@ -46,7 +46,7 @@ Ashcombe Hall, Twelfth Night. Nan Avery plays Lady Margery for the deck Nan's fa
 
 The Pewter Lamb, snowbound on the Great North Road. Will Avery, stagecoach guard. Shillings.
 
-- **Game:** three-card Brag (`src/games/brag.ts`): three cards each, one betting round, prials (three threes best) over runs, flushes, pairs. Blind betting is not played (see [DECISIONS.md](DECISIONS.md)). Pot-limit, 2s unit, 100s each.
+- **Game:** Brag as the 1700s played it (`src/games/brag.ts`): three cards each, one round of bragging, only pairs royal and pairs count (aces high), the knave of clubs and the nine of diamonds are wild "braggers", and a natural hand beats the same hand made with a bragger. No runs, flushes or blind betting: those are the later game. Table stakes, 1s ante, 2s minimum, 100s each.
 - **Teacher:** Hannah Pell, the innkeeper.
 - **Cast:** Hannah (tight, polishes a tankard when strong), Captain Pike (loose, loud: the louder the boast, the weaker the hand), Jack Sorrel (tricky, his hand drifts to his coat pocket when weak).
 - **Beats:** before hand 5 Sorrel is unmasked as a highwayman. Pike stakes a berth on a brig to Philadelphia. Finale: Hannah or Sorrel bows out. Win: the deck crosses the Atlantic.
@@ -55,7 +55,7 @@ The Pewter Lamb, snowbound on the Great North Road. Will Avery, stagecoach guard
 
 A Union camp near Chattanooga, the night before battle. Sam Avery, Kit's son.
 
-- **Game:** five-card stud (`src/games/fiveCardStud.ts`): one down, one up, then three more up, four betting rounds, the lowest card showing brings in. Pot-limit, $4 unit, $120 each.
+- **Game:** five-card stud (`src/games/fiveCardStud.ts`): one down, one up, then three more up, four betting rounds. Everyone antes $1. No bring-in: the best hand showing opens every round and may check. Table stakes, $4 minimum bet, $120 each. Hands as the 1864 *American Hoyle* lists them: the straight ranks below three of a kind and there is no straight flush.
 - **Teacher:** Sergeant Reed (he is also the nemesis: a fair man who wants the deck).
 - **Cast:** Toby Finch (drummer boy, calls everything, grins at every card, unreliable), Sergeant Reed (very tight, stops chewing when strong, about 85% reliable), Hattie Bloom (sutler, taps her pencil when bluffing).
 - **Beats:** before hand 3 Toby's month's pay; before hand 9 orders arrive for the morning. Reed stakes his silver watch against the deck. Finale: Toby or Hattie bows out.
@@ -64,7 +64,7 @@ A Union camp near Chattanooga, the night before battle. Sam Avery, Kit's son.
 
 The Lucky Nugget, Deadwood. Clara Avery, Kit's granddaughter. The end of Part One.
 
-- **Game:** five-card draw (`src/games/fiveCardDraw.ts`): five down, bet, draw up to three (four if you keep an ace), bet. Pot-limit, $4 unit, $120 each.
+- **Game:** five-card draw (`src/games/fiveCardDraw.ts`): the age (left of the dealer) antes $2 blind; five down; $4 to come in and the age makes good last; draw up to five; a second round with the player left of the age first. Ruby's limit is $20 a bet or raise, with no cap on raises (`spread-limit`). No jack pots. $240 each.
 - **Teacher:** Ruby Calloway, who is also the nemesis and the narrator.
 - **Cast:** Doc Whitcomb (prospector, loose, shakes his dust pouch when strong), Ruby (balanced; her smile is a deliberate coin flip), Jasper Crane (Silas's grandson, loose, the same mustache tell as his grandfather).
 - **Beats:** before hand 2 miners talk about the shooting at Saloon No. 10 and the dead man's hand; before hand 3 Ruby warns Clara to watch Jasper when he deals. **The cheat:** from hand 4, Jasper deals himself four kings once, with his own tell and a decoy, exactly like Silas in chapter 1; the player can call out the deal. There is no stake: the deck is already Clara's, and the sitting is to settle it. Finale: Doc bows out, leaving Ruby, who turns out to be the real opponent.
@@ -73,7 +73,7 @@ The Lucky Nugget, Deadwood. Clara Avery, Kit's granddaughter. The end of Part On
 
 Maison Fontaine, New Orleans. You play young Delphine, at her aunt's table.
 
-- **Game:** Poque as reconstructed in `src/games/poque.ts`: 32-card piquet deck, five cards each, one betting round, only fours, triplets, two pairs and pairs count. Pot-limit, $2 unit, $100 each. The payout board is not built.
+- **Game:** Poque as reconstructed in `src/games/poque.ts`: 32-card piquet deck, five cards each, one betting round, only sets count (fours, threes, a pair; a second pair only breaks ties). Table stakes, $1 ante, $2 minimum, $100 each. The other two parts of the game, and the payout board, are not built.
 - **Art:** fully painted: the salon, the title painting (a French Quarter street at night) and all three rivals.
 - **Teacher:** Henri Avery, Kit's grandfather.
 - **Cast:** Henri (solid, hums when strong), Madame Élodie (tricky, fans her cards slowly when strong), Captain Lacroix (privateer, loose, laughs too loudly when bluffing).
@@ -85,7 +85,7 @@ Maison Fontaine, New Orleans. You play young Delphine, at her aunt's table.
 
 A Chicago speakeasy behind a florist's shop. Edith Avery, Clara's daughter.
 
-- **Stages:** hands 1 to 6, Seven Card Stud, taught by Sal Moretti; from hand 7, "Razz, after midnight", taught by Nora Shea. Limit, $10 unit, $400 each, stakes rise every 8 hands.
+- **Stages:** hands 1 to 6, Seven Card Stud, taught by Sal Moretti; from hand 7, "Razz, after midnight", taught by Nora Shea. Limit, $10 unit, $400 each, stakes rise every 8 hands. Both are dealt with no bring-in (`stud-1926`, `razz-1926`): everyone antes and the best hand showing (in Razz the lowest) opens every round and may check. The low card's forced bring-in is a later casino rule; chapters 9 and 12 have it.
 - **Cast:** Sal (bookkeeper, careful, taps his pencil when weak), Nora (owner, tricky, laughs and lights a cigarette when bluffing), Gus Lindqvist (truck driver, calls too much, hums a Swedish song when strong).
 - **Beats:** before hand 4 a knock at the door, which turns out to be the ice man. Finale: Sal or Gus bows out. Players who go broke in the stud stage buy back in so everyone reaches Razz (see "Buy-backs" in GAME_DESIGN.md).
 

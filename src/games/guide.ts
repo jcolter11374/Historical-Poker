@@ -16,8 +16,7 @@
  * the table's betting style, forced bets and any house extras.
  * test/guide.test.ts checks every game in the catalog has a guide.
  */
-import type { BettingKind } from '@rsdp/engine/core';
-import type { Extras } from '../chapters/types';
+import type { Betting, Extras } from '../chapters/types';
 import type { ForcedStyle } from './catalog';
 
 export interface GameGuide {
@@ -85,7 +84,7 @@ export const GUIDES: Record<string, GameGuide> = {
       'One pair wins often here; two pairs is strong; triplets or better, bet them.',
       'A bet against one player can win the pot with nothing. Against three, someone usually has something.',
     ],
-    mistakes: ['Calling a big bet with high card, hoping. Nothing is coming.', 'Forgetting that straights and flushes don’t count in 1836.'],
+    mistakes: ['Calling a big bet with high card, hoping. Nothing is coming.', 'Forgetting that straights and flushes don’t count in 1836.', 'Putting your whole purse behind one pair. It’s table stakes: a rival may bet everything he has.'],
     coach: {
       'The deal': ['Count your cards against the deck: twenty cards, four of each rank. What you hold, they can’t.', 'With one round of betting, act on what you have now.'],
     },
@@ -106,24 +105,25 @@ export const GUIDES: Record<string, GameGuide> = {
   },
   'brag-1763': {
     tips: [
-      'Three cards make few big hands: any pair is above average, a flush is good, a run is strong, a prial is nearly unbeatable.',
-      'Threes are the best prial, then aces, kings and on down. A-2-3 is the best run.',
-      'Bragging is the game: bet a strong hand the same way you bet a weak one, so nobody can tell.',
+      'Only matched cards count. Any pair is above average, a high pair is strong, and a pair royal (three alike) is nearly unbeatable.',
+      'The knave of clubs and the nine of diamonds are braggers: either one turns your best card into a pair, and a pair into a pair royal.',
+      'A natural hand beats the same hand made with a bragger, so a true pair of aces beats an ace with a bragger.',
+      'Bragging is the game: wager a strong hand the same way you wager a weak one, so nobody can tell.',
     ],
-    mistakes: ['Thinking a flush beats a run. With three cards a run is harder to make, so it ranks higher.', 'Calling every brag with a high card.'],
+    mistakes: ['Counting three in a row or three of one suit as a hand. In 1763 they are worth nothing.', 'Calling every brag with a high card.'],
     coach: {
-      'The deal': ['A pair is a good hand in Brag. Ace-high often wins against one caller.', 'One round of betting: whatever you hold now is your hand.'],
+      'The deal': ['A pair is a good hand in Brag. Ace-high often wins against one caller.', 'One round of bragging: whatever you hold now is your hand.', 'Holding a bragger? You have a pair at least.'],
     },
   },
   'poque-1817': {
     tips: [
-      'In a thirty-two card pack pairs come often. One pair is ordinary; two pairs is good; triplets are strong.',
-      'Only matched cards count: there are no straights or flushes in Poque.',
+      'In a thirty-two card pack pairs come often. One pair is ordinary, a pair of aces is good, and three alike are strong.',
+      'Only sets count: four alike, three alike, a pair. No straights or flushes, and a second pair only breaks a tie between equal pairs.',
       'With no pair, the highest cards decide. Ace-king high wins more than you’d expect.',
     ],
-    mistakes: ['Counting a run or a suit as a hand. They count for nothing here.', 'Betting a small pair into three players.'],
+    mistakes: ['Counting a run or a suit as a hand. They count for nothing here.', 'Thinking two small pairs beat a pair of aces. The higher pair wins.', 'Betting a small pair into three players.'],
     coach: {
-      'The deal': ['With only sevens to aces, someone usually holds a pair. Aces or two pairs are worth a bet.'],
+      'The deal': ['With only sevens to aces, someone usually holds a pair. A pair of aces or kings, or three alike, is worth a bet.'],
     },
   },
   'stud5-1863': {
@@ -131,26 +131,27 @@ export const GUIDES: Record<string, GameGuide> = {
       'Your hole card is your only secret. If it pairs your highest up-card, you know more than anyone at the table.',
       'Play few hands: a pair, or an ace or king with a good card showing. Fold most others at once.',
       'Look around the table before every bet. If someone shows a pair you can’t beat, fold.',
+      'The best hand showing speaks first and may check. Nobody is forced to bet, so a bet means something.',
     ],
-    mistakes: ['Staying in when what’s showing already beats you.', 'Chasing a straight or flush: with only five cards, they rarely come.'],
+    mistakes: ['Staying in when what’s showing already beats you.', 'Chasing a straight or flush: with only five cards, they rarely come. And in 1863 a straight loses to three of a kind.'],
     coach: {
       'Second card': ['A pair in your first two cards is a strong start. Two small, unmatched cards: usually fold.'],
       'Third card': ['Read the up-cards. Who could have you beaten already?'],
-      'Fourth card': ['The bets get bigger now. Keep going with the best hand, or a pair to beat what shows.'],
+      'Fourth card': ['The pots get bigger now. Keep going with the best hand, or a pair to beat what shows.'],
       'Fifth card': ['Last card. If what they show beats you, a call only pays them.'],
     },
   },
   'draw5-1876': {
     tips: [
       'Keep a pair and draw three. Keep two pairs and draw one. With a straight or better, draw nothing (“stand pat”).',
-      'Before the draw, bet good pairs (jacks or better) and fold most hands with nothing.',
+      'Before the draw, come in with good pairs (jacks or better) and fold most hands with nothing. It costs double the ante to come in.',
       'Watch how many cards each rival draws. One card: two pairs or a straight or flush draw. Three: a pair. None: a made hand, or a bluff.',
     ],
-    mistakes: ['Keeping an extra high card with a pair. Drawing three gives you a better chance to improve.', 'Drawing to an inside straight: one rank in the middle fills it, and only four cards are left of it.'],
+    mistakes: ['Keeping an extra high card with a pair. Drawing three gives you a better chance to improve.', 'Drawing four or five cards. You may, but a hand that needs them was not worth coming in with.', 'Drawing to an inside straight: one rank in the middle fills it, and only four cards are left of it.'],
     coach: {
       'Before the draw': ['Jacks or better are worth a bet. A small pair is worth a call, not a raise.'],
       'After the draw': ['Remember what each rival drew. A one-card draw that bets now usually made it.'],
-      draw: ['Keep a pair and draw three; keep two pairs and draw one. With nothing, keep your highest card; if it’s an ace, you may draw four.', 'Drawing three to a pair makes two pairs or better about three times in ten.'],
+      draw: ['Keep a pair and draw three; keep two pairs and draw one. With nothing but an ace, keep it and draw four.', 'Drawing three to a pair makes two pairs or better about three times in ten.'],
     },
   },
 
@@ -213,6 +214,24 @@ export const GUIDES: Record<string, GameGuide> = {
     tips: STUD_TIPS,
     mistakes: ['Chasing a flush when the cards of your suit are showing in other hands.', 'Ignoring a rival’s up-cards: a pair showing on fourth street is often trips by the end.'],
     coach: STUD_COACH,
+  },
+  'stud-1926': {
+    tips: [...STUD_TIPS, 'Nobody is forced to bet: the best hand showing speaks first on every street and may check.'],
+    mistakes: ['Chasing a flush when the cards of your suit are showing in other hands.', 'Ignoring a rival’s up-cards: a pair showing on fourth street is often trips by the end.'],
+    coach: { ...STUD_COACH, 'Fourth Street': ['Who improved? The best hand showing speaks first, as on every street.'] },
+  },
+  'razz-1926': {
+    tips: [
+      'The LOWEST hand wins. Aces are low, and straights and flushes don’t count, so 5-4-3-2-A is perfect.',
+      'Start with three cards of 8 or lower, all different. The lower, the better.',
+      'A high card showing is bad news for that player. When a rival catches a king, you’re suddenly ahead.',
+    ],
+    mistakes: ['Playing a pair: pairs are bad in Razz.', 'Forgetting who speaks first: the lowest hand showing, on every street.'],
+    coach: {
+      ...STUD_COACH,
+      'Third Street': ['Three different cards of 8 or lower are a good start. Anything with a pair or a high card, fold.'],
+      'Fourth Street': ['Who caught a high card? They just got worse. The lowest hand showing speaks first.'],
+    },
   },
   razz: {
     tips: [
@@ -277,13 +296,17 @@ export function coachLines(gameId: string, street: string): string[] {
 // ---------------------------------------------------------------- the betting
 
 /** The betting, in words, for the rules sheet. */
-export function bettingWords(betting: BettingKind, forced: ForcedStyle, family: 'flop' | 'stud' | 'draw', historical: boolean): string[] {
+export function bettingWords(betting: Betting, forced: ForcedStyle, family: 'flop' | 'stud' | 'draw', historical: boolean): string[] {
   const lines: string[] = [];
   if (forced === 'blinds') lines.push('Before the deal, the two players left of the buck post the small and big blind. The buck moves one seat each hand, so everyone takes a turn.');
   else if (forced === 'stud') lines.push('Everyone antes. The card showing that’s worst for its game (the lowest in most stud, the highest in Razz) must “bring it in” with a small bet, or make a full bet.');
+  else if (forced === 'stud-open') lines.push('Everyone antes. Nobody is forced to bet after that: the best hand showing speaks first on every round, and may check.');
+  else if (forced === 'age')
+    lines.push('Only the “age”, the player left of the dealer, antes, and blind, before the cards. To come in you put up double the ante. The age speaks last and can make the ante good or give it up.');
   else lines.push('Everyone puts in an ante before the deal, so there is always something to win.');
   lines.push('On your turn: fold (give up the hand), check (pass, if nobody has bet), call (match the bet), or bet and raise.');
-  if (betting === 'no-limit') lines.push('No limit: you may bet any amount up to all your chips. A raise must be at least as big as the last bet or raise.');
+  if (betting === 'no-limit') lines.push(historical ? 'Table stakes: you may bet any amount up to all the money in front of you. A raise must be at least as big as the last bet or raise.' : 'No limit: you may bet any amount up to all your chips. A raise must be at least as big as the last bet or raise.');
+  else if (betting === 'spread-limit') lines.push('The table’s limit: a bet or raise may be any amount up to the limit the table has agreed, and no more. There is no end to the number of raises.');
   else if (betting === 'pot-limit') lines.push('Pot limit: the most you may bet is what’s in the pot. To raise the most, call first, then raise the size of the pot.');
   else
     lines.push(

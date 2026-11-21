@@ -29,17 +29,18 @@ export const GAMING_HOUSE: Chapter = {
       games: [
         {
           game: POQUE_ID,
-          betting: 'pot-limit',
+          betting: 'no-limit',
           lesson: {
             teacher: 'henri',
             before: [
               say('henri', 'Your aunt never taught you poque, mademoiselle? Then let an old American teach you a French game.'),
               say('henri', 'Thirty-two cards, sevens to aces. Five each, face down. Everyone antes, then one round of wagers.'),
-              say('henri', 'Only matched cards count: a pair, two pairs, three alike, a full house, four alike. The rest is noise.'),
+              say('henri', 'Only matched cards count: a pair, then three alike, then four alike. A second pair only settles a tie. The rest is noise.'),
+              say('henri', 'There is no limit in this house. You may wager any of the money in front of you.'),
               say('henri', 'And the wagering is the game. You say “je poque”, and you bet as if you hold three aces. Sometimes you do.'),
             ],
             streets: {
-              0: [say('henri', 'Your five cards. With only thirty-two in the deck, pairs come often: a pair of aces is good, two pairs is very good. Wager like you believe it.')],
+              0: [say('henri', 'Your five cards. With only thirty-two in the deck, pairs come often: a pair of aces is good, three alike is very good. Wager like you believe it.')],
             },
           },
         },
@@ -64,7 +65,7 @@ export const GAMING_HOUSE: Chapter = {
     'Its exact rules were never written down well. This chapter is our reconstruction.',
   ],
   howToWin: [
-    'Everyone antes $1; the smallest wager is $2, and no wager may be larger than the pot.',
+    'Everyone antes $1 and the smallest wager is $2. You may wager anything up to all the money in front of you.',
     'Your aunt holds the Avery deck. Take her last dollar and it is yours to give back.',
   ],
   rivals: [

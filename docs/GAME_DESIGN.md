@@ -4,7 +4,7 @@
 
 ## The shape of the game
 
-- **Chapter select** (the Ashcombe deck's leather case): one card per chapter in two rows, Part One and Part Two. Every card names the game it teaches. Won chapters show the beaten rival's face (the keepsake) and a green "Won" ribbon; a chapter left part-way shows a red "At hand 12" ribbon; the chapter you'd continue glows; chapters you haven't reached are face down but open like any other (after "the story so far"). "Continue" goes straight back to the table you left most recently, or to the next chapter's intro if there is none. A first-time visitor goes straight to chapter 1's intro, with "All chapters" beside "Take a seat".
+- **Chapter select** (the Ashcombe deck's leather case): one card per chapter in two rows, Part One and Part Two. Every card names the game it teaches. Won chapters show the beaten rival's face (the keepsake) and a green "Won" ribbon; a chapter left part-way shows a red "At hand 12" ribbon; the chapter you'd continue glows; chapters you haven't reached are face down but open like any other (after "the story so far"). "Continue" goes straight back to the table you left most recently, or to the next chapter's intro if there is none. The game always opens here, first visit included ("Begin the story" opens chapter 1), so a friend can go straight to the game they want to learn.
 - **Intro:** the setting, who you play, what game is taught, the cast. If you jumped ahead, "The story so far" comes first.
 - **The table:** one sitting of the chapter's games (below).
 - **Ending:** the chapter's won or lost text, the keepsake, a "From the history book" note, and "On to" the next chapter. Losing offers "Try again". The last chapter links to RSDP Live.

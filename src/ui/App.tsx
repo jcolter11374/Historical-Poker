@@ -10,7 +10,7 @@
  * "Continue" sits you back down at the same table (src/progress/save.ts).
  */
 import { useEffect, useState } from 'react';
-import { CHAPTERS, chapterById, followingChapter, isUnlocked, nextChapter } from '../chapters';
+import { CHAPTERS, chapterById, followingChapter, isUnlocked } from '../chapters';
 import type { Chapter } from '../chapters/types';
 import {
   clearTable,
@@ -43,7 +43,7 @@ export function App() {
   const [progress, setProgress] = useState<Progress>(() => loadProgress());
   const [tables, setTables] = useState(() => loadTables());
   const won = new Set(Object.keys(progress.won));
-  const [screen, setScreen] = useState<Screen>(() => (Object.keys(progress.played).length ? { name: 'select' } : { name: 'intro', chapter: nextChapter(won) }));
+  const [screen, setScreen] = useState<Screen>({ name: 'select' });
 
   // Sound: browsers only allow it after a press, so start audio on the first one.
   useEffect(() => {

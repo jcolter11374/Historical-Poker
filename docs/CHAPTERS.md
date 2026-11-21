@@ -96,7 +96,7 @@ A Chicago speakeasy behind a florist's shop. Edith Avery, Clara's daughter. Full
 
 ### 7. The Desert Classic (1972), Limit then No-Limit Hold'em
 
-A fictional early championship in Las Vegas. Lou Avery.
+A fictional early championship in Las Vegas. Lou Avery. Fully painted: the tournament room under its amber lamps, all three rivals, and a title painting of the strip at dusk (`docs/screenshots/chapter-7-intro.jpg`, `chapter-7-table.jpg`).
 
 - **Stages:** hands 1 to 5, "The side game, the night before", Limit Hold'em; from hand 6, "The Desert Classic: no limit", a tournament where everyone starts again with $500 (`resetStacks`) and blinds rise every 5 hands. Both taught by Professor Weiss.
 - **Cast:** Professor Weiss (careful, polishes his glasses when weak), Tex Pruitt (loose and fast, tips his hat back when bluffing), Lorraine Fisk (former showgirl, her face never moves: a coin flip).

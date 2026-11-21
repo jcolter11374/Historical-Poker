@@ -2,13 +2,13 @@
 
 John makes the art with an image tool from the prompts below. This page covers the style, the prompts, and how a picture becomes game art.
 
-**Ready-to-paste prompts for every chapter** (backgrounds, every rival on green, title paintings, props) are in [ART_PROMPTS.md](ART_PROMPTS.md). The two below are the general templates.
+**Ready-to-paste prompts for every chapter** (backgrounds, every rival on green, title paintings, props) are in [ART_PROMPTS.md](ART_PROMPTS.md). The two below are the general templates. Every rival holds the number of cards that is right for the chapter's game (five for draw, one hole card for five-card stud, two for Hold'em and so on): the table is in ART_PROMPTS.md, with the list of painted pictures that still show the wrong number.
 
 ## Style
 
 The style target is John's painted riverboat scene: painted and hand-inked, worn textures, warm lamplight against blue moonlight. Every chapter matches its finish with its own era palette (see the outline's "Art and UI direction"). No boxes or panels in the UI: controls are chips on the table, dialogue is plain text on a shaded strip across the bottom.
 
-Attach the style-target image as a reference to every prompt, so the style stays the same.
+Attach one clean finished picture as the reference to every prompt, so the style stays the same: a finished character on green for characters, the clean table (`background-clean-table.jpg`) for backgrounds, a finished title for titles (the exact files are listed at the top of ART_PROMPTS.md). Do not attach `style-target-riverboat.jpg`: it is a full game mockup, and the image tool copies its dialogue text, fan and chips into new pictures.
 
 ## Layers
 

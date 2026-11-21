@@ -87,6 +87,7 @@ export const CLOSING: Slide[] = [
   {
     when: 'A shoebox of letters, 1926 to 2019',
     caption: 'Read in order, the letters were never threats. They grow a little politer every decade. The last one is in handwriting, signed, and only asks to see it.',
+    image: 'montage/ending-3-shoebox.webp',
     palette: LETTERS,
   },
   {

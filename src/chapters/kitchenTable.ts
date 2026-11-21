@@ -60,7 +60,7 @@ export const KITCHEN_TABLE: Chapter = {
   ],
   recap: [
     'The Ashcombe deck was painted in 1543 and has been played for at every kind of poker table since: a Tudor hall, an English inn, a New Orleans gaming house, a steamboat, an army camp, a gold town, a speakeasy, Las Vegas, Paris, Atlantic City, the internet, an English card room and Macau.',
-    `For nearly two hundred years the Crane family wanted it back. In Macau you won it from Elena Crane, the best of them, and then the two of you went to dinner. The feud ended the way the best ones do: with a wedding.`,
+    `For nearly five hundred years the Crane family wanted it. In Macau you won it from Elena Crane, the best of them, and then the two of you went to dinner. The feud ended the way the best ones do: with a wedding.`,
   ],
   history: [
     'Home games are where most people learn poker, and every one has house rules.',
@@ -153,7 +153,7 @@ export const KITCHEN_TABLE: Chapter = {
           say('priya', 'Okay, so tell us again. The deck was in a Tudor castle?'),
           say('narration', 'You tell them about Nan Avery and Lady Margery, and the Pewter Lamb in the snow, and the steamboat, and Deadwood, and all the rest. Then Victor tells it again, with the Cranes as the injured party. It takes two hands.'),
           say('crane', 'For the record, Silas dealt seconds. It is in our family’s letters too, if you read between the lines.'),
-          say('marcus', 'So after two hundred years the Cranes just… gave up?'),
+          say('marcus', 'So after five hundred years the Cranes just… gave up?'),
           say('dee', 'The Cranes didn’t fold. They married in.'),
         ],
       },

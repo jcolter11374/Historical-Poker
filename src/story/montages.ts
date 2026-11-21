@@ -11,8 +11,9 @@
  *
  * Each picture wipes in over the one before (src/ui/Montage.tsx). Every
  * moment is one the chapters actually tell; change a caption here and check
- * it against the chapter it comes from. The opening names no Crane after
- * 1876, so it doesn't give away who "N0rthStar" is in chapter 10.
+ * it against the chapter it comes from. The feud begins in 1543 (Sir Roland
+ * Crane, chapter 2). The opening names no Crane after 1876, so it doesn't
+ * give away who "N0rthStar" is in chapter 10.
  *
  * Art: each slide should end up with its own painting (prompts in
  * docs/ART_PROMPTS.md, "The opening and the ending"). Until then a slide
@@ -40,15 +41,15 @@ const LETTERS: Palette = { wall: '#1c1a22', light: '#d8c9a0', felt: '#3a3326', r
 
 export const OPENING: Slide[] = [
   {
-    when: 'The Mississippi, before 1836',
-    caption: 'It starts with a cheat. A river gambler named Silas Crane deals from the second card, smiling, and takes a family’s painted deck from a man named Avery.',
-    image: 'riverboat/title.webp',
+    when: 'Ashcombe Hall, 1543',
+    caption: 'It starts with a grudge. A young knight named Crane is promised a painted deck of cards, and watches a painter’s daughter named Avery win it at the table instead. “A Crane does not forget,” he says.',
+    image: 'painted-deck/title.webp',
     standIn: true,
   },
   {
-    when: 'The Magnolia Queen, 1836',
-    caption: 'Avery’s child comes aboard to win it back, and to watch Crane’s thumb. The Cranes will tell this night differently. They will say they were robbed.',
-    image: 'riverboat/background.webp',
+    when: 'The Mississippi, 1836',
+    caption: 'Three hundred years on, a river gambler named Silas Crane cheats an Avery out of that deck, smiling. Avery’s child comes aboard to win it back. The Cranes will say they were robbed. Again.',
+    image: 'riverboat/title.webp',
     standIn: true,
   },
   {
@@ -71,7 +72,7 @@ export const OPENING: Slide[] = [
   },
   {
     when: 'Today',
-    caption: 'Two families. One deck. Nearly two hundred years of bad blood. Somebody has to end it. Take a seat.',
+    caption: 'Two families. One deck. Nearly five hundred years of bad blood. Somebody has to end it. Take a seat.',
     palette: MACAU,
   },
 ];
@@ -96,7 +97,7 @@ export const CLOSING: Slide[] = [
   },
   {
     when: 'Las Vegas, 2005',
-    caption: 'Nate Crane shook an Avery’s hand on live television. “Every generation,” he said. He did not sound angry any more.',
+    caption: 'Nat Crane shook an Avery’s hand on live television. “Every generation,” she said. She did not sound angry any more.',
     image: 'boom/background-final.webp',
     standIn: true,
   },

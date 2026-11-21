@@ -139,8 +139,13 @@ describe('the opening and the ending', () => {
     }
   });
 
+  it('the opening starts in 1543, where the feud does', () => {
+    expect(OPENING[0].when).toContain('1543');
+    expect(chapterById('painted-deck')!.rivals.some((r) => r.fullName === 'Sir Roland Crane')).toBe(true);
+  });
+
   it('the opening does not give away who N0rthStar is', () => {
     const late = OPENING.filter((s) => /19\d\d|20\d\d|Today/.test(s.when));
-    for (const s of late) expect(s.caption).not.toMatch(/Nate|N0rthStar/);
+    for (const s of late) expect(s.caption).not.toMatch(/Nate|\bNat\b|N0rthStar/);
   });
 });

@@ -208,7 +208,7 @@ export const LAST_HAND: Chapter = {
         lines: [
           say('jasper', 'My grandfather never won a big hand again after that night on the river. Forty years. He said our luck went downriver with that deck. I mean to fetch it home.'),
           say('ruby', 'Luck. Honey, the way I heard it, your grandfather dealt seconds.'),
-          say('jasper', 'That is the Avery story, ma’am. We have our own.'),
+          say('jasper', 'That is the Avery story, ma’am. We have our own, and it starts in England three hundred years back, with a deck that was promised to a Crane.'),
         ],
       },
     ],

@@ -77,12 +77,12 @@ export const LAST_TABLE: Chapter = {
   intro: [
     'Macau, today. On the top floor of a hotel over the harbour, a private room with one table, a dealer, and four chairs.',
     'You are the latest of the Averys to hold the Ashcombe deck. Sophie Avery put it in your hands, with the bundle that comes with it: ninety years of lawyers’ letters with no name on them, and one handwritten note signed “E. Crane”, asking only to see it.',
-    `Now there is an invitation from Victor Crane, Nate’s uncle: one night, every game, for the deck, and the end of the feud. “I am too old to want anything,” he writes. “My daughter plays for the family.” E. Crane turns out to be Elena: one of the best professional players in the world, the best Crane who ever sat down, and not at all what you expected.`,
+    `Now there is an invitation from Victor Crane, Nat’s uncle: one night, every game, for the deck, and the end of the feud. “I am too old to want anything,” he writes. “My daughter plays for the family.” E. Crane turns out to be Elena: one of the best professional players in the world, the best Crane who ever sat down, and not at all what you expected.`,
     'Victor will sit in to see it done, and a local legend, Mei Lin Chau, will explain each game.',
   ],
   recap: [
     'The Ashcombe deck was painted in Kent in 1543. It crossed to America in 1763, and the Avery family has kept it through every kind of poker since: straight poker, stud, draw, Hold’em, Omaha, triple draw and more.',
-    'The Crane family has wanted it back since Kit Avery caught Silas Crane cheating on a steamboat in 1836; their lawyers have written about it, with no name, since the 1920s. In 2005, Nate Crane lost to Jamie Avery on live television. Tonight it ends.',
+    'The Crane family has wanted it since 1543, when it was promised to one of them and won by an Avery instead. They held it once, by cheating, until Kit Avery won it back on a steamboat in 1836; their lawyers have written about it, with no name, since the 1920s. In 2005, Nat Crane lost to Jamie Avery on live television. Tonight it ends.',
   ],
   history: [
     'Mixed games rotate several kinds of poker, so a player must be good at all of them. HORSE, five limit games in turn, became a championship event in the 2000s.',
@@ -151,8 +151,8 @@ export const LAST_TABLE: Chapter = {
           call: ['Call.', 'I’ll see it.'],
           fold: ['Yours.', 'Fold.'],
           check: ['Check.'],
-          win: ['Thank you.', 'Two hundred years, and the Cranes are due.'],
-          bust: `That’s me, then. Nearly two hundred years, and I am out before the end. Elena: it is yours to finish.`,
+          win: ['Thank you.', 'Five hundred years, and the Cranes are due.'],
+          bust: `That’s me, then. Nearly five hundred years, and I am out before the end. Elena: it is yours to finish.`,
           draw: ['One.', 'Two cards.'],
           pat: ['Pat.'],
         }),
@@ -189,7 +189,7 @@ export const LAST_TABLE: Chapter = {
         lines: [
           say('victor', 'Do you know what my family says about yours? That our luck went downriver with that deck in 1836, and that an Avery has not won a hand without it since.'),
           say('meilin', 'Every Avery I have read about won by watching people, Mr. Crane. Not cards.'),
-          say('crane', 'I have read the story too, Father. Silas dealt seconds.'),
+          say('crane', 'I have read the story too, Father. Silas dealt seconds. And the deck was never ours, whatever Sir Roland told his children.'),
           say('victor', 'That is the Avery version.'),
         ],
       },
@@ -218,7 +218,7 @@ export const LAST_TABLE: Chapter = {
   outro: {
     won: [
       `The last chips are yours. Elena Crane looks at the cards for a long time. Then she laughs, and pushes them across the felt. “Keep it. It was always yours. But you owe me dinner.”`,
-      'Victor says nothing for a while. “Nearly two hundred years,” he says at last, “and all we ever had to do was send someone you would like. It was never the deck, was it? Maybe the Cranes can just play cards now.” Mei Lin pours four cups of tea.',
+      'Victor says nothing for a while. “Nearly five hundred years,” he says at last, “and all we ever had to do was send someone you would like. It was never the deck, was it? Maybe the Cranes can just play cards now.” Mei Lin pours four cups of tea.',
       'You open the leather case. Inside, under “M.A. 1543” and Clara’s pencilled line, there is just room for one more. You decide to leave it empty until after dinner.',
     ],
     lost: [

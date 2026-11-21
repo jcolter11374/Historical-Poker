@@ -140,7 +140,7 @@ export const RIVERBOAT: Chapter = {
       lines: [
         { who: 'silas', text: 'You play like your father, friend. He sat right where you’re sitting. He begged me, at the end. I do enjoy it when they beg.' },
         { who: 'narration', text: 'Silas sets a worn leather case on the felt beside his money.' },
-        { who: 'silas', text: 'The Ashcombe deck. Take my last dollar and it goes home with you.' },
+        { who: 'silas', text: 'The Ashcombe deck. My family waited three hundred years to hold it. Take my last dollar, if you can, and it goes home with you.' },
         { who: 'delphine', text: 'Mind his hands when he deals, darling. Not his face. His hands.' },
       ],
       passes: [
@@ -196,7 +196,7 @@ export const RIVERBOAT: Chapter = {
   },
   outro: {
     won: [
-      'The last of the money is in front of you. Silas Crane does not tip his hat. He shoves a worn leather case across the felt. “Robbed, on my own boat,” he says. “My family will want that back, Avery. Count on it.”',
+      'The last of the money is in front of you. Silas Crane does not tip his hat. He shoves a worn leather case across the felt. “Robbed,” he says. “Three hundred years, and robbed again. My family will want that back, Avery. Count on it.”',
       'Inside the lid, in faded ink: “M.A. 1543”. Delphine leans closer. “They say whoever holds it never loses. Your father held it, and lost. It is not the deck, darling. It is who is watching.”',
       '“It is older than this river’s name. Let me tell you where it has been.”',
       'She opens her fan. “It begins three hundred years ago, in an English hall, with a painter’s daughter named Avery…”',

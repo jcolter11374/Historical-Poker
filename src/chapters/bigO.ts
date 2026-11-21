@@ -108,7 +108,7 @@ export const BIG_O: Chapter = {
   ],
   recap: [
     'The Ashcombe deck was painted in Kent in 1543. It left England for America in 1763, and the Averys kept it for two and a half centuries.',
-    'In 2005, Jamie Avery beat Nate Crane on television with it, and Nate shook Jamie’s hand. Now Jamie’s niece Sophie has it and, by chance, the deck is back in England.',
+    'In 2005, Jamie Avery beat Nat Crane on television with it, and she shook Jamie’s hand. Now Jamie’s niece Sophie has it and, by chance, the deck is back in England.',
   ],
   history: [
     'Five-card Omaha, “Big O”, spread through American card rooms from about 2008.',
@@ -200,8 +200,8 @@ export const BIG_O: Chapter = {
         beforeHand: 7,
         lines: [
           say('gaz', 'What’s that you keep reading between hands, duck? A love letter?'),
-          say('narration', 'Sophie folds E. Crane’s note back into the case. “It’s from a family that has hated mine for two hundred years,” she says. “It’s the first nice thing any of them ever wrote.”'),
-          say('gaz', 'Then write back, duck. Two hundred years is long enough for anybody.'),
+          say('narration', 'Sophie folds E. Crane’s note back into the case. “It’s from a family that has hated mine for nearly five hundred years,” she says. “It’s the first nice thing any of them ever wrote.”'),
+          say('gaz', 'Then write back, duck. Five hundred years is long enough for anybody.'),
         ],
       },
     ],

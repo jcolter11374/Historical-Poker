@@ -16,7 +16,7 @@ One section per chapter: what you play, who teaches it, the cast as coded, and t
 | 7 | The Desert Classic | `desertClassic.ts` | 1972 | Limit, then No-Limit Hold'em | Lou Avery | "Tex" Dawson Pruitt | 6 |
 | 8 | The Cercle | `cercle.ts` | 1992 | Pot-Limit Omaha, then Omaha Hi-Lo | Anna Avery | Comte Lucien Varenne | 7 |
 | 9 | The Boardwalk | `boardwalk.ts` | 1995 | Stud Hi-Lo | Ray Avery | Margot Arceneaux | 8 |
-| 10 | The Boom | `boom.ts` | 2005 | No-Limit Hold'em, 2-7 Triple Draw, Badugi | Jamie Avery | "N0rthStar" (Nate Crane) | 9 |
+| 10 | The Boom | `boom.ts` | 2005 | No-Limit Hold'em, 2-7 Triple Draw, Badugi | Jamie Avery | "N0rthStar" (Nat Crane) | 9 |
 | 11 | The Big O | `bigO.ts` | 2019 | 5- and 6-Card Omaha, then their Hi-Lo versions | Sophie Avery | Gaz Whitlock | 10 |
 | 12 | The Last Table | `lastTable.ts` | Today | HORSE, then the 8-Game | You, the last Avery | Elena Crane | 11 |
 | Epilogue | The Kitchen Table | `kitchenTable.ts` | Today | No-Limit Hold'em with bomb pots, double board, 7-2 bounty | You, the last Avery | Elena, now your wife | 12 |
@@ -39,10 +39,12 @@ The story is a family feud with a happy ending (John, 2026-11-21: "a Hatfields a
 
 | When | Who | How they come across | Where it is written |
 | --- | --- | --- | --- |
-| 1836 | Silas Crane | Hateful: a cheat with no redeeming moment. He gloats about Kit's father, and loses saying his family will want the deck back. | `riverboat.ts`: the stake, his bust line, the ending |
+| 1543 | Sir Roland Crane | Where it starts, as a sulk and not a crime: Lady Margery's nephew, a likeable fool who was promised the deck and watches a painter's daughter win it. "A Crane does not forget." | `paintedDeck.ts`: his role, the stake, his bust line, Delphine's ending |
+| 1763 | A Crane of Kent, never seen | The grudge is already a family habit: he pays the highwayman Jack Sorrel ten guineas to take the deck off the York coach. | `northRoad.ts`: Sorrel's unmasking, Delphine's ending |
+| 1836 | Silas Crane | Hateful: a cheat with no redeeming moment. He gloats about Kit's father, and loses saying the Cranes have been robbed again after three hundred years. The bitterness starts here. | `riverboat.ts`: the stake, his bust line, the ending |
 | 1876 | Jasper Crane | Still an enemy and still a cheat, but with the first human note: he believes the family's luck "went downriver" with the deck, and leaves saying it was the only thing his hard grandfather ever spoke softly about. | `lastHand.ts`: the moment before hand 5, his exit |
 | 1926, 1972, 1992 | A lawyer, no name | Letters offering to buy the deck, more polite every time: a threat in 1926, "a fair price, at your convenience" in 1972, "with respect" in 1992. No Avery answers. The reader only learns in 2005 that they were the Cranes'. | `backRoom.ts` (before hand 6), `desertClassic.ts` (before hand 3), `cercle.ts` (before hand 4) |
-| 2005 | Nate Crane | A rival to respect: cold, fair, no cheating. He names the letters, wants to win the deck "fair, with the whole country watching", and shakes hands when he loses. | `boom.ts`: the final table's opening, his bust line, the ending |
+| 2005 | Nat Crane | A rival to respect, and the first Crane woman at the table: cold, fair, no cheating. She names the letters, wants to win the deck "fair, with the whole country watching", and shakes hands when she loses. | `boom.ts`: the final table's opening, her bust line, the ending |
 | 2019 | "E. Crane" | The first warm word: a handwritten, signed note that apologises for the old letters and only asks to see the deck. | `bigO.ts`: the intro, the moment before hand 7 |
 | Today | Elena Crane | Likeable from the first hand: a top professional, funny, honest about Silas. The player falls for her across the table. | `lastTable.ts` |
 | Today | Victor Crane | The old grudge, in person, until the last scene lets it go. Baffled and delighted at a kitchen table a year later. | `lastTable.ts`, `kitchenTable.ts` |
@@ -61,8 +63,8 @@ Ashcombe Hall, Twelfth Night. Nan Avery plays Lady Margery for the deck Nan's fa
 
 - **Game:** Primero as reconstructed in `src/games/primero.ts` (40 cards, two down, bet, two down, bet, change up to two once, bet). Table stakes: wager any part of your "rest". 1s ante, 2s minimum wager, 200s each, stakes rise every 10 hands.
 - **Teacher:** Brother Anselm, before the first deal and on each street of the first hand.
-- **Cast:** Sir Roland (very loose, drains his cup before a bluff), Lady Margery (tight and strong, turns her signet ring when strong), Brother Anselm (careful, mutters a prayer when weak).
-- **Beats:** before hand 4 Roland wagers and loses his horse; before hand 7 Anselm talks about his abbey. Margery puts the deck on the table once Nan has won a few pots. Finale: Roland or Anselm bows out. Win: she pays, gives the deck back to Nan, and writes "M.A. 1543" in its case. The intro opens, and the win ending closes, with Delphine telling the tale on the riverboat.
+- **Cast:** Sir Roland Crane, Lady Margery's nephew (very loose, drains his cup before a bluff), Lady Margery (tight and strong, turns her signet ring when strong), Brother Anselm (careful, mutters a prayer when weak).
+- **Beats:** before hand 4 Roland wagers and loses his horse; he was promised the deck as a New Year's gift, and says so when it is staked and when he loses ("A Crane does not forget"); before hand 7 Anselm talks about his abbey. Margery puts the deck on the table once Nan has won a few pots. Finale: Roland or Anselm bows out. Win: she pays, gives the deck back to Nan, and writes "M.A. 1543" in its case. The intro opens, and the win ending closes, with Delphine telling the tale on the riverboat; she names Roland as the start of the quarrel.
 
 ### 3. The North Road (1763), Brag
 
@@ -71,7 +73,7 @@ The Pewter Lamb, snowbound on the Great North Road. Will Avery, stagecoach guard
 - **Game:** Brag as the 1700s played it (`src/games/brag.ts`): three cards each, one round of bragging, only pairs royal and pairs count (aces high), the knave of clubs and the nine of diamonds are wild "braggers", and a natural hand beats the same hand made with a bragger. No runs, flushes or blind betting: those are the later game. Table stakes, 1s ante, 2s minimum, 100s each.
 - **Teacher:** Hannah Pell, the innkeeper.
 - **Cast:** Hannah (tight, polishes a tankard when strong), Captain Pike (loose, loud: the louder the boast, the weaker the hand), Jack Sorrel (tricky, his hand drifts to his coat pocket when weak).
-- **Beats:** before hand 5 Sorrel is unmasked as a highwayman. Pike stakes a berth on a brig to Philadelphia. Finale: Hannah or Sorrel bows out. Win: the deck crosses the Atlantic. Delphine closes her tale by saying how she knows it (she held the deck herself at nineteen and gave it back to Kit's grandfather, who told her) and why she is on this boat (she heard Silas Crane was showing a painted deck on the river, and bought passage).
+- **Beats:** before hand 5 Sorrel is unmasked as a highwayman, and admits a gentleman of Kent named Crane paid him ten guineas to take the deck. Pike stakes a berth on a brig to Philadelphia. Finale: Hannah or Sorrel bows out. Win: the deck crosses the Atlantic. Delphine closes her tale by saying how she knows it (she held the deck herself at nineteen and gave it back to Kit's grandfather, who told her) and why she is on this boat (she heard Silas Crane was showing a painted deck on the river, and bought passage).
 
 ### 4. The Camp (1863), five-card stud
 
@@ -140,9 +142,9 @@ An Atlantic City poker room, two years after poker became legal there (it was ba
 Jamie Avery, a broke student, in an internet café at 3 a.m. The rivals are screen names; their tells are about **timing** and chat ("Bets instantly", "types hmm").
 
 - **Stages:** hands 1 to 4, "The $5 qualifier, 3 a.m.", No-Limit Hold'em, taught by DeuceSeven; 5 to 8, "Waiting for the next table: 2-7 Triple Draw", taught by DeuceSeven; 9 to 12, "Still waiting: Badugi", taught by Hanbit; from 13, "The final table, Las Vegas", No-Limit Hold'em with stacks reset, its own room (a stage `scene`) and the rivals in person (the stage's `seats`). $10 unit, $500 each, blinds rise every 4 hands.
-- **Cast:** DeuceSeven (tanks then raises when bluffing), N0rthStar (bets instantly when strong; revealed at the final table as Nate Crane), Hanbit (from Seoul, types "hmm" when weak).
-- **Art:** online, the table is the screen of the café's monitor and the rivals are square avatars above its far rim (a shark, a star, a tiger cub). At the final table DeuceSeven is painted; Nate Crane and Hanbit are silhouettes until their pictures are made, and there is no title painting yet.
-- **Beats:** the final table opens with the reveal: Nate Crane names the eighty years of lawyers' letters ("You never wrote back") and says he does not cheat and means to win the deck fairly, on television. Finale: no bow-outs; it is played to the end like a tournament, with a heads-up line from Nate, who shakes hands when he loses.
+- **Cast:** DeuceSeven (tanks then raises when bluffing), N0rthStar (bets instantly when strong; revealed at the final table as Nat Crane), Hanbit (from Seoul, types "hmm" when weak).
+- **Art:** online, the table is the screen of the café's monitor and the rivals are square avatars above its far rim (a shark, a star, a tiger cub). At the final table DeuceSeven is painted; Nat Crane and Hanbit are silhouettes until their pictures are made, and there is no title painting yet.
+- **Beats:** the final table opens with the reveal: Nat Crane says her family has wanted the deck since 1543, names the eighty years of lawyers' letters ("You never wrote back") and says she does not cheat and means to win the deck fairly, on television. Finale: no bow-outs; it is played to the end like a tournament, with a heads-up line from Nat, who shakes hands when she loses.
 
 ### 11. The Big O (2019), 5- and 6-Card Omaha, then Hi-Lo
 

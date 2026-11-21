@@ -34,9 +34,11 @@ Done:
 To do:
 - [ ] **Math Mode, next ideas** (not agreed in detail yet): a chance meter (your chance as a fraction, a percent and a pie, guess first); chip math (making change, splitting a pot, odd chips as remainders); easy, medium and hard levels (for example the fraction shown for you on easy, typed answers on hard); outs in draw games and low games; a separate "Math Table" on the chapter list; play-testing with children for wording and reading level.
 - [ ] **Art** for chapters 2 to 12 and the epilogue, and the rest of chapter 1 ([ART.md](ART.md), "Art needed, per chapter").
-- [ ] **Play-testing** every chapter: length, stakes, bot difficulty, and lesson wording.
+- [x] Play-test pass of every chapter, by a scripted player following the teacher's hints, at desktop (1600x900, 1280x720) and phone sizes (844x390, 667x375) (2026-11-21). Fixed: the last hand of a game in a rotation was named by the next game's rules at the showdown and laid out for it; story screens opened scrolled to the bottom on phones; on phones the chips covered your cards, the hand line ran under the dialogue and chips, the raise's −/+ covered the right-hand seat, and long showdown lines covered the seat across; on desktop the pot sat under your cards, the seat across was hidden by the board at Omaha showdowns, seven-card stud plates ran into your cards, and "Call out the deal" pushed the chips onto your cards. No crashes, console errors or stuck hands.
+- [x] Rules audit of every game, locked in by `test/rules.test.ts`; the Camp's stud made a true limit game; the draw announced on the felt; live purses; steadier hints and more starting money in The Last Hand and The Painted Deck (2026-11-21, [DECISIONS.md](DECISIONS.md)).
+- [ ] **Play-testing with people:** length, stakes, bot difficulty, and lesson wording. Chapter 1's heads-up finale can drag for a player who only follows the hints.
 - [ ] Story choices made while building that John should confirm ([DECISIONS.md](DECISIONS.md), 2026-11-20 entries).
-- [ ] Outline features not built yet: difficulty levels, the almanac, a "tell spotted" hint, Brag's blind betting, Poque's payout board, jackpots in five-card draw, choices in scenes (giving Toby his pay back).
+- [ ] Outline features not built yet: difficulty levels, the almanac, a "tell spotted" hint, Brag's other two stakes (best card and thirty-one), Poque's other two parts and its payout board, choices in scenes (giving Toby his pay back).
 - [x] History notes checked against sources, in every chapter ([HISTORY_SOURCES.md](HISTORY_SOURCES.md)). The Atlantic City chapter moved to 1995, after Paris, because poker was illegal there until 1993.
 - [ ] Play-test the bot tuning with real people; the numbers in GAME_DESIGN.md come from stand-in players.
 
@@ -44,7 +46,7 @@ To do:
 
 Done:
 - [x] Repo set up, engine copied, tests and typecheck.
-- [x] The 1836 game: 20-card deck, hand ranks, one betting round, pot-limit.
+- [x] The 1836 game: 20-card deck, hand ranks, one betting round, table stakes.
 - [x] Three bots with personalities and tells (Silas, Delphine, Ezra).
 - [x] Table screen with layered painted art, chip controls, dialogue, rules sheet, "Powered by RSDP Live" badge (RSDP Live's real "RSDP Live!" wordmark).
 - [x] Intro and ending screens.

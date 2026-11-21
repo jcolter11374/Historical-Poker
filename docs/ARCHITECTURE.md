@@ -38,7 +38,7 @@ How the code fits together. Read the README first.
 
 Everything is laid out on a fixed 1600 x 900 stage (`Stage.tsx`) that scales to fit the window, so positions in chapter files are plain stage pixels.
 
-**Small screens.** When the stage is drawn at less than 0.75 scale, `Stage` sets the CSS variable `--boost` (1 to 1.6) and the class `stage-compact`, and `useCompact()` returns true. The "Small screens" block at the end of `styles.css` enlarges words and controls by `--boost` with the CSS `scale` property, leaving the painting alone. A phone held upright gets the "turn sideways" card (`RotateHint`, shown by a CSS media query). `Stage` also undoes any scrolling a focused button causes (`unscroll`), since the stage is bigger than the window before it is scaled.
+**Small screens.** When the stage is drawn at less than 0.75 scale, `Stage` sets the CSS variable `--boost` (1 to 1.6) and the class `stage-compact`, and `useCompact()` returns true. The "Small screens" block at the end of `styles.css` enlarges words and controls by `--boost` with the CSS `scale` property, leaving the painting alone. A phone held upright gets the "turn sideways" card (`RotateHint`, shown by a CSS media query). `Stage` also undoes any scrolling a focused button causes (`unscroll`), since the stage is bigger than the window before it is scaled. The story screens' cards do scroll on a phone, so their buttons take focus with `ref={focusOnMount}` (no scrolling) instead of `autoFocus`.
 
 ## One hand, start to finish
 
@@ -56,7 +56,7 @@ Everything is laid out on a fixed 1600 x 900 stage (`Stage.tsx`) that scales to 
 1. **Background**: the room. A painting if the chapter has one (`scene.background`), else a placeholder drawn in code from the chapter's `palette`: a dark wall, lamp glow and grain.
 2. **Rivals**: each character's picture, from `art.place`. A character without art is a painted silhouette in their colour (`kind: 'placeholder'`).
 3. **Table front**: the table, drawn over the rivals so they sit behind it. A cut-out image, or a felt ellipse in the palette's colours.
-4. **On the felt**: name plates (with money, cards and hand names at showdown), the buck, the board or boards, the pot, the player's hand.
+4. **On the felt**: name plates (with money, cards and hand names at showdown), the buck, the board or boards, the pot, the player's hand. The felt is laid out for the hand on it (`snap.hand.family`), not for `snap.play`: between hands `play` is already the next game, which in a rotation can be another family. Likewise the Session describes a finished hand with that hand's own game (`handGame`), not the next one.
 5. **On top**: the game name and stage label, the corner links (rules, hint, math, sound, music, leave), dialogue (a hint adds a smaller reminder under it; in Math Mode a sum takes the strip on the player's turn, and the deck is laid out over the felt after an outs answer), chip controls, tells, chips in flight, the rules sheet.
 
 ### The rules sheet
@@ -92,7 +92,8 @@ The Session keeps a queue of scene lines (`SceneLine`: who speaks and what). Whi
 - `test/games.test.ts`: the other historical games' rankings, and every game in the catalog playing whole sittings at the table.
 - `test/chapters.test.ts`: every chapter's speakers, teachers and games exist; every RSDP Live game has a lesson; the unlock order; every chapter plays to an end and reaches its last stage.
 - `test/practice.test.ts`: the practice list has every RSDP Live game, both Hold'em bettings, every historical game and the three mixed games; every practice table's teacher and speakers sit at it; each one plays hands with nobody knocked out and every dollar accounted for; the lesson checkbox; a broke player buys back in.
-- `test/session.test.ts`: many complete games of chapter 1 with seeded dealing (some calling out the dealer at random), checking every dollar after each hand.
+- `test/session.test.ts`: many complete games of chapter 1 with seeded dealing (some calling out the dealer at random), checking every dollar after each hand; and a HORSE sitting checking that a finished hand is still described by its own game once the next game is set up.
+- `test/rules.test.ts`: every game and betting kind any chapter uses, dealt and bet by its own rules: the deal street by street, every draw round offered, limit bet sizes and the four-bet cap, pot-limit and no-limit ceilings, the agreed limit of 1876, the bring-in card where there is a bring-in and the best hand showing opening where there is none, the age's blind ante and last say in 1876 draw, and no pot-limit or fixed limit before 1900.
 - `test/guide.test.ts`: every game has tips, mistakes and reminders that match its own betting rounds; every chapter has its own music loop, on disk and in `music.json`.
 - `test/math.test.ts`: Math Mode's sums: outs for flush and straight draws, board cards that help everyone, stud's face-up cards, Omaha's two-card rule, when no question is asked; the "good deal?" fractions and verdicts; the setting and stars being saved.
 - `test/story.test.ts`: chapter 1's story beats: the tutorial deal and tell, the stake, catching the cheat, a wrong accusation, the finale.

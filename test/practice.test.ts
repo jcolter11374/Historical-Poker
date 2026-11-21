@@ -20,7 +20,7 @@ describe('practice', () => {
   it('puts every teachable game with a teacher who sits at its table', () => {
     for (const p of PRACTICE) {
       expect(p.source.rivals).toContain(p.teacher);
-      if (p.key !== 'straight-1836/pot-limit') expect(p.teachable, p.key).toBe(true);
+      if (p.key !== 'straight-1836/no-limit') expect(p.teachable, p.key).toBe(true);
     }
   });
 

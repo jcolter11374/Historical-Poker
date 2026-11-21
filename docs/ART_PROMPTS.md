@@ -744,10 +744,10 @@ Match the attached image's art style exactly: painted, hand-inked lines, worn te
 **Chapter select, the deck case** → `chapter-select.jpg`
 
 ```
-Match the attached image's art style exactly: painted, hand-inked lines, worn textures, warm light. Looking straight down into an open, empty old brown leather card case lined with faded red velvet, with two rows of seven shallow card-shaped slots, all empty. The case lies on dark wood under warm lamplight. No cards, no text, no border. 16:9.
+Match the attached image's art style exactly: painted, hand-inked lines, worn textures, warm light. Looking straight down into a large open old brown leather card case lined with faded red velvet: the velvet lining fills the middle of the picture, smooth and empty, with no slots, dividers or cards, and the worn leather edges of the case frame it on all four sides. The case lies on dark wood under warm lamplight, brighter in the middle and darker at the corners. No cards, no coins, no text, no lettering, no border. 16:9.
 ```
 
-The chapter select shows one card per chapter in two rows (Part One, Part Two), so the slots must be empty: the game fills them. It works today without this picture; it would replace the plain background behind the cards.
+The chapter select shows one card per chapter in two rows (Part One has 7, Part Two 8), laid out by the game, so the velvet must be plain: painted slots would never line up with the cards. It replaces the plain brown background behind the cards (2026-11-21: changed from "two rows of seven slots" for that reason).
 
 ---
 

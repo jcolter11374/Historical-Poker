@@ -219,6 +219,29 @@ Added 2026-11-21, when John asked that every game be played by the rules of the 
 
 Checked against the same sources as the era table above; no rule changes. Limit Hold'em then a no-limit tournament in 1972 [W-Holdem]; pot-limit Omaha in a Paris club in 1992; limit Stud Hi-Lo with an ante and bring-in in a 1995 casino room [AC2][pagat 7stud]; no-limit Hold'em, limit 2-7 Triple Draw and Badugi online in 2005; pot-limit five- and six-card Omaha in 2019; HORSE and the 8-Game as RSDP Live deals them. Everyone still in at the end shows their cards in every chapter, which is simpler than any period's showdown etiquette.
 
+### The dealer's marker, chapter by chapter (2026-11-21)
+
+John pointed out that the buck is out of place in many chapters: card rooms never used it. Each chapter now shows the marker its room and year would have had (`dealerMarker` in the chapter file). **OK** = sourced; **Best pick** = no source found for that exact time and place, so the likeliest choice is used and flagged.
+
+| Chapter | Marker shown | Verdict | Why |
+| --- | --- | --- | --- |
+| 1, The River (1836) | The buck (a knife) | **Best pick** | The buck is first in print in 1865, and an 1868 rule book has the dealer pass "the buck, i.e., a knife or key" to the player on his left [ADS-Buck][W-Button]. That is a generation after 1836; no source says what, if anything, marked the deal on an 1830s steamboat. Kept because the chapter's history note teaches "passing the buck" (and already says "By the 1850s"). |
+| 2, The Painted Deck (1543) | None; the deal passes | **Best pick** | No source on Primero mentions a dealer's marker. |
+| 3, The North Road (1763) | None; the deal passes | **Best pick** | No source on 1700s Brag mentions one. |
+| Bonus, The Gaming House (1817) | None; the deal passes | **Best pick** | No source on Poque mentions one. |
+| 4, The Camp (1863) | The buck (a knife) | **OK** | In print 1865; Twain recalls it as Virginia City slang of 1862 [W-Button][ADS-Buck]. |
+| 5, The Last Hand (1876) | The buck (a knife) | **OK** | As above; the 1868 rule book describes passing it to the left [ADS-Buck]. |
+| 6, The Back Room (1926) | The buck (a knife) | **Best pick** | An 1887 draw poker book still defines the buck as "any inanimate object, usually knife or pencil" [ADS-Buck]. Nothing found for a 1920s back room in particular; a players' game where the deal passes is assumed. |
+| 7, The Desert Classic (1972) | A white "DEALER" button | **Best pick** | With a house dealer, a button marks the player who would deal in a home game [W-Button][PN-Button]. No source gives the year Las Vegas rooms took it up. |
+| 8, The Cercle (1992) | "DEALER" button | **OK** | As above: a club with house dealers. |
+| 9, The Boardwalk (1995) | None | **OK** | A casino's stud game has no button: the house dealer deals and the up cards decide who acts [PN-Button]. |
+| 10, The Boom (2005) | A disc with a "D" on the site; a "DEALER" button at the live final table | **Best pick** | Poker sites draw the button as a small disc marked "D"; not sourced beyond common knowledge of the software. |
+| 11, The Big O (2019) | "DEALER" button | **OK** | Flop games in a card room [PN-Button]. |
+| 12, The Last Table (today) | "DEALER" button; nothing in the stud rounds | **OK** | [PN-Button]. In a real mixed game the button stays on the table, unmoved, through the stud rounds; here it is hidden for them. |
+| Epilogue, The Kitchen Table (today) | "DEALER" button | **Best pick** | A home game's chip set comes with one; not sourced. |
+
+Still not true to a card room: in the casino chapters the cards still fly from the seat with the button, as if that player dealt. There is no house dealer in the paintings.
+
 ### Sources that could not be opened
 
 Project Gutenberg's copies of *Round Games with Cards* (1892) and *Hoyle's Games Modernized*, and the 1911 *Encyclopaedia Britannica* article "Poker", refused automated reading on 2026-11-21. They, or the 1875 *American Hoyle* itself, are the place to confirm the "best pick" rows for 1876.
@@ -230,6 +253,8 @@ Project Gutenberg's copies of *Round Games with Cards* (1892) and *Hoyle's Games
 - [W-HP] https://en.wikipedia.org/wiki/History_of_poker
 - [W-Button] https://en.wikipedia.org/wiki/Button_(poker)
 - [Popik] https://barrypopik.com/blog/pass_the_buck
+- [ADS-Buck] American Dialect Society list, 2015, quoting the OED's entry for the poker "buck" and its sources (1865, 1868, 1872, 1887): https://listserv.linguistlist.org/pipermail/ads-l/2015-January/135847.html
+- [PN-Button] PokerNews, "Casino Poker for Beginners: The Deal With the Dealer Button" (2017): https://www.pokernews.com/strategy/casino-poker-for-beginners-07-the-dealer-button-29299.htm
 - [WOPC] https://www.wopc.co.uk/playing-cards/corner-indices
 - [W-Primero] https://en.wikipedia.org/wiki/Primero
 - [pagat Primero] https://www.pagat.com/vying/primero.html

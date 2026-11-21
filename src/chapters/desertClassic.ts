@@ -30,6 +30,7 @@ export const DESERT_CLASSIC: Chapter = {
   youAre: 'Lou Avery',
   teaches: 'Limit Hold’em, then No-Limit Hold’em',
   rulesObject: 'The tournament program',
+  dealerMarker: 'button',
   stages: [
     {
       fromHand: 1,

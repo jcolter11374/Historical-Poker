@@ -58,7 +58,7 @@ Every chapter is playable with no art at all:
 
 - **Room:** with no `scene.background`, the table screen paints the room from the chapter's `scene.palette` (wall, lamp light, felt, rim colours): a dark wall, a warm lamp glow, a felt table ellipse and grain. Pick the palette from the era's colours so the placeholder already feels right.
 - **Characters:** `art.kind: 'placeholder'` draws a painted head-and-shoulders silhouette in the character's `color` (made by `rival()` in `src/chapters/cast.ts`). Faces in the chapter select, intro and keepsake show the character's initial on that colour.
-- **Cards, chips, the buck:** drawn in code for every chapter.
+- **Cards, chips, the dealer's marker:** drawn in code for every chapter. The marker is a buck knife or a dealer button by chapter (`Marker` in `src/ui/TableScreen.tsx`; GAME_DESIGN.md, "The dealer's marker").
 
 ## Swapping in art for a chapter
 

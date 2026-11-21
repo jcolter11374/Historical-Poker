@@ -167,6 +167,8 @@ export interface Stage {
   extras?: Extras;
   /** A new room for this stage (the Boom's final table). */
   scene?: ChapterScene;
+  /** This stage's dealer marker, when it differs from the chapter's (the Boom's live final table). */
+  dealerMarker?: DealerMarker;
   /**
    * How rivals look and where they sit in this stage, by rival id, when it
    * differs from the chapter's (the Boom: avatars on a screen online, the
@@ -178,6 +180,15 @@ export interface Stage {
   /** What the chapter title strip says during this stage ("The qualifier"). */
   label?: string;
 }
+
+/**
+ * 'buck'    the 1800s American marker: a knife passed to whoever deals next
+ * 'button'  a card room's white "DEALER" disc. Stud hands show nothing: the
+ *           house dealer deals and the up cards decide who acts
+ * 'online'  the disc with a "D" that a 2005 poker site draws
+ * 'none'    no marker is recorded for the game: the deal just passes
+ */
+export type DealerMarker = 'buck' | 'button' | 'online' | 'none';
 
 export interface ChapterScene {
   /** The empty room, drawn over the whole stage. Omit until the art exists: the palette paints a placeholder. */
@@ -224,6 +235,12 @@ export interface Chapter {
   youAre: string;
   /** The games taught, for the chapter select: "Seven Card Stud, then Razz". */
   teaches: string;
+  /**
+   * What marks the dealer on the felt, right for the year and the room
+   * (docs/GAME_DESIGN.md, "The dealer's marker"; sources in HISTORY_SOURCES.md).
+   * A stage can set its own (the Boom's live final table).
+   */
+  dealerMarker: DealerMarker;
   /** The rules card's era object: "a parchment page", "a matchbook". Shown as the button label. */
   rulesObject: string;
   /** The stages of play, in order. The last one is the showdown: before it starts, nobody is knocked out (they buy back in). */

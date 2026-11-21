@@ -159,14 +159,14 @@ export const GUIDES: Record<string, GameGuide> = {
   nlhe: {
     tips: [
       'Fold most hands before the flop. Play pairs, two high cards (A-K, A-Q, K-Q) and aces with a card of the same suit.',
-      'Acting last is a big edge: you see what everyone did first. Play more hands when the buck is near you.',
+      'Acting last is a big edge: you see what everyone did first. Play more hands when the dealer button is near you.',
       'After the flop, ask whether the board helps you or someone else. Top pair with a weak second card isn’t a monster.',
       'Missed the flop and someone bets? It’s fine to fold. Most flops miss most hands.',
       'No limit means one bet can be for everything. Don’t put all your chips in with one pair against a big raise.',
     ],
     mistakes: ['Playing any ace. A-7 loses to the better aces that call you.', 'Calling all the way with a draw when the bets are bigger than the pot odds.', 'Forgetting the board plays for everyone: a straight on the board is everyone’s straight.'],
     coach: {
-      Preflop: ['Before the flop, about one hand in four is worth playing. Pairs and big cards first.', 'With the buck in front of you, you act last after the flop. That’s the time to play a few more hands.'],
+      Preflop: ['Before the flop, about one hand in four is worth playing. Pairs and big cards first.', 'With the dealer button in front of you, you act last after the flop. That’s the time to play a few more hands.'],
       Flop: ['The flop decides most hands. Did you make a pair or better, or a good draw? If not, be ready to let go.', 'A flush draw comes in about one time in three by the river; an open-ended straight draw, about the same.'],
       Turn: ['Count your outs (the cards that make your hand). Each one is worth about 2% per card to come.'],
       River: ['No more cards. Bet if you’d be glad to be called; check if you wouldn’t.'],
@@ -298,7 +298,7 @@ export function coachLines(gameId: string, street: string): string[] {
 /** The betting, in words, for the rules sheet. */
 export function bettingWords(betting: Betting, forced: ForcedStyle, family: 'flop' | 'stud' | 'draw', historical: boolean): string[] {
   const lines: string[] = [];
-  if (forced === 'blinds') lines.push('Before the deal, the two players left of the buck post the small and big blind. The buck moves one seat each hand, so everyone takes a turn.');
+  if (forced === 'blinds') lines.push('Before the deal, the two players left of the dealer button post the small and big blind. The button moves one seat each hand, so everyone takes a turn.');
   else if (forced === 'stud') lines.push('Everyone antes. The card showing that’s worst for its game (the lowest in most stud, the highest in Razz) must “bring it in” with a small bet, or make a full bet.');
   else if (forced === 'stud-open') lines.push('Everyone antes. Nobody is forced to bet after that: the best hand showing speaks first on every round, and may check.');
   else if (forced === 'age')

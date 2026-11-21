@@ -23,6 +23,7 @@ export const GAMING_HOUSE: Chapter = {
   youAre: 'Young Delphine Arceneaux',
   teaches: 'Poque, the French game that named poker',
   rulesObject: 'The house card',
+  dealerMarker: 'none',
   stages: [
     {
       fromHand: 1,

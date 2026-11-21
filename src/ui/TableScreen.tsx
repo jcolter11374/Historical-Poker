@@ -12,7 +12,7 @@
  */
 import { useEffect, useMemo, useState, type CSSProperties, type ReactNode } from 'react';
 import type { Action, LegalActions, SeatIndex } from '@rsdp/engine/core';
-import type { Character } from '../chapters/types';
+import type { Character, DealerMarker } from '../chapters/types';
 import { HUMAN, type SceneView, type Session, type Snapshot } from '../table/session';
 import { Card, type CardSize } from './Card';
 import { dealQuestion, outsQuestion, type MathQuestion } from '../math';
@@ -76,6 +76,9 @@ export function TableScreen({
   const money = (n: number) => session.money(n);
   const compact = useCompact();
   const flights = useTableFx(rivals, snap, compact);
+  // The dealer's marker for this room and year. A card room's stud game shows none: the house dealer deals, and the up cards decide who acts.
+  const roomMarker = stage.dealerMarker ?? chapter.dealerMarker;
+  const marker: DealerMarker = (roomMarker === 'button' || roomMarker === 'online') && (snap.hand?.family ?? snap.play.family) === 'stud' ? 'none' : roomMarker;
   // A stage with its own scene keeps the chapter's music unless it names its own.
   const music = stage.scene?.music ?? chapter.scene.music ?? null;
   useEffect(() => playMusic(music), [music]);
@@ -198,7 +201,7 @@ export function TableScreen({
       </nav>
 
       {rivals.map((c, i) => (
-        <SeatPlate key={c.id} character={c} seat={i + 1} snap={snap} money={money} small={flop} dealFrom={from({ x: c.plate.x, y: c.plate.y + 40 })} />
+        <SeatPlate key={c.id} character={c} seat={i + 1} snap={snap} money={money} small={flop} marker={marker} dealFrom={from({ x: c.plate.x, y: c.plate.y + 40 })} />
       ))}
 
       {snap.hand && Object.entries(snap.tells).map(([seat, texts]) => <TellNote key={seat} character={rivals[Number(seat) - 1]} texts={texts} />)}
@@ -246,6 +249,7 @@ export function TableScreen({
           selected={selected}
           onToggle={(i) => setSelected((s) => (s.includes(i) ? s.filter((x) => x !== i) : [...s, i]))}
           lowered={flop}
+          dealNote={snap.button !== HUMAN || (marker === 'none' && roomMarker !== 'none') ? '' : MARKER_MINE[marker]}
           dealFrom={from(PLAYER_SPOT)}
         />
       )}
@@ -343,6 +347,7 @@ function SeatPlate({
   snap,
   money,
   small,
+  marker,
   dealFrom,
 }: {
   character: Character;
@@ -350,6 +355,7 @@ function SeatPlate({
   snap: Snapshot;
   money: (n: number) => string;
   small: boolean;
+  marker: DealerMarker;
   dealFrom: CSSProperties;
 }) {
   const s = snap.seats[seat];
@@ -378,7 +384,7 @@ function SeatPlate({
   const showHand = !!p?.handName && !p.folded;
   return (
     <div className={`plate${s.out || p?.folded ? ' plate-dim' : ''}`} style={{ left: character.plate.x, top: character.plate.y }}>
-      {snap.button === seat && <Buck />}
+      {snap.button === seat && <Marker kind={marker} />}
       {snap.stakeHolder === seat && <DeckCase />}
       <div className="plate-name">{character.name}</div>
       <div className="plate-stack">
@@ -431,11 +437,25 @@ function Coins() {
   );
 }
 
-function Buck() {
+/** The dealer's marker, drawn for the room and year (types.ts, DealerMarker). Nothing where none was used. */
+function Marker({ kind }: { kind: DealerMarker }) {
+  if (kind === 'none') return null;
+  if (kind === 'buck') {
+    return (
+      <svg className="buck" width="70" height="20" viewBox="0 0 70 20" role="img" aria-label="Holds the buck (deals this hand)">
+        <path d="M2 10 L34 4 L48 10 L34 16 Z" fill="#e2e2da" stroke="#5e5e56" strokeWidth="1.5" />
+        <rect x="46" y="5" width="22" height="10" rx="4" fill="#9a6a34" stroke="#4a2e10" strokeWidth="1.5" />
+      </svg>
+    );
+  }
+  // A white disc lying on the felt: "DEALER" in a card room, "D" on a poker site.
   return (
-    <svg className="buck" width="70" height="20" viewBox="0 0 70 20" role="img" aria-label="Holds the buck (deals this hand)">
-      <path d="M2 10 L34 4 L48 10 L34 16 Z" fill="#e2e2da" stroke="#5e5e56" strokeWidth="1.5" />
-      <rect x="46" y="5" width="22" height="10" rx="4" fill="#9a6a34" stroke="#4a2e10" strokeWidth="1.5" />
+    <svg className="buck dealer-button" width="52" height="34" viewBox="0 0 52 34" role="img" aria-label="Has the dealer button">
+      <ellipse cx="26" cy="19" rx="24" ry="13" fill="#8f8a7c" stroke="#4d4a42" strokeWidth="1.5" />
+      <ellipse cx="26" cy="15" rx="24" ry="13" fill="#f6f3e8" stroke="#4d4a42" strokeWidth="1.5" />
+      <text x="26" y={kind === 'online' ? 21 : 18.5} textAnchor="middle" fontFamily="Arial, Helvetica, sans-serif" fontWeight="700" fontSize={kind === 'online' ? 17 : 9} fill="#1c1a16">
+        {kind === 'online' ? 'D' : 'DEALER'}
+      </text>
     </svg>
   );
 }
@@ -478,6 +498,9 @@ function TellNote({ character, texts }: { character: Character; texts: string[] 
   );
 }
 
+/** Said on your own line when the deal is yours. */
+const MARKER_MINE: Record<DealerMarker, string> = { buck: ' · you hold the buck', button: ' · you have the button', online: ' · you have the button', none: ' · you deal' };
+
 function PlayerHand({
   snap,
   money,
@@ -485,6 +508,7 @@ function PlayerHand({
   selected,
   onToggle,
   lowered,
+  dealNote,
   dealFrom,
 }: {
   snap: Snapshot;
@@ -493,6 +517,8 @@ function PlayerHand({
   selected: number[];
   onToggle: (i: number) => void;
   lowered: boolean;
+  /** " · you hold the buck", or nothing. */
+  dealNote: string;
   dealFrom: CSSProperties;
 }) {
   const hand = snap.hand!;
@@ -526,7 +552,7 @@ function PlayerHand({
         {/* On small screens the purse goes on a second line (styles.css, "Small screens"). */}
         <span className="my-purse">
           your purse {money(me.stack)}
-          {snap.button === HUMAN ? ' · you hold the buck' : ''}
+          {dealNote}
           {won ? ` · you win ${money(won)}` : ''}
         </span>
       </div>

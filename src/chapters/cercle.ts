@@ -29,6 +29,7 @@ export const CERCLE: Chapter = {
   youAre: 'Anna Avery, a translator',
   teaches: 'Pot-Limit Omaha, then Omaha Hi-Lo',
   rulesObject: 'The club’s rule book',
+  dealerMarker: 'button',
   money: { suffix: ' F' },
   stages: [
     {

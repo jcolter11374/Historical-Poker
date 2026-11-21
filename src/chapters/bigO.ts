@@ -16,6 +16,7 @@ export const BIG_O: Chapter = {
   youAre: 'Sophie Avery',
   teaches: '5- and 6-Card Omaha, then their Hi-Lo versions',
   rulesObject: 'The card room’s house rules',
+  dealerMarker: 'button',
   money: { prefix: '£' },
   stages: [
     {

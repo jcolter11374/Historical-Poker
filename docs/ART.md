@@ -67,6 +67,12 @@ Every chapter is playable with no art at all:
 3. In the chapter file, set `scene.background`, `scene.tableFront` and (if painted) `scene.title` (see `riverboat.ts`: `art('background.webp')`), and give each rival real art: keep `rival(..., seat, colour)` and override its art, `{ ...rival(...), art: cutout(art('name.webp'), aspect, place) }`, with `aspect` the image's width / height (see `paintedDeck.ts`). The standard seat positions in `cast.ts` are a good start; nudge `place` and `plate` until they sit right.
 4. Check every stage of the chapter in `npm run dev` (some stages change the lighting, like the Boom's final table), and update the list below.
 
+## RSDP Live logo
+
+The RSDP Live credit in the top right corner (`src/ui/PoweredBy.tsx`) reads "Powered by" in small plain text, then RSDP Live's "RSDP Live!" wordmark: "RSDP" in off-white, "Live!" in red italic, as at the top of RSDP Live's home page. John chose the wordmark over the red chip icon. It links to RSDP Live.
+
+The file is `public/brand/rsdp-live-wordmark.svg`, drawn by `tools/make-rsdp-wordmark.cjs` to match RSDP Live's `.logo` style (Inter Black, #eef1f4 and #ef5a4c), with the letters as outlines so it needs no font. If RSDP Live's logo ever changes, re-run the script (instructions are at the top of it). Never edit the RSDP Live repo from here. Keep the credit small: it is a credit, not a banner.
+
 ## Music
 
 No music is in the game yet; the hook is ready. To add a loop for a chapter:

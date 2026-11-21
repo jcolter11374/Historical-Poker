@@ -143,7 +143,7 @@ Jamie Avery, a broke student, in an internet café at 3 a.m. The rivals are scre
 
 - **Stages:** hands 1 to 4, "The $5 qualifier, 3 a.m.", No-Limit Hold'em, taught by DeuceSeven; 5 to 8, "Waiting for the next table: 2-7 Triple Draw", taught by DeuceSeven; 9 to 12, "Still waiting: Badugi", taught by Hanbit; from 13, "The final table, Las Vegas", No-Limit Hold'em with stacks reset, its own room (a stage `scene`) and the rivals in person (the stage's `seats`). $10 unit, $500 each, blinds rise every 4 hands.
 - **Cast:** DeuceSeven (tanks then raises when bluffing), N0rthStar (bets instantly when strong; revealed at the final table as Nat Crane), Hanbit (from Seoul, types "hmm" when weak).
-- **Art:** online, the table is the screen of the café's monitor and the rivals are square avatars above its far rim (a shark, a star, a tiger cub). At the final table DeuceSeven is painted; Nat Crane and Hanbit are silhouettes until their pictures are made, and there is no title painting yet.
+- **Art:** online, the table is the screen of the café's monitor and the rivals are square avatars above its far rim (a shark, a star, a tiger cub). At the final table all three are painted in person. The title painting puts the café and the TV stage side by side.
 - **Beats:** the final table opens with the reveal: Nat Crane says her family has wanted the deck since 1543, names the eighty years of lawyers' letters ("You never wrote back") and says she does not cheat and means to win the deck fairly, on television. Finale: no bow-outs; it is played to the end like a tournament, with a heads-up line from Nat, who shakes hands when she loses.
 
 ### 11. The Big O (2019), 5- and 6-Card Omaha, then Hi-Lo
@@ -152,6 +152,7 @@ A big card room in the English Midlands. Sophie Avery. Pounds ("£200").
 
 - **Stages:** hands 1 to 4, 5-Card Omaha; 5 to 8, 6-Card Omaha; from 9, "Last round: Hi-Lo", alternating 5-Card and 6-Card Omaha Hi-Lo two hands each. All pot-limit, all taught by Gaz. £4 unit, £200 each, rising every 6 hands.
 - **Cast:** Kerry-Ann Booth (loose, checks her phone when weak), Gaz Whitlock (a regular who has seen everything, goes quiet when strong), Mr. Okafor (tight, perfect chip towers when strong).
+- **Art:** fully painted: the card room, Kerry-Ann, Gaz, Mr. Okafor and the title painting (docs/ART.md).
 - **Beats:** the intro has the first warm word from a Crane: a handwritten note signed "E. Crane", sorry for the old letters and asking only to see the deck. Before hand 3 Gaz recognises the old deck; before hand 7 he sees Sophie reading the note and tells her to write back. Jamie gave Sophie the deck when she moved. Finale: Kerry-Ann or Okafor bows out.
 
 ### 12. The Last Table (today), HORSE then the 8-Game
@@ -163,6 +164,7 @@ A private room in Macau. You are the last Avery (a man; the story ends with his 
 - **Elena's strength:** she is written as a top pro in her talk and reputation, not in a punishing difficulty: this is a teaching game. Her numbers are a little sharper than Victor's. When rivals move to RSDP Live's bots, she is one of the few characters where the Hard setting may fit (John, 2026-11-21).
 - **Beats, the two of you warming:** before hand 2 she says she wrote to your family once, and laughs when you say the note reached you last month in a shoebox; before hand 4 you tell her she looks at you when she bluffs; before hand 6 Victor gives the Crane version of the legend (their luck went downriver in 1836), Mei Lin answers that the Averys won by watching people, and Elena says Silas dealt seconds ("That is the Avery version," says Victor); before hand 9 she reads Clara's "Still ours" in the case, and Mei Lin tells Victor these two are no longer playing for the deck.
 - **Finale:** Mei Lin or Victor bows out ("I started this, with a letter. You two finish it."), and the last two are you and Elena, for the deck, loser buys dinner. Win: she laughs, says it was always yours, and you owe her dinner; Victor lets the grudge go ("It was never the deck, was it? Maybe the Cranes can just play cards now"); the case has room for one more line, which you leave empty until after dinner.
+- **Art:** fully painted: the private room over Macau harbour, Mei Lin, Elena, Victor and the title painting (docs/ART.md).
 
 ### Epilogue. The Kitchen Table (today), house extras
 
@@ -171,6 +173,7 @@ The home game the night after your wedding to Elena, a year and a good many dinn
 - **House extras:** every 4th hand is a **bomb pot** (everyone puts in 3 units, no betting before the flop) dealt with a **double board** (half the pot for each board); winning a pot with **7-2** and showing it collects a **bounty** of 2 units from everyone. Unchanged. Taught before the first deal by Dee, with Marcus and Priya, while Victor objects ("That is not poker").
 - **Cast, left to right:** Dee (your friend; always says it's seven-deuce, drums the table when bluffing), Elena (your wife, the nemesis; she still looks up before a bluff), Victor (your father-in-law, at his first home game; the cufflinks). Elena and Victor sit where they sat in Macau, so their pictures serve both chapters. **Marcus deals and Priya heckles from the sofa:** they speak in scenes with their names shown but hold no seat (`bystanders` in the chapter file).
 - **Beats:** before hand 3 Victor learns there is a prize for the worst hand in poker; before hand 6 your friends ask for the whole story, Victor tells it again with the Cranes as the injured party, Elena says Silas dealt seconds, and Dee gets the last word ("The Cranes didn't fold. They married in."); before hand 9 Victor says he hasn't enjoyed a game so much in forty years. Finale: Victor or Dee bows out, and the last two are you and Elena again: last time for the deck, this time the loser does the dishes. Win: the case is full, and the last line in its lid is two names, Avery and Crane. Then the ending pictures and the credits, which link to RSDP Live.
+- **Art:** fully painted: the kitchen, Dee and the title painting; Elena and Victor reuse their chapter 12 pictures (docs/ART.md).
 
 ## How the rivals play
 

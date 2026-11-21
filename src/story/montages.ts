@@ -43,36 +43,32 @@ export const OPENING: Slide[] = [
   {
     when: 'Ashcombe Hall, 1543',
     caption: 'It starts with a grudge. A young knight named Crane is promised a painted deck of cards, and watches a painter’s daughter named Avery win it at the table instead. “A Crane does not forget,” he says.',
-    image: 'painted-deck/title.webp',
-    standIn: true,
+    image: 'montage/opening-1-ashcombe.webp',
   },
   {
     when: 'The Mississippi, 1836',
     caption: 'Three hundred years on, a river gambler named Silas Crane cheats an Avery out of that deck, smiling. Avery’s child comes aboard to win it back. The Cranes will say they were robbed. Again.',
-    image: 'riverboat/title.webp',
-    standIn: true,
+    image: 'montage/opening-2-cheat.webp',
   },
   {
     when: 'Deadwood, 1876',
     caption: 'Forty years on, Crane’s grandson rides into a gold town for what he calls “the Crane deck”, with his grandfather’s trick in his thumb. An Avery is waiting for him.',
-    image: 'last-hand/title.webp',
-    standIn: true,
+    image: 'montage/opening-3-deadwood.webp',
   },
   {
     when: 'Chicago, Las Vegas, Paris: 1926 to 1992',
     caption: 'Then the letters begin. A lawyer, no name, and an offer for the deck. Every Avery gets one. No Avery answers.',
-    image: 'back-room/title.webp',
-    standIn: true,
+    image: 'montage/opening-4-letters.webp',
   },
   {
     when: 'Las Vegas, 2005',
     caption: 'A stranger who never says a word sits down at an Avery’s table, in front of the cameras, and plays as if the deck were already theirs.',
-    image: 'boom/background-final.webp',
-    standIn: true,
+    image: 'montage/opening-5-stranger.webp',
   },
   {
     when: 'Today',
     caption: 'Two families. One deck. Nearly five hundred years of bad blood. Somebody has to end it. Take a seat.',
+    image: 'montage/opening-6-today.webp',
     palette: MACAU,
   },
 ];
@@ -81,34 +77,34 @@ export const CLOSING: Slide[] = [
   {
     when: 'The Mississippi, after 1836',
     caption: 'Silas Crane never won a big hand again. He told his grandchildren the family’s luck had gone downriver with a deck of cards. It was easier than telling them what he had done.',
-    image: 'riverboat/title.webp',
-    standIn: true,
+    image: 'montage/opening-2-cheat.webp',
   },
   {
     when: 'Deadwood, 1876',
     caption: 'Jasper Crane left on the morning stage with empty pockets. He was a young man who had been raised on one story, and had just met the other half of it.',
-    image: 'last-hand/title.webp',
-    standIn: true,
+    image: 'montage/opening-3-deadwood.webp',
   },
   {
     when: 'A shoebox of letters, 1926 to 2019',
     caption: 'Read in order, the letters were never threats. They grow a little politer every decade. The last one is in handwriting, signed, and only asks to see it.',
+    image: 'montage/ending-3-shoebox.webp',
     palette: LETTERS,
   },
   {
     when: 'Las Vegas, 2005',
     caption: 'Nat Crane shook an Avery’s hand on live television. “Every generation,” she said. She did not sound angry any more.',
-    image: 'boom/background-final.webp',
-    standIn: true,
+    image: 'montage/opening-5-stranger.webp',
   },
   {
     when: 'The wedding',
     caption: 'Both families in one room, and nobody counting the chairs between them.',
+    image: 'montage/ending-5-wedding.webp',
     palette: KITCHEN,
   },
   {
     when: 'The Ashcombe deck, 1543 to today',
     caption: 'In the lid of the case, three lines in three hands: “M.A. 1543”. “Still ours.” And two names, side by side: Avery and Crane.',
+    image: 'montage/ending-6-lid.webp',
     palette: MACAU,
   },
 ];

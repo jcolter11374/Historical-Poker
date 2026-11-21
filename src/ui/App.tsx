@@ -148,6 +148,7 @@ export function App() {
       {screen.name === 'opening' && (
         <Montage
           slides={OPENING}
+          finishImage="title-screen.webp"
           musicLink={musicLink}
           onSkip={() => {
             setProgress((p) => sawOpening(p));

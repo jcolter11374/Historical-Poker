@@ -105,19 +105,51 @@ Each chapter needs: a **background** (the empty room and table, first-person fro
 | 7 The Desert Classic | done | all done (Weiss's lap and Lorraine's knee are cut away; the table hides the cuts) | clay chips, a tournament program (title painting done: the strip at dusk) |
 | 8 The Cercle | done | all done (four cards each; Siobhan is cut off at her waist; the table hides the rest) | plaques (rectangular chips) (title painting done: a Paris boulevard at night, the tower across the river) |
 | 9 The Boardwalk | done | all done | Delphine's diary (title painting done: the boardwalk at dusk) |
-| 10 The Boom | both done: the café's monitor with the online table on its screen, and the televised final table (red felt, black rail) | the three avatars done (shark, star, tiger cub); in person, DeuceSeven done; Nat Crane and Hanbit still needed | title painting, chat window, TV graphics |
-| 11 The Big O | big modern card room in the English Midlands: rows of tables, bright lights | Gaz Whitlock, Kerry-Ann Booth, Mr. Emeka Okafor | |
-| 12 The Last Table | private room over Macau harbour at night: one table, city lights | Mei Lin Chau, Elena Crane (the love interest, a top pro), Victor Crane (riverboat cufflinks, now in the right seat) | the tablet menu, tea set |
-| Epilogue The Kitchen Table | a kitchen at night, the evening after a wedding: warm light, wedding cake, mismatched chips | Dee only: Victor and Elena reuse their chapter 12 pictures (Marcus and Priya speak but are not seen) | the full leather case on the counter |
+| 10 The Boom | both done: the café's monitor with the online table on its screen, and the televised final table (red felt, black rail) | the three avatars done (shark, star, tiger cub); in person, all done (Nat Crane fixed by hand to two cards) | chat window, TV graphics (title painting done: the café and the TV stage side by side) |
+| 11 The Big O | done (rows of tables, a bar, waiting-list screens blurred by hand) | all done (five cards each) | modern chips (title painting done: the casino by a canal on a wet evening) |
+| 12 The Last Table | done (private room over Macau harbour at night: red felt, the bridge and the observation tower; the lampshade painted out) | all done (Mei Lin fixed by hand to one card; Victor's lamp painted out) | the tablet menu, tea set (title painting done: the old street, the tower and the bridge at night) |
+| Epilogue The Kitchen Table | done (a kitchen at night: wedding cake, flowers, the leather case on the counter, a green folding felt) | Dee done; Victor and Elena reuse their chapter 12 pictures (Marcus and Priya speak but are not seen) | the full leather case on the counter (title painting done: the house on a rainy street) |
 | The opening and the ending | nine paintings in the style of the title paintings, one per slide (three more are optional) | none | see [ART_PROMPTS.md](ART_PROMPTS.md), "The opening and the ending" |
 
 The player is never shown, so no art is needed for the Averys. Faces on the chapter select and keepsakes are cropped from the character art, so no separate portraits are needed.
+
+## Current state, game-wide pictures
+
+- Title screen: done (`public/art/title-screen.webp`, from art/title-screen.jpg in the project files): the open leather case on green baize with the old cards spilling out, a brass lamp and a few coins. It sits behind "Still Ours" after the opening pictures; the shade darkens only the top, where the title is. Made at 1600 wide from the original with Pillow (quality 80); no cleanup needed.
+- Chapter select, the deck case: done (`public/art/chapter-select.webp`, from art/chapter-select.jpg): looking down into the open case, plain red velvet framed by worn leather. It fills the chapter select behind a light shade (`SELECT_ART` in `ChapterSelect.tsx`), and the drawn case around the cards steps back so the painting is the case. The practice screen keeps the plain background.
+- Screenshots: `docs/screenshots/title-screen.jpg`, `chapter-select.jpg`.
+- The opening pictures (`public/art/montage/`, set as each slide's `image` in `src/story/montages.ts`): 1, Ashcombe Hall, 2, the cheat, and 3, Deadwood, done; Deadwood came with a hard-edged dark band over its bottom quarter, faded in by `opening-3-fix.py` (the untouched picture is art/montage-opening-3-deadwood-original.jpg); 4, the letters, done, with made-up lettering in the letterhead painted out by `opening-4-fix.py`; 5, the stranger, done (redone once to show a little of the face and sort the far stacks by colour; the near stacks were still mixed and are recoloured one colour each by `opening-5-fix.py`; untouched picture art/montage-opening-5-stranger-original.jpg); 6, today, done (it has five chairs, not four, and the case looks a little like a briefcase; kept). The opening is fully painted. The ending's slides 1, 2 and 4 reuse opening pictures 2, 3 and 5, as ART_PROMPTS.md plans; slide 3, the shoebox, is done (made-up type on the front letter painted out by `ending-3-fix.py`); slide 5, the wedding, is done; slide 6, the lid, is done, with the lid left blank (the caption names the three lines written in it; nothing draws them on the picture yet). Every slide of the opening and the ending now has its own painting or a planned reuse (screenshot `docs/screenshots/opening-1.jpg`).
+
+## Current state, the epilogue
+
+- Background and table front: done. The first picture had two fridges side by side, fake handwriting on the fridge notes and the lamp low over the seat across; a redo with only those changed fixed all three (the first try is art/redo/kitchen-to-fix.jpg). The two notes on the wall have scribbled lines, not letters, and were kept.
+- Elena and Victor reuse their chapter 12 pictures in the same seats (`src/chapters/kitchenTable.ts`). Elena sits a little lower than in Macau so the lamp shows above her head instead of behind it.
+- Dee: done, cut out from green, two cards and a fist pump. Her T-shirt print shows only broken shapes, no readable word, and most of it sits behind the table.
+- Title painting: done, a house on a rainy street, the kitchen window glowing with the party inside and a wedding ribbon on the gatepost. The epilogue is fully painted.
+- Screenshots: `docs/screenshots/epilogue-table.jpg`, `epilogue-intro.jpg`.
+
+## Current state, chapter 12
+
+- Background and table front: done. The first try showed Sydney through the windows (the Harbour Bridge), so it was redone with the same room and a Macau view (art/redo/last-table-room-sydney.jpg is the first try). The pendant lamp hung exactly behind Elena's head and its corners stuck out on both sides like ears, so the lampshade is painted out with `last-table-fix.py` (in the project's art/layers/cleanup-scripts; the untouched picture is art/last-table-background.jpg). The rod and the soft light below it stay.
+- Elena: done. The first picture had her brows pulled down into a scheming look, wrong for the one warm Crane, and was redone with only the expression changed. A table edge along the bottom was cropped off before the cutout. She sits a little higher than the standard seat across so her closed stack shows above the rim.
+- Mei Lin: done. She was painted holding a fan of three cards; the two back cards were painted out with her robe (cloned from just beside them) by `meilin-fix.py`, which also redraws the front card's ink outline and clears a blurred spot on the green. One card back is left, so no count can be read.
+- Victor: done. He was painted under a hanging lamp touching his hair; `victor-fix.py` paints the lamp out and keeps the hair.
+- Title painting: done, the old shophouse street and temple roofs in front, the observation tower, the gold casino tower and the long low bridge behind. The first version had two observation towers and made-up Chinese on the signs; a redo fixed the towers and blanked most signs, and `last-table-title-fix.py` blurs the rest (the untouched picture is art/last-table-title-original.jpg). Chapter 12 is fully painted.
+- Screenshots: `docs/screenshots/chapter-12-table.jpg`, `chapter-12-intro.jpg`.
+
+## Current state, chapter 11
+
+- Background and table front: done. The image tool wrote fake lettering on the two waiting-list screens, so their insides are blurred by `big-o-fix.py` (in the project's art/layers/cleanup-scripts; the untouched picture is art/big-o-background-original.jpg). A first try, with a big blank wall over the left third, was not used.
+- Kerry-Ann, Gaz and Mr. Okafor: done, cut out from green, five cards each. Kerry-Ann's card backs came out old tan, copied from Jasper's picture, and were turned modern blue with `kerryann-fix.py` (it recolours warm pixels in the fan, skipping a traced outline of her hand). Gaz came with a table edge drawn under his arms, cut away with `gaz-fix.py`. Mr. Okafor's picture ends in a flat cut below the tie, which the table rim hides. Later prompts for this chapter ask for blue card backs and no table edge.
+- Title painting: done, the casino beside a canal and old warehouses on a wet evening, with a red double-decker bus. The couple at the bottom right wear a cloche and a trilby, a little old-fashioned but worn in 2019 too, so they were kept. Chapter 11 is fully painted.
+- Screenshots: `docs/screenshots/chapter-11-table.jpg`, `chapter-11-intro.jpg`.
 
 ## Current state, chapter 10
 
 - Café background and table front, the three avatars, the final table background and table front, DeuceSeven in person: done. Nothing needed cleaning up: no lettering or stray marks in any of the six.
 - The café picture differs from its prompt in two ways that were kept: the table on the screen is cut off by the monitor frame at the sides, and its rim is brown wood, not a dark rail. Seats, cards, the board and the pot all sit on it (screenshot: `docs/screenshots/chapter-10-table.jpg`).
-- Still to make: Nat Crane and Hanbit in person (silhouettes at the final table until then; screenshot `docs/screenshots/chapter-10-final-table.jpg`), and the title painting (the intro shows the café until then).
+- Nat Crane and Hanbit in person: done (screenshot `docs/screenshots/chapter-10-final-table.jpg`). Nat was painted holding three cards; Hold'em is two, so the back card was painted out of the green original with `nat-fix.py` (in the project's art/layers/cleanup-scripts), which fills it with what lies behind it, the black jacket and the white shirt, carrying the lapel's edge down at its own slope. Nat sits a little higher than the standard seat across, so her cards show above the rim.
+- Title painting: done, the student at the café on the left and the TV stage on the right (screenshot `docs/screenshots/chapter-10-intro.jpg`). Chapter 10 is fully painted.
 
 ## Current state, bonus chapter (The Gaming House)
 

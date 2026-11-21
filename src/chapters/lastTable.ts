@@ -10,9 +10,20 @@
  * here, so Mei Lin Chau gives a short lesson the first time each one is dealt.
  */
 import type { BettingKind } from '@rsdp/engine/core';
-import { lines, music, rival, say } from './cast';
+import { cutout, lines, music, rival, say } from './cast';
 import type { GamePlay, SceneLine } from './types';
-import type { Chapter } from './types';
+import type { Chapter, Character, CharacterArt } from './types';
+
+const art = (file: string) => `${import.meta.env.BASE_URL}art/last-table/${file}`;
+
+/** The painted rivals, by id: image, width / height, and place on the 1600 x 900 stage. */
+const PAINTED: Record<string, CharacterArt> = {
+  meilin: cutout(art('meilin.webp'), 0.9356, { x: 335, bottom: 560, height: 440 }),
+  crane: cutout(art('elena.webp'), 0.8456, { x: 800, bottom: 482, height: 420 }),
+  victor: cutout(art('victor.webp'), 0.8767, { x: 1265, bottom: 600, height: 470 }),
+};
+const paint = (r: Character): Character => ({ ...r, art: PAINTED[r.id] ?? r.art });
+const painted = ([a, b, c]: Chapter['rivals']): Chapter['rivals'] => [paint(a), paint(b), paint(c)];
 
 const L: BettingKind = 'fixed-limit';
 const mei = (...texts: string[]): SceneLine[] => texts.map((t) => say('meilin', t));
@@ -93,7 +104,7 @@ export const LAST_TABLE: Chapter = {
     'During HORSE, a player who goes broke can buy back in.',
     'From the 8-Game on, broke means out. Be the last one at the table.',
   ],
-  rivals: [
+  rivals: painted([
     rival(
       {
         id: 'meilin',
@@ -160,10 +171,10 @@ export const LAST_TABLE: Chapter = {
       'right',
       '#1a1a1a',
     ),
-  ],
+  ]),
   nemesisId: 'crane',
   narratorId: 'meilin',
-  scene: { music: music('last-table'), palette: { wall: '#0d0b10', light: '#f5d9a0', felt: '#3a1418', rim: '#b08a3a' } },
+  scene: { music: music('last-table'), title: art('title.webp'), background: art('background.webp'), tableFront: art('table-front.webp'), palette: { wall: '#0d0b10', light: '#f5d9a0', felt: '#3a1418', rim: '#b08a3a' } },
   playerPlate: { x: 800, y: 760 },
   keepsake: { name: `Elena Crane`, line: 'The Last Table, today. Every game, the end of the feud, and dinner.' },
   story: {

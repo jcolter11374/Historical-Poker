@@ -29,6 +29,7 @@ TABLE_ELLIPSE = {
     'gaming-house': (-0.005, 0.495, 1.002, 1.0),
     'desert-classic': (-0.005, 0.5, 1.0, 0.985),
     'cercle': (-0.005, 0.493, 1.005, 0.982),
+    'boardwalk': (-0.012, 0.492, 1.02, 1.03),
 }
 
 src, chapter = Path(sys.argv[1]), sys.argv[2]

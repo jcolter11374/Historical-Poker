@@ -96,7 +96,7 @@ Each chapter needs: a **background** (the empty room and table, first-person fro
 | 6 The Back Room | done | all done (Nora is cut off at her waistband, Gus above his lap; the table hides the rest) | a matchbook, chips in a flowerpot (title painting done: the florist's shop in the rain) |
 | 7 The Desert Classic | done | all done (Weiss's lap and Lorraine's knee are cut away; the table hides the cuts) | clay chips, a tournament program (title painting done: the strip at dusk) |
 | 8 The Cercle | done | all done (four cards each; Siobhan is cut off at her waist; the table hides the rest) | plaques (rectangular chips) (title painting done: a Paris boulevard at night, the tower across the river) |
-| 9 The Boardwalk | 1990s Atlantic City poker room: neon, mirrors, ocean at the window | Margot Arceneaux, Benny "the Book" Russo, Ruth Goldfarb | Delphine's diary |
+| 9 The Boardwalk | done | all done | Delphine's diary (title painting done: the boardwalk at dusk) |
 | 10 The Boom | two: a cramped internet café at 3 a.m. (monitor glow, the screen as the table), then a TV final table in Las Vegas (stage lights, cameras) | "N0rthStar" (as an avatar, and as Nate Crane in person), "DeuceSeven", "Hanbit" (avatars and in person) | avatars, chat window, TV graphics |
 | 11 The Big O | big modern card room in the English Midlands: rows of tables, bright lights | Gaz Whitlock, Kerry-Ann Booth, Mr. Emeka Okafor | |
 | 12 The Last Table | private room over Macau harbour at night: one table, city lights | Victor Crane (riverboat cufflinks), Mei Lin Chau, Rafael Duarte | the tablet menu, tea set |
@@ -139,3 +139,10 @@ The player is never shown, so no art is needed for the Averys. Faces on the chap
 - Siobhan and Dmitri: done, cut out from green. Both were painted with a fan of five cards, twice, and Omaha is four, so the leftmost card of each fan was removed by hand from the green original (`cercle-fix.py`: the card's face is found between its ink lines and turned to green, and a fresh ink line is drawn along the next card and the hand). Siobhan was also painted on a chair with a knee raised; the chair back beside her jacket is painted out and she is cut off at the waist (`cercle-siobhan-chair.py`). Both scripts are with the originals, in the project's art folder under `layers/cleanup-scripts/`.
 - `cercle.ts` keeps its `rival(...)` blocks and swaps in the art by id (`PAINTED`).
 - Still to make: plaques (rectangular chips).
+
+## Current state, chapter 9
+
+- Background (the casino poker room: blue oval table with a black padded rim, pink and blue neon along the ceiling, mirrored columns, brass rails, the pier and grey sea at the window), table front, title painting (the boardwalk at dusk: strollers, rolling chairs, the pier and its wheel, casino towers trimmed in neon): done. No lettering in either; the signs in the title painting are blank. A second table shows in the mirror on the right-hand column of the room, which is fine for a card room.
+- Benny, Margot and Ruth: done, cut out from green, two cards each (the two hole cards of seven-card stud). All three have a pink and blue neon rim painted along their outlines, kept because it matches the room's neon. Benny's and Ruth's pictures had a pale blurred blotch in the green at the left, removed by keeping only the largest connected piece (the figure). Benny's chip stacks at the bottom edge are kept, and the table hides them. Margot twists her pearl earring and Ruth adjusts her glasses (their tells); Margot's name badge is blank. Ruth's beaded glasses chain keyed cleanly with the standard thresholds.
+- `boardwalk.ts` keeps its `rival(...)` blocks and swaps in the art by id (`PAINTED`), which is the same result as overriding `art` on each rival.
+- Still to make: Delphine's diary.

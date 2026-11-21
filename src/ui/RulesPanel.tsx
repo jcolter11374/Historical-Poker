@@ -9,8 +9,7 @@
  * The pages are plain text links along the top, like the table's corner links.
  */
 import { useEffect, useRef, useState } from 'react';
-import type { BettingKind } from '@rsdp/engine/core';
-import type { Chapter, Extras } from '../chapters/types';
+import type { Betting, Chapter, Extras } from '../chapters/types';
 import type { GameDef } from '../games/catalog';
 import { bettingWords, extrasWords, guideFor } from '../games/guide';
 
@@ -30,7 +29,7 @@ export function RulesPanel({
   chapter: Chapter;
   game: GameDef;
   playName: string;
-  betting: BettingKind;
+  betting: Betting;
   /** House extras at this stage (bomb pots, the 7-2 bounty). */
   extras?: Extras;
   /** A number of stake units, as money: "$4". */

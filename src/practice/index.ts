@@ -14,9 +14,8 @@
  * no story, steady stakes, and nobody is ever knocked out (anyone who goes
  * broke buys back in), so it never ends until the player leaves.
  */
-import type { BettingKind } from '@rsdp/engine/core';
 import { CHAPTERS } from '../chapters';
-import type { Chapter, Character, GamePlay, Lesson, SceneLine, Stage } from '../chapters/types';
+import type { Betting, Chapter, Character, GamePlay, Lesson, SceneLine, Stage } from '../chapters/types';
 import { getGame } from '../games/catalog';
 import { playName } from '../table/stakes';
 
@@ -47,7 +46,8 @@ export interface PracticeGame {
   teachable: boolean;
 }
 
-const BETTING_LINE: Record<BettingKind, string> = {
+const BETTING_LINE: Record<Betting, string> = {
+  'spread-limit': 'The table agrees a limit: any bet or raise up to it, and as many raises as you like.',
   'fixed-limit': 'This is limit betting: every bet and raise is a fixed size, one unit early in the hand and two units later.',
   'pot-limit': 'This is pot limit: you may bet or raise up to the size of the pot.',
   'no-limit': 'This is no limit: any bet, any time, up to everything in front of you.',
@@ -88,7 +88,7 @@ function build(): PracticeGame[] {
         const game = getGame(play.game);
         singles.set(key, {
           key,
-          name: playName(game.name, play.betting, !!game.historical, game.spec.family),
+          name: game.practiceName ?? playName(game.name, play.betting, !!game.historical, game.spec.family),
           blurb: null,
           games: [],
           group: game.historical ? 'old' : game.spec.family === 'flop' ? 'flop' : 'stud-draw',

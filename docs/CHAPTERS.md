@@ -88,7 +88,7 @@ Maison Fontaine, New Orleans. You play young Delphine, at her aunt's table.
 
 ### 6. The Back Room (1926), Seven Card Stud then Razz
 
-A Chicago speakeasy behind a florist's shop. Edith Avery, Clara's daughter.
+A Chicago speakeasy behind a florist's shop. Edith Avery, Clara's daughter. Fully painted: the brick back room under its green lamp, all three rivals, and a title painting of the shop on a rainy night (`docs/screenshots/chapter-6-intro.jpg`, `chapter-6-table.jpg`).
 
 - **Stages:** hands 1 to 6, Seven Card Stud, taught by Sal Moretti; from hand 7, "Razz, after midnight", taught by Nora Shea. Limit, $10 unit, $400 each, stakes rise every 8 hands. Both are dealt with no bring-in (`stud-1926`, `razz-1926`): everyone antes and the best hand showing (in Razz the lowest) opens every round and may check. The low card's forced bring-in is a later casino rule; chapters 9 and 12 have it.
 - **Cast:** Sal (bookkeeper, careful, taps his pencil when weak), Nora (owner, tricky, laughs and lights a cigarette when bluffing), Gus Lindqvist (truck driver, calls too much, hums a Swedish song when strong).

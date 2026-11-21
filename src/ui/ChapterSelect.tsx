@@ -79,7 +79,7 @@ export function ChapterSelect({
       <PoweredBy />
       <header className="select-head">
         <div className="eyebrow">The Ashcombe deck, 1543 to today</div>
-        <h1>Historical Poker</h1>
+        <h1>Still Ours</h1>
         <p>One family deck, every table it was ever played on. Each chapter teaches the poker of its time.</p>
       </header>
       <div className="case">

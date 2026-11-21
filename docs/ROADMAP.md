@@ -7,6 +7,7 @@ The full plan, every chapter, and the open questions are in [GAME_OUTLINE.md](GA
 **Every chapter is built and playable, with placeholder art.** All fourteen chapters (1 to 5, the Poque bonus, 6 to 12 and the epilogue) have their games, cast, lessons, story beats and endings, and every RSDP Live game is taught in the story. Part Two was built alongside Part One, at John's request, rather than as a later release. What's left is art, play-testing and polish.
 
 Done:
+- [x] The game renamed from Historical Poker to **Still Ours** (2026-11-21); the repo, the live address and the save keys keep the old name (DECISIONS.md). The tagline is "Five hundred years, two families, one deck of cards."
 - [x] The story as a family feud with a happy ending (2026-11-21): the Cranes written from hateful (1836) to loved (today); the lawyers' letters through the 1900s; Elena Crane, a top pro, as the last rival and the love interest; the epilogue as the home game after the wedding; the opening and ending pictures; nine fixes to holes in the plot ([DECISIONS.md](DECISIONS.md), [CHAPTERS.md](CHAPTERS.md) "The feud, chapter by chapter").
 - [x] Chapter 1, The River, complete with its painted background and Silas (see below).
 - [x] The six historical games: Primero, Brag, Poque, straight poker, five-card stud, five-card draw.
@@ -74,7 +75,7 @@ Tracked in the outline's "Open questions". Two were answered by building: Part T
 ## Story: waiting on John (2026-11-21)
 
 - [ ] **Art for the new story:** Elena Crane (chapter 12 and the epilogue), nine paintings for the opening and the ending, and three optional ones. Prompts are in [ART_PROMPTS.md](ART_PROMPTS.md). Until then: a silhouette for Elena, and chapter paintings standing in on the slides.
-- [ ] **John to approve the opening's and ending's moments and captions** (`src/story/montages.ts`) before their art is made.
+- [x] **John approved the opening's and ending's moments and captions** (`src/story/montages.ts`), 2026-11-21. Their art can be made.
 - [x] **1543 is the start of the feud** (John said yes, 2026-11-21). Sir Roland is a Crane who was promised the deck; a Crane hires the highwayman in 1763; the opening starts in 1543. See [DECISIONS.md](DECISIONS.md).
 - [x] **A Crane who is a woman before Elena** (John said yes, 2026-11-21). "N0rthStar" is Nat Crane, Victor's niece. Her picture is not painted yet; the prompt is updated. See [DECISIONS.md](DECISIONS.md).
 - [ ] **For the RSDP bots work:** Elena Crane is a top professional in the story. She is one of the few rivals where RSDP Live's Hard setting may fit; Victor should stay Normal, and Dee Easy ([CHAPTERS.md](CHAPTERS.md), chapter 12).

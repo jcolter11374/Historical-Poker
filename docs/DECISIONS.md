@@ -164,3 +164,10 @@ The outline promised "one shared bot built from RSDP Live's coach bot". The firs
 - **Why mostly Easy and Normal:** John, the same day: "this is supposed to be a teaching game so I don't want them to all be very hard." Part One has two Easy rivals at every table (one in the finale); only two are Hard, both Cranes: N0rthStar (Nat) and Elena. When the love story made Elena the last and best opponent she took RSDP's Hard level and Mei Lin dropped to Normal, so Hard stayed at two; Victor is Easy at the kitchen table, his first home game.
 - **Why a fixed number of deals, not RSDP's clock:** tests must replay a seeded game exactly, and a phone is slower than RSDP's server.
 - **Saved tables:** the save now holds RSDP's record of how everyone has played instead of the old two counters, so `TABLE_SAVE_VERSION` is 2 and a table saved part-way before this change starts its chapter afresh (wins and settings are untouched).
+
+### The game is called Still Ours (2026-11-21)
+John renamed the game from "Historical Poker" ("I feel like we are beyond that"). The name is Clara Avery's pencil line in the lid of the deck's case in 1876, "Still ours.", which the story returns to in Macau and at the kitchen table. Changed everywhere a player or reader sees the name: the opening and ending screens, the chapter select header, the browser tab, the page description, the home-screen name, the README and the outline.
+
+- **Not renamed, on purpose:** the GitHub repository (`Historical-Poker`) and so the live address, because John has shared that link; the `historical-poker` package name; and the local-storage keys `historical-poker/progress` and `historical-poker/tables`, because changing them would wipe every player's saved progress.
+- **The tagline** "Five hundred years, two families, one deck of cards." sits under the name on the opening screen and in the page description. John approved it. (The feud is 483 years old; the story text says "nearly five hundred years".)
+- **No painting has the old name in it.** The game draws its name as text over the art, so no picture had to change.

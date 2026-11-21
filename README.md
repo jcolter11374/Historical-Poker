@@ -1,4 +1,4 @@
-# Historical Poker
+# Still Ours
 
 A single-player card game that tells the history of poker, one chapter per era. Its story is a family feud with a happy ending: the Averys and the Cranes quarrel over one deck for nearly five hundred years, and it ends with a wedding. You follow one heirloom deck, the Ashcombe deck, from table to table: a Mississippi steamboat in 1836, then flashbacks to a Tudor hall and a coaching inn, forward to a Civil War camp and a Deadwood saloon, and on through a Chicago speakeasy, Las Vegas, Paris, Atlantic City, the online boom, an English card room and Macau, to a kitchen table today. It teaches every game RSDP Live offers inside the story, so friends can learn one here before playing it for money. Each chapter is played with the poker of its time, against painted rivals with their own personalities and tells.
 

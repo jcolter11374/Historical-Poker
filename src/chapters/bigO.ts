@@ -17,6 +17,7 @@ export const BIG_O: Chapter = {
   teaches: '5- and 6-Card Omaha, then their Hi-Lo versions',
   rulesObject: 'The card room’s house rules',
   dealerMarker: 'button',
+  houseDeals: true,
   money: { prefix: '£' },
   stages: [
     {

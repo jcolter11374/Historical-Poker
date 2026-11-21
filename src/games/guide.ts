@@ -335,3 +335,10 @@ export function extrasWords(extras: Extras | undefined, money: (units: number) =
 function ordinal(n: number): string {
   return ['zeroth', 'first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth'][n] ?? `${n}th`;
 }
+
+/** The rules sheet's line for a card room or a poker site, where no player deals. */
+export function houseDealsWords(family: 'flop' | 'stud' | 'draw', marker: 'buck' | 'button' | 'online' | 'none'): string {
+  const who = marker === 'online' ? 'The site deals every hand' : 'The house deals every hand';
+  if (family === 'stud') return `${who}. There is no dealer button in stud: the cards showing decide who acts first.`;
+  return `${who}. The dealer button only marks whose turn it would be to deal: the blinds sit to its left, and the player with the button acts last.`;
+}

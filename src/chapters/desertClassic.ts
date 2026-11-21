@@ -31,6 +31,7 @@ export const DESERT_CLASSIC: Chapter = {
   teaches: 'Limit Hold’em, then No-Limit Hold’em',
   rulesObject: 'The tournament program',
   dealerMarker: 'button',
+  houseDeals: true,
   stages: [
     {
       fromHand: 1,

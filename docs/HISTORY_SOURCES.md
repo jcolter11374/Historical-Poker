@@ -237,10 +237,10 @@ John pointed out that the buck is out of place in many chapters: card rooms neve
 | 9, The Boardwalk (1995) | None | **OK** | A casino's stud game has no button: the house dealer deals and the up cards decide who acts [PN-Button]. |
 | 10, The Boom (2005) | A disc with a "D" on the site; a "DEALER" button at the live final table | **Best pick** | Poker sites draw the button as a small disc marked "D"; not sourced beyond common knowledge of the software. |
 | 11, The Big O (2019) | "DEALER" button | **OK** | Flop games in a card room [PN-Button]. |
-| 12, The Last Table (today) | "DEALER" button; nothing in the stud rounds | **OK** | [PN-Button]. In a real mixed game the button stays on the table, unmoved, through the stud rounds; here it is hidden for them. |
+| 12, The Last Table (today) | "DEALER" button; nothing in the stud rounds | **OK** | [PN-Button]. In a real mixed game the button stays on the table, unmoved, through the stud rounds; here it is hidden for them (and still moves a seat each hand). |
 | Epilogue, The Kitchen Table (today) | "DEALER" button | **Best pick** | A home game's chip set comes with one; not sourced. |
 
-Still not true to a card room: in the casino chapters the cards still fly from the seat with the button, as if that player dealt. There is no house dealer in the paintings.
+In the card rooms and on the poker site (chapters 7 to 12) the house deals [W-Button][PN-Button], so cards are dealt from the middle of the table, not from the seat with the button, and the rules sheet says so. No house dealer is painted. The kitchen table is a home game: the player with the button deals.
 
 ### Sources that could not be opened
 

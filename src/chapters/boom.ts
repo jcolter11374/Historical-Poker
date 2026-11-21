@@ -37,6 +37,7 @@ export const BOOM: Chapter = {
   teaches: 'Online Hold’em, then 2-7 Triple Draw and Badugi',
   rulesObject: 'The help screen',
   dealerMarker: 'online',
+  houseDeals: true,
   stages: [
     {
       fromHand: 1,

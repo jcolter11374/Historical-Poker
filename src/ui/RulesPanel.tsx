@@ -11,7 +11,7 @@
 import { useEffect, useRef, useState } from 'react';
 import type { Betting, Chapter, Extras } from '../chapters/types';
 import type { GameDef } from '../games/catalog';
-import { bettingWords, extrasWords, guideFor } from '../games/guide';
+import { bettingWords, extrasWords, guideFor, houseDealsWords } from '../games/guide';
 
 const PAGES = ['The rules', 'Playing it well', 'This chapter'] as const;
 type Page = (typeof PAGES)[number];
@@ -64,6 +64,7 @@ export function RulesPanel({
               {card.howToPlay.map((t) => <p key={t}>{t}</p>)}
               <h3>The betting</h3>
               {bettingWords(betting, game.forced, game.spec.family, !!game.historical).map((t) => <p key={t}>{t}</p>)}
+              {chapter.houseDeals && <p>{houseDealsWords(game.spec.family, chapter.dealerMarker)}</p>}
             </section>
             <section>
               <h3>{card.rankingsTitle}</h3>

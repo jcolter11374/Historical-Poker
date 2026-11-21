@@ -84,8 +84,8 @@ export function TableScreen({
   useEffect(() => playMusic(music), [music]);
   // Lay out the felt for the hand on it: between hands `play` is already the next game.
   const flop = (snap.hand?.family ?? snap.play.family) === 'flop';
-  // Cards fly in from whoever holds the buck.
-  const dealer = seatSpot(rivals, snap.button);
+  // Cards fly in from whoever deals: the seat with the buck or the button, or the middle of the table where the house deals.
+  const dealer = chapter.houseDeals ? HOUSE_DEALER_SPOT : seatSpot(rivals, snap.button);
   const from = (to: Point): CSSProperties => ({ '--dx': `${dealer.x - to.x}px`, '--dy': `${dealer.y - to.y}px` }) as CSSProperties;
 
   // Deal the first hand when the table opens, once any opening scene is over.
@@ -497,6 +497,9 @@ function TellNote({ character, texts }: { character: Character; texts: string[] 
     </div>
   );
 }
+
+/** Where the cards come from when the house deals: the middle of the table. */
+const HOUSE_DEALER_SPOT: Point = { x: 800, y: 560 };
 
 /** Said on your own line when the deal is yours. */
 const MARKER_MINE: Record<DealerMarker, string> = { buck: ' · you hold the buck', button: ' · you have the button', online: ' · you have the button', none: ' · you deal' };

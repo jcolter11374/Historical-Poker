@@ -32,6 +32,7 @@ export const BOARDWALK: Chapter = {
   teaches: 'Seven Card Stud Hi-Lo (8 or better)',
   rulesObject: 'The house rules card',
   dealerMarker: 'button',
+  houseDeals: true,
   stages: [
     {
       fromHand: 1,

@@ -241,6 +241,12 @@ export interface Chapter {
    * A stage can set its own (the Boom's live final table).
    */
   dealerMarker: DealerMarker;
+  /**
+   * A card room (or a poker site): the house deals every hand, so cards come
+   * from the middle of the table, not from a player's seat, and the rules
+   * sheet says so. Leave out where the players deal in turn.
+   */
+  houseDeals?: boolean;
   /** The rules card's era object: "a parchment page", "a matchbook". Shown as the button label. */
   rulesObject: string;
   /** The stages of play, in order. The last one is the showdown: before it starts, nobody is knocked out (they buy back in). */

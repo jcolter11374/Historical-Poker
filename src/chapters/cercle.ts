@@ -30,6 +30,7 @@ export const CERCLE: Chapter = {
   teaches: 'Pot-Limit Omaha, then Omaha Hi-Lo',
   rulesObject: 'The club’s rule book',
   dealerMarker: 'button',
+  houseDeals: true,
   money: { suffix: ' F' },
   stages: [
     {

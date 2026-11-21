@@ -87,6 +87,23 @@ Set per stage in `extras`: a **bomb pot** every N hands (everyone puts in N unit
 - **Drawing:** when it's your turn to draw, "The draw" is announced over the felt with the limit in words (and "1 of 3" in triple-draw games), and your cards bob to show they can be picked. Pick cards to throw them (they lift), then "Draw N" or "Stand pat". The chip says what is not allowed (more than the limit).
 - **Purses:** during a hand every purse shows what is left after antes and bets, not what it was at the deal.
 
+### Math Mode
+
+A switch for young players learning math, **off by default** so the game stays uncluttered: the "Math Mode" checkbox on the chapter select, or the "Math on / Math off" corner link at any table (story or practice). It is saved with the other settings. When it is on, a sum made from the hand being played appears on the dialogue strip each time it is the player's turn to bet. Answering is optional: the betting chips stay live, and acting moves on. A right answer earns a star; the count shows beside "Math question" and on the chapter select. Money words are used as in the rest of the game (John's call, 2026-11-21). The code is `src/math/index.ts` (the sums) and `src/ui/MathStrip.tsx` (the strip).
+
+Two kinds of question in this first version:
+
+- **Counting outs.** "One more card is coming. You have a pair now. How many of the cards you can't see would make it a better kind of hand?" Four numbers on small chips to pick from. After the answer, the deck is laid out on the felt by suit: cards the player can see (their own, the board, face-up cards in other hands) are gaps, the helpful cards glow, and the working is given as a fraction: "6 of the 47 cards you can't see help you... 6/47, about 1 in 8, or 13%".
+  - A card *helps* when it makes the hand a better **kind** of hand (high card to a pair, four hearts to a flush). In a game with a board, a card that gives everyone the same kind of hand doesn't count (the board pairing when you hold nothing).
+  - Asked only where the count is clean: games won by the best high hand (Hold'em, the Omahas, Seven Card Stud, five-card stud), when exactly one card comes next (the turn or river, the next stud card), with one board, and at least one card helps. Not in low or split games, draw games, or the old games with no card to come.
+- **A good deal?** Asked whenever there is a bet to call, in every game. "The pot holds $12. Calling costs you $4. A hand like yours wins about 40 times in 100. Is calling a good deal?" The pot and the price are drawn as two stacks of chips, and the answers are "Good deal" and "Bad deal". The working: "$4 of the $16 in the pot is yours. 4/16 = 1/4, which is 25%... 40% is more than 25%... a good deal. Card players call this pot odds."
+  - The winning chance is the teacher's estimate, the same number a hint gives (`Session.teacherAdvice`).
+  - Within 4 percentage points (`CLOSE`) the deal is "too close to call" and either answer earns the star.
+
+When both apply, outs is asked first and "Next question" brings the deal. A story scene or a hint takes the strip while it shows.
+
+Ideas not built yet are in [ROADMAP.md](ROADMAP.md).
+
 ### Sound and motion
 
 - **Motion:** cards fly in from whoever holds the buck, one at a time, and turn over when shown; antes and bets slide from the seat to the pot; the pot slides to the winner when the hand ends, and "wins $N" pops up. Lines of dialogue fade in. Anyone whose system asks for reduced motion gets none of this.

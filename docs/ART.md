@@ -95,7 +95,7 @@ Each chapter needs: a **background** (the empty room and table, first-person fro
 | Bonus The Gaming House | New Orleans gaming house: candlelight, iron balconies | Madame Élodie Fontaine, Henri Avery, Captain Lacroix | piquet cards, Spanish silver, a payout board |
 | 6 The Back Room | done | all done (Nora is cut off at her waistband, Gus above his lap; the table hides the rest) | a matchbook, chips in a flowerpot (title painting done: the florist's shop in the rain) |
 | 7 The Desert Classic | 1970s casino tournament room: low ceiling, smoke, patterned carpet | "Tex" Dawson Pruitt, Professor Milton Weiss, Lorraine Fisk | clay chips, a tournament program |
-| 8 The Cercle | private Paris card club: panelled salon, chandelier, cigar smoke | Comte Lucien Varenne, Siobhan Kearney, Dmitri Volkov | plaques (rectangular chips) |
+| 8 The Cercle | done | all done (four cards each; Siobhan is cut off at her waist; the table hides the rest) | plaques (rectangular chips) (title painting done: a Paris boulevard at night, the tower across the river) |
 | 9 The Boardwalk | 1990s Atlantic City poker room: neon, mirrors, ocean at the window | Margot Arceneaux, Benny "the Book" Russo, Ruth Goldfarb | Delphine's diary |
 | 10 The Boom | two: a cramped internet café at 3 a.m. (monitor glow, the screen as the table), then a TV final table in Las Vegas (stage lights, cameras) | "N0rthStar" (as an avatar, and as Nate Crane in person), "DeuceSeven", "Hanbit" (avatars and in person) | avatars, chat window, TV graphics |
 | 11 The Big O | big modern card room in the English Midlands: rows of tables, bright lights | Gaz Whitlock, Kerry-Ann Booth, Mr. Emeka Okafor | |
@@ -117,3 +117,11 @@ The player is never shown, so no art is needed for the Averys. Faces on the chap
 - Sal, Nora and Gus: done, cut out from green, two cards each (seven-card stud starts with two cards down). Gus's picture had stray game text in the green, removed by keeping only the largest connected piece (the figure), and he is cut off above his lap. Nora's had a brownish haze along the bottom of the green, so she is cut off at her waistband first. Sal's green was darker than usual but keyed cleanly as it was.
 - `backRoom.ts` keeps its `rival(...)` blocks and swaps in the art by id (`PAINTED`), which is the same result as overriding `art` on each rival.
 - Still to make: a matchbook, chips in a flowerpot.
+
+## Current state, chapter 8
+
+- Background (the cream and gold panelled club room), table front, title painting (a Paris boulevard at night): done. The first room was rejected because its baize came out stained and its walls peeling: a prompt for a smart room must say the felt and paint are clean, or the tool copies the wear of the reference picture.
+- The Comte Varenne: done, cut out from green. Redone at John's request without a cigar and match; one hand rests at his cravat with the signet ring, and his tell now reads "He turns the signet ring on his finger" to match.
+- Siobhan and Dmitri: done, cut out from green. Both were painted with a fan of five cards, twice, and Omaha is four, so the leftmost card of each fan was removed by hand from the green original (`cercle-fix.py`: the card's face is found between its ink lines and turned to green, and a fresh ink line is drawn along the next card and the hand). Siobhan was also painted on a chair with a knee raised; the chair back beside her jacket is painted out and she is cut off at the waist (`cercle-siobhan-chair.py`). Both scripts are with the originals, in the project's art folder under `layers/cleanup-scripts/`.
+- `cercle.ts` keeps its `rival(...)` blocks and swaps in the art by id (`PAINTED`).
+- Still to make: plaques (rectangular chips).

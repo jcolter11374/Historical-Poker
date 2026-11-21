@@ -48,8 +48,7 @@ export const OPENING: Slide[] = [
   {
     when: 'The Mississippi, 1836',
     caption: 'Three hundred years on, a river gambler named Silas Crane cheats an Avery out of that deck, smiling. Avery’s child comes aboard to win it back. The Cranes will say they were robbed. Again.',
-    image: 'riverboat/title.webp',
-    standIn: true,
+    image: 'montage/opening-2-cheat.webp',
   },
   {
     when: 'Deadwood, 1876',

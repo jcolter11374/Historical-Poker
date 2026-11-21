@@ -118,7 +118,7 @@ The player is never shown, so no art is needed for the Averys. Faces on the chap
 - Title screen: done (`public/art/title-screen.webp`, from art/title-screen.jpg in the project files): the open leather case on green baize with the old cards spilling out, a brass lamp and a few coins. It sits behind "Still Ours" after the opening pictures; the shade darkens only the top, where the title is. Made at 1600 wide from the original with Pillow (quality 80); no cleanup needed.
 - Chapter select, the deck case: done (`public/art/chapter-select.webp`, from art/chapter-select.jpg): looking down into the open case, plain red velvet framed by worn leather. It fills the chapter select behind a light shade (`SELECT_ART` in `ChapterSelect.tsx`), and the drawn case around the cards steps back so the painting is the case. The practice screen keeps the plain background.
 - Screenshots: `docs/screenshots/title-screen.jpg`, `chapter-select.jpg`.
-- The opening pictures (`public/art/montage/`, set as each slide's `image` in `src/story/montages.ts`): 1, Ashcombe Hall, done (screenshot `docs/screenshots/opening-1.jpg`). The others still show their stand-ins.
+- The opening pictures (`public/art/montage/`, set as each slide's `image` in `src/story/montages.ts`): 1, Ashcombe Hall, and 2, the cheat, done (screenshot `docs/screenshots/opening-1.jpg`). The others still show their stand-ins.
 
 ## Current state, the epilogue
 

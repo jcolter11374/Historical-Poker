@@ -3,8 +3,8 @@
  * Deadwood, August 1876. The finale of Part One: the Crane feud ends.
  * (docs/GAME_OUTLINE.md, Chapter 5.)
  *
- * Art: the saloon and Doc are painted; Ruby and Jasper are placeholders
- * until they are painted on green, and there is no title painting yet.
+ * Art: the saloon, Doc and Ruby are painted; Jasper is a placeholder
+ * until he is painted on green, and there is no title painting yet.
  */
 import { DRAW5_ID } from '../games/fiveCardDraw';
 import { cutout, lines, music, rival, say } from './cast';
@@ -94,30 +94,34 @@ export const LAST_HAND: Chapter = {
       ),
       art: cutout(art('doc.webp'), 1.0444, { x: 345, bottom: 565, height: 440 }),
     },
-    rival(
-      {
-        id: 'ruby',
-        name: 'Ruby',
-        fullName: 'Ruby Calloway',
-        role: 'Owner of the Lucky Nugget, best player in the territory',
-        // Balanced and hard to read: value bets, traps, bluffs at the right times.
-        personality: { valueAt: 1.4, bluff: 0.14, caution: 0.03, betSize: 0.7, trap: 0.3, respect: 0.6, reads: 1 },
-        // No reliable tell: she reads yours instead.
-        tell: { text: 'She smiles at you. It tells you nothing.', signals: 'strong', showsWhenTrue: 0.3, showsWhenFalse: 0.3 },
-        lines: lines({
-          bet: ['Bet, honey.', 'Let’s see if you mean it.', 'Raise.'],
-          call: ['I’ll call.', 'Sure.'],
-          fold: ['Yours.', 'Go on, take it.'],
-          check: ['Check.'],
-          win: ['House thanks you.', 'That’s why I own the place.'],
-          bust: 'Well, I’ll be. Nobody’s done that to me in this territory. Drinks are on the house.',
-          draw: ['Two for me.', 'One.', 'Three.'],
-          pat: ['I’m good.'],
-        }),
-      },
-      'across',
-      '#6a1d2b',
-    ),
+    {
+      ...rival(
+        {
+          id: 'ruby',
+          name: 'Ruby',
+          fullName: 'Ruby Calloway',
+          role: 'Owner of the Lucky Nugget, best player in the territory',
+          // Balanced and hard to read: value bets, traps, bluffs at the right times.
+          personality: { valueAt: 1.4, bluff: 0.14, caution: 0.03, betSize: 0.7, trap: 0.3, respect: 0.6, reads: 1 },
+          // No reliable tell: she reads yours instead.
+          tell: { text: 'She smiles at you. It tells you nothing.', signals: 'strong', showsWhenTrue: 0.3, showsWhenFalse: 0.3 },
+          lines: lines({
+            bet: ['Bet, honey.', 'Let’s see if you mean it.', 'Raise.'],
+            call: ['I’ll call.', 'Sure.'],
+            fold: ['Yours.', 'Go on, take it.'],
+            check: ['Check.'],
+            win: ['House thanks you.', 'That’s why I own the place.'],
+            bust: 'Well, I’ll be. Nobody’s done that to me in this territory. Drinks are on the house.',
+            draw: ['Two for me.', 'One.', 'Three.'],
+            pat: ['I’m good.'],
+          }),
+        },
+        'across',
+        '#6a1d2b',
+      ),
+      // Her fanned cards widen the picture to her left, so she sits right of centre.
+      art: cutout(art('ruby.webp'), 0.9989, { x: 850, bottom: 520, height: 470 }),
+    },
     rival(
       {
         id: 'jasper',

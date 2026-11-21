@@ -39,6 +39,7 @@ TABLE_ELLIPSE = {
     'cercle': (-0.005, 0.493, 1.005, 0.982),
     'boardwalk': (-0.012, 0.492, 1.02, 1.03),
     'last-table': (-0.014, 0.496, 1.014, 0.966),
+    'kitchen-table': (-0.008, 0.503, 1.008, 0.968),
     'big-o': (-0.005, 0.497, 1.005, 1.03),
 }
 # Left, top, right, bottom of the box the table front stays inside, as shares of the picture.

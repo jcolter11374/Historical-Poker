@@ -8,8 +8,21 @@
  * player's friend Dee. Marcus deals and Priya heckles from the sofa: they
  * speak but hold no seat (`bystanders`). All people are fictional.
  */
-import { lines, music, rival, say } from './cast';
-import type { Chapter } from './types';
+import { cutout, lines, music, rival, say } from './cast';
+import type { Chapter, Character, CharacterArt } from './types';
+
+const art = (file: string) => `${import.meta.env.BASE_URL}art/kitchen-table/${file}`;
+/** Elena and Victor reuse their chapter 12 pictures. */
+const lastTable = (file: string) => `${import.meta.env.BASE_URL}art/last-table/${file}`;
+
+/** The painted rivals, by id: image, width / height, and place on the 1600 x 900 stage. */
+const PAINTED: Record<string, CharacterArt> = {
+  // Elena sits lower than in Macau so the kitchen lamp shows above her head, not behind it.
+  crane: cutout(lastTable('elena.webp'), 0.8456, { x: 800, bottom: 500, height: 400 }),
+  victor: cutout(lastTable('victor.webp'), 0.8767, { x: 1265, bottom: 600, height: 470 }),
+};
+const paint = (r: Character): Character => ({ ...r, art: PAINTED[r.id] ?? r.art });
+const painted = ([a, b, c]: Chapter['rivals']): Chapter['rivals'] => [paint(a), paint(b), paint(c)];
 
 export const KITCHEN_TABLE: Chapter = {
   id: 'kitchen-table',
@@ -70,7 +83,7 @@ export const KITCHEN_TABLE: Chapter = {
     'No-limit, $1 and $2 blinds. Every fourth hand is a double-board bomb pot. Win a pot with 7-2 and show it for a bounty.',
     'Be the last one with chips. Or just enjoy it: it’s a home game.',
   ],
-  rivals: [
+  rivals: painted([
     rival(
       {
         id: 'dee',
@@ -131,10 +144,10 @@ export const KITCHEN_TABLE: Chapter = {
       'right',
       '#1a1a1a',
     ),
-  ],
+  ]),
   nemesisId: 'crane',
   narratorId: 'dee',
-  scene: { music: music('kitchen-table'), palette: { wall: '#1a1612', light: '#ffe2a8', felt: '#6a4a2a', rim: '#3a2a1a' } },
+  scene: { music: music('kitchen-table'), background: art('background.webp'), tableFront: art('table-front.webp'), palette: { wall: '#1a1612', light: '#ffe2a8', felt: '#6a4a2a', rim: '#3a2a1a' } },
   playerPlate: { x: 800, y: 760 },
   keepsake: { name: 'Avery and Crane', line: 'The Kitchen Table, the night after the wedding. One deck, one family.' },
   story: {

@@ -22,6 +22,7 @@ export const LAST_HAND: Chapter = {
   youAre: 'Clara Avery, Kit’s granddaughter',
   teaches: 'Five-card draw, the great American game',
   rulesObject: 'House rules on the wall',
+  dealerMarker: 'buck',
   stages: [
     {
       fromHand: 1,

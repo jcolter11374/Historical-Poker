@@ -58,7 +58,7 @@ Every chapter is playable with no art at all:
 
 - **Room:** with no `scene.background`, the table screen paints the room from the chapter's `scene.palette` (wall, lamp light, felt, rim colours): a dark wall, a warm lamp glow, a felt table ellipse and grain. Pick the palette from the era's colours so the placeholder already feels right.
 - **Characters:** `art.kind: 'placeholder'` draws a painted head-and-shoulders silhouette in the character's `color` (made by `rival()` in `src/chapters/cast.ts`). Faces in the chapter select, intro and keepsake show the character's initial on that colour.
-- **Cards, chips, the buck:** drawn in code for every chapter.
+- **Cards, chips, the dealer's marker:** drawn in code for every chapter. The marker is a buck knife or a dealer button by chapter (`Marker` in `src/ui/TableScreen.tsx`; GAME_DESIGN.md, "The dealer's marker").
 
 ## Swapping in art for a chapter
 
@@ -71,7 +71,7 @@ Every chapter is playable with no art at all:
 
 The Boom is played in two rooms, so its files carry the room's name: `background-cafe.jpg` and `background-final.jpg` in the originals folder, and `python3 tools/prepare-art.py <originals-folder> boom cafe` (then `... boom final`) writes `background-cafe.webp`, `table-front-cafe.webp` and so on. The rims are in `TABLE_ELLIPSE` as `boom-cafe` and `boom-final`.
 
-- **The café** is the chapter's own `scene`. Its table is a picture on a monitor, cut off by the monitor's frame at both sides, so `TABLE_CLIP` in `prepare-art.py` keeps the table front inside the screen. The screen covers about x 305 to 1315 of the 1600-wide stage, so the three rivals sit closer together than usual (`ONLINE` in `boom.ts`): square avatars standing above the far rim, name plates under them. Two things follow from the tight seats: the scene sets `pot` (where the pot sits in flop games), and the avatars set `tellAbove` (tells show over the avatar, not beside it).
+- **The café** is the chapter's own `scene`. Its table is a picture on a monitor, cut off by the monitor's frame at both sides, so `TABLE_CLIP` in `prepare-art.py` keeps the table front inside the screen. The screen covers about x 305 to 1315 of the 1600-wide stage, so the three rivals sit closer together than usual (`ONLINE` in `boom.ts`): square avatars standing above the far rim, name plates under them. One thing follows from the tight seats: the avatars set `tellAbove` (tells show over the avatar, not beside it). The pot sits in the middle of the screen's felt, as at every table.
 - **The avatars** are square icons in a silver frame on green, cut out like any character: `python3 tools/greenscreen-cutout.py deuceseven-avatar-green.jpg deuceseven-avatar.png`. They are also the faces on the chapter select, intro and keepsake.
 - **The final table** is the last stage's `scene`, and that stage's `seats` gives each rival their in-person art and the standard seat places (see `Stage.seats` in `types.ts`). A rival not yet painted keeps the placeholder there: `standardSeat('across', colour)`.
 

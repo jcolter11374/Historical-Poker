@@ -35,7 +35,7 @@ import { STRAIGHT_POKER, STRAIGHT_POKER_RULES, deck20, evaluate1836 } from './st
 
 /**
  * 'antes': everyone antes, dead money; the minimum bet is the big blind amount.
- * 'blinds': small and big blind left of the buck.
+ * 'blinds': small and big blind left of the dealer (the buck or the button).
  * 'stud': everyone antes and the low card brings in.
  * 'stud-open': everyone antes and there is no bring-in: the best card showing opens, and may check (stud before the casinos).
  * 'age': only the eldest hand antes, blind; it costs double to come in (draw poker in the 1870s).
@@ -280,7 +280,7 @@ const OMAHA_HOW = (n: number) => [
 ];
 const HILO_HOW = 'The pot is split: half to the best high hand, half to the best low. A low needs five different cards 8 or lower (aces low). If nobody has a low, the high hand takes it all.';
 const HOLDEM_HOW = [
-  'The two players left of the buck post the small and big blind. Two cards face down for each player, then a round of betting.',
+  'The two players left of the dealer button post the small and big blind. Two cards face down for each player, then a round of betting.',
   'The flop: three shared cards face up. A round of betting.',
   'The turn: a fourth shared card. The river: a fifth. A round of betting after each.',
   'Make your best five-card hand from your two cards and the five on the board, in any mix.',

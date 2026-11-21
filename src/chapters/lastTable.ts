@@ -25,6 +25,8 @@ export const LAST_TABLE: Chapter = {
   youAre: 'You',
   teaches: 'HORSE, then the 8-Game mix',
   rulesObject: 'The tablet menu',
+  dealerMarker: 'button',
+  houseDeals: true,
   money: { prefix: 'HK$' },
   stages: [
     {

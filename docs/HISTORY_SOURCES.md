@@ -20,7 +20,7 @@ Every other source is in the list at the end.
 | --- | --- | --- |
 | 1, The River | Straight poker (20 cards), 1836, Mississippi steamboat | Yes: the 20-card game is described in New Orleans in 1829 and on a steamboat in 1833 [P1][P2]. |
 | 2, The Painted Deck | Primero, 1543, Kent | Yes: fashionable in Henry VIII's reign [W-Primero]. |
-| 3, The North Road | Brag, 1763, Great North Road | Yes: printed rules from 1721 and in Hoyle, 1751 [W-Brag]. The chapter uses modern rankings and says so. |
+| 3, The North Road | Brag, 1763, Great North Road | Yes: printed rules from 1721 and in Hoyle, 1751 [W-Brag]. The chapter plays the 1700s rules: see "Period rules". |
 | 4, The Camp | Five-card stud, 1863, Chattanooga | Yes, just: stud first appears in print in 1864 and was much played by soldiers [P1][W-Stud]. |
 | 5, The Last Hand | Five-card draw, 1876, Deadwood | Yes: draw is in print from 1850; Hickok was shot at poker there that August [P1][W-Hickok]. |
 | Bonus, The Gaming House | Poque, 1817, New Orleans | Yes: Parlett places poker's birth in New Orleans between about 1810 and 1825 [P1]. |
@@ -61,7 +61,7 @@ Every other source is in the list at the end.
 | Brag grew out of the 1500s game post and pair | OK | Post and Pair "recorded as far back as 1528" [W-Brag]. |
 | Described in 1700s English card books, "often with wild cards called braggers" | **Fixed** | Rules first printed in *The Compleat Gamester*, 1721, and in Hoyle, 1751. At first one bragger, the jack of clubs; the nine of diamonds was added later [W-Brag]. The ace of diamonds / jack of clubs / nine of diamonds trio in later books describes "an entirely fictitious form of Brag" [pagat Brag]. Text and outline corrected. |
 | Three-card brag is still played in Britain | OK | "A popular British gambling game" [pagat Brag]. |
-| Rules card rankings (prial 3-3-3 best, runs over flushes) | Noted | These are modern three-card brag rules. The rules card now says the 1700s game was scored differently. |
+| Rules card rankings | **Fixed** (2026-11-21) | The card used modern three-card brag (prial of threes best, runs over flushes). It now gives the 1700s game: pair royal, pair, high card, with braggers. See "Period rules". |
 
 ### Chapter 4, The Camp (1863)
 
@@ -82,7 +82,7 @@ Every other source is in the list at the end.
 | Aces and eights, the dead man's hand | OK, with a caveat | "No one connected it to Hickok until the 1920s" [W-DMH]. Text says so. |
 | Jackpots appeared around this time | OK (made exact) | First in print in the 1875 *American Hoyle*; jacks or better to open [P1][P2]. |
 | Deadwood "three months old" | **Fixed** (softened) | Founded in 1876; text now says "only a few months old". |
-| Draw up to three cards (four with an ace) | Noted | A modern house rule; gameplay, so not changed. See DECISIONS.md. |
+| Draw up to three cards (four with an ace) | **Fixed** (2026-11-21) | A modern house rule. The game now lets you draw up to five, as in 1850 [PN-Draw]. See "Period rules". |
 
 ### Bonus, The Gaming House (1817)
 
@@ -143,6 +143,86 @@ Already sourced. Gaz's line "Two hundred years in America" fixed to "two hundred
 | 8-Game adds 2-7 Triple Draw, NL Hold'em and PLO to HORSE | OK | [W-HORSE]. |
 | Macau is one of the biggest gambling centres in the world | OK | Highest gambling revenue of any city; passed the Las Vegas Strip in 2007 [W-Macau]. |
 
+## Period rules, game by game
+
+Added 2026-11-21, when John asked that every game be played by the rules of the year its chapter is set in. For each game: what the game now does, what the sources say, and how sure that is. **Sure** means a source read for this pass says it. **Best pick** means the sources are thin or silent and the rule is the best-supported choice; these are the ones to revisit if a better source turns up. Sources that could not be opened are named at the end.
+
+### Primero, 1543 (chapter 2)
+
+| Rule in the game | How sure | Sources |
+| --- | --- | --- |
+| 40 cards; dealt two and two with a wager after each; card points 7=21, 6=18, ace=16, 5=15, 4=14, 3=13, 2=12, courts 10; hands chorus, fluxus, supremus (55), primero, numerus | Sure, as far as it goes | No rule book survives, only descriptions that disagree [W-Primero][pagat Primero]. These points are common to them. |
+| One change of up to two cards | Best pick | The descriptions have players draw or stand turn by turn, with discard limits that vary [W-Primero]. One change of two is our simplification. |
+| Table stakes: wager any part of your "rest" | Best pick | No limit is recorded. The stake a player had on the table was the "rest", and "to set up one's rest" (wager all of it) comes from this game [W-Primero]. |
+
+### Brag, 1763 (chapter 3)
+
+| Rule in the game | How sure | Sources |
+| --- | --- | --- |
+| Only pair royal and pair count, aces high | Sure | "The pair-royal (three of a kind) and pair were still the only ones recognized" [P1]; runs and flushes are not attested for the period [W-Brag][pagat Brag]. |
+| Braggers: knave of clubs and nine of diamonds, wild | Sure for the knave of clubs; best pick for the nine | The jack of clubs first (1721), the nine of diamonds added later; Hoyle (1751) gives powers to "certain" knaves and nines [W-Brag]. The ace of diamonds as a third bragger is not documented, so it is not wild here. |
+| A natural hand beats the same hand made with a bragger | Sure | [pagat Brag][W-Brag]. |
+| One round: pass or brag, and the others match or give up | Sure in outline | From the eldest hand each passes or says "I brag"; the brag is matched or raised until one gives way or "sees" [W-Brag][pagat Brag]. |
+| No blind betting | Sure | Blind betting is not established for the 1700s [W-Brag]. It was on the old rules card; it has been taken off. |
+| Table stakes | Best pick | No limit is recorded for the period. |
+| Equal hands split the pot | Best pick (not period) | In the old game the player who called the see loses a tie [pagat Brag]. The engine splits ties, and they are rare. |
+| Only the brag is played | Stated on the card | Three-stake Brag also paid the best card turned up and the hand nearest thirty-one [W-Brag]. Hoyle (1751) describes a single-stake Brag, which is what the chapter plays. |
+
+### Poque, 1817 (bonus chapter)
+
+| Rule in the game | How sure | Sources |
+| --- | --- | --- |
+| 32 cards, up to six players | Sure | "A tripartite game played by up to six players with a 32-card pack" [P1]. |
+| Only sets count: fours, threes, a pair | Sure | Parlett tables Poque's hands as fours, threes and pair [P1]. Two pairs and the full house appear with 20-card poker [P1]. The game counted two pairs and full houses until 2026-11-21. |
+| Five cards each, one betting round, table stakes | Best pick | The details of Poque are not recorded [P2]. "Je poque d'un jeton" (I bet one unit) is the only betting recorded [P1]. |
+| Only the vying part is played | Stated on the card | Poque, like Poch, had three parts [P1][pagat Poch]. |
+
+### Straight poker, 1836 (chapter 1)
+
+| Rule in the game | How sure | Sources |
+| --- | --- | --- |
+| 20 cards, four players, five each, no draw; pair, two pairs, triplets, full, fours | Sure | [P1][P2]. |
+| Everyone antes | Best pick | Cowell's account (1829) has the dealer "make the game" with an ante [P2]; who pays it is not clear. |
+| Table stakes, no limit | Best pick | The early accounts state no limit [P1][P2]. Pot-limit, which the chapter used until 2026-11-21, is a 1900s idea. |
+
+### Five-card stud, 1863 (chapter 4)
+
+| Rule in the game | How sure | Sources |
+| --- | --- | --- |
+| One card down, the rest up | Sure | *The American Hoyle*, 1864: "the first dealt as usual, face down, all the others face up" [P2]. |
+| No bring-in; the best hand showing opens and may check | Sure that there was no bring-in; best pick that the opener may check | "Traditionally, each betting round is begun by the player with the best hand showing"; the low-card bring-in "is now the normal rule in formal games hosted by American casinos" [pagat 5stud]. With no bring-in the high card "may check" [W-5Stud]. |
+| Everyone antes | Best pick | The 1864 book says stud follows "the same laws, and mode of betting" as poker generally [P2]. |
+| Straight below three of a kind; no straight flush | Sure for 1864 | The 1864 list runs "one pair, two pairs, straight sequence or rotation, triplets, flush, full house, fours" [P1]. The same book says straights "are played in some localities" and that some experts urged the straight flush [PN-Draw]. |
+| Table stakes | Best pick | No limit is given for 1860s stud; one writer says there were generally none beyond table stakes [PN-Stud], without a source. The fixed limit with a four-bet cap, used until 2026-11-21, is a modern card-room structure. |
+
+### Five-card draw, 1876 (chapter 5)
+
+| Rule in the game | How sure | Sources |
+| --- | --- | --- |
+| Draw up to five cards | Sure | Bohn's handbook, 1850: "as many cards as he may wish, not exceeding five" [PN-Draw]. An 1883 pamphlet calls drawing five a beginner's mistake, so it was allowed [UG]. |
+| No jack pots | Sure | "An innovation of a late date" in 1883 [UG]; first in print in 1875 [P1]. |
+| Straights and straight flush count | Best pick | Optional in 1864 [PN-Draw]; the 1883 pamphlet treats both as part of the current game [UG]. Their exact rank in 1876 was not checked. |
+| The age (left of the dealer) antes blind; double the ante to come in; the age makes good last | Best pick | A blind by the player left of the dealer, with the next bet at least double it, is in the 1845 Hoyle as an option, and "age" is the 1864 word for that player [PN-Draw]. That this was the standard form by the 1870s is from the rule books of the 1870s to 1890s (the 1875 *American Hoyle*, Schenck 1880, Foster 1897), which could not be opened for this pass. The 1883 pamphlet shows jack pots as the game where "all alike" ante, which implies the plain game was not [UG]. |
+| After the draw the player left of the age speaks first, and the age last | Best pick | Same rule books; not read for this pass. |
+| A limit agreed by the table on each bet or raise; no cap on raises | Best pick | Same rule books; not read for this pass. The size (ten times the ante) is ours. |
+| Checking after the draw is allowed | Best pick | Not found in any source read. |
+| In the draw, the player left of the age is served first and the age last | Known difference | The dealer served the age first. The engine draws in betting order. |
+
+### Seven Card Stud and Razz, 1926 (chapter 6)
+
+| Rule in the game | How sure | Sources |
+| --- | --- | --- |
+| No bring-in: everyone antes, the best hand showing (Razz: the lowest) opens every round | Best pick | "In home games, using only an ante is typical"; with no bring-in "the first betting round begins with the player showing the highest-ranking up-card, who may check" [W-7Stud]; the bring-in is the casino rule [pagat 7stud]. No source read dates the bring-in. |
+| Fixed limit, one size early and double later, four bets a round | Best pick | No source read gives a 1926 limit structure. |
+
+### 1972 to today (chapters 7 to 12 and the epilogue)
+
+Checked against the same sources as the era table above; no rule changes. Limit Hold'em then a no-limit tournament in 1972 [W-Holdem]; pot-limit Omaha in a Paris club in 1992; limit Stud Hi-Lo with an ante and bring-in in a 1995 casino room [AC2][pagat 7stud]; no-limit Hold'em, limit 2-7 Triple Draw and Badugi online in 2005; pot-limit five- and six-card Omaha in 2019; HORSE and the 8-Game as RSDP Live deals them. Everyone still in at the end shows their cards in every chapter, which is simpler than any period's showdown etiquette.
+
+### Sources that could not be opened
+
+Project Gutenberg's copies of *Round Games with Cards* (1892) and *Hoyle's Games Modernized*, and the 1911 *Encyclopaedia Britannica* article "Poker", refused automated reading on 2026-11-21. They, or the 1875 *American Hoyle* itself, are the place to confirm the "best pick" rows for 1876.
+
 ## Source list
 
 - [P1] https://pagat.com/poker/history.html
@@ -173,3 +253,9 @@ Already sourced. Gaz's line "Two hundred years in America" fixed to "two hundred
 - [pagat Badugi] https://pagat.com/poker/variants/badugi.html
 - [W-HORSE] https://en.wikipedia.org/wiki/HORSE_(poker)
 - [W-Macau] https://en.wikipedia.org/wiki/Gambling_in_Macau
+- [pagat 5stud] https://www.pagat.com/poker/variants/5stud.html
+- [pagat 7stud] https://www.pagat.com/poker/variants/7stud.html
+- [W-5Stud] https://en.wikipedia.org/wiki/Five-card_stud
+- [PN-Draw] Martin Harris, "Poker & Pop Culture" (Hoyle 1845, Bohn 1850, *The American Hoyle* 1864 quoted): https://www.pokernews.com/news/2016/06/poker-pop-culture-006-24966.htm
+- [PN-Stud] https://www.pokernews.com/news/2016/06/poker-pop-culture-007-25030.htm
+- [UG] *Talk of Uncle George to His Nephew About Draw Poker* (1883): https://www.gutenberg.org/ebooks/54590

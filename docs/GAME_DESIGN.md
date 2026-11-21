@@ -8,6 +8,7 @@
 - **Intro:** the setting, who you play, what game is taught, the cast. If you jumped ahead, "The story so far" comes first.
 - **The table:** one sitting of the chapter's games (below).
 - **Ending:** the chapter's won or lost text, the keepsake, a "From the history book" note, and "On to" the next chapter. Losing offers "Try again". The last chapter links to RSDP Live.
+- **Practice** ("Practice any game" on the chapter select): any game the story teaches, on its own, outside the story. See "Practice" below.
 - **Saved progress:** which chapters were started and won, and whether teacher hints are on, are kept in the browser's local storage (`src/progress/save.ts`). "Start over" clears them.
 
 ## How a chapter plays
@@ -78,6 +79,17 @@ Set per stage in `extras`: a **bomb pot** every N hands (everyone puts in N unit
 - **Sideways:** the table is a wide painting, so on a phone it's played sideways. Held upright, the phone shows "Turn your phone sideways" (with "Play upright anyway").
 - **Bigger words and chips:** when the screen draws the table at less than three quarters size, names, money, dialogue, links and chips are enlarged (up to 1.6 times) while the painting stays the same. The pot then sits up between the left and middle seats in every game (it always does in flop games, where the board has the middle of the felt).
 - **Full screen:** added to the home screen, the game opens full screen and sideways (`public/manifest.webmanifest`).
+
+## Practice
+
+The outline's Free Play, built for John's friends to learn any RSDP Live game risk-free (`src/practice/index.ts`, `src/ui/PracticeScreen.tsx`).
+
+- **The list** is the deck case again, with one small card per game, in four groups: the old games (by date), Hold'em and Omaha, stud and draw, and mixed games and house rules. It is built from the chapters, not written by hand: every game and betting the story deals is one card (20 of them, including Limit Omaha Hi-Lo from HORSE), plus HORSE, the 8-Game and the epilogue's Home Game (bomb pots on two boards, the 7-2 bounty). A chapter added later appears by itself.
+- **Where it's played:** at the table of the first chapter that teaches the game, with that chapter's room, music, rivals and stake unit, and its teacher giving the hints. Razz is at the Back Room with Nora; Primero in the great hall with Brother Anselm.
+- **The lesson** ("Nora explains it first", on by default): before the first hand the teacher reads out the game's rules card (how a hand goes), plus one line on the betting (limit, pot limit or no limit) for the modern games. The chapter's own street-by-street remarks then guide that first hand. The rules card is used rather than the chapter's lesson because chapter lessons lean on the story ("Same game, but no limit", "It's a tournament"). Mixed games use the chapter's own short lessons (Mei Lin's one-liners), borrowing the HORSE ones for the 8-Game's first five games. Straight poker has no lesson (chapter 1 teaches it with its scripted tutorial hand, which practice doesn't use), so it has no checkbox.
+- **The table:** one stage, steady stakes (no rises), no story beats, no stake, cheat or finale. Nobody is ever knocked out: anyone who runs out, you included, buys back in for a fresh starting stack. The rules object, hints, sound and the rest work as in a chapter. "Leave the table" goes back to the practice list with the same game picked.
+- **Nothing is saved.** Practice doesn't count as starting or winning a chapter. Practice tables have ids starting `practice:` and `practice: true` on their Chapter.
+- **Open to everyone.** The outline first unlocked Free Play after the Part One finale; John agreed to open it from the start, because every chapter can already be opened at once and the point is letting friends go straight to a game ([DECISIONS.md](DECISIONS.md)).
 
 ## The games
 

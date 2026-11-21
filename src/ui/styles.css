@@ -322,6 +322,28 @@ button:disabled { opacity: 0.4; cursor: default; }
 .select-foot { margin-top: auto; display: flex; align-items: center; gap: 28px; }
 .toggle { font-family: var(--story); font-size: 19px; color: var(--muted); display: flex; align-items: center; gap: 8px; }
 .reset { font-family: var(--story); font-size: 18px; color: var(--muted); }
+/* ---------------------------------------------------------------- practice: the same case, one small card per game */
+.practice-case { gap: 6px; padding: 14px 24px 16px; }
+.practice-case .case-part h2 { margin-bottom: 6px; font-size: 19px; }
+.practice-row { flex-wrap: wrap; gap: 10px; max-width: 1480px; }
+.practice-card {
+  width: 196px; height: 78px; padding: 6px 10px 6px 8px; border-radius: 9px; border: 2px solid #3a2a18;
+  display: flex; align-items: center; gap: 8px; color: var(--ink); text-align: left;
+  background:
+    radial-gradient(ellipse at 30% 15%, rgba(255, 255, 255, 0.5), transparent 60%),
+    radial-gradient(ellipse at 80% 90%, rgba(120, 90, 40, 0.25), transparent 55%),
+    var(--paper);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.55); transition: transform 0.12s;
+}
+.practice-card:hover { transform: translateY(-4px) rotate(-1deg); }
+.practice-picked { box-shadow: 0 0 0 3px var(--gold), 0 0 22px rgba(255, 209, 102, 0.55), 0 6px 12px rgba(0, 0, 0, 0.55); transform: translateY(-4px); }
+.practice-face { width: 42px; height: 42px; font-size: 18px; }
+.practice-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.practice-name { font-family: var(--display); font-size: 15px; line-height: 1.05; }
+.practice-where { font-family: var(--story); font-style: italic; font-size: 14px; line-height: 1.15; color: #5a3a20; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.practice-foot { min-height: 90px; }
+.practice-foot .chip, .practice-foot .toggle, .practice-foot .text-link { white-space: nowrap; }
+.practice-at { font-family: var(--story); font-style: italic; font-size: 20px; color: var(--muted); }
 .card-button[aria-pressed='true'] .card { box-shadow: 0 0 0 4px var(--gold), 0 14px 24px rgba(0, 0, 0, 0.6); }
 .boards-2 { flex-direction: row; gap: 36px; }
 .card-slot-medium { width: 70px; height: 100px; }
@@ -415,3 +437,12 @@ button:disabled { opacity: 0.4; cursor: default; }
 }
 @keyframes turn { 0%, 30% { transform: rotate(0); } 60%, 100% { transform: rotate(-90deg); } }
 @media (prefers-reduced-motion: reduce) { .rotate-hint svg { animation: none; } }
+/* Practice on a small screen: drop the faces so the names can be bigger, and keep the footer on the stage. */
+.stage-compact .practice-screen .select-head p { display: none; }
+.stage-compact .practice-face { display: none; }
+.stage-compact .practice-card { height: 92px; padding: 6px 12px; }
+.stage-compact .practice-name { font-size: 21px; }
+.stage-compact .practice-where { font-size: 17px; }
+.stage-compact .practice-at { display: none; }
+.stage-compact .select-foot { gap: 20px; }
+.stage-compact .select-foot .chip-wide { min-width: 0; padding: 16px 24px; }

@@ -5,6 +5,9 @@
  *   when jumping ahead) -> the table -> the ending -> next chapter or back
  *   to the case.
  *
+ *   chapter select -> practice (pick any game) -> a practice table -> back
+ *   to practice. Practice tables never end and are never saved.
+ *
  * Progress (chapters won, hints on or off) is saved in the browser after each
  * chapter (src/progress/save.ts).
  */
@@ -12,8 +15,10 @@ import { useEffect, useState, type ReactNode } from 'react';
 import { CHAPTERS, followingChapter, isUnlocked, nextChapter } from '../chapters';
 import type { Chapter } from '../chapters/types';
 import { loadProgress, record, resetProgress, setHints, setOption, type Progress } from '../progress/save';
+import { practiceChapter, type PracticeGame } from '../practice';
 import { Session } from '../table/session';
 import { ChapterSelect } from './ChapterSelect';
+import { PracticeScreen } from './PracticeScreen';
 import { PoweredBy } from './PoweredBy';
 import { Face, SceneBack } from './Scene';
 import { Stage } from './Stage';
@@ -24,7 +29,8 @@ type Screen =
   | { name: 'select' }
   | { name: 'intro'; chapter: Chapter }
   | { name: 'table'; session: Session }
-  | { name: 'end'; chapter: Chapter; won: boolean };
+  | { name: 'end'; chapter: Chapter; won: boolean }
+  | { name: 'practice' };
 
 export function App() {
   const [progress, setProgress] = useState<Progress>(() => loadProgress());
@@ -48,6 +54,12 @@ export function App() {
     if (screen.name !== 'table') playMusic(storyMusic);
   }, [screen.name, storyMusic]);
 
+  // The practice game picked last, so leaving a practice table comes back to it.
+  const [practiced, setPracticed] = useState<string | null>(null);
+  const practise = (game: PracticeGame, lesson: boolean) => {
+    setPracticed(game.key);
+    setScreen({ name: 'table', session: new Session(practiceChapter(game, { lesson })) });
+  };
   // "Music on" / "Music off": a plain text link on the story screens and the table.
   const musicLink = (
     <button type="button" className="text-link" onClick={() => setProgress((p) => setOption(p, 'music', !p.music))} aria-pressed={progress.music}>
@@ -71,6 +83,7 @@ export function App() {
         <ChapterSelect
           progress={progress}
           onPick={(chapter) => setScreen({ name: 'intro', chapter })}
+          onPractice={() => setScreen({ name: 'practice' })}
           onHints={(on) => setProgress(setHints(progress, on))}
           onOption={(option, on) => setProgress(setOption(progress, option, on))}
           onReset={() => setProgress(resetProgress())}
@@ -86,8 +99,11 @@ export function App() {
           sound={progress.sound}
           onSound={(on) => setProgress(setOption(progress, 'sound', on))}
           musicLink={musicLink}
-          onFinished={() => finished(screen.session)} onLeave={() => setScreen({ name: 'select' })} />
+          onFinished={() => finished(screen.session)}
+          onLeave={() => setScreen(screen.session.chapter.practice ? { name: 'practice' } : { name: 'select' })}
+        />
       )}
+      {screen.name === 'practice' && <PracticeScreen initial={practiced} onSit={practise} onBack={() => setScreen({ name: 'select' })} />}
       {screen.name === 'end' && (
         <EndScreen
           chapter={screen.chapter}

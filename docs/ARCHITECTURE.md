@@ -20,18 +20,20 @@ How the code fits together. Read the README first.
 - **The Session** (`src/table/session.ts`) is the table between hands, for any chapter. It holds the four seats and their money, works out which stage and game the next hand is, moves the buck, turns the stage's unit into forced bets (`src/table/stakes.ts`), builds the engine's input, asks bots to act or draw, picks lines for the characters, runs lessons and story beats, handles buy-backs and the finale, gives hints, and decides when the chapter is won or lost. It has no React in it, so tests play whole chapters with it.
 - **Bots** (`src/bots/`): `strength.ts` simulates the rest of the hand a few hundred times, for any game, to estimate how often a hand wins (its equity), weighting the deals by how believable each opponent's betting is; `personality.ts` turns equity and pot odds into fold, call or raise, shaped by the character's numbers (and their temper, if they're on tilt). The Session keeps what the bots remember: how often you bet tonight, who is on tilt (`pressureOn`, `credibility`, `checkTempers`). See GAME_DESIGN.md, "How the bots think".
 - **A chapter** (`src/chapters/<name>.ts`) is data: story text, stages and lessons, the three rivals (personality, tell, lines, art), story beats and the ending. `types.ts` documents every field; `cast.ts` has helpers so a chapter file stays short (`rival()`, `lines()`, `say()`, standard seat positions); `index.ts` is the order of chapters and the unlock rules.
+- **Practice** (`src/practice/index.ts`) builds the practice list from the chapters and turns a pick into an ordinary `Chapter` with `practice: true` (one stage, no story), so the same Session and table screen play it. The only change in the Session for practice: `inFinalStage()` is always false, so everyone buys back in and the table never ends. See GAME_DESIGN.md, "Practice".
 - **Progress** (`src/progress/save.ts`) is a small JSON object in local storage: chapters started and won, and the hints setting.
 - **The UI** (`src/ui/`) shows `session.snapshot()` and calls session methods. It never changes game state itself.
 - **Sound** (`src/ui/sound.ts`): sound effects made in code with the Web Audio API, and the music player, which loops each chapter's music file without a gap. The music itself is written in `tools/music/` ([MUSIC.md](MUSIC.md)). `src/ui/useTableFx.ts` compares each snapshot with the last and turns the difference into sounds and chips flying across the felt.
 
 ## Screens
 
-`App.tsx` switches between four screens:
+`App.tsx` switches between five screens:
 
 1. **Chapter select** (`ChapterSelect.tsx`): the deck case.
 2. **Intro** (`IntroScreen` in `App.tsx`): story, "the story so far" when jumping ahead, the cast. Behind it: the chapter's title painting (`scene.title`) with the text on a left-hand shade, or the table room if there is no painting.
 3. **Table** (`TableScreen.tsx`): a `Session` for the chapter.
 4. **Ending** (`EndScreen` in `App.tsx`): outro, keepsake, history, next chapter.
+5. **Practice** (`PracticeScreen.tsx`): the list of games, from "Practice any game" on the chapter select. Sitting down opens the table screen with a practice Session; leaving it comes back here.
 
 Everything is laid out on a fixed 1600 x 900 stage (`Stage.tsx`) that scales to fit the window, so positions in chapter files are plain stage pixels.
 
@@ -88,6 +90,7 @@ The Session keeps a queue of scene lines (`SceneLine`: who speaks and what). Whi
 - `test/straightPoker.test.ts`: chapter 1's deck and hand rankings.
 - `test/games.test.ts`: the other historical games' rankings, and every game in the catalog playing whole sittings at the table.
 - `test/chapters.test.ts`: every chapter's speakers, teachers and games exist; every RSDP Live game has a lesson; the unlock order; every chapter plays to an end and reaches its last stage.
+- `test/practice.test.ts`: the practice list has every RSDP Live game, both Hold'em bettings, every historical game and the three mixed games; every practice table's teacher and speakers sit at it; each one plays hands with nobody knocked out and every dollar accounted for; the lesson checkbox; a broke player buys back in.
 - `test/session.test.ts`: many complete games of chapter 1 with seeded dealing (some calling out the dealer at random), checking every dollar after each hand.
 - `test/guide.test.ts`: every game has tips, mistakes and reminders that match its own betting rounds; every chapter has its own music loop, on disk and in `music.json`.
 - `test/story.test.ts`: chapter 1's story beats: the tutorial deal and tell, the stake, catching the cheat, a wrong accusation, the finale.

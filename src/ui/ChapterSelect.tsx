@@ -15,12 +15,14 @@ import { Face } from './Scene';
 export function ChapterSelect({
   progress,
   onPick,
+  onPractice,
   onHints,
   onOption,
   onReset,
 }: {
   progress: Progress;
   onPick: (c: Chapter) => void;
+  onPractice: () => void;
   onHints: (on: boolean) => void;
   onOption: (option: 'sound' | 'music', on: boolean) => void;
   onReset: () => void;
@@ -72,6 +74,9 @@ export function ChapterSelect({
       <footer className="select-foot">
         <button type="button" className="chip chip-raise chip-wide" onClick={() => onPick(next)} autoFocus>
           {won.size ? `Continue: ${next.title}` : 'Begin the story'}
+        </button>
+        <button type="button" className="chip chip-call chip-wide" onClick={onPractice} title="Play any game on its own, outside the story">
+          Practice any game
         </button>
         <label className="toggle">
           <input type="checkbox" checked={progress.hints} onChange={(e) => onHints(e.target.checked)} /> Teacher hints at the table

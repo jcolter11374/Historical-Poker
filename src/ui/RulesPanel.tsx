@@ -63,8 +63,8 @@ export function RulesPanel({
               <h3>How a hand goes</h3>
               {card.howToPlay.map((t) => <p key={t}>{t}</p>)}
               <h3>The betting</h3>
-              {bettingWords(betting, game.forced, game.spec.family, !!game.historical).map((t) => <p key={t}>{t}</p>)}
               {chapter.houseDeals && <p>{houseDealsWords(game.spec.family, chapter.dealerMarker)}</p>}
+              {bettingWords(betting, game.forced, game.spec.family, !!game.historical).map((t) => <p key={t}>{t}</p>)}
             </section>
             <section>
               <h3>{card.rankingsTitle}</h3>

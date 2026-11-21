@@ -47,7 +47,7 @@ export const LAST_HAND: Chapter = {
       ],
     },
   ],
-  startingStack: 120,
+  startingStack: 240,
   levelEvery: 10,
   levelLines: [say('narration', 'The lamps are lit. The piano player switches to something faster, and Ruby raises the ante.')],
   intro: [

@@ -29,13 +29,14 @@ export const CAMP: Chapter = {
       games: [
         {
           game: STUD5_ID,
-          betting: 'pot-limit',
+          betting: 'fixed-limit',
           lesson: {
             teacher: 'reed',
             before: [
               say('reed', 'Stud, Corporal. Every man in this army plays it, and most of them badly. Listen once.'),
               say('reed', 'Everybody antes. You get one card face down, your hole card, and one face up. Nobody sees the hole card but you.'),
               say('reed', 'Lowest card showing has to bring it in: a small forced bet, or a full one if he likes his hand. Then the betting goes round.'),
+              say('reed', 'Camp limits: four dollars a bet on the first two cards up, eight on the last two. No man bets more, no man bets less, and four bets ends a round. Keeps a private’s pay in his pocket till Friday.'),
               say('reed', 'Three more cards come face up, one at a time, with betting after each. Best hand showing bets first. Five cards, best hand wins: straights and flushes count now.'),
             ],
             streets: {
@@ -67,7 +68,7 @@ export const CAMP: Chapter = {
     'Cards with corner numbers, so you could fan them in one hand, were first patented in 1864, and caught on in the 1870s and 1880s. The cards in this tent have none.',
   ],
   howToWin: [
-    'Everyone antes $1; the low card brings it in for $1. No bet may be larger than the pot.',
+    'Everyone antes $1; the low card brings it in for $1. It’s a limit game: bets and raises start at $4 on the first two rounds and $8 on the last two, four bets to a round at most. The limits go up as the night goes on.',
     'Once Sergeant Reed stakes his claim, take his last dollar to keep the deck.',
   ],
   rivals: [

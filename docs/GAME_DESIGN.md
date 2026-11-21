@@ -57,12 +57,13 @@ Set per stage in `extras`: a **bomb pot** every N hands (everyone puts in N unit
 ### Help at the table
 
 - **The rules object:** a corner link named for the era ("The tavern slate", "The help screen") opens the current game's rules card: the deal, the betting, what wins, plus how to win the chapter and a history note. Rules cards are in `src/games/catalog.ts`.
-- **Teacher hints:** "Ask for a hint" (on by default, can be turned off on the chapter select). The chapter's teacher suggests fold, call or raise in one line, with your chance of winning and the pot odds, from the same simulation the bots use.
+- **Teacher hints:** "Ask for a hint" (on by default, can be turned off on the chapter select). The chapter's teacher suggests fold, call or raise in one line, with your chance of winning and the pot odds, from the same simulation the bots use. The teacher is steadier than the bots so a beginner isn't led into a raising war (`Session.steady` and `teacherAdvice`): your chance is marked down by a fifth for every raise a player still in has made (`RAISE_DISCOUNT`); short of a near-certain hand (85%, `NUTS`) the teacher won't bet or raise more than a quarter of your purse into one pot (`STEADY_SHARE`), raises once a round at most, and wants 12 points more than the pot odds before calling a third of your purse (`BIG_CALL`). Once only two players are left at the table, the teacher plays it straight.
 - **Your hand:** your best hand's name (and best low, in split games) shows under your cards.
 - **Between hands:** the finished hand stays on the felt, described by its own game, while the next game's name (and its lesson, in a rotation) is already shown at the top.
 - **Calling out the deal:** the "Call out the deal" chip sits above the other chips.
 - **Showdown summary:** one line after each hand: who won, with what, and your hand if you lost. Split pots say who took the high and the low.
-- **Drawing:** in draw games, click cards to throw them (they lift), then "Draw N" or "Stand pat". The chip says what is not allowed (more than the limit).
+- **Drawing:** when it's your turn to draw, "The draw" is announced over the felt with the limit in words (and "1 of 3" in triple-draw games), and your cards bob to show they can be picked. Pick cards to throw them (they lift), then "Draw N" or "Stand pat". The chip says what is not allowed (more than the limit).
+- **Purses:** during a hand every purse shows what is left after antes and bets, not what it was at the deal.
 
 ### Sound and motion
 
@@ -87,8 +88,8 @@ Set per stage in `extras`: a **bomb pot** every N hands (everyone puts in N unit
 | Brag (1763) | `src/games/brag.ts` | 52 | 3 down, one betting round | prial (3s best) > running flush > run (A-2-3 best) > flush > pair > high |
 | Poque (1817) | `src/games/poque.ts` | 32 (7 to ace) | 5 down, one betting round | fours > triplets > two pairs > pair > nothing; no straights or flushes |
 | Straight poker (1836) | `src/games/straightPoker.ts` | 20 (10 to ace) | 5 down, one betting round | see chapter 1 |
-| Five-card stud (1863) | `src/games/fiveCardStud.ts` | 52 | 1 down 1 up, bet; then 3 more up, bet each | standard high hands; lowest card up brings in, best hand showing acts first |
-| Five-card draw (1876) | `src/games/fiveCardDraw.ts` | 52 | 5 down, bet, draw up to 3 (4 keeping an ace), bet | standard high hands |
+| Five-card stud (1863) | `src/games/fiveCardStud.ts` | 52 | 1 down 1 up, bet; then 3 more up, bet each; fixed limit (one unit, then two on the last two rounds) | standard high hands; lowest card up brings in, best hand showing acts first |
+| Five-card draw (1876) | `src/games/fiveCardDraw.ts` | 52 | 5 down, bet, draw up to 3 (4 keeping an ace), bet; pot-limit | standard high hands |
 | RSDP Live's 12 games | `packages/engine` | 52 | as in RSDP Live | as in RSDP Live |
 
 The historical rules are our playable reconstructions; old sources disagree, and the rules cards say so. Every game, old or new, is registered in `src/games/catalog.ts`.

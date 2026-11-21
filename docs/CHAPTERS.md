@@ -35,7 +35,7 @@ Built first, and the model for the rest. Pot-limit, $2 unit, $100 each, no risin
 
 Ashcombe Hall, Twelfth Night. Nan Avery plays Lady Margery for the deck Nan's father painted. Money is in shillings (shown as "12s").
 
-- **Game:** Primero as reconstructed in `src/games/primero.ts` (40 cards, two down, bet, two down, bet, change up to two once, bet). Pot-limit, 2s unit, 100s each, stakes rise every 10 hands.
+- **Game:** Primero as reconstructed in `src/games/primero.ts` (40 cards, two down, bet, two down, bet, change up to two once, bet). Pot-limit, 2s unit, 200s each, stakes rise every 10 hands.
 - **Teacher:** Brother Anselm, before the first deal and on each street of the first hand.
 - **Cast:** Sir Roland (very loose, drains his cup before a bluff), Lady Margery (tight and strong, turns her signet ring when strong), Brother Anselm (careful, mutters a prayer when weak).
 - **Beats:** before hand 4 Roland wagers and loses his horse; before hand 7 Anselm talks about his abbey. Margery puts the deck on the table once Nan has won a few pots. Finale: Roland or Anselm bows out. Win: she has the case stamped "M.A. 1543".
@@ -53,7 +53,7 @@ The Pewter Lamb, snowbound on the Great North Road. Will Avery, stagecoach guard
 
 A Union camp near Chattanooga, the night before battle. Sam Avery, Kit's son.
 
-- **Game:** five-card stud (`src/games/fiveCardStud.ts`): one down, one up, then three more up, four betting rounds, the lowest card showing brings in. Pot-limit, $4 unit, $120 each.
+- **Game:** five-card stud (`src/games/fiveCardStud.ts`): one down, one up, then three more up, four betting rounds, the lowest card showing brings in. Fixed limit: $1 ante, $1 bring-in, $4 bets on the first two rounds and $8 on the last two, four bets a round at most. $120 each.
 - **Teacher:** Sergeant Reed (he is also the nemesis: a fair man who wants the deck).
 - **Cast:** Toby Finch (drummer boy, calls everything, grins at every card, unreliable), Sergeant Reed (very tight, stops chewing when strong, about 85% reliable), Hattie Bloom (sutler, taps her pencil when bluffing).
 - **Beats:** before hand 3 Toby's month's pay; before hand 9 orders arrive for the morning. Reed stakes his silver watch against the deck. Finale: Toby or Hattie bows out.
@@ -62,7 +62,7 @@ A Union camp near Chattanooga, the night before battle. Sam Avery, Kit's son.
 
 The Lucky Nugget, Deadwood. Clara Avery, Kit's granddaughter. The end of Part One.
 
-- **Game:** five-card draw (`src/games/fiveCardDraw.ts`): five down, bet, draw up to three (four if you keep an ace), bet. Pot-limit, $4 unit, $120 each.
+- **Game:** five-card draw (`src/games/fiveCardDraw.ts`): five down, bet, draw up to three (four if you keep an ace), bet. Pot-limit, $4 unit, $240 each.
 - **Teacher:** Ruby Calloway, who is also the nemesis and the narrator.
 - **Cast:** Doc Whitcomb (prospector, loose, shakes his dust pouch when strong), Ruby (balanced; her smile is a deliberate coin flip), Jasper Crane (Silas's grandson, loose, the same mustache tell as his grandfather).
 - **Beats:** before hand 2 miners talk about the shooting at Saloon No. 10 and the dead man's hand; before hand 3 Ruby warns Clara to watch Jasper when he deals. **The cheat:** from hand 4, Jasper deals himself four kings once, with his own tell and a decoy, exactly like Silas in chapter 1; the player can call out the deal. There is no stake: the deck is already Clara's, and the sitting is to settle it. Finale: Doc bows out, leaving Ruby, who turns out to be the real opponent.

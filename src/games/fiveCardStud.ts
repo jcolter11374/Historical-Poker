@@ -23,7 +23,7 @@ export const FIVE_CARD_STUD: GameSpec = {
     { name: 'Fifth card', dealDown: 0, dealUp: 1, dealBoard: 0, betSize: 'big' },
   ],
   maxPlayers: 8,
-  defaultBetting: 'pot-limit',
+  defaultBetting: 'fixed-limit',
   split: 'high',
   forcedBets: 'ante-bring-in',
 };

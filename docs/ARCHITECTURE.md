@@ -84,6 +84,7 @@ The Session keeps a queue of scene lines (`SceneLine`: who speaks and what). Whi
 - `test/games.test.ts`: the other historical games' rankings, and every game in the catalog playing whole sittings at the table.
 - `test/chapters.test.ts`: every chapter's speakers, teachers and games exist; every RSDP Live game has a lesson; the unlock order; every chapter plays to an end and reaches its last stage.
 - `test/session.test.ts`: many complete games of chapter 1 with seeded dealing (some calling out the dealer at random), checking every dollar after each hand; and a HORSE sitting checking that a finished hand is still described by its own game once the next game is set up.
+- `test/rules.test.ts`: every game and betting kind any chapter uses, dealt and bet by its own rules: the deal street by street, every draw round offered, limit bet sizes and the four-bet cap, pot-limit and no-limit ceilings, the bring-in card, and stud games at fixed limit.
 - `test/story.test.ts`: chapter 1's story beats: the tutorial deal and tell, the stake, catching the cheat, a wrong accusation, the finale.
 - `test/bots.test.ts`: reading bets in the strength simulation, tilt, bluffing less into more players, rivals reading a player who always bets, reckless styles losing in chapters 1 and 4, Silas, Delphine and Ezra playing like themselves.
 - `test/play.ts` and `test/helpers.ts`: play a chapter with a simple player, clicking through scenes, checking money and summaries after every hand.

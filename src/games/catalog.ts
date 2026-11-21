@@ -64,6 +64,8 @@ export interface GameDef {
   discards?(cards: Card[], max: number): number[];
   /** Draw games: a table rule on top of the engine's limit. Null when allowed, else why not. */
   drawRule?(cards: Card[], discard: number[]): string | null;
+  /** Draw games with a table rule: how many may be thrown, in words ("up to three, or four if you keep an ace"). */
+  drawLimitWords?: string;
   /** One of the historical games (their names don't carry the betting). */
   historical?: boolean;
   /** Relative cost of valuing a hand by simulation (Omaha with many cards is slow); bots run fewer trials. */
@@ -216,6 +218,7 @@ const historical: GameDef[] = ([
     describe: describeWith('any-five'),
     discards: highDrawDiscards,
     drawRule: draw5Rule,
+    drawLimitWords: 'up to three, or four if you keep an ace',
     simCost: 1,
     card: {
       title: 'Five-Card Draw, 1876',

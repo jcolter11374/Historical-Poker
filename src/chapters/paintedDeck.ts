@@ -49,7 +49,7 @@ export const PAINTED_DECK: Chapter = {
       ],
     },
   ],
-  startingStack: 100,
+  startingStack: 200,
   levelEvery: 10,
   levelLines: [say('narration', 'The yule log sinks into embers. A servant brings more candles, and Lady Margery doubles the wager.')],
   intro: [

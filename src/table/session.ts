@@ -144,8 +144,12 @@ export interface HandView {
   summary: string | null;
   /** Legal moves when it is the human's turn to bet. */
   legal: LegalActions | null;
-  /** When it is the human's turn to draw: the most cards they may throw. */
-  draw: { max: number } | null;
+  /**
+   * When it is the human's turn to draw: the most cards they may throw, the
+   * limit in words ("up to two", "as many as you like"), and which draw this
+   * is of how many (triple draw: 1 of 3).
+   */
+  draw: { max: number; words: string; round: number; rounds: number } | null;
 }
 
 export interface SessionOptions {
@@ -176,6 +180,15 @@ export interface BotDecisionInfo {
 
 /** A careful player's numbers: what the teacher would do. Used for hints. */
 const TEACHER: Personality = { valueAt: 1.4, bluff: 0, caution: 0.02, betSize: 0.6 };
+/** Hints only: each raise by a player still in multiplies the teacher's estimate of your hand by this. */
+const RAISE_DISCOUNT = 0.8;
+/** Hints only (Session.steady): a hand that wins this often may bet freely. */
+const NUTS = 0.85;
+/** Hints only: the share of your purse the teacher will bet or raise into one pot without the nuts. */
+const STEADY_SHARE = 0.25;
+/** Hints only: a call for this share of your remaining purse needs BIG_CALL_EDGE more than the pot odds. */
+const BIG_CALL = 0.33;
+const BIG_CALL_EDGE = 0.12;
 
 export class Session {
   readonly chapter: Chapter;
@@ -258,7 +271,8 @@ export class Session {
 
   snapshot(): Snapshot {
     return {
-      seats: this.seats.map((s) => ({ ...s })),
+      // During a hand, show each purse as it is now (bets already taken out), not as it was at the deal.
+      seats: this.seats.map((s) => ({ ...s, stack: this.liveStack(s.seat) ?? s.stack })),
       button: this.button,
       handNumber: this.handNumber,
       play: this.playView(),
@@ -272,6 +286,12 @@ export class Session {
       boughtIn: this.boughtIn,
       outcome: this.outcome,
     };
+  }
+
+  /** A seat's chips in the hand being played, or null between hands (then the seat's own stack is right, fines and buy-backs included). */
+  private liveStack(seat: SeatIndex): number | null {
+    if (!this.state || this.state.phase === 'complete') return null;
+    return this.state.seats.find((x) => x.seat === seat)?.stack ?? null;
   }
 
   /** Money each seat won (+) or lost (-) in the last finished hand, by seat (before any fine or buy-back). */
@@ -533,11 +553,47 @@ export class Session {
     const s = this.state;
     if (!s || this.toAct !== HUMAN || s.phase !== 'betting') return null;
     const legal = engine.legalActions(s, HUMAN)!;
-    const eq = this.equityFor(HUMAN);
+    // The simulation is kind to a hand facing raises (it can't know how rarely people raise without the goods),
+    // so the teacher marks it down for every raise a player still in has made this hand.
+    const live = new Set(s.seats.filter((x) => !x.folded && x.seat !== HUMAN).map((x) => x.seat));
+    const raises = s.events.filter((e) => e.t === 'action' && e.action === 'raise' && live.has(e.seat)).length;
+    // Not once the table is down to two: then caution only drags the duel out.
+    const duel = this.seats.filter((x) => !x.out).length === 2;
+    const eq = this.equityFor(HUMAN) * (duel ? 1 : RAISE_DISCOUNT ** raises);
     const opponents = s.seats.filter((x) => !x.folded && x.seat !== HUMAN).length;
     const pot = s.seats.reduce((n, x) => n + x.total, 0);
-    const decision = decide(TEACHER, { legal, equity: eq, opponents, pot, currentBet: s.currentBet }, seeded(this.handNumber * 101 + s.events.length));
+    const decision = this.steady(decide(TEACHER, { legal, equity: eq, opponents, pot, currentBet: s.currentBet }, seeded(this.handNumber * 101 + s.events.length)), legal, eq, pot);
     return { decision, equity: eq, opponents, pot };
+  }
+
+  /**
+   * Keeps the teacher's advice from leading a beginner into a raising war.
+   * Short of a near-certain hand (NUTS), and until only two players are left
+   * at the table, the teacher:
+   *  - never puts more than a quarter of the purse you sat down to this hand
+   *    with into the pot by betting or raising (a smaller bet, or just a call);
+   *  - raises at most once in a betting round, then calls;
+   *  - wants a clear edge before calling off a third of your purse or more.
+   * Bots don't use this: it only shapes hints.
+   */
+  private steady(d: Decision, legal: LegalActions, equity: number, pot: number): Decision {
+    const me = this.state!.seats.find((x) => x.seat === HUMAN)!;
+    // Down to two at the table, somebody has to win the chips: the teacher plays it straight.
+    if (this.seats.filter((x) => !x.out).length === 2 || equity >= NUTS) return d;
+    const start = this.handStartStacks[HUMAN] ?? me.stack + me.total;
+    const passive = (): Decision => ({ ...d, action: legal.canCheck ? { type: 'check' } : { type: 'call' } });
+    if (d.action.type === 'bet' || d.action.type === 'raise') {
+      const raisedAlready = me.lastAction === 'Bet' || me.lastAction === 'Raise';
+      // The most this bet may reach: a quarter of the purse, counting what is already in.
+      const capTo = me.bet + Math.floor(start * STEADY_SHARE) - me.total;
+      if (raisedAlready || capTo < legal.minTo) return passive();
+      return { ...d, action: { ...d.action, to: Math.min(d.action.to, capTo) } };
+    }
+    if (d.action.type === 'call' && legal.callAmount >= me.stack * BIG_CALL) {
+      const potOdds = legal.callAmount / (pot + legal.callAmount);
+      if (equity < potOdds + BIG_CALL_EDGE) return { ...d, action: { type: 'fold' } };
+    }
+    return d;
   }
 
   /**
@@ -935,8 +991,16 @@ export class Session {
       winners,
       summary: s.phase === 'complete' ? this.summary(s, winners) : null,
       legal: s.phase === 'betting' && myTurn ? engine.legalActions(s, HUMAN) : null,
-      draw: s.phase === 'drawing' && myTurn ? { max: s.input.game.streets[s.street].drawMaxDiscard ?? 0 } : null,
+      draw: s.phase === 'drawing' && myTurn ? this.drawView(s, myCards.length) : null,
     };
+  }
+
+  private drawView(s: HandState, held: number): NonNullable<HandView['draw']> {
+    const streets = s.input.game.streets;
+    const max = streets[s.street].drawMaxDiscard ?? 0;
+    const draws = streets.map((x, i) => (x.drawMaxDiscard != null ? i : -1)).filter((i) => i >= 0);
+    const words = this.handGame.drawLimitWords ?? (max >= held ? 'as many as you like' : `up to ${count(max).toLowerCase()}`);
+    return { max, words, round: draws.indexOf(s.street) + 1, rounds: draws.length };
   }
 
   /** "Silas takes $24 with Triplets, kings." Plus the 7-2 bounty, and why the player's hand lost. */

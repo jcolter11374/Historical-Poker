@@ -87,3 +87,14 @@ Recorded sound effects need licences tracked and files hosted. Cards, chips and 
 
 ### Phones play sideways (2026-11-20)
 The table is a wide painting with characters in it, and an upright layout would mean shrinking or cropping the people, which is the point of the look. So phones play sideways like most console-style games, with words and controls enlarged on small screens, and an upright phone is asked to turn (it can carry on upright). An upright layout could come later if play-testers want it.
+
+### Rules audit: every game checked, and locked in by tests (2026-11-21)
+John asked that every rule set actually works: draws where there are draws, limit games strictly limit. Every game in every chapter was played and checked (`test/rules.test.ts` now does this on every run): cards down, up and on the board street by street; every draw round offered before its betting; fixed-limit bets exactly one small or big bet with four bets a round at most; pot-limit never over the pot; no-limit up to the whole purse; the right up card bringing in. Findings:
+- **Five-card stud (The Camp) was pot-limit with a limit game's bring-in**, while Reed's lesson said "the bets get bigger from here". It is now fixed limit like every other stud game: $4 on the first two rounds, $8 on the last two, four bets a round. A test keeps every stud game at fixed limit.
+- **Five-card draw (The Last Hand) had its draw, but it was easy to miss**: a small grey note and one "Stand pat" chip, which a player pressing the only chip skipped straight past. The draw is now announced over the felt in every draw game.
+- **Purses didn't go down during a hand** (they showed the amount at the deal until the hand ended). Fixed.
+- **Known, deliberate differences from the historical games** (unchanged, stated on the rules cards): Brag is bet like poker in one round, without blind betting or "seeing"; five-card stud uses the modern low-card bring-in where old stud had the high card bet first; five-card draw allows three cards (four with an ace) where 1876 allowed five, and has no jacks-or-better opener; Primero and Poque are reconstructions.
+- RSDP Live's twelve games had no deviations.
+
+### Short chapters: more money, steadier hints (2026-11-21)
+A player following the hints could go broke in the first two or three hands of the one-stage pot-limit chapters. John agreed to raise starting money and leave the stakes alone: The Last Hand $120 to $240, The Painted Deck 100s to 200s. The hints were also steadied (GAME_DESIGN.md, "Help at the table"). Measured with a scripted hint-follower over 24 sittings per chapter: before, a quarter of the busts came by hand 4 or 5 in those two chapters and hand-1 busts happened in five chapters; after, a quarter of busts come by about hand 11 or later in every one-stage chapter. Open: heads-up against Silas at the end of chapter 1, a pure hint-follower can grind for a very long time (chapter 1 has no rising stakes).

@@ -185,6 +185,14 @@ export function TableScreen({
 
       {hand?.complete && hand.summary && <div className="summary">{hand.summary}</div>}
 
+      {/* The draw is easy to miss, so it is announced where the showdown line goes. */}
+      {drawing && !snap.scene && (
+        <div className="summary draw-call" aria-live="polite">
+          <span className="draw-call-title">{drawing.rounds > 1 ? `The draw, ${drawing.round} of ${drawing.rounds}` : 'The draw'}</span>
+          Pick the cards to throw away: {drawing.words}. Or stand pat and keep them all.
+        </div>
+      )}
+
       {hand && (
         <PlayerHand
           snap={snap}
@@ -226,7 +234,7 @@ export function TableScreen({
             {hand && !hand.complete && hand.legal && <ChipControls legal={hand.legal} pot={hand.pot} unit={snap.play.unit} money={money} onAct={act} />}
             {drawing && (
               <div className="draw-group">
-                <div className="draw-note">{drawProblem ?? (selected.length ? `Throw ${selected.length}, draw ${selected.length}.` : `Pick the cards to throw away (up to ${drawing.max}).`)}</div>
+                <div className="draw-note">{drawProblem ?? (selected.length ? `Throw ${selected.length}, draw ${selected.length}.` : 'Pick cards to throw away, or keep them all.')}</div>
                 <button type="button" className="chip chip-raise" onClick={draw} disabled={!!drawProblem}>
                   {selected.length ? (
                     <>
@@ -433,7 +441,7 @@ function PlayerHand({
   const tilt = n > 5 ? 4 : 7;
   return (
     <div className={`my-hand${lowered ? ' my-hand-low' : ''}`}>
-      <div className={`my-cards${folded ? ' my-cards-folded' : ''}${n > 5 ? ' my-cards-many' : ''}`}>
+      <div className={`my-cards${folded ? ' my-cards-folded' : ''}${n > 5 ? ' my-cards-many' : ''}${selectable ? ' my-cards-draw' : ''}`}>
         {hand.myCards.map((c, i) => {
           const lift = selected.includes(i) ? -48 : 0;
           const style = { transform: `rotate(${(i - mid) * tilt}deg) translateY(${Math.abs(i - mid) * 8 + lift}px)` };

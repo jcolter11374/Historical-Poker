@@ -94,7 +94,7 @@ Each chapter needs: a **background** (the empty room and table, first-person fro
 | 5 The Last Hand | done | all done | gold-dust pouch, 1870s indexed cards; an epilogue painting of the full case (title painting done: Deadwood's main street) |
 | Bonus The Gaming House | New Orleans gaming house: candlelight, iron balconies | Madame Élodie Fontaine, Henri Avery, Captain Lacroix | piquet cards, Spanish silver, a payout board |
 | 6 The Back Room | speakeasy behind a florist's shop: one green lamp, brick, crates of flowers | Nora Shea, Sal Moretti, Gus Lindqvist | a matchbook, chips in a flowerpot |
-| 7 The Desert Classic | 1970s casino tournament room: low ceiling, smoke, patterned carpet | "Tex" Dawson Pruitt, Professor Milton Weiss, Lorraine Fisk | clay chips, a tournament program |
+| 7 The Desert Classic | done | all done (Weiss's lap and Lorraine's knee are cut away; the table hides the cuts) | clay chips, a tournament program (title painting done: the strip at dusk) |
 | 8 The Cercle | done | all done (four cards each; Siobhan is cut off at her waist; the table hides the rest) | plaques (rectangular chips) (title painting done: a Paris boulevard at night, the tower across the river) |
 | 9 The Boardwalk | done | all done | Delphine's diary (title painting done: the boardwalk at dusk) |
 | 10 The Boom | two: a cramped internet café at 3 a.m. (monitor glow, the screen as the table), then a TV final table in Las Vegas (stage lights, cameras) | "N0rthStar" (as an avatar, and as Nate Crane in person), "DeuceSeven", "Hanbit" (avatars and in person) | avatars, chat window, TV graphics |
@@ -110,6 +110,14 @@ The player is never shown, so no art is needed for the Averys. Faces on the chap
 - Silas, Delphine and Ezra: done, cut out from green. Delphine's lace fan is see-through; Ezra's right lens keeps a faint glass sheen where the backdrop showed through.
 - Title painting (the Magnolia Queen at night): done, behind the intro screen.
 - Still to make: silver dollars, the buckhorn knife. The cards and the buck are drawn in code for now.
+
+## Current state, chapter 7
+
+- Background (the panelled tournament room under amber pendant lamps, a row of mechanical slot machines behind a rope), table front, title painting (the strip at dusk): done. A first version of the room was turned down for oil lanterns and modern video slot machines, which are wrong for 1972; check every new picture against its year.
+- The title painting's signs carry the plain word "CASINO" three times and some nonsense neon lettering (most plainly a teal upright sign on the right). No real casino is named. Left as painted; John to say if he wants it redone.
+- Weiss, Tex and Lorraine: done, cut out from green, two cards each (Hold'em). Tex's picture had a pale blurred blotch in the green, removed by keeping only the largest connected piece (the figure). Weiss was painted with his lap and knee, and Lorraine with a bare knee under her hand; both are cut away along the thigh or hand. A first Lorraine was turned down for blurred hands, stray game text and chips.
+- `desertClassic.ts` keeps its `rival(...)` blocks and swaps in the art by id (`PAINTED`), which is the same result as overriding `art` on each rival.
+- Still to make: clay chips, a tournament program.
 
 ## Current state, chapter 8
 

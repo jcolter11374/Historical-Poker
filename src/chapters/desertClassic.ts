@@ -2,9 +2,23 @@
  * Chapter 7, "The Desert Classic": Limit Hold'em in a side game, then a
  * No-Limit Hold'em tournament with rising blinds, Las Vegas, 1972. All
  * people and events are fictional.
+ *
+ * Art: the tournament room, its title painting (the strip at dusk) and all
+ * three rivals are painted (docs/ART.md).
  */
-import { lines, music, rival, say } from './cast';
-import type { Chapter } from './types';
+import { cutout, lines, music, rival, say } from './cast';
+import type { Chapter, Character, CharacterArt } from './types';
+
+const art = (file: string) => `${import.meta.env.BASE_URL}art/desert-classic/${file}`;
+
+/** The painted rivals, by id: image, width / height, and place on the 1600 x 900 stage. */
+const PAINTED: Record<string, CharacterArt> = {
+  weiss: cutout(art('weiss.webp'), 0.81, { x: 340, bottom: 590, height: 450 }),
+  tex: cutout(art('tex.webp'), 0.9344, { x: 800, bottom: 505, height: 390 }),
+  lorraine: cutout(art('lorraine.webp'), 0.8, { x: 1265, bottom: 590, height: 450 }),
+};
+const paint = (r: Character): Character => ({ ...r, art: PAINTED[r.id] ?? r.art });
+const painted = ([a, b, c]: Chapter['rivals']): Chapter['rivals'] => [paint(a), paint(b), paint(c)];
 
 export const DESERT_CLASSIC: Chapter = {
   id: 'desert-classic',
@@ -92,7 +106,7 @@ export const DESERT_CLASSIC: Chapter = {
     'The side game: limit Hold’em, and you can buy back in if you go broke.',
     'The tournament: no-limit, blinds rise every five hands, and broke means out. Win every chip.',
   ],
-  rivals: [
+  rivals: painted([
     rival(
       {
         id: 'weiss',
@@ -153,10 +167,16 @@ export const DESERT_CLASSIC: Chapter = {
       'right',
       '#5a2a4a',
     ),
-  ],
+  ]),
   nemesisId: 'tex',
   narratorId: 'weiss',
-  scene: { music: music('desert-classic'), palette: { wall: '#1a1410', light: '#f5c878', felt: '#2a4a3a', rim: '#5a3a1a' } },
+  scene: {
+    music: music('desert-classic'),
+    background: art('background.webp'),
+    tableFront: art('table-front.webp'),
+    title: art('title.webp'),
+    palette: { wall: '#1a1410', light: '#f5c878', felt: '#2a4a3a', rim: '#5a3a1a' },
+  },
   playerPlate: { x: 800, y: 760 },
   keepsake: { name: '“Tex” Dawson Pruitt', line: 'The Desert Classic, 1972. All in, and all out.' },
   story: {

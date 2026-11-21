@@ -30,6 +30,7 @@ interface Seen {
   raisesOffered: number;
   draws: number;
   caps: number;
+  opens: number;
 }
 
 function audit(chapterId: string, policy: 'raises' | 'calls', seed: number, maxHands: number, seen: Record<string, Seen>) {
@@ -47,7 +48,7 @@ function audit(chapterId: string, policy: 'raises' | 'calls', seed: number, maxH
     const game = getGame(play.gameId);
     const spec = game.spec;
     const label = `${play.name} (${play.betting})`;
-    const rec = (seen[`${play.gameId}/${play.betting}`] ??= { hands: 0, showdowns: 0, raisesOffered: 0, draws: 0, caps: 0 });
+    const rec = (seen[`${play.gameId}/${play.betting}`] ??= { hands: 0, showdowns: 0, raisesOffered: 0, draws: 0, caps: 0, opens: 0 });
     rec.hands++;
     const drawStreets = spec.streets.map((x, i) => (x.drawMaxDiscard != null ? i : -1)).filter((i) => i >= 0);
     expect(drawStreets.length, `${label}: draw rounds in the rules`).toBe(DRAWS[play.gameId] ?? 0);
@@ -107,6 +108,15 @@ function audit(chapterId: string, policy: 'raises' | 'calls', seed: number, maxH
       const unit = play.unit;
       const size = st.betSize === 'big' ? unit * 2 : unit;
       if (legal.canBringIn) checkBringIn(hv, HUMAN, play.gameId, label);
+      if (game.forced === 'stud-open') {
+        expect(legal.canBringIn, `${label}: no bring-in in this game`).toBe(false);
+        // Opening a round: the best hand showing speaks first, and may check.
+        if (Object.values(hv.players).every((p) => p.folded || p.bet === 0) && Object.values(hv.players).every((p) => p.folded || p.lastAction === null)) {
+          expect(legal.canCheck, `${label}, ${hv.streetName}: the opener may check`).toBe(true);
+          if (hv.street === 0) checkOpener(hv, HUMAN, play.gameId, label);
+          rec.opens++;
+        }
+      }
       if (legal.canRaise) {
         rec.raisesOffered++;
         const current = me.bet + legal.callAmount;
@@ -121,6 +131,11 @@ function audit(chapterId: string, policy: 'raises' | 'calls', seed: number, maxH
             expect(legal.minTo, `${label}, ${hv.streetName}: limit bet size`).toBe(Math.min(full, allIn));
             expect(legal.minTo, `${label}, ${hv.streetName}: four bets cap a round`).toBeLessThanOrEqual(size * 4);
           }
+        } else if (play.betting === 'spread-limit') {
+          // The agreed limit: any bet or raise up to it, and no cap on how many.
+          expect(play.limit, `${label}: a limit is set`).toBeGreaterThan(0);
+          expect(legal.maxTo, `${label}, ${hv.streetName}: no bet or raise over the limit`).toBe(Math.min(allIn, current + play.limit!));
+          expect(legal.minTo).toBeLessThanOrEqual(legal.maxTo);
         } else if (play.betting === 'pot-limit') {
           // The most you may raise to: call, then raise by the pot as it then stands.
           expect(legal.maxTo, `${label}, ${hv.streetName}: no bet bigger than the pot`).toBeLessThanOrEqual(Math.min(allIn, current + hv.pot + legal.callAmount));
@@ -140,12 +155,26 @@ function audit(chapterId: string, policy: 'raises' | 'calls', seed: number, maxH
     skip();
     const end = s.snapshot().hand!;
     const mine = end.players[HUMAN];
-    if (!end.summary!.startsWith('Everyone else folded') && mine && !mine.folded) {
+    if (!/^(Everyone else folded|Nobody came in)/.test(end.summary!) && mine && !mine.folded) {
       rec.showdowns++;
       // A hand that reached the showdown went through every draw round.
       expect(drewAt.size, `${label}: draw rounds played before the showdown`).toBe(drawStreets.length);
       expect(end.myCards.length, `${label}: cards at the showdown`).toBe(spec.streets.reduce((n, x) => n + x.dealDown + x.dealUp, 0));
     }
+  }
+}
+
+/** With no bring-in, the first round is opened by the highest card showing (in Razz, the lowest; aces low). */
+function checkOpener(hv: NonNullable<ReturnType<Session['snapshot']>['hand']>, seat: number, gameId: string, label: string) {
+  const razz = gameId.startsWith('razz');
+  const value = (c: Card) => (razz && c[0] === 'A' ? -1 : RANKS.indexOf(c[0]));
+  const upOf = (i: number): Card[] => (i === HUMAN ? hv.myCards.filter((c) => c.up).map((c) => c.card) : (hv.players[i].cards.filter((c) => c !== null) as Card[]));
+  const mine = value(upOf(seat)[0]);
+  for (const i of [0, 1, 2, 3]) {
+    const p = hv.players[i];
+    if (!p || i === seat || upOf(i).length === 0) continue;
+    if (razz) expect(mine, `${label}: the lowest up card opens`).toBeLessThanOrEqual(value(upOf(i)[0]));
+    else expect(mine, `${label}: the highest up card opens`).toBeGreaterThanOrEqual(value(upOf(i)[0]));
   }
 }
 
@@ -190,9 +219,81 @@ describe('every game is dealt and bet by its own rules', () => {
     }
   });
 
-  it('plays the stud games at fixed limits', () => {
+  it('plays each stud game by the betting of its day', () => {
     for (const { chapter } of CHAPTERS) for (const st of chapter.stages) for (const g of st.games) {
-      if (getGame(g.game).spec.family === 'stud') expect(g.betting, `${chapter.title}: ${g.game}`).toBe('fixed-limit');
+      const def = getGame(g.game);
+      if (def.spec.family !== 'stud') continue;
+      // 1863: table stakes. From the 1900s on, stud is a limit game.
+      expect(g.betting, `${chapter.title}: ${g.game}`).toBe(g.game === 'stud5-1863' ? 'no-limit' : 'fixed-limit');
+      // The low card's bring-in is a casino rule: none before the casino chapters.
+      if (typeof chapter.year === 'number' && chapter.year < 1950) expect(def.forced, `${chapter.title}: ${g.game}`).toBe('stud-open');
     }
+  });
+
+  it('opened stud rounds with the best hand showing where there is no bring-in', () => {
+    for (const id of ['stud5-1863/no-limit', 'stud-1926/fixed-limit', 'razz-1926/fixed-limit']) expect(seen[id]?.opens, `${id}: never opened a round`).toBeGreaterThan(0);
+  });
+
+  it('keeps the old games to the betting of their day', () => {
+    for (const { chapter } of CHAPTERS) for (const st of chapter.stages) for (const g of st.games) {
+      // Pot-limit is a 1900s idea, and the four-bet fixed limit a card room's.
+      if (typeof chapter.year === 'number' && chapter.year < 1900) expect(['no-limit', 'spread-limit'], `${chapter.title}: ${g.game}`).toContain(g.betting);
+    }
+  });
+
+  it('deals 1876 draw with a blind ante from the age, a draw of up to five, and the age speaking last', () => {
+    const chapter = CHAPTERS.find((c) => c.chapter.id === 'last-hand')!.chapter;
+    let asAge = 0;
+    let comingIn = 0;
+    for (let seed = 1; seed <= 6; seed++) {
+      const deal = seeded(seed * 7919);
+      const s = new Session(chapter, { seed, dealRng: (n) => deal.int(n), skipTutorial: true, simTrials: 12 });
+      for (let h = 0; h < 12 && !s.snapshot().outcome; h++) {
+        while (s.inScene) s.advanceScene();
+        if (s.snapshot().outcome) break;
+        s.startHand();
+        const dealer = s.snapshot().button;
+        const live = s.snapshot().seats.filter((x) => !x.out).map((x) => x.seat);
+        const age = live.find((x) => x > dealer) ?? live[0];
+        const unit = s.snapshot().play.unit;
+        // Only the age has money in before anyone acts: half a unit, blind.
+        const ante = Math.round(unit / 2);
+        expect(s.snapshot().hand!.pot).toBe(Math.min(ante, s.snapshot().seats[age].stack + ante));
+        let drew = false;
+        while (s.handInProgress) {
+          while (s.inScene) s.advanceScene();
+          if (!s.handInProgress) break;
+          if (s.toAct !== HUMAN) {
+            s.botStep();
+            continue;
+          }
+          const hv = s.snapshot().hand!;
+          if (hv.phase === 'drawing') {
+            expect(s.drawLimit()).toBe(5);
+            expect(s.drawProblem([0, 1, 2, 3, 4])).toBeNull();
+            s.draw([]);
+            drew = true;
+            continue;
+          }
+          const legal = hv.legal!;
+          const others = Object.entries(hv.players).filter(([i, p]) => Number(i) !== HUMAN && !p.folded);
+          if (!drew && others.every(([, p]) => p.bet <= unit)) {
+            // Nobody has raised: coming in costs double the ante, and the age owes only the other half.
+            if (age === HUMAN) {
+              expect(legal.callAmount === unit - ante || legal.canCheck).toBe(true);
+              asAge++;
+            } else {
+              expect(legal.callAmount).toBe(unit);
+              comingIn++;
+            }
+          }
+          // After the draw the age speaks last: if anyone left of the age is still in, they have spoken first.
+          if (drew && age === HUMAN) expect(others.every(([, p]) => p.lastAction !== null)).toBe(true);
+          s.act(legal.canCheck ? { type: 'check' } : { type: 'call' });
+        }
+      }
+    }
+    expect(asAge).toBeGreaterThan(0);
+    expect(comingIn).toBeGreaterThan(0);
   });
 });

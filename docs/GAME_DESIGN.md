@@ -20,7 +20,21 @@ Seat 0 is the player; seats 1 to 3 are the three rivals, sitting left, across an
 
 ### Stages and games
 
-A chapter is a list of **stages**, each starting at a hand number (`fromHand`). A stage lists one or more **games**, each a game id with a betting kind (no-limit, pot-limit or fixed-limit). With one game, every hand is that game. With several, they rotate, `handsPerGame` hands each (HORSE, the 8-Game, the Big O's Hi-Lo round). A stage can have an `opening` scene, a `label` shown under the game name, its own lighting (`scene`), house `extras` (bomb pots and so on), and `resetStacks` to give everyone a fresh starting stack (a tournament starting).
+A chapter is a list of **stages**, each starting at a hand number (`fromHand`). A stage lists one or more **games**, each a game id with a betting kind (no-limit, pot-limit, fixed-limit, or the 1800s agreed limit, `spread-limit`; see "Period rules" below). With one game, every hand is that game. With several, they rotate, `handsPerGame` hands each (HORSE, the 8-Game, the Big O's Hi-Lo round). A stage can have an `opening` scene, a `label` shown under the game name, its own lighting (`scene`), house `extras` (bomb pots and so on), and `resetStacks` to give everyone a fresh starting stack (a tournament starting).
+
+### Period rules
+
+John's rule (2026-11-21): **every game is played by the rules of the year its chapter is set in**, including how it is bet, what is forced, and who speaks first. Sources are in [HISTORY_SOURCES.md](HISTORY_SOURCES.md), "Period rules"; where history is unsure the best-supported rule is used and listed there as an open pick.
+
+| Years | Betting | Why |
+| --- | --- | --- |
+| 1543 to 1863 (Primero, Brag, Poque, straight poker, five-card stud) | **Table stakes** (`no-limit`): any amount in front of you | No source for these games gives a limit. Primero players spoke of wagering their whole "rest". Pot-limit is a 1900s idea and the four-bet fixed limit a card room's. |
+| 1876 (five-card draw) | **The agreed limit** (`spread-limit`): any bet or raise from the minimum up to the table's limit (5 units: $20 at the start), no cap on the number of raises | Draw poker of the rule-book years was played to a limit the table agreed. |
+| 1926 on | The modern kinds, as each game was played | Limit stud; limit and no-limit Hold'em; pot-limit Omaha; limit draw games. |
+
+The engine has no agreed limit, so the table runs `spread-limit` on the engine's no-limit betting and lowers the ceiling itself (`legalFor` in `src/table/session.ts`). The same place handles stud with no bring-in. The engine's copy is unchanged.
+
+Not played, and said so on the rules cards: Brag's other two stakes (best card turned up, and thirty-one), Poque's other two parts, and jack pots.
 
 ### Lessons
 
@@ -32,9 +46,11 @@ Each stage has one number, the **unit**. Every game turns it into its forced bet
 
 | Forced bets | Used by | Ante | Blinds | Bring-in | Bets |
 | --- | --- | --- | --- | --- | --- |
-| Antes | Historical games, except stud | half a unit each | none | none | the unit is the minimum bet |
+| Antes | Primero, Brag, Poque, straight poker | half a unit each | none | none | the unit is the minimum bet |
+| The age (`age`) | Five-card draw, 1876 | half a unit, from the player left of the dealer only, blind | none | none | a unit to come in (double the ante); the age makes good last |
+| Stud, no bring-in (`stud-open`) | Five-card stud 1863, Seven Card Stud and Razz 1926 | a fifth of a unit | none | none: the best hand showing opens every round and may check | the unit is the minimum bet (1863); limit: one unit, then two (1926) |
 | Blinds | Hold'em, Omaha, 2-7 Triple Draw, Badugi | none | half a unit and one unit | none | limit: one unit, then two |
-| Stud | Seven Card Stud, Razz, Stud Hi-Lo, five-card stud | a fifth of a unit | none | a third of a unit | limit: one unit, then two |
+| Stud | Seven Card Stud, Razz, Stud Hi-Lo from the casino years on | a fifth of a unit | none | a third of a unit | limit: one unit, then two |
 
 If a chapter sets `levelEvery`, the unit rises by half every that many hands (rounded: 10, 15, 23, 34…), with the chapter's `levelLines` and "The stakes are now…". Money is shown with the chapter's `money` prefix or suffix ($, £, HK$, F, s).
 
@@ -85,11 +101,12 @@ Set per stage in `extras`: a **bomb pot** every N hands (everyone puts in N unit
 | Game | Code | Deck | Deal and betting | What wins |
 | --- | --- | --- | --- | --- |
 | Primero (1543) | `src/games/primero.ts` | 40 (no 8s, 9s, 10s) | 2 down, bet, 2 down, bet, change up to 2 once, bet | chorus > fluxus > supremus > primero > numerus; points break ties |
-| Brag (1763) | `src/games/brag.ts` | 52 | 3 down, one betting round | prial (3s best) > running flush > run (A-2-3 best) > flush > pair > high |
-| Poque (1817) | `src/games/poque.ts` | 32 (7 to ace) | 5 down, one betting round | fours > triplets > two pairs > pair > nothing; no straights or flushes |
-| Straight poker (1836) | `src/games/straightPoker.ts` | 20 (10 to ace) | 5 down, one betting round | see chapter 1 |
-| Five-card stud (1863) | `src/games/fiveCardStud.ts` | 52 | 1 down 1 up, bet; then 3 more up, bet each; fixed limit (one unit, then two on the last two rounds) | standard high hands; lowest card up brings in, best hand showing acts first |
-| Five-card draw (1876) | `src/games/fiveCardDraw.ts` | 52 | 5 down, bet, draw up to 3 (4 keeping an ace), bet; pot-limit | standard high hands |
+| Brag (1763) | `src/games/brag.ts` | 52 | 3 down, one round of bragging; table stakes | pair royal (aces best) > pair > high card; the knave of clubs and nine of diamonds are wild ("braggers") and a natural hand beats the same hand made with one; no runs or flushes |
+| Poque (1817) | `src/games/poque.ts` | 32 (7 to ace) | 5 down, one betting round; table stakes | fours > threes > pair > nothing; a second pair only breaks ties; no straights or flushes |
+| Straight poker (1836) | `src/games/straightPoker.ts` | 20 (10 to ace) | 5 down, one betting round; table stakes | see chapter 1 |
+| Five-card stud (1863) | `src/games/fiveCardStud.ts` | 52 | 1 down 1 up, bet; then 3 more up, bet each; everyone antes, no bring-in, the best hand showing opens every round and may check; table stakes | the 1864 list (`src/games/hands1864.ts`): fours > full house > flush > threes > straight > two pairs > pair; no straight flush |
+| Five-card draw (1876) | `src/games/fiveCardDraw.ts` | 52 | the age antes blind; 5 down, bet (double the ante to come in), draw up to 5, bet (left of the age first); an agreed limit on each bet or raise, no cap on raises; no jackpots | standard high hands |
+| Seven Card Stud and Razz (1926) | `src/games/catalog.ts` (`stud-1926`, `razz-1926`) | 52 | RSDP Live's games with no bring-in: everyone antes, the best hand showing (Razz: the lowest) opens every round; fixed limit | as in RSDP Live |
 | RSDP Live's 12 games | `packages/engine` | 52 | as in RSDP Live | as in RSDP Live |
 
 The historical rules are our playable reconstructions; old sources disagree, and the rules cards say so. Every game, old or new, is registered in `src/games/catalog.ts`.
@@ -104,7 +121,7 @@ Code: `src/chapters/riverboat.ts` (story, rivals, tells, lines, art placement) a
 - **Seats:** four. Seat 0 is the player (Kit Avery, never shown); seats 1 to 3 are Delphine, Silas and Ezra.
 - **Each hand:** everyone puts in a $1 ante, all 20 cards are dealt five each, one betting round starts left of the buck, then the best hand still in takes the pot. There is no draw.
 - **Hand ranks, best first:** four of a kind, full house, three of a kind, two pairs, one pair, high card. No straights or flushes. Ties are broken by the ranks that make the hand, then kickers (`evaluate1836`).
-- **Betting:** pot-limit, minimum bet $2, everyone starts with $100. No-limit was tried first; simulated games often ended in one all-in hand, so pot-limit was chosen (see [DECISIONS.md](DECISIONS.md)).
+- **Betting:** table stakes (the engine's no-limit), minimum bet $2, everyone starts with $100. It was pot-limit until 2026-11-21; pot-limit is a 1900s idea, and the first accounts of the game give no limit at all (see "Period rules" and [DECISIONS.md](DECISIONS.md)).
 - **Winning the chapter:** take the Ashcombe deck: win the last chips of whoever has it staked (normally Silas, heads-up at the end). If the deck is never staked, being the last player with money also wins. **Losing:** run out of money. Rivals who run out leave the table with a parting line.
 
 ### Story beats

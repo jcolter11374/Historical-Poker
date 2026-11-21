@@ -24,7 +24,6 @@
 import {
   engine,
   type Action,
-  type BettingKind,
   type Card,
   type HandInput,
   type HandState,
@@ -35,9 +34,9 @@ import { cryptoRng, shuffle, type Rng } from '@rsdp/engine';
 import { decide, READS, RESPECT, type Decision, type Personality } from '../bots/personality';
 import { seeded, type Random } from '../bots/random';
 import { equity } from '../bots/strength';
-import type { Chapter, Character, GamePlay, SceneLine, Stage, Story } from '../chapters/types';
+import type { Betting, Chapter, Character, GamePlay, SceneLine, Stage, Story } from '../chapters/types';
 import { getGame, type GameDef } from '../games/catalog';
-import { playName, postsFor, stakesFor, unitAt } from './stakes';
+import { engineBetting, playName, postsFor, spreadLimit, stakesFor, unitAt } from './stakes';
 
 /** Seat 0 is always the human; 1-3 are the chapter's rivals in seat order (left, across, right). */
 export const HUMAN: SeatIndex = 0;
@@ -76,7 +75,9 @@ export interface PlayView {
   gameId: string;
   /** "Pot-Limit Omaha", "Razz", "Primero". */
   name: string;
-  betting: BettingKind;
+  betting: Betting;
+  /** 'spread-limit' only: the most one bet or raise may be at the current stakes. */
+  limit: number | null;
   family: 'flop' | 'stud' | 'draw';
   /** The stage's label, if it has one ("The final table"). */
   stageLabel: string | null;
@@ -202,6 +203,8 @@ export class Session {
    * the next hand's game (a rotation), but the finished hand stays on screen
    * and must still be described by its own rules.
    */
+  /** 'spread-limit' betting: the most one bet or raise may be this hand; null otherwise. */
+  private handLimit: number | null = null;
   private handGame: GameDef;
   private play: GamePlay;
   private stageIndex = 0;
@@ -387,11 +390,12 @@ export class Session {
       handId: `${this.chapter.id}-${this.handNumber}`,
       handNumber: this.handNumber,
       game: this.game.spec,
-      betting: this.play.betting,
+      betting: engineBetting(this.play.betting),
       stakes,
       maxSeats: 4,
       seats: live.map((s) => ({ seat: s.seat, playerId: s.character?.id ?? 'you', stack: s.stack, away: false })),
-      button: this.button,
+      // Old draw poker: the age (left of the dealer) has the last say in every round, so the engine is told the age holds the button.
+      button: this.game.forced === 'age' ? order[0] : this.button,
       buttonDead: false,
       posts: postsFor(this.game.forced, stakes, order, this.button, bomb),
       deck,
@@ -408,6 +412,7 @@ export class Session {
         ? [{ id: 'bounty-72', settings: { enabled: true, amount: unit * extras.bounty72Units, suits: 'any', autoShow: true } }]
         : [],
     };
+    this.handLimit = this.play.betting === 'spread-limit' ? spreadLimit(unit, stage.structure.limitUnits) : null;
     this.state = engine.startHand(input);
     this.say(this.narratorSeat(), this.dealerLine());
     this.afterAction();
@@ -416,7 +421,40 @@ export class Session {
   /** The human's legal betting moves, or null when it isn't their turn to bet. */
   legal(): LegalActions | null {
     if (!this.state || this.toAct !== HUMAN || this.state.phase !== 'betting') return null;
-    return engine.legalActions(this.state, HUMAN);
+    return this.legalFor(HUMAN);
+  }
+
+  /**
+   * The engine's legal moves for `seat`, with the two period rules the table adds on top:
+   * - 'spread-limit' betting: no bet or raise may be more than the table's limit (the engine runs no-limit);
+   * - stud with no bring-in ('stud-open'): the engine still starts the first round at a "bring-in" seat, but the
+   *   bring-in is nothing, so the table shows it as what it is: the best card showing may check or bet.
+   */
+  private legalFor(seat: SeatIndex): LegalActions {
+    const s = this.state!;
+    let legal = engine.legalActions(s, seat)!;
+    if (legal.canBringIn && s.input.stakes.bringIn === 0) legal = { ...legal, canBringIn: false, canCheck: true, canFold: true };
+    if (this.handLimit !== null && legal.canRaise) {
+      const maxTo = Math.min(legal.maxTo, s.currentBet + this.handLimit);
+      legal = { ...legal, maxTo, minTo: Math.min(legal.minTo, maxTo) };
+    }
+    return legal;
+  }
+
+  /** Sends a move to the engine, translated back from legalFor's view of the table. */
+  private actFor(seat: SeatIndex, action: Action): void {
+    const s = this.state!;
+    const raw = engine.legalActions(s, seat)!;
+    if (raw.canBringIn && s.input.stakes.bringIn === 0 && action.type !== 'bet' && action.type !== 'raise') {
+      // A check (or a fold with nothing to call, which is a check) is the engine's bring-in of nothing.
+      engine.act(s, seat, { type: 'bring-in' });
+      return;
+    }
+    if ((action.type === 'bet' || action.type === 'raise') && this.handLimit !== null) {
+      const { maxTo } = this.legalFor(seat);
+      if (Math.floor(action.to) > maxTo) throw new Error(`at most ${maxTo}`);
+    }
+    engine.act(s, seat, action);
   }
 
   /** The human bets. Throws if it isn't their turn or the move is illegal. */
@@ -426,7 +464,7 @@ export class Session {
       this.humanDecisions++;
       if (action.type === 'bet' || action.type === 'raise') this.humanAggressive++;
     }
-    engine.act(this.state, HUMAN, action);
+    this.actFor(HUMAN, action);
     this.afterAction();
   }
 
@@ -496,7 +534,7 @@ export class Session {
       return true;
     }
 
-    const legal = engine.legalActions(s, seat)!;
+    const legal = this.legalFor(seat);
     const eq = this.equityFor(seat);
     const opponents = s.seats.filter((x) => !x.folded && x.seat !== seat).length;
     const tilted = (this.tiltLeft[seat] ?? 0) > 0;
@@ -509,7 +547,8 @@ export class Session {
     if (legal.canBringIn && (decision.action.type === 'check' || decision.action.type === 'fold' || decision.action.type === 'call')) {
       decision.action = { type: 'bring-in' };
     }
-    engine.act(s, seat, decision.action);
+    if (decision.action.type === 'bet' || decision.action.type === 'raise') decision.action = { ...decision.action, to: Math.max(legal.minTo, Math.min(legal.maxTo, decision.action.to)) };
+    this.actFor(seat, decision.action);
     this.onBotDecision?.({
       seat,
       id: character.id,
@@ -552,7 +591,7 @@ export class Session {
   teacherAdvice(): { decision: Decision; equity: number; opponents: number; pot: number } | null {
     const s = this.state;
     if (!s || this.toAct !== HUMAN || s.phase !== 'betting') return null;
-    const legal = engine.legalActions(s, HUMAN)!;
+    const legal = this.legalFor(HUMAN);
     // The simulation is kind to a hand facing raises (it can't know how rarely people raise without the goods),
     // so the teacher marks it down for every raise a player still in has made this hand.
     const live = new Set(s.seats.filter((x) => !x.folded && x.seat !== HUMAN).map((x) => x.seat));
@@ -616,7 +655,7 @@ export class Session {
         : 'I’d keep all of these. Stand pat.';
       return { name, seat: teacher, text };
     }
-    const legal = engine.legalActions(s, HUMAN)!;
+    const legal = this.legalFor(HUMAN);
     const { decision: d, equity: eq, opponents, pot } = this.teacherAdvice()!;
     const pct = Math.round(eq * 100);
     const odds = legal.canCheck ? '' : ` It costs ${this.money(legal.callAmount)} to win ${this.money(pot)}.`;
@@ -813,6 +852,7 @@ export class Session {
       gameId: this.game.id,
       name: playName(this.game.name, this.play.betting, !!this.game.historical, this.game.spec.family),
       betting: this.play.betting,
+      limit: this.play.betting === 'spread-limit' ? spreadLimit(unitAt(stage.structure.unit, this.level), stage.structure.limitUnits) : null,
       family: this.game.spec.family,
       stageLabel: stage.label ?? null,
       stageIndex: this.stageIndex,
@@ -827,6 +867,10 @@ export class Session {
     switch (this.game.forced) {
       case 'stud':
         return this.pick(['Antes in. Low card brings it in.', 'Antes, please. Cards coming up.']);
+      case 'stud-open':
+        return this.pick(['Antes in. High card bets first.', 'Antes, please. Cards coming up.']);
+      case 'age':
+        return this.pick(['The age antes. Cards coming.', 'Ante’s up. Who comes in?']);
       case 'blinds':
         return this.pick(['Blinds in. Cards coming.', 'Shuffle up and deal.']);
       default:
@@ -967,7 +1011,8 @@ export class Session {
       players[x.seat] = {
         folded: x.folded,
         bet: x.bet,
-        lastAction: x.lastAction,
+        // A bring-in of nothing (stud with no bring-in) is a check.
+        lastAction: x.lastAction === 'Bring-in' && s.input.stakes.bringIn === 0 ? 'Check' : x.lastAction,
         cards,
         handName: revealed ? game.describe(x.cards.map((c) => c.card), board) || null : null,
       };
@@ -990,7 +1035,7 @@ export class Session {
       players,
       winners,
       summary: s.phase === 'complete' ? this.summary(s, winners) : null,
-      legal: s.phase === 'betting' && myTurn ? engine.legalActions(s, HUMAN) : null,
+      legal: s.phase === 'betting' && myTurn ? this.legalFor(HUMAN) : null,
       draw: s.phase === 'drawing' && myTurn ? this.drawView(s, myCards.length) : null,
     };
   }
@@ -1011,6 +1056,11 @@ export class Session {
     if (!s.showdown) {
       const w = winners[0];
       if (w) parts.push(`Everyone else folded. ${name(w.seat)} ${takes(w.seat)} ${this.money(w.amount)}.`);
+      else {
+        // Nobody came in against a blind ante: there is nothing to win, and the age takes the ante back.
+        const last = s.seats.find((x) => !x.folded);
+        if (last) parts.push(`Nobody came in. ${name(last.seat)} ${last.seat === HUMAN ? 'keep' : 'keeps'} the ante.`);
+      }
     } else {
       for (const w of winners) {
         const split = s.input.game.split === 'hi-lo';

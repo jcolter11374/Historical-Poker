@@ -32,7 +32,7 @@ To do:
 - [x] Rules audit of every game, locked in by `test/rules.test.ts`; the Camp's stud made a true limit game; the draw announced on the felt; live purses; steadier hints and more starting money in The Last Hand and The Painted Deck (2026-11-21, [DECISIONS.md](DECISIONS.md)).
 - [ ] **Play-testing with people:** length, stakes, bot difficulty, and lesson wording. Chapter 1's heads-up finale can drag for a player who only follows the hints.
 - [ ] Story choices made while building that John should confirm ([DECISIONS.md](DECISIONS.md), 2026-11-20 entries).
-- [ ] Outline features not built yet: difficulty levels, Free Play, the almanac, a "tell spotted" hint, Brag's blind betting, Poque's payout board, jackpots in five-card draw, choices in scenes (giving Toby his pay back).
+- [ ] Outline features not built yet: difficulty levels, Free Play, the almanac, a "tell spotted" hint, Brag's other two stakes (best card and thirty-one), Poque's other two parts and its payout board, choices in scenes (giving Toby his pay back).
 - [x] History notes checked against sources, in every chapter ([HISTORY_SOURCES.md](HISTORY_SOURCES.md)). The Atlantic City chapter moved to 1995, after Paris, because poker was illegal there until 1993.
 - [ ] Music files for the chapters ([ART.md](ART.md), "Music").
 - [ ] Play-test the bot tuning with real people; the numbers in GAME_DESIGN.md come from stand-in players.
@@ -41,7 +41,7 @@ To do:
 
 Done:
 - [x] Repo set up, engine copied, tests and typecheck.
-- [x] The 1836 game: 20-card deck, hand ranks, one betting round, pot-limit.
+- [x] The 1836 game: 20-card deck, hand ranks, one betting round, table stakes.
 - [x] Three bots with personalities and tells (Silas, Delphine, Ezra).
 - [x] Table screen with layered painted art, chip controls, dialogue, rules sheet, "Powered by RSDP Live" badge (RSDP Live's real "RSDP Live!" wordmark).
 - [x] Intro and ending screens.

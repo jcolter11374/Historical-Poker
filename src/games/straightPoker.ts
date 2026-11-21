@@ -36,7 +36,7 @@ export const STRAIGHT_POKER: GameSpec = {
   family: 'draw',
   streets: [{ name: 'The deal', dealDown: 5, dealUp: 0, dealBoard: 0, betSize: 'small' }],
   maxPlayers: 4,
-  defaultBetting: 'pot-limit',
+  defaultBetting: 'no-limit',
   split: 'high',
   // We post antes ourselves (see src/table/session.ts), so the engine never plans blinds.
   forcedBets: 'blinds',

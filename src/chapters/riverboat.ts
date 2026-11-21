@@ -21,7 +21,7 @@ export const RIVERBOAT: Chapter = {
   teaches: 'Straight poker, the first game called poker',
   rulesObject: 'Rules of 1836',
   // One unit of $2: a $1 ante and a $2 minimum bet.
-  stages: [{ fromHand: 1, games: [{ game: GAME_ID, betting: 'pot-limit' }], structure: { unit: 2 } }],
+  stages: [{ fromHand: 1, games: [{ game: GAME_ID, betting: 'no-limit' }], structure: { unit: 2 } }],
   startingStack: 100,
   intro: [
     'Your father lost the family’s old deck at cards, to a gambler named Silas Crane. People called it the Ashcombe deck, and swore that whoever held it never lost.',
@@ -35,7 +35,7 @@ export const RIVERBOAT: Chapter = {
   ],
   recap: ['This is where the story begins.'],
   howToWin: [
-    'Everyone antes $1; the smallest bet is $2, and no bet may be bigger than the pot.',
+    'Everyone antes $1 and the smallest bet is $2. It is table stakes, as on the river: you may bet anything up to all the money in front of you.',
     'Take every dollar of whoever holds the Ashcombe deck to win it. Lose all of yours and the deck stays on the boat.',
   ],
   keepsake: { name: '“Gentleman” Silas Crane', line: 'The River, 1836. He dealt seconds; you dealt with him.' },
@@ -115,6 +115,7 @@ export const RIVERBOAT: Chapter = {
         { who: 'delphine', text: 'Sit, darling, sit. You know the twenty-card game? Aces down to tens, four of each. Four of us, five cards apiece: every card is dealt.' },
         { who: 'delphine', text: 'Best hands first: four of a kind, a full house, three of a kind, two pairs, one pair. Straights and flushes don’t count here.' },
         { who: 'delphine', text: 'And since every card is out, your own five tell you what the rest of us cannot hold. One round of betting, then we show.' },
+        { who: 'delphine', text: 'There is no limit on this river but your own purse. A man may bet all he has on the table, so mind how much of yours you put at risk on one hand.' },
         { who: 'delphine', text: 'Above all, watch faces. The cards only tell you half of it.' },
       ],
       // Deal order is left of the buck (Delphine): Silas, Ezra, you, Delphine.

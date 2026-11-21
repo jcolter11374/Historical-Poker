@@ -26,9 +26,10 @@ import {
 } from '@rsdp/engine/variants';
 import '@rsdp/engine/modifiers';
 import { BRAG, BRAG_RULES, scoreBrag } from './brag';
-import { DRAW5_ID, FIVE_CARD_DRAW, FIVE_CARD_DRAW_RULES, draw5Rule } from './fiveCardDraw';
+import { DRAW5_ID, FIVE_CARD_DRAW, FIVE_CARD_DRAW_RULES } from './fiveCardDraw';
 import { FIVE_CARD_STUD, FIVE_CARD_STUD_RULES } from './fiveCardStud';
-import { POQUE, POQUE_RULES, deck32, scoreGroups } from './poque';
+import { RANKINGS_1864, score1864 } from './hands1864';
+import { POQUE, POQUE_RULES, deck32, scorePoque } from './poque';
 import { PRIMERO, PRIMERO_RULES, deck40, primeroDiscards, scorePrimero } from './primero';
 import { STRAIGHT_POKER, STRAIGHT_POKER_RULES, deck20, evaluate1836 } from './straightPoker';
 
@@ -36,8 +37,10 @@ import { STRAIGHT_POKER, STRAIGHT_POKER_RULES, deck20, evaluate1836 } from './st
  * 'antes': everyone antes, dead money; the minimum bet is the big blind amount.
  * 'blinds': small and big blind left of the buck.
  * 'stud': everyone antes and the low card brings in.
+ * 'stud-open': everyone antes and there is no bring-in: the best card showing opens, and may check (stud before the casinos).
+ * 'age': only the eldest hand antes, blind; it costs double to come in (draw poker in the 1870s).
  */
-export type ForcedStyle = 'antes' | 'blinds' | 'stud';
+export type ForcedStyle = 'antes' | 'blinds' | 'stud' | 'stud-open' | 'age';
 
 export interface RulesCard {
   /** "Five-Card Stud". */
@@ -113,7 +116,8 @@ const historical: GameDef[] = ([
       howToPlay: [
         'Twenty cards: aces, kings, queens, jacks and tens. Everyone antes.',
         'Four players, five cards each, so every card is dealt.',
-        'One round of betting, starting left of the buck. No draw.',
+        'One round of betting, starting left of the dealer. No draw.',
+        'Table stakes: you may bet any amount you have in front of you, and nobody can be bet out of a hand for more than they have.',
         'If more than one player is left, the best hand takes the pot.',
       ],
       rankingsTitle: 'Hands, best first',
@@ -125,7 +129,7 @@ const historical: GameDef[] = ([
         { name: 'One pair', example: 'K K A Q J' },
         { name: 'High card', example: 'A K Q J 10' },
       ],
-      note: 'No straights or flushes yet. A tie goes to the higher pair or triplets, then the higher odd cards.',
+      note: 'No straights or flushes yet. A tie goes to the higher pair or triplets, then the higher odd cards. The first accounts (1829 to 1843) give these hands and no betting limit.',
     },
   },
   {
@@ -144,6 +148,7 @@ const historical: GameDef[] = ([
         'Forty cards: no eights, nines or tens. Everyone antes.',
         'Two cards each, then a round of betting. Two more cards each, and another round.',
         'Then each player may change up to two cards, once. A last round of betting, then the best hand wins.',
+        'You may wager anything up to your whole stake. Players called that stake their “rest”, and to “set up your rest” was to wager all of it.',
         'Points: seven 21, six 18, ace 16, five 15, four 14, three 13, two 12, court cards 10.',
       ],
       rankingsTitle: 'Hands, best first',
@@ -154,7 +159,7 @@ const historical: GameDef[] = ([
         { name: 'Primero', example: 'one card of each suit' },
         { name: 'Numerus', example: 'most points in one suit' },
       ],
-      note: 'A tie goes to the higher points. Old books disagree on Primero; this is our playable reconstruction.',
+      note: 'A tie goes to the higher points. No rule book for Primero survives, only descriptions that disagree. The pack, the card points, the deal in twos and the five hands are from those descriptions; the single change of two cards is our choice among them.',
     },
   },
   {
@@ -170,20 +175,17 @@ const historical: GameDef[] = ([
       title: 'Brag, 1763',
       howToPlay: [
         'A full pack. Everyone antes and gets three cards, face down.',
-        'One round of betting, starting left of the dealer. Bragging is half the game: bet as if you hold a prial.',
-        'If more than one player is left, the best three cards win.',
-        'At a real inn you might bet "blind", without looking, at half the price. At this table everyone looks.',
+        'One round of bragging, starting left of the dealer: pass, or brag (bet). Bragging is half the game: wager as if you hold a pair royal.',
+        'Two cards are “braggers” and stand for any card you like: the knave of clubs and the nine of diamonds.',
+        'You may brag any amount you have in front of you. If more than one player is left when the brags are matched, the best three cards win.',
       ],
       rankingsTitle: 'Hands, best first',
       rankings: [
-        { name: 'Prial', example: '3 3 3 is best, then A A A' },
-        { name: 'Running flush', example: '8♦ 7♦ 6♦' },
-        { name: 'Run', example: 'A-2-3, then A-K-Q' },
-        { name: 'Flush', example: 'K♣ 9♣ 4♣' },
+        { name: 'Pair royal', example: 'A A A is best' },
         { name: 'Pair', example: 'Q Q 5' },
         { name: 'High card', example: 'A J 7' },
       ],
-      note: 'With only three cards, a run is harder than a flush, so it ranks higher. These are today’s rankings; the 1700s game was scored differently.',
+      note: 'Only matched cards count: runs and flushes belong to the later game. A natural hand beats the same hand made with a bragger. An inn would also play two more stakes with the same cards (best card turned up, and nearest to thirty-one); this table plays the brag.',
     },
   },
   {
@@ -192,20 +194,21 @@ const historical: GameDef[] = ([
     spec: FIVE_CARD_STUD,
     rules: FIVE_CARD_STUD_RULES,
     deck: freshDeck,
-    forced: 'stud',
-    describe: describeWith('any-five'),
+    forced: 'stud-open',
+    describe: (hole) => (hole.length ? score1864(hole).name : ''),
     simCost: 1,
     card: {
       title: 'Five-Card Stud, 1863',
       howToPlay: [
         'A full pack. Everyone antes. One card face down (your hole card) and one face up.',
-        'The lowest card showing must "bring in" a small bet, or make it a full bet. Then a round of betting.',
-        'Three more cards face up, one at a time, each with a round of betting. The best hand showing bets first.',
+        'A round of betting, opened by the highest card showing. He may check; nobody is forced to bet.',
+        'Three more cards face up, one at a time, each with a round of betting. The best hand showing always speaks first.',
+        'Table stakes: you may bet any amount you have in front of you.',
         'Only your hole card is hidden. Read what the others show, and what they don’t.',
       ],
       rankingsTitle: 'Hands, best first',
-      rankings: HIGH_RANKINGS,
-      note: 'The flush came in with the full pack, and the straight is new in this era. Both count.',
+      rankings: RANKINGS_1864,
+      note: 'These are the hands of the 1864 American Hoyle, the first book to print stud. The straight is new, played in some places and not others, and ranks below three of a kind. There is no straight flush yet.',
     },
   },
   {
@@ -214,23 +217,22 @@ const historical: GameDef[] = ([
     spec: FIVE_CARD_DRAW,
     rules: FIVE_CARD_DRAW_RULES,
     deck: freshDeck,
-    forced: 'antes',
+    forced: 'age',
     describe: describeWith('any-five'),
     discards: highDrawDiscards,
-    drawRule: draw5Rule,
-    drawLimitWords: 'up to three, or four if you keep an ace',
     simCost: 1,
     card: {
       title: 'Five-Card Draw, 1876',
       howToPlay: [
-        'A full pack. Everyone antes and gets five cards face down. A round of betting.',
-        'The draw: throw away up to three cards and get new ones. Four, if the card you keep is an ace.',
-        'A second round of betting, then the best hand wins.',
-        'How many cards someone draws is a tell of its own.',
+        'A full pack. Only the “age”, the player left of the dealer, antes, and he does it blind, before the cards. Five cards each, face down.',
+        'To come in costs double the ante, or you may raise. The age speaks last and makes his ante good, or gives it up.',
+        'The draw: throw away as many cards as you like, even all five, and get new ones.',
+        'A second round of betting: the player left of the age speaks first. Then the best hand wins.',
+        'The table agrees a limit: no single bet or raise may be more than that, but there is no end to the raising.',
       ],
       rankingsTitle: 'Hands, best first',
       rankings: HIGH_RANKINGS,
-      note: HIGH_NOTE,
+      note: 'How many cards someone draws is a tell of its own. Jack pots (a pair of jacks to open) were a new fashion in the 1870s and are not played here.',
     },
   },
   {
@@ -240,25 +242,23 @@ const historical: GameDef[] = ([
     rules: POQUE_RULES,
     deck: deck32,
     forced: 'antes',
-    describe: (hole) => (hole.length === 5 ? scoreGroups(hole).name : ''),
+    describe: (hole) => (hole.length === 5 ? scorePoque(hole).name : ''),
     simCost: 1,
     card: {
       title: 'Poque, 1817',
       howToPlay: [
         'Thirty-two cards, sevens up to aces: the French piquet pack. Everyone antes.',
-        'Five cards each, face down. One round of betting, where the art is to boast and bluff about pairs and triplets.',
+        'Five cards each, face down. One round of betting, where the art is to boast and bluff about pairs and triplets. You may wager any amount you have in front of you.',
         'If more than one player is left, the best hand wins.',
       ],
       rankingsTitle: 'Hands, best first',
       rankings: [
         { name: 'Four of a kind', example: 'Q Q Q Q 7' },
-        { name: 'Full house', example: 'J J J 8 8' },
-        { name: 'Triplets', example: '9 9 9 A K' },
-        { name: 'Two pairs', example: 'K K 7 7 A' },
+        { name: 'Three of a kind', example: '9 9 9 A K' },
         { name: 'A pair', example: 'A A Q 9 8' },
         { name: 'High card', example: 'A K J 9 7' },
       ],
-      note: 'Only matched cards count. The rules of Poque were never written down well; this is our reconstruction.',
+      note: 'Only sets count: two pairs and the full house came later, with poker. Poque’s rules were never written down well. It had three parts; this table plays the wagering part, rebuilt from what the histories record.',
     },
   },
 ] as GameDef[]).map((g) => ({ ...g, historical: true }));
@@ -391,7 +391,56 @@ const modern: GameDef[] = [
   }),
 ];
 
-export const GAMES: Record<string, GameDef> = Object.fromEntries([...historical, ...modern].map((g) => [g.id, g]));
+// ---------------------------------------------------------------- stud before the casinos
+
+/**
+ * Seven-card stud and Razz as a 1926 back room dealt them: the engine's own
+ * games, but with no bring-in. Everyone antes and the best hand showing opens
+ * every round, the first included, and may check. (The low card's forced
+ * bring-in is the later casino rule; RSDP Live's 'stud' and 'razz' keep it for
+ * the modern chapters.) The engine's stud rules look their game up by id, so
+ * these hand it the game they are built on.
+ */
+const OPEN_STUD_HOW = (first: string) => [
+  `Everyone antes. Two cards face down and one face up. No one is forced to bet: ${first} speaks first, and may check.`,
+  STUD_HOW[1],
+  `On every street, ${first} speaks first.`,
+];
+const STUD_1926 = 'stud-1926';
+const RAZZ_1926 = 'razz-1926';
+const OPEN_BASE: Record<string, VariantId> = { [STUD_1926]: 'stud', [RAZZ_1926]: 'razz' };
+
+function openStud(id: string, extra: Pick<GameDef, 'name' | 'card'>): GameDef {
+  const base = OPEN_BASE[id];
+  return { ...engineGame(base, extra), id, spec: { ...VARIANTS[base], id }, forced: 'stud-open', historical: true };
+}
+
+const openStuds: GameDef[] = [
+  openStud(STUD_1926, {
+    name: 'Seven Card Stud',
+    card: {
+      title: 'Seven Card Stud, 1926',
+      howToPlay: [...OPEN_STUD_HOW('the best hand showing'), 'Limit betting: bets and raises are one fixed size on the first two streets and double that after. Make your best five-card hand from your seven cards.'],
+      rankingsTitle: 'Hands, best first',
+      rankings: HIGH_RANKINGS,
+      note: `${HIGH_NOTE} Casinos later added a forced “bring-in” for the lowest card; a private game in 1926 had only the ante.`,
+    },
+  }),
+  openStud(RAZZ_1926, {
+    name: 'Razz',
+    card: {
+      title: 'Razz, 1926',
+      howToPlay: [...OPEN_STUD_HOW('the lowest hand showing'), 'The LOWEST five-card hand wins. Aces are low; straights and flushes don’t count against you. Limit betting, as in stud.'],
+      rankingsTitle: 'Low hands, best first',
+      rankings: ACE_FIVE_LOWS,
+      note: 'Casinos later made the highest card showing “bring in” a forced bet; a private game in 1926 had only the ante.',
+    },
+  }),
+];
+
+export { STUD_1926, RAZZ_1926 };
+
+export const GAMES: Record<string, GameDef> = Object.fromEntries([...historical, ...modern, ...openStuds].map((g) => [g.id, g]));
 
 export function getGame(id: string): GameDef {
   registerGames();
@@ -408,6 +457,18 @@ export function registerGames() {
   registerAllVariants(variants);
   for (const g of historical) variants.register(g.spec, g.rules);
   for (const g of modern) g.rules = variants.get(g.id).rules;
+  for (const g of openStuds) {
+    const baseSpec = VARIANTS[OPEN_BASE[g.id]];
+    const base = variants.get(baseSpec.id).rules;
+    g.rules = {
+      awardPortion: (_spec, ...rest) => base.awardPortion(baseSpec, ...rest),
+      // No bring-in: the first round is opened by the same seat as every later round.
+      bringInSeat: (_spec, up) => base.firstToActSeat!(baseSpec, up),
+      firstToActSeat: (_spec, up, order) => base.firstToActSeat!(baseSpec, up, order),
+      oddChipOrder: base.oddChipOrder,
+    };
+    variants.register(g.spec, g.rules);
+  }
 }
 
 // ---------------------------------------------------------------- helpers
@@ -463,6 +524,7 @@ export function highDrawDiscards(cards: Card[], max: number): number[] {
   const order = '23456789TJQKA';
   const top = cards.reduce((a, _, i) => (order.indexOf(cards[i][0]) > order.indexOf(cards[a][0]) ? i : a), 0);
   const throwAll = cards.map((_, i) => i).filter((i) => i !== top);
+  // Keeping an ace, draw four; otherwise draw three. (Drawing all five is legal in 1876, and a beginner's mistake.)
   return throwAll.slice(0, cards[top][0] === 'A' ? Math.min(4, max) : Math.min(3, max));
 }
 

@@ -63,7 +63,7 @@ Every chapter below lists the same things: setting, rules as the game will run t
 - One betting round, starting left of the dealer. No draw. Then showdown.
 - Hands, best first: four of a kind, full house, three of a kind, two pair, one pair, high card. No straights or flushes yet.
 - Since every card is dealt, a player can work out what others might hold from their own five. The tutorial points this out.
-- Betting limit (no limit with table stakes, or a cap on raises) is a tuning decision for the build.
+- Betting: table stakes, no limit (changed 2026-11-21, when John asked for every game to follow the rules of its year; it was pot-limit).
 
 **Cast.**
 
@@ -97,7 +97,7 @@ Every chapter below lists the same things: setting, rules as the game will run t
 
 - Deck: 40 cards (no eights, nines or tens), four suits.
 - Card points: seven 21, six 18, ace 16, five 15, four 14, three 13, two 12, face cards 10.
-- Everyone antes. Deal two cards each, betting round. Deal two more, betting round. Each player may then swap up to two cards once, then a last betting round and showdown.
+- Everyone antes. Deal two cards each, betting round. Deal two more, betting round. Each player may then swap up to two cards once, then a last betting round and showdown. A wager may be any part of your "rest", the money in front of you (2026-11-21).
 - Hands, best first: **chorus** (four of a kind), **fluxus** (all four cards one suit), **supremus** (seven, six and ace of one suit), **primero** (one card of each suit), then **numerus** (the most points in one suit). Ties within a rank go to the higher point total.
 - The game says plainly that this is a reconstruction.
 
@@ -121,13 +121,12 @@ Every chapter below lists the same things: setting, rules as the game will run t
 
 **Story.** The deck has passed down the Avery line. Will Avery, guard on the York stagecoach, is stuck at the inn by snow. Captain Josiah Pike wants the deck as a lucky charm for his voyage to the American colonies, and a well-dressed stranger seems far too interested in the coach's strongbox.
 
-**Rules (modern three-card brag, with an optional period rule).**
+**Rules (Brag as the 1700s played it; changed 2026-11-21, when John asked for every game to follow the rules of its year. It was modern three-card brag.)**
 
 - Deck: 52 cards. Everyone antes and gets three cards face down.
-- Players may bet **blind** (without looking, at half the stake) or **seen** (after looking, at full stake).
-- Betting goes round until only two players remain; then either may pay to **see** the other, and the better hand wins.
-- Hands, best first: **prial** (three of a kind; three threes is best, then aces down), running flush (straight flush), run (straight), flush, pair, high card.
-- Optional period rule, "braggers": the jack of clubs is wild, as in the first printed rules (1721), with the nine of diamonds added later. (Checked: the often-repeated trio of ace of diamonds, jack of clubs and nine of diamonds comes from later books, and Parlett finds no evidence anyone played that way.)
+- One round of bragging: pass, or brag any amount in front of you; the others match it or give up.
+- Hands, best first: **pair royal** (three of a kind, aces best), pair, high card. Runs, flushes and betting blind are the later game and are not played.
+- "Braggers": the jack of clubs and the nine of diamonds are wild, and a natural hand beats the same hand made with one. The jack of clubs is wild, as in the first printed rules (1721), with the nine of diamonds added later. (Checked: the often-repeated trio of ace of diamonds, jack of clubs and nine of diamonds comes from later books, and Parlett finds no evidence anyone played that way.)
 
 **Cast.**
 
@@ -153,8 +152,8 @@ Every chapter below lists the same things: setting, rules as the game will run t
 
 - Deck: 52 cards. Everyone antes.
 - Each player gets one card face down and one face up, then a betting round.
-- Three more face-up cards follow, one at a time, each with a betting round (four rounds in all). The best hand showing acts first.
-- Full rankings, as today: straight flush, four of a kind, full house, flush, straight, three of a kind, two pair, pair, high card.
+- Three more face-up cards follow, one at a time, each with a betting round (four rounds in all). The best hand showing opens every round and may check; there is no bring-in. Table stakes.
+- Rankings as the 1864 *American Hoyle* lists them: four of a kind, full house, flush, three of a kind, straight, two pair, pair, high card. No straight flush. (Changed 2026-11-21: period rules.)
 - Mostly configuration of the engine's existing stud support.
 
 **Cast.**
@@ -179,10 +178,11 @@ Every chapter below lists the same things: setting, rules as the game will run t
 
 **Rules.**
 
-- Deck: 52 cards. Everyone antes and gets five cards face down. Betting round.
-- Each player may discard and draw up to three cards (four if they keep an ace). Second betting round, then showdown.
-- Full rankings, as in chapter 4.
-- Optional period rule, "jackpots": you need a pair of jacks or better to open the betting.
+- Deck: 52 cards. The age (left of the dealer) antes blind; everyone gets five cards face down. Coming in costs double the ante; the age makes good last.
+- Each player may discard and draw up to five cards. Second betting round, the player left of the age first, then showdown.
+- Betting to an agreed limit on each bet or raise, with no cap on raises.
+- Full modern rankings.
+- No jackpots: they were a new fashion in 1875 and not part of the plain game. (All changed 2026-11-21: period rules.)
 - Mostly configuration of the engine's existing draw support.
 
 **Cast.**
@@ -385,7 +385,7 @@ Art for each chapter can be generated in parallel with the build; code uses plac
 - [ ] Is the finale five-card draw in Deadwood (this outline), or five-card stud as first drafted in chat?
 - [ ] Should real people make cameos, such as Wild Bill Hickok at a nearby table in 1876, or stay in the background only?
 - [ ] Are the names Kit Avery, the *Magnolia Queen*, the Ashcombe deck and the new characters OK?
-- [ ] Betting limits for each game (no limit, pot limit or fixed), to settle while play-testing chapter 1.
+- [x] Betting limits for each game: settled 2026-11-21 by John's rule that every game follows the rules of its year (GAME_DESIGN.md, "Period rules").
 - [ ] Poque's rules need a short research pass before that chapter is built.
 - [ ] History notes need checking against sources before they appear in the game.
 

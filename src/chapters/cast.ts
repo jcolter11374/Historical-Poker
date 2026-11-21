@@ -31,6 +31,11 @@ export function cutout(src: string, aspect: number, place: { x: number; bottom: 
   return { src, kind: 'cutout', aspect, place };
 }
 
+/** Placeholder art and plate for a standard seat, for a stage's `seats` (types.ts). */
+export function standardSeat(seat: SeatPos, color: string): { art: CharacterArt; plate: { x: number; y: number } } {
+  return { art: placeholder(color, seat), plate: PLATE[seat] };
+}
+
 /** A rival with placeholder art in a standard seat. */
 export function rival(c: Omit<Character, 'art' | 'plate'>, seat: SeatPos, color: string): Character {
   return { ...c, art: placeholder(color, seat), plate: PLATE[seat] };

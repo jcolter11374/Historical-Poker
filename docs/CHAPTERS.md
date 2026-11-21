@@ -123,8 +123,9 @@ An Atlantic City poker room, two years after poker became legal there (it was ba
 
 Jamie Avery, a broke student, in an internet café at 3 a.m. The rivals are screen names; their tells are about **timing** and chat ("Bets instantly", "types hmm").
 
-- **Stages:** hands 1 to 4, "The $5 qualifier, 3 a.m.", No-Limit Hold'em, taught by DeuceSeven; 5 to 8, "Waiting for the next table: 2-7 Triple Draw", taught by DeuceSeven; 9 to 12, "Still waiting: Badugi", taught by Hanbit; from 13, "The final table, Las Vegas", No-Limit Hold'em with stacks reset and its own lighting (a stage `scene` palette). $10 unit, $500 each, blinds rise every 4 hands.
+- **Stages:** hands 1 to 4, "The $5 qualifier, 3 a.m.", No-Limit Hold'em, taught by DeuceSeven; 5 to 8, "Waiting for the next table: 2-7 Triple Draw", taught by DeuceSeven; 9 to 12, "Still waiting: Badugi", taught by Hanbit; from 13, "The final table, Las Vegas", No-Limit Hold'em with stacks reset, its own room (a stage `scene`) and the rivals in person (the stage's `seats`). $10 unit, $500 each, blinds rise every 4 hands.
 - **Cast:** DeuceSeven (tanks then raises when bluffing), N0rthStar (bets instantly when strong; revealed at the final table as Nate Crane), Hanbit (from Seoul, types "hmm" when weak).
+- **Art:** online, the table is the screen of the café's monitor and the rivals are square avatars above its far rim (a shark, a star, a tiger cub). At the final table DeuceSeven is painted; Nate Crane and Hanbit are silhouettes until their pictures are made, and there is no title painting yet.
 - **Beats:** the final table opens with the reveal. Finale: no bow-outs; it is played to the end like a tournament, with a heads-up line from Nate.
 
 ### 11. The Big O (2019), 5- and 6-Card Omaha, then Hi-Lo

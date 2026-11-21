@@ -3,8 +3,19 @@
  * versions in turn, in a big card room in the English Midlands, 2019. All
  * people and places are fictional.
  */
-import { lines, music, rival, say } from './cast';
-import type { Chapter } from './types';
+import { cutout, lines, music, rival, say } from './cast';
+import type { Chapter, Character, CharacterArt } from './types';
+
+const art = (file: string) => `${import.meta.env.BASE_URL}art/big-o/${file}`;
+
+/** The painted rivals, by id: image, width / height, and place on the 1600 x 900 stage. */
+const PAINTED: Record<string, CharacterArt> = {
+  kerryann: cutout(art('kerryann.webp'), 0.8222, { x: 340, bottom: 600, height: 450 }),
+  gaz: cutout(art('gaz.webp'), 1.14, { x: 800, bottom: 540, height: 430 }),
+  okafor: cutout(art('okafor.webp'), 0.9089, { x: 1265, bottom: 610, height: 460 }),
+};
+const paint = (r: Character): Character => ({ ...r, art: PAINTED[r.id] ?? r.art });
+const painted = ([a, b, c]: Chapter['rivals']): Chapter['rivals'] => [paint(a), paint(b), paint(c)];
 
 export const BIG_O: Chapter = {
   id: 'big-o',
@@ -119,7 +130,7 @@ export const BIG_O: Chapter = {
     'Pot-limit. Until the Hi-Lo round, a player who goes broke can buy back in.',
     'In the last round, broke means out. Be the last one at the table.',
   ],
-  rivals: [
+  rivals: painted([
     rival(
       {
         id: 'kerryann',
@@ -180,10 +191,10 @@ export const BIG_O: Chapter = {
       'right',
       '#2a3a2a',
     ),
-  ],
+  ]),
   nemesisId: 'gaz',
   narratorId: 'gaz',
-  scene: { music: music('big-o'), palette: { wall: '#121418', light: '#f2e6c8', felt: '#1f4a3a', rim: '#2a2a2a' } },
+  scene: { music: music('big-o'), background: art('background.webp'), tableFront: art('table-front.webp'), palette: { wall: '#121418', light: '#f2e6c8', felt: '#1f4a3a', rim: '#2a2a2a' } },
   playerPlate: { x: 800, y: 760 },
   keepsake: { name: 'Gaz Whitlock', line: 'The Big O, 2019. He had seen everything, except you.' },
   story: {

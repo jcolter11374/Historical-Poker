@@ -38,6 +38,7 @@ TABLE_ELLIPSE = {
     'desert-classic': (-0.005, 0.5, 1.0, 0.985),
     'cercle': (-0.005, 0.493, 1.005, 0.982),
     'boardwalk': (-0.012, 0.492, 1.02, 1.03),
+    'big-o': (-0.005, 0.497, 1.005, 1.03),
 }
 # Left, top, right, bottom of the box the table front stays inside, as shares of the picture.
 TABLE_CLIP = {

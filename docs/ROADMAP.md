@@ -2,7 +2,7 @@
 
 The full plan, every chapter, and the open questions are in [GAME_OUTLINE.md](GAME_OUTLINE.md). This page tracks what is built.
 
-## Status (2026-11-20)
+## Status (2026-11-21)
 
 **Every chapter is built and playable, with placeholder art.** All fourteen chapters (1 to 5, the Poque bonus, 6 to 12 and the epilogue) have their games, cast, lessons, story beats and endings, and every RSDP Live game is taught in the story. Part Two was built alongside Part One, at John's request, rather than as a later release. What's left is art, play-testing and polish.
 
@@ -23,7 +23,9 @@ Done:
 - [x] Chapter 4's own art: the tent, Toby, Reed and Hattie cut out from green, and the title painting (2026-11-20).
 - [x] Chapter 5: the saloon background and Doc (2026-11-20). Ruby, Jasper and the title painting are still placeholders; art paused here at John's request.
 - [x] Motion: cards dealt from the dealer and turned over, chips sliding to the pot and to the winner (2026-11-20).
-- [x] Sound effects made in code, with on/off switches; a music hook per chapter (2026-11-20).
+- [x] Sound effects made in code, with on/off switches (2026-11-20).
+- [x] Music: an original loop for every chapter, with Music on/off at the table and on the story screens ([MUSIC.md](MUSIC.md), 2026-11-21).
+- [x] Stronger teaching: the rules sheet in three pages (rules and betting, tips and easy mistakes, this chapter), and hints that name your hand, explain the pot odds and add a reminder for the game and round (2026-11-21).
 - [x] Phones and tablets: played sideways, with enlarged words and chips on small screens, a "turn sideways" card, and home-screen full screen (2026-11-20).
 - [x] Bots that read the betting, size you up over the evening (the sharp ones), and go on tilt (the hot-headed ones); a bot lab to measure them (2026-11-20).
 
@@ -33,7 +35,6 @@ To do:
 - [ ] Story choices made while building that John should confirm ([DECISIONS.md](DECISIONS.md), 2026-11-20 entries).
 - [ ] Outline features not built yet: difficulty levels, Free Play, the almanac, a "tell spotted" hint, Brag's blind betting, Poque's payout board, jackpots in five-card draw, choices in scenes (giving Toby his pay back).
 - [x] History notes checked against sources, in every chapter ([HISTORY_SOURCES.md](HISTORY_SOURCES.md)). The Atlantic City chapter moved to 1995, after Paris, because poker was illegal there until 1993.
-- [ ] Music files for the chapters ([ART.md](ART.md), "Music").
 - [ ] Play-test the bot tuning with real people; the numbers in GAME_DESIGN.md come from stand-in players.
 
 ## Chapter 1 status

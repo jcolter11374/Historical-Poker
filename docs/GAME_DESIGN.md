@@ -57,8 +57,12 @@ Set per stage in `extras`: a **bomb pot** every N hands (everyone puts in N unit
 
 ### Help at the table
 
-- **The rules object:** a corner link named for the era ("The tavern slate", "The help screen") opens the current game's rules card: the deal, the betting, what wins, plus how to win the chapter and a history note. Rules cards are in `src/games/catalog.ts`.
-- **Teacher hints:** "Ask for a hint" (on by default, can be turned off on the chapter select). The chapter's teacher suggests fold, call or raise in one line, with your chance of winning and the pot odds, from the same simulation the bots use.
+- **The rules object:** a corner link named for the era ("The tavern slate", "The help screen") opens the current game's rules sheet, in three short pages:
+  - *The rules:* how a hand goes; the betting in words (antes, blinds or bring-in; what fold, check, call and raise mean; what no limit, pot limit or limit allows); the hands, best first; and any house extras in play (bomb pots, two boards, the 7-2 bounty).
+  - *Playing it well:* three to five tips for someone who has just learned the game, and the easy mistakes new players make in it.
+  - *This chapter:* how to win it, and the history book.
+  Rules cards are in `src/games/catalog.ts`; tips, mistakes and the betting words in `src/games/guide.ts`.
+- **Teacher hints:** "Ask for a hint" (on by default, can be turned off on the chapter select). The game's teacher names your hand, says how big a share of the pot a hand like yours takes against this many players (the same simulation the bots use), and, when there is a bet to call, what the call costs and the share it needs to pay ("Calling costs $2 to win $6, so it pays if you take more than 25%"). Then fold, check, call, bet or raise. In a draw, they say which cards they'd keep. Under the line, in smaller gold italic, a reminder about this game and betting round (from `coach` in `guide.ts`); asking again on the same round gives the next one, so hints teach the game as you play.
 - **Your hand:** your best hand's name (and best low, in split games) shows under your cards.
 - **Showdown summary:** one line after each hand: who won, with what, and your hand if you lost. Split pots say who took the high and the low.
 - **Drawing:** in draw games, click cards to throw them (they lift), then "Draw N" or "Stand pat". The chip says what is not allowed (more than the limit).
@@ -67,8 +71,8 @@ Set per stage in `extras`: a **bomb pot** every N hands (everyone puts in N unit
 
 - **Motion:** cards fly in from whoever holds the buck, one at a time, and turn over when shown; antes and bets slide from the seat to the pot; the pot slides to the winner when the hand ends, and "wins $N" pops up. Lines of dialogue fade in. Anyone whose system asks for reduced motion gets none of this.
 - **Sound effects:** a swish per card dealt, a flip for board cards, a riffle when you draw, a clack of chips for a bet (a bigger one for all in), two knocks for a check, a soft swish for a fold, chips gathering for a pot, a flourish with a little bell when you take a good pot, a low two-note sigh when you lose a showdown, and a quiet bell when it's your turn. All made in code (`src/ui/sound.ts`), no recordings.
-- **Music:** each chapter (or stage) can name a looping music file; none are in the game yet ([ART.md](ART.md), "Music").
-- **Switches:** "Sound on/off" in the table's corner links; Sound and Music boxes on the chapter select. Saved with your progress.
+- **Music:** every chapter has its own original loop in the sound of its era (a steamboat waltz, a Tudor galliard, a speakeasy stomp, a Paris musette, a Macau night...), quiet under the table, fading between chapters ([MUSIC.md](MUSIC.md)).
+- **Switches:** "Sound on/off" and "Music on/off" in the table's corner links, "Music on/off" on the intro and ending, and Sound and Music boxes on the chapter select. Saved with your progress.
 
 ### Phones and tablets
 

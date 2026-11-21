@@ -9,7 +9,7 @@
  * chapter, and a chapter left part-way is saved after every hand, so
  * "Continue" sits you back down at the same table (src/progress/save.ts).
  */
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { CHAPTERS, chapterById, followingChapter, isUnlocked } from '../chapters';
 import type { Chapter } from '../chapters/types';
 import {
@@ -62,6 +62,13 @@ export function App() {
     if (screen.name !== 'table') playMusic(storyMusic);
   }, [screen.name, storyMusic]);
 
+  // "Music on" / "Music off": a plain text link on the story screens and the table.
+  const musicLink = (
+    <button type="button" className="text-link" onClick={() => setProgress((p) => setOption(p, 'music', !p.music))} aria-pressed={progress.music}>
+      {progress.music ? 'Music on' : 'Music off'}
+    </button>
+  );
+
   /** Sits down at a chapter: at the saved table if there is one (unless starting over), else a fresh one. */
   const sit = (chapter: Chapter, fresh = false) => {
     setProgress(record(progress, chapter.id, 'started'));
@@ -110,6 +117,7 @@ export function App() {
           saved={tables[screen.chapter.id] ?? null}
           onStart={(fresh) => sit(screen.chapter, fresh)}
           onBack={() => setScreen({ name: 'select' })}
+          musicLink={musicLink}
         />
       )}
       {screen.name === 'table' && (
@@ -118,6 +126,7 @@ export function App() {
           hints={progress.hints}
           sound={progress.sound}
           onSound={(on) => setProgress(setOption(progress, 'sound', on))}
+          musicLink={musicLink}
           onHandOver={() => keep(screen.session)}
           onFinished={() => finished(screen.session)}
           onLeave={() => {
@@ -133,6 +142,7 @@ export function App() {
           onAgain={() => sit(screen.chapter, true)}
           onNext={(c) => setScreen({ name: 'intro', chapter: c })}
           onCase={() => setScreen({ name: 'select' })}
+          musicLink={musicLink}
         />
       )}
     </Stage>
@@ -145,6 +155,7 @@ function IntroScreen({
   saved,
   onStart,
   onBack,
+  musicLink,
 }: {
   chapter: Chapter;
   jumping: boolean;
@@ -152,6 +163,7 @@ function IntroScreen({
   saved: KeptTable | null;
   onStart: (fresh: boolean) => void;
   onBack: () => void;
+  musicLink: ReactNode;
 }) {
   const first = CHAPTERS[0].chapter.id === chapter.id;
   return (
@@ -197,13 +209,14 @@ function IntroScreen({
           <button type="button" className="text-link" onClick={onBack}>
             All chapters
           </button>
+          {musicLink}
         </div>
       </div>
     </div>
   );
 }
 
-function EndScreen({ chapter, won, onAgain, onNext, onCase }: { chapter: Chapter; won: boolean; onAgain: () => void; onNext: (c: Chapter) => void; onCase: () => void }) {
+function EndScreen({ chapter, won, onAgain, onNext, onCase, musicLink }: { chapter: Chapter; won: boolean; onAgain: () => void; onNext: (c: Chapter) => void; onCase: () => void; musicLink: ReactNode }) {
   const next = won ? followingChapter(chapter.id) : null;
   const nemesis = chapter.rivals.find((r) => r.id === chapter.nemesisId)!;
   const last = chapter.id === CHAPTERS[CHAPTERS.length - 1].chapter.id;
@@ -252,6 +265,7 @@ function EndScreen({ chapter, won, onAgain, onNext, onCase }: { chapter: Chapter
               All chapters
             </button>
           )}
+          {musicLink}
         </div>
       </div>
     </div>

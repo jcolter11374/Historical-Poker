@@ -459,7 +459,11 @@ export function highDrawDiscards(cards: Card[], max: number): number[] {
   if (four) return cards.map((_, i) => i).filter((i) => !four.includes(i));
   const order = '23456789TJQKA';
   const top = cards.reduce((a, _, i) => (order.indexOf(cards[i][0]) > order.indexOf(cards[a][0]) ? i : a), 0);
-  const throwAll = cards.map((_, i) => i).filter((i) => i !== top);
+  // Throw the lowest first, so a three-card limit keeps the two highest.
+  const throwAll = cards
+    .map((_, i) => i)
+    .filter((i) => i !== top)
+    .sort((a, b) => order.indexOf(cards[a][0]) - order.indexOf(cards[b][0]));
   return throwAll.slice(0, cards[top][0] === 'A' ? Math.min(4, max) : Math.min(3, max));
 }
 

@@ -169,9 +169,10 @@ export interface ChapterScene {
   title?: string;
   palette: Palette;
   /**
-   * Music that loops while at this table: a path under public/music/, e.g.
-   * 'music/riverboat.mp3'. Must be free to use; list it in docs/CREDITS.md.
-   * Omit for no music. See src/ui/sound.ts.
+   * Music that loops while at this table: `music('<chapter-id>')` from
+   * cast.ts, a file in public/music/ listed in src/ui/music.json. The loops
+   * are written in tools/music/ (docs/MUSIC.md). A stage's scene without
+   * music keeps the chapter's. Omit for silence.
    */
   music?: string;
 }

@@ -3,7 +3,9 @@
  * changed into sounds (src/ui/sound.ts) and chips flying across the felt.
  *
  *   new cards          -> a card swish per card (a flip for board cards)
- *   a bet, call, raise -> chips slide from that seat to the pot, with a clack
+ *   a blind, bet, call -> chips slide from that seat onto the felt in front of
+ *                         it, with a clack (TableScreen draws them there)
+ *   the round ends     -> the chips in front of each seat slide into the pot
  *   a check            -> two knocks on the table
  *   a fold             -> a soft swish
  *   your draw          -> a riffle
@@ -61,6 +63,32 @@ export function potSpot(flop: boolean, compact = false): Point {
   return compact ? { x: 800, y: 668 } : { x: 800, y: 630 };
 }
 
+/**
+ * Where a rival's bets lie, beside its name plate (TableScreen draws them
+ * there, so they never cover its cards however many it holds): on the side
+ * towards the pot, and the seat across, right above the pot, on its left.
+ * On small screens the enlarged plates (and, in flop games, the pot moved
+ * between the left and middle seats) leave room only on the outer sides:
+ * the left seat's bets go on its left, the others' on their right.
+ */
+export type BetSide = 'left' | 'right';
+
+export function betSide(rival: Character, flop: boolean, compact = false): BetSide {
+  const x = rival.plate.x;
+  const across = Math.abs(x - 800) < 160;
+  if (compact) return x < 600 ? 'left' : 'right';
+  if (across) return 'left';
+  return x < potSpot(flop, compact).x ? 'right' : 'left';
+}
+
+/** Where a seat's bet chips fly to: roughly beside its plate (see betSide), or just left of your cards. */
+export function betSpot(rivals: Character[], seat: SeatIndex, flop: boolean, compact = false): Point {
+  if (seat === HUMAN) return compact ? { x: 560, y: 740 } : { x: 600, y: 730 };
+  const c = rivals[seat - 1];
+  const side = betSide(c, flop, compact);
+  return { x: c.plate.x + (side === 'right' ? 130 : -130), y: c.plate.y + 64 };
+}
+
 const FLIGHT_MS = 650;
 const HEAVY_MS = 950;
 let nextId = 1;
@@ -109,10 +137,14 @@ export function useTableFx(rivals: Character[], snap: Snapshot, compact: boolean
     const boardBefore = sameHand ? before!.hand!.boards.reduce((n, b) => n + b.length, 0) : 0;
     for (let i = 0; i < Math.min(boardNow - boardBefore, 5); i++) sounds.push(['flip', 120 + i * 90]);
 
-    // Betting.
+    // Betting. Chips go out in front of the seat, and into the pot when the round is over.
+    const bets = (k: number) => betSpot(rivals, k, flop, compact);
     if (!sameHand) {
-      // Antes and blinds go in as the hand starts.
-      for (const seat of Object.keys(h.players).map(Number)) add.push({ id: nextId++, from: seatSpot(rivals, seat), to: pot, delay: seat * 40, big: false });
+      // Antes go straight into the pot; blinds are posted in front of the seat.
+      for (const [k, p] of Object.entries(h.players)) {
+        const seat = Number(k);
+        add.push({ id: nextId++, from: seatSpot(rivals, seat), to: p.bet > 0 ? bets(seat) : pot, delay: seat * 40, big: false });
+      }
       sounds.push(['chip', 0]);
     } else {
       for (const [k, p] of Object.entries(h.players)) {
@@ -120,9 +152,12 @@ export function useTableFx(rivals: Character[], snap: Snapshot, compact: boolean
         const was = before!.hand!.players[seat];
         if (!was) continue;
         if (p.folded && !was.folded) sounds.push(['fold', 0]);
-        else if (p.bet > was.bet) {
-          add.push({ id: nextId++, from: seatSpot(rivals, seat), to: pot, delay: 0, big: p.lastAction === 'All in' });
+        if (p.bet > was.bet) {
+          add.push({ id: nextId++, from: seatSpot(rivals, seat), to: bets(seat), delay: 0, big: p.lastAction === 'All in' });
           sounds.push([p.lastAction === 'All in' ? 'chips' : 'chip', 0]);
+        } else if (p.bet < was.bet) {
+          // The round is over: sweep the bets into the middle.
+          add.push({ id: nextId++, from: bets(seat), to: pot, delay: 0, big: false });
         } else if (p.lastAction === 'Check' && was.lastAction !== 'Check') sounds.push(['check', 0]);
       }
     }

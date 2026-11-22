@@ -888,7 +888,7 @@ export class Session {
         this.boughtIn += seat.stack;
         this.scene.push(
           seat.character
-            ? { who: 'narration', text: `${seat.character.name} is broke, and buys back in for another ${this.money(seat.stack)}.` }
+            ? { who: 'narration', text: `${seat.character.name} is broke, and buys back in for another ${this.money(seat.stack)}.${this.chapter.practice ? '' : ' Until the last round, nobody is knocked out.'}` }
             : { who: this.chapter.rivals[this.teacherSeat() - 1]?.id ?? 'narration', text: `Out already? Here, take another ${this.money(seat.stack)}. Learning costs money, but not tonight.` },
         );
         continue;
@@ -987,6 +987,10 @@ export class Session {
       }
     }
     if (newStage && stage.opening) this.scene.push(...stage.opening);
+    // Buy-backs end with the last stage: say so at the table, unless the stage's own lines already do.
+    if (newStage && next > 1 && this.inFinalStage(next) && !(stage.opening ?? []).some((l) => /broke means out/i.test(l.text))) {
+      this.scene.push({ who: 'narration', text: 'The last round. From here, broke means out: nobody buys back in.' });
+    }
     const per = stage.handsPerGame ?? Number.MAX_SAFE_INTEGER;
     const play = stage.games[Math.floor((next - stage.fromHand) / per) % stage.games.length];
     this.play = play;

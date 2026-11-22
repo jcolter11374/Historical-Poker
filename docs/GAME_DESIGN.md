@@ -74,7 +74,7 @@ If a chapter sets `levelEvery`, the unit rises by half every that many hands (ro
 
 ### Buy-backs, and when broke means out
 
-Until the chapter's **last stage** begins, a player who runs out of money buys back in for a fresh starting stack, so everyone reaches every lesson. This includes the player. From the last stage on, broke means out: rivals leave with their bust line, and if you run out, the chapter is lost. Chapters with one stage are played for keeps from the first hand. Money bought in is tracked (`boughtIn`) so tests can check every chip is accounted for.
+Until the chapter's **last stage** begins, a player who runs out of money buys back in for a fresh starting stack, so everyone reaches every lesson. This includes the player. From the last stage on, broke means out: rivals leave with their bust line, and if you run out, the chapter is lost. Chapters with one stage are played for keeps from the first hand. The table says so as it happens (John asked whether a Big O buy-back was a bug, 2026-11-21): a buy-back's line ends "Until the last round, nobody is knocked out", and the last stage opens with "From here, broke means out" unless its own lines already say it. Money bought in is tracked (`boughtIn`) so tests can check every chip is accounted for.
 
 ### The stake, the cheat and the finale
 

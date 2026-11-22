@@ -89,8 +89,9 @@ button:disabled { opacity: 0.4; cursor: default; }
 
 /* Coins and amount side by side, so the pot is short enough to sit between the seat across and your cards. */
 .pot { position: absolute; transform: translate(-50%, -50%); display: flex; align-items: center; gap: 2px; }
-.bet { position: absolute; z-index: 2; transform: translate(-50%, -50%); pointer-events: none; }
-.bet-mine { left: auto; top: 18px; right: calc(100% + 14px); transform: none; }
+.bet { position: absolute; z-index: 2; top: 34px; pointer-events: none; }
+.bet-right { left: calc(100% + 12px); }
+.bet-left { right: calc(100% + 12px); }
 .bet-in { display: flex; flex-direction: column; align-items: center; animation: bet-in 0.25s ease-out 0.5s both; }
 @keyframes bet-in { from { opacity: 0; transform: scale(0.7); } }
 .bet svg { filter: drop-shadow(0 3px 3px rgba(0, 0, 0, 0.5)); }
@@ -505,7 +506,6 @@ button:disabled { opacity: 0.4; cursor: default; }
 /* Grows upward from just above the seat across, so a long split-pot line never covers the name plates. */
 .stage-compact .summary { scale: var(--boost); transform-origin: 0 100%; width: 640px; top: auto; bottom: 424px; }
 .stage-compact .pot-amount { scale: calc(var(--boost) * 0.8); }
-.stage-compact .bet { scale: calc(var(--boost) * 0.85); }
 /* The seat across is enlarged too, so its hand line needs the board a little lower. */
 .stage-compact .table-flop .boards { top: 640px; }
 .stage-compact .my-hand-low { scale: 0.74; }
@@ -579,3 +579,4 @@ button:disabled { opacity: 0.4; cursor: default; }
 
 /* The chapter select's second row of links: watch the opening or the ending again. */
 .select-links { display: flex; align-items: center; gap: 26px; margin-top: 10px; }
+.stage-compact .my-cards-wrap .bet { scale: 1.5; transform-origin: 100% 0; }

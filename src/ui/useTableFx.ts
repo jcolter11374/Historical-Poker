@@ -62,21 +62,29 @@ export function potSpot(flop: boolean, compact = false): Point {
 }
 
 /**
- * Where a seat's bets for this round sit, on the felt between it and the pot
- * (blinds are posted here before the deal). Seats beside the pot go a
- * fraction of the way towards it; the seat across, right above the pot, puts
- * them beside its cards, away from the pot. Yours sit just left of your cards (TableScreen
- * draws them there; this is only where the chips fly to).
+ * Where a rival's bets lie, beside its name plate (TableScreen draws them
+ * there, so they never cover its cards however many it holds): on the side
+ * towards the pot, and the seat across, right above the pot, on its left.
+ * On small screens the enlarged plates (and, in flop games, the pot moved
+ * between the left and middle seats) leave room only on the outer sides:
+ * the left seat's bets go on its left, the others' on their right.
  */
+export type BetSide = 'left' | 'right';
+
+export function betSide(rival: Character, flop: boolean, compact = false): BetSide {
+  const x = rival.plate.x;
+  const across = Math.abs(x - 800) < 160;
+  if (compact) return x < 600 ? 'left' : 'right';
+  if (across) return 'left';
+  return x < potSpot(flop, compact).x ? 'right' : 'left';
+}
+
+/** Where a seat's bet chips fly to: roughly beside its plate (see betSide), or just left of your cards. */
 export function betSpot(rivals: Character[], seat: SeatIndex, flop: boolean, compact = false): Point {
   if (seat === HUMAN) return compact ? { x: 560, y: 740 } : { x: 600, y: 730 };
-  const pot = potSpot(flop, compact);
-  const p = rivals[seat - 1].plate;
-  const from = { x: p.x, y: p.y + 70 };
-  // Across: beside its cards, on the side away from the pot (on small screens the pot moves left in flop games).
-  if (Math.abs(p.x - 800) < 160) return { x: p.x + (pot.x < p.x - 60 ? 130 : -130), y: p.y + 72 };
-  const f = compact ? (flop ? 0.22 : 0.36) : 0.4; // small screens: plates are enlarged, so stay nearer the seat
-  return { x: Math.round(from.x + (pot.x - from.x) * f), y: Math.round(from.y + (pot.y - from.y) * f) };
+  const c = rivals[seat - 1];
+  const side = betSide(c, flop, compact);
+  return { x: c.plate.x + (side === 'right' ? 130 : -130), y: c.plate.y + 64 };
 }
 
 const FLIGHT_MS = 650;

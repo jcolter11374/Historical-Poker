@@ -23,7 +23,7 @@ import { Rival, SceneBack, SceneFront } from './Scene';
 import { playMusic } from './sound';
 import { useCompact } from './Stage';
 import { potLimitWords } from '../table/stakes';
-import { PLAYER_SPOT, betSpot, potSpot, seatSpot, useTableFx, type Flight, type Point } from './useTableFx';
+import { PLAYER_SPOT, betSide, potSpot, seatSpot, type BetSide, useTableFx, type Flight, type Point } from './useTableFx';
 
 /** How long a rival "thinks" before acting, in ms. */
 const BOT_DELAY = 1100;
@@ -202,7 +202,7 @@ export function TableScreen({
       </nav>
 
       {rivals.map((c, i) => (
-        <SeatPlate key={c.id} character={c} seat={i + 1} snap={snap} money={money} small={flop} marker={marker} dealFrom={from({ x: c.plate.x, y: c.plate.y + 40 })} />
+        <SeatPlate key={c.id} character={c} seat={i + 1} snap={snap} money={money} small={flop} marker={marker} dealFrom={from({ x: c.plate.x, y: c.plate.y + 40 })} betSide={betSide(c, flop, compact)} />
       ))}
 
       {snap.hand && Object.entries(snap.tells).map(([seat, texts]) => <TellNote key={seat} character={rivals[Number(seat) - 1]} texts={texts} />)}
@@ -232,14 +232,6 @@ export function TableScreen({
           <div className="pot-amount">{money(hand.pot)}</div>
         </div>
       )}
-
-      {/* Each seat's bets this round (the blinds first), in front of them until the round ends. */}
-      {hand &&
-        !hand.complete &&
-        Object.entries(hand.players).map(([k, p]) =>
-          // Yours sit beside your cards (PlayerHand).
-          p.bet > 0 && Number(k) !== HUMAN ? <BetChips key={`${k}/${hand.street}`} at={betSpot(rivals, Number(k), flop, compact)} amount={money(p.bet)} label={p.posted} /> : null,
-        )}
 
       {hand?.complete && hand.summary && <div className="summary">{hand.summary}</div>}
 
@@ -359,6 +351,7 @@ function SeatPlate({
   small,
   marker,
   dealFrom,
+  betSide,
 }: {
   character: Character;
   seat: SeatIndex;
@@ -367,6 +360,8 @@ function SeatPlate({
   small: boolean;
   marker: DealerMarker;
   dealFrom: CSSProperties;
+  /** Which side of the plate this seat's bets lie on (useTableFx.ts, betSide). */
+  betSide: BetSide;
 }) {
   const s = snap.seats[seat];
   const p = snap.hand?.players[seat];
@@ -419,6 +414,8 @@ function SeatPlate({
         </div>
       )}
       {winText && !winInLine && <div className="plate-win pop-in">{winText}</div>}
+      {/* This round's bet (a blind first), lying on the felt beside the seat's cards until the round ends. */}
+      {p && p.bet > 0 && !snap.hand?.complete && <BetChips side={betSide} amount={money(p.bet)} label={p.posted} />}
     </div>
   );
 }
@@ -438,9 +435,9 @@ function ChipFlight({ flight }: { flight: Flight }) {
 }
 
 /** A seat's bet this round, lying on the felt in front of it; for a blind, what it is. */
-function BetChips({ at, amount, label }: { at?: Point; amount: string; label: string | null }) {
+function BetChips({ side = 'left', amount, label }: { side?: BetSide; amount: string; label: string | null }) {
   return (
-    <div className={`bet${at ? '' : ' bet-mine'}`} style={at ? { left: at.x, top: at.y } : undefined}>
+    <div className={`bet bet-${side}`}>
       {/* Re-mounts when the amount changes, so it lands after the chips fly in. */}
       <div key={amount} className="bet-in">
         <svg width="44" height="30" viewBox="0 0 44 30" aria-hidden="true">

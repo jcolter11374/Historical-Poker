@@ -152,6 +152,8 @@ export interface PlayerView {
   folded: boolean;
   /** Chips bet this round. */
   bet: number;
+  /** While the chips in front of them are only a blind they were made to post: 'small blind', 'big blind', 'blind ante'. */
+  posted: string | null;
   lastAction: string | null;
   /** Every card they hold, in order; null where it is face down to you. */
   cards: (Card | null)[];
@@ -886,7 +888,7 @@ export class Session {
         this.boughtIn += seat.stack;
         this.scene.push(
           seat.character
-            ? { who: 'narration', text: `${seat.character.name} is broke, and buys back in for another ${this.money(seat.stack)}.` }
+            ? { who: 'narration', text: `${seat.character.name} is broke, and buys back in for another ${this.money(seat.stack)}.${this.chapter.practice ? '' : ' Until the last round, nobody is knocked out.'}` }
             : { who: this.chapter.rivals[this.teacherSeat() - 1]?.id ?? 'narration', text: `Out already? Here, take another ${this.money(seat.stack)}. Learning costs money, but not tonight.` },
         );
         continue;
@@ -985,6 +987,10 @@ export class Session {
       }
     }
     if (newStage && stage.opening) this.scene.push(...stage.opening);
+    // Buy-backs end with the last stage: say so at the table, unless the stage's own lines already do.
+    if (newStage && next > 1 && this.inFinalStage(next) && !(stage.opening ?? []).some((l) => /broke means out/i.test(l.text))) {
+      this.scene.push({ who: 'narration', text: 'The last round. From here, broke means out: nobody buys back in.' });
+    }
     const per = stage.handsPerGame ?? Number.MAX_SAFE_INTEGER;
     const play = stage.games[Math.floor((next - stage.fromHand) / per) % stage.games.length];
     this.play = play;
@@ -1124,6 +1130,7 @@ export class Session {
       players[x.seat] = {
         folded: x.folded,
         bet: x.bet,
+        posted: x.bet > 0 && x.lastAction === null && s.street === 0 ? this.postedName(s, x.seat) : null,
         // A bring-in of nothing (stud with no bring-in) is a check.
         lastAction: x.lastAction === 'Bring-in' && s.input.stakes.bringIn === 0 ? 'Check' : x.lastAction,
         cards,
@@ -1151,6 +1158,15 @@ export class Session {
       legal: s.phase === 'betting' && myTurn ? this.legalFor(HUMAN) : null,
       draw: s.phase === 'drawing' && myTurn ? this.drawView(s, myCards.length) : null,
     };
+  }
+
+  /** The live forced bet a seat posted this hand, in words (the bet still in front of them). */
+  private postedName(s: HandState, seat: SeatIndex): string | null {
+    const post = s.events.find((e) => e.t === 'post' && e.seat === seat && e.live);
+    if (!post || post.t !== 'post') return null;
+    if (post.kind === 'small-blind') return 'small blind';
+    if (post.kind === 'big-blind') return this.handGame.forced === 'age' ? 'blind ante' : 'big blind';
+    return null;
   }
 
   private drawView(s: HandState, held: number): NonNullable<HandView['draw']> {

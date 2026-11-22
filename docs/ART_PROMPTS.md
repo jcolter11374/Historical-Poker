@@ -56,7 +56,7 @@ Copy-ready image prompts for every picture the game needs: each chapter's backgr
 | Sir Roland | 2 | two | four | Done: new picture came with three; a fourth added by hand (`roland-fix.py`) |
 | Brother Anselm | 2 | three | four | Done by hand: a fourth card added (`anselm-cards-fix.py`) |
 | Toby Finch | 4 | about six, fanned | one hole card | Done: new picture (a second card behind was taken out by a Gemini edit; lantern painted out by `toby-lantern-fix.py`; cropped at the waist so his head matches the old size) |
-| Sergeant Reed | 4 | four, fanned | one hole card | To do: new picture (the cards lie over his coat, too much to repaint) |
+| Sergeant Reed | 4 | four, fanned | one hole card | Done, pending John's OK: new picture (the same man and pose, peeking under one card's corner; lantern on his hat painted out by `reed-lantern-fix.py`) |
 | Hattie Bloom | 4 | four, fanned | one hole card | Done by hand: three back cards painted out (`hattie-fix.py`) |
 | Doc Whitcomb | 5 | four | five | Done by hand: a fifth card added (`doc-cards-fix.py`) |
 | Ruby Calloway | 5 | about nine | five | Done: a second try still had nine, but over clean green, so the four back cards were painted out by hand (`ruby-fix.py`) |

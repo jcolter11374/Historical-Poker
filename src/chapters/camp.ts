@@ -120,7 +120,7 @@ export const CAMP: Chapter = {
         'across',
         '#283548',
       ),
-      art: cutout(art('reed.webp'), 0.9189, { x: 800, bottom: 520, height: 470 }),
+      art: cutout(art('reed.webp'), 0.9633, { x: 800, bottom: 520, height: 470 }),
     },
     {
       ...rival(

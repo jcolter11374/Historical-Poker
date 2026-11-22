@@ -86,6 +86,8 @@ export const GAMING_HOUSE: Chapter = {
             fold: ['Not this time.', 'Too rich for an American.'],
             check: ['I’ll wait.'],
             win: ['Ah! Luck returns.', 'Merci, merci.'],
+            beatYou: ['Ah! Forgive me, mademoiselle.', 'Luck returns, but to the wrong man.'],
+            lostToYou: ['Bravo! Bravo, mademoiselle.', 'Well played. Now take it from her, too.'],
             bust: 'Well. That is everything, truly. Good night, mesdames, messieurs.',
           }),
         },
@@ -109,6 +111,8 @@ export const GAMING_HOUSE: Chapter = {
             fold: ['Non.', 'Take it, child.'],
             check: ['Passe.'],
             win: ['The house thanks you.', 'Patience, chérie. Always patience.'],
+            beatYou: ['Patience, chérie. Always patience.', 'I taught you that one, you know.'],
+            lostToYou: ['Ah! My own niece.', 'Bravo, chérie. I am almost proud.'],
             bust: 'My own niece. I taught you too well. Bravo, chérie.',
           }),
         },
@@ -132,6 +136,8 @@ export const GAMING_HOUSE: Chapter = {
             fold: ['Bah!', 'A storm. I run for port.'],
             check: ['I wait, for once.'],
             win: ['A prize! Another prize!', 'Ha ha!'],
+            beatYou: ['A prize! Another prize!', 'Ha! The sea gives, mademoiselle!'],
+            lostToYou: ['Boarded and taken! Ha!', 'Sacrebleu. You fight like a corsair.'],
             bust: 'Out of silver! To sea again, then. There is always another Spanish ship.',
           }),
         },
@@ -153,6 +159,21 @@ export const GAMING_HOUSE: Chapter = {
   playerPlate: { x: 800, y: 760 },
   keepsake: { name: 'Madame Élodie Fontaine', line: 'The Gaming House, 1817. She read everyone but her niece.' },
   story: {
+    // What tonight means to you, said at the table as it happens (docs/CHAPTERS.md, "Why you care").
+    heart: {
+      stakes: [
+        say('henri', 'It was my father’s, mademoiselle. He won it in the snow. I was meant to give it to my son.'),
+        say('narration', 'He looks at the deck the way people look at the river when someone they love is on a boat. You decide that it is going back to him.'),
+      ],
+      losing: [
+        say('elodie', 'You see, chérie? This is why the house always wins.'),
+        say('henri', 'Courage, mademoiselle. Courage.'),
+      ],
+      turning: [
+        say('elodie', 'Oh-ho. The kitten has claws.'),
+        say('narration', 'Across the table, Henri Avery has begun, very carefully, to smile.'),
+      ],
+    },
     stake: {
       afterPlayerWins: 1,
       orAfterHands: 3,

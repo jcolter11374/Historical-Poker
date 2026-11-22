@@ -13,7 +13,7 @@
 import { useEffect, useMemo, useState, type CSSProperties, type ReactNode } from 'react';
 import type { Action, LegalActions, SeatIndex } from '@rsdp/engine/core';
 import type { Character, DealerMarker } from '../chapters/types';
-import { HUMAN, type SceneView, type Session, type Snapshot } from '../table/session';
+import { BIG_POT, HUMAN, type SceneView, type Session, type Snapshot } from '../table/session';
 import { Card, type CardSize } from './Card';
 import { dealQuestion, outsQuestion, type MathQuestion } from '../math';
 import { MathStrip } from './MathStrip';
@@ -25,8 +25,9 @@ import { useCompact } from './Stage';
 import { potLimitWords } from '../table/stakes';
 import { PLAYER_SPOT, betSide, potSpot, seatSpot, type BetSide, useTableFx, type Flight, type Point } from './useTableFx';
 
-/** How long a rival "thinks" before acting, in ms. */
-const BOT_DELAY = 1100;
+/** How long a rival "thinks" before acting, in ms: quick over a small pot, slower once the pot is big. */
+const BOT_DELAY = 750;
+const BOT_DELAY_BIG = 1300;
 
 export function TableScreen({
   session,
@@ -101,10 +102,11 @@ export function TableScreen({
   const toAct = session.toAct;
   useEffect(() => {
     if (toAct === null || toAct === HUMAN) return;
+    const big = (session.snapshot().hand?.pot ?? 0) >= chapter.startingStack * BIG_POT;
     const t = window.setTimeout(() => {
       session.botStep();
       refresh();
-    }, BOT_DELAY);
+    }, big ? BOT_DELAY_BIG : BOT_DELAY);
     return () => window.clearTimeout(t);
   }, [toAct, snap.hand?.pot, snap.hand?.street, snap.hand?.phase, snap.scene, session]);
 
@@ -160,11 +162,29 @@ export function TableScreen({
     if (betweenHands && !snap.outcome) onHandOver?.();
   }, [betweenHands, snap.handNumber, snap.outcome, snap.scene?.text]);
 
+  // A story line has the floor: the table falls into shadow and the speaker leans into the light.
+  const sceneSeat = snap.scene?.seat ?? null;
+  const talkSeat = !snap.scene && !hint && !questions.length ? (snap.speech?.seat ?? null) : null;
+  // A big pot just landed: yours gets a warm flare, a rival's a shadow.
+  const big = hand?.complete && snap.bigPot ? (snap.bigPot.seat === HUMAN ? 'won' : (hand.players[HUMAN] && !hand.players[HUMAN].folded) || (session.lastHandNet[HUMAN] ?? 0) < 0 ? 'lost' : null) : null;
+
   return (
-    <div className={`table-screen${flop ? ' table-flop' : ''}`}>
+    <div className={`table-screen${flop ? ' table-flop' : ''}${snap.scene ? ' in-scene' : ''}`}>
       <SceneBack scene={scene} />
       {rivals.map((c, i) => (
-        <Rival key={c.id} character={c} left={snap.seats[i + 1].left} folded={!!hand?.players[i + 1]?.folded && !hand.complete} light={scene.palette.light} />
+        <Rival
+          key={c.id}
+          character={c}
+          left={snap.seats[i + 1].left}
+          folded={!!hand?.players[i + 1]?.folded && !hand.complete}
+          light={scene.palette.light}
+          life={{
+            index: i,
+            speaking: sceneSeat === i + 1 ? 'scene' : talkSeat === i + 1 ? 'talk' : null,
+            shadowed: !!snap.scene && sceneSeat !== i + 1,
+            mood: snap.mood[i + 1] ?? null,
+          }}
+        />
       ))}
       <SceneFront scene={scene} />
 
@@ -233,7 +253,8 @@ export function TableScreen({
         </div>
       )}
 
-      {hand?.complete && hand.summary && <div className="summary">{hand.summary}</div>}
+      {big && <div key={`flare-${snap.handNumber}`} className={`big-pot-${big}`} aria-hidden="true" />}
+      {hand?.complete && hand.summary && <div className={`summary${big ? ' summary-big' : ''}`}>{hand.summary}</div>}
 
       {/* The draw is easy to miss, so it is announced where the showdown line goes. */}
       {drawing && !snap.scene && (
@@ -261,7 +282,7 @@ export function TableScreen({
       ))}
 
       {line ? (
-        <div key={line.text} className={`dialogue${line.name ? '' : ' dialogue-narration'}${line === hint ? ' dialogue-hint' : ''}`} aria-live="polite">
+        <div key={line.text} className={`dialogue${line.name ? '' : ' dialogue-narration'}${line === hint ? ' dialogue-hint' : ' dialogue-story'}`} aria-live="polite">
           {line.name && <div className="speaker">{line.name}</div>}
           <p>{line.name ? `“${line.text}”` : line.text}</p>
           {line.aside && <p className="aside">{line.aside}</p>}
@@ -271,7 +292,7 @@ export function TableScreen({
       ) : (
         snap.speech &&
         speaker && (
-          <div key={snap.speech.text} className="dialogue" aria-live="polite">
+          <div key={snap.speech.text} className="dialogue dialogue-talk" aria-live="polite">
             <div className="speaker">{speaker.name}</div>
             <p>“{snap.speech.text}”</p>
           </div>
@@ -422,11 +443,11 @@ function SeatPlate({
 
 /** A little stack of chips sliding across the felt (a bet into the pot, or the pot to a winner). */
 function ChipFlight({ flight }: { flight: Flight }) {
-  const { from, to, delay, big } = flight;
+  const { from, to, delay, big, heavy } = flight;
   const style = { left: from.x, top: from.y, '--fx': `${to.x - from.x}px`, '--fy': `${to.y - from.y}px`, animationDelay: `${delay}ms` } as CSSProperties;
-  const n = big ? 5 : 3;
+  const n = heavy ? 8 : big ? 5 : 3;
   return (
-    <svg className="flight" style={style} width="60" height="50" viewBox="0 0 60 50" aria-hidden="true">
+    <svg className={`flight${heavy ? ' flight-heavy' : ''}`} style={style} width="60" height={heavy ? 70 : 50} viewBox={heavy ? '0 -20 60 70' : '0 0 60 50'} aria-hidden="true">
       {Array.from({ length: n }, (_, i) => (
         <ellipse key={i} cx={30 + (i % 2 ? 3 : -2)} cy={40 - i * 6} rx="20" ry="7" fill={i === n - 1 ? '#f4f1e6' : i % 2 ? '#e3b24c' : '#cfc9b8'} stroke="#5e5646" />
       ))}

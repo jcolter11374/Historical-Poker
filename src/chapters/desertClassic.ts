@@ -123,6 +123,8 @@ export const DESERT_CLASSIC: Chapter = {
           fold: ['Negative expectation. Fold.', 'I’ll pass on that.'],
           check: ['Check.'],
           win: ['As calculated.', 'Q.E.D.'],
+          beatYou: ['As calculated.', 'Q.E.D., Mr. Avery. Write it down.'],
+          lostToYou: ['Variance. Pure variance.', 'Hm. That was not in my numbers.'],
           bust: 'Variance, Mr. Avery. Write that down: variance. Good luck.',
         }),
       },
@@ -143,6 +145,8 @@ export const DESERT_CLASSIC: Chapter = {
           fold: ['Aw, shoot.', 'Yours, hoss.'],
           check: ['Check it.'],
           win: ['Yee-haw.', 'That’s Texas, son.'],
+          beatYou: ['Yee-haw! That’s Texas, son.', 'Don’t take it hard, partner.'],
+          lostToYou: ['Well, butter my biscuits.', 'You got me, partner. Fair and square.'],
           bust: 'Well, butter my biscuits. Beat by a kid from Chicago. Good game, partner.',
         }),
       },
@@ -163,6 +167,8 @@ export const DESERT_CLASSIC: Chapter = {
           fold: ['Fold.'],
           check: ['Check.'],
           win: ['Thank you, darling.', 'Mm-hm.'],
+          beatYou: ['Thank you, darling.', 'Mm-hm. Next time, sugar.'],
+          lostToYou: ['Well, well.', 'Darling, I didn’t even blink.'],
           bust: 'Well. I’ve had worse nights on stage. Break a leg, sugar.',
         }),
       },
@@ -182,6 +188,21 @@ export const DESERT_CLASSIC: Chapter = {
   playerPlate: { x: 800, y: 760 },
   keepsake: { name: '“Tex” Dawson Pruitt', line: 'The Desert Classic, 1972. All in, and all out.' },
   story: {
+    // What tonight means to you, said at the table as it happens (docs/CHAPTERS.md, "Why you care").
+    heart: {
+      stakes: [
+        say('narration', 'Every dollar you have saved is in this trip. Your mother gave you the deck at the bus station in Chicago. “Bring both back,” she said.'),
+        say('tex', 'Hope that deck’s lucky, partner. You’ll want it.'),
+      ],
+      losing: [
+        say('tex', 'Don’t fret, partner. Vegas takes everybody’s money sooner or later.'),
+        say('weiss', 'Mr. Avery. Patience is a strategy.'),
+      ],
+      turning: [
+        say('tex', 'Well, I’ll be. The kid from Chicago can play.'),
+        say('narration', 'Tex Pruitt tips his hat back, and for once it isn’t a bluff.'),
+      ],
+    },
     moments: [
       {
         beforeHand: 3,

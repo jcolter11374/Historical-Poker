@@ -89,6 +89,8 @@ export const PAINTED_DECK: Chapter = {
             fold: ['Bah. Take it.', 'A tactical retreat.'],
             check: ['I’ll hold, for now.'],
             win: ['Ha! Did I not say so?', 'Fortune is a lady, and she loves me.'],
+            beatYou: ['Ha! A Crane teaches the painter’s girl!', 'Fortune knows a gentleman, Mistress Avery.'],
+            lostToYou: ['That was luck. Pure luck!', 'Aunt! She has bewitched the cards!'],
             bust: 'Out of silver, the horse gone, and my deck in a painter’s girl’s lap. A Crane does not forget this, Mistress Avery.',
             draw: ['Two fresh ones, and quickly!', 'Give me one. A good one.'],
             pat: ['I keep them all. Tremble.'],
@@ -114,6 +116,8 @@ export const PAINTED_DECK: Chapter = {
             fold: ['No.', 'Not this one.'],
             check: ['I pass.'],
             win: ['As expected.', 'My hall, my fortune.'],
+            beatYou: ['The deck stays in my hall, child.', 'You wager like your father paints: too much gold.'],
+            lostToYou: ['Interesting. Very interesting.', 'Again, then. I was not watching.'],
             bust: 'Enough. I am beaten fairly, and I pay my debts. Eventually.',
             draw: ['One card.', 'Two, if you please.'],
             pat: ['I am content.'],
@@ -139,6 +143,8 @@ export const PAINTED_DECK: Chapter = {
             fold: ['Not with these.', 'Lord, forgive my poor cards.'],
             check: ['I pass, gladly.'],
             win: ['Deo gratias.', 'Arithmetic, my lady. Only arithmetic.'],
+            beatYou: ['Forgive me, child. Only arithmetic.', 'The Lord gives, and the steward takes. Forgive me.'],
+            lostToYou: ['Deo gratias. For you, I mean.', 'Well played, child. Your father will be proud.'],
             bust: 'I have lost an abbey once already. A few shillings, I can bear.',
             draw: ['Two, by your leave.', 'One, I think.'],
             pat: ['These will serve.'],
@@ -162,6 +168,21 @@ export const PAINTED_DECK: Chapter = {
   playerPlate: { x: 800, y: 760 },
   keepsake: { name: 'Lady Margery Ashcombe', line: 'The Painted Deck, 1543. She paid, and named it.' },
   story: {
+    // What tonight means to you, said at the table as it happens (docs/CHAPTERS.md, "Why you care").
+    heart: {
+      stakes: [
+        say('anselm', 'Your father has not touched his supper, child. He sits by the door and watches your hands.'),
+        say('narration', 'A year of his work is in that deck. If it is never paid for, there is no money for the winter, and no great house in Kent will hire a painter who was cheated and could do nothing.'),
+      ],
+      losing: [
+        say('narration', 'You do not look toward the door. You can feel your father not looking at you, either.'),
+        say('anselm', 'Breathe, child. The cards do not know who is losing.'),
+      ],
+      turning: [
+        say('margery', 'Hm. The painter’s girl bites.'),
+        say('narration', 'By the door, your father has stood up to see better.'),
+      ],
+    },
     stake: {
       afterPlayerWins: 2,
       orAfterHands: 5,

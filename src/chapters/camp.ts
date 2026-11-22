@@ -90,6 +90,8 @@ export const CAMP: Chapter = {
             fold: ['Aw. Fold.', 'I guess not.'],
             check: ['Check, Sergeant?'],
             win: ['I won? I won!', 'Wait till I write my ma.'],
+            beatYou: ['I won? Against the Corporal?', 'Wait till I write my ma about this!'],
+            lostToYou: ['Aw. That was half of Ma’s money.', 'Good hand, Corporal. Real good.'],
             bust: 'That was my whole month. Ma was going to get half of it.',
           }),
         },
@@ -114,6 +116,8 @@ export const CAMP: Chapter = {
             fold: ['No.', 'Fold.'],
             check: ['Check.'],
             win: ['Hm.', 'That’s how it’s done, boys.'],
+            beatYou: ['That’s how it’s done, Corporal.', 'Learn from it, son.'],
+            lostToYou: ['Well played. Don’t let it go to your head.', 'Hm. Your pa’s boy, all right.'],
             bust: 'Beaten fair. Keep your deck, Corporal. You’ll need luck tomorrow more than I will.',
           }),
         },
@@ -138,6 +142,8 @@ export const CAMP: Chapter = {
             fold: ['Too rich.', 'I sell shovels, not miracles.'],
             check: ['Check.'],
             win: ['Pleasure doing business.', 'That’s tobacco money for a month.'],
+            beatYou: ['Pleasure doing business, Sam.', 'Sorry, honey. Business is business.'],
+            lostToYou: ['Well, there goes my tobacco money.', 'Oh, you rascal.'],
             bust: 'Well, I’m cleaned out. Good thing I sell the cards, too.',
           }),
         },
@@ -159,6 +165,21 @@ export const CAMP: Chapter = {
   playerPlate: { x: 800, y: 760 },
   keepsake: { name: 'Sergeant Amos Reed', line: 'The Camp, 1863. When he bet, you believed him.' },
   story: {
+    // What tonight means to you, said at the table as it happens (docs/CHAPTERS.md, "Why you care").
+    heart: {
+      stakes: [
+        say('narration', 'Your pa put the deck in your hands the day you enlisted. “Bring it home,” he said. He did not mean the cards.'),
+        say('hattie', 'Then don’t you lose it to the Sergeant over a pair of fours, Sam.'),
+      ],
+      losing: [
+        say('toby', 'Corporal? You’re not going to lose your pa’s deck, are you?'),
+        say('reed', 'Leave him be, Finch.'),
+      ],
+      turning: [
+        say('narration', 'Sergeant Reed stops chewing, and looks at you a long while. “Your pa teach you that?” You nod.'),
+        say('reed', 'Hm. He taught you right.'),
+      ],
+    },
     stake: {
       afterPlayerWins: 2,
       orAfterHands: 6,

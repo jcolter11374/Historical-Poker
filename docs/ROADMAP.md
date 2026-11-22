@@ -39,6 +39,8 @@ Done:
 - [x] The rivals think with RSDP Live's practice bot and the hints come from RSDP Live's coach, copied in like the engine; each character is one of RSDP's levels (mostly Easy and Normal, two Hard bosses) with their own style on top ([BOTS.md](BOTS.md), 2026-11-21).
 - [x] Math Mode, first version (2026-11-21): a switch, off by default, that asks young players sums from the hand being played: counting outs as a fraction of the unseen cards, and "is this call a good deal?" (pot odds). Stars for right answers (GAME_DESIGN.md, "Math Mode").
 
+- [x] **Why you care** (2026-11-22, after John found the game "flat"): each chapter says at the table what this Avery stands to lose, and answers when you fall behind and when you hurt the main rival; rivals react to big pots won and lost; they chatter less; story lines get a spotlight; big pots flare; the paintings breathe, lean in and flinch. No new art ([GAME_DESIGN.md](GAME_DESIGN.md), "Why you care"; lines in [CHAPTERS.md](CHAPTERS.md)).
+
 To do:
 - [ ] **Math Mode, next ideas** (not agreed in detail yet): a chance meter (your chance as a fraction, a percent and a pie, guess first); chip math (making change, splitting a pot, odd chips as remainders); easy, medium and hard levels (for example the fraction shown for you on easy, typed answers on hard); outs in draw games and low games; a separate "Math Table" on the chapter list; play-testing with children for wording and reading level.
 - [x] Chapter 10, The Boom: both rooms, the three avatars, all three rivals in person and the title painting (2026-11-21). Chapter 10 is fully painted.

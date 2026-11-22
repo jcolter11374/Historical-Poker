@@ -126,6 +126,8 @@ export const BACK_ROOM: Chapter = {
           fold: ['Bad odds. Fold.', 'Not on my books.'],
           check: ['Check.'],
           win: ['Arithmetic.', 'Into the ledger.'],
+          beatYou: ['Arithmetic.', 'Into the ledger, Miss Avery.'],
+          lostToYou: ['That’s going to be hard to explain to my boss.', 'The numbers said otherwise. The numbers were wrong.'],
           bust: 'I’m out. My boss is going to ask about this.',
         }),
       },
@@ -146,6 +148,8 @@ export const BACK_ROOM: Chapter = {
           fold: ['Take it.', 'Not my hand.'],
           check: ['Check.'],
           win: ['The house thanks you.', 'Drinks are on you, then.'],
+          beatYou: ['Drinks are on you, kid.', 'My room, my pot.'],
+          lostToYou: ['Huh. Nobody does that in my room.', 'All right, Avery. I see you.'],
           bust: 'Well, well. Cleaned out in my own room. You’re all right, Avery.',
         }),
       },
@@ -166,6 +170,8 @@ export const BACK_ROOM: Chapter = {
           fold: ['Nej. Fold.', 'Too much for Gus.'],
           check: ['Check, ja.'],
           win: ['Ha! Lucky Gus!', 'Tack, tack!'],
+          beatYou: ['Ha! Lucky Gus!', 'Tack, tack! Sorry, Edith!'],
+          lostToYou: ['Ha! You got me good!', 'Gus is beaten! Ha! Good hand!'],
           bust: 'Gus is broke! Ha! Good game, everybody. Good game.',
         }),
       },
@@ -185,6 +191,21 @@ export const BACK_ROOM: Chapter = {
   playerPlate: { x: 800, y: 760 },
   keepsake: { name: 'Nora Shea', line: 'The Back Room, 1926. Stud for winners, after all.' },
   story: {
+    // What tonight means to you, said at the table as it happens (docs/CHAPTERS.md, "Why you care").
+    heart: {
+      stakes: [
+        say('narration', 'Your mother pencilled “Still ours” in the lid the night she kept it, in Deadwood. You check the line is there every night before you play.'),
+        say('nora', 'That the lucky deck, Avery? Let’s find out how lucky.'),
+      ],
+      losing: [
+        say('nora', 'Easy, kid. Nobody leaves my room broke unless they want to.'),
+        say('narration', 'Your mother won that deck at a table full of gold miners. You are not going to lose it behind a flower shop.'),
+      ],
+      turning: [
+        say('gus', 'Ha! Look at Nora’s face!'),
+        say('nora', 'Well, well. The stenographer can play.'),
+      ],
+    },
     moments: [
       {
         beforeHand: 4,

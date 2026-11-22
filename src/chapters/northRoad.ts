@@ -87,6 +87,8 @@ export const NORTH_ROAD: Chapter = {
             fold: ['Not worth my bread.', 'I’m out.'],
             check: ['I’ll wait.'],
             win: ['House always wins, love.', 'That’ll pay for the firewood.'],
+            beatYou: ['Sorry, love. House always wins.', 'That’s the firewood paid for. Chin up.'],
+            lostToYou: ['Well! You’ve a good head, Will Avery.', 'There goes the firewood.'],
             bust: 'Well. That’s the takings gone. Back to the kitchen with me.',
           }),
         },
@@ -111,6 +113,8 @@ export const NORTH_ROAD: Chapter = {
             fold: ['Strike the colours. Fold.', 'Not worth the powder.'],
             check: ['Steady as she goes.'],
             win: ['Ha! Into the hold with it!', 'Fair winds and full pockets.'],
+            beatYou: ['Ha! Into the hold with it!', 'Strike your colours, lad!'],
+            lostToYou: ['Blast and barnacles!', 'Holed below the waterline. Again!'],
             bust: 'Sunk. Holed below the waterline. I’ll pay my debts, lad; a captain’s word is good.',
           }),
         },
@@ -134,6 +138,8 @@ export const NORTH_ROAD: Chapter = {
             fold: ['Another time.', 'Your hand, sir.'],
             check: ['After you, I insist.'],
             win: ['Too kind.', 'Most generous.'],
+            beatYou: ['You must let me buy you a drink. With your own money.', 'Most generous. Truly.'],
+            lostToYou: ['Robbed, and by the guard. How novel.', 'I believe I have just been held up.'],
             bust: 'Robbed! And by a coach guard, of all people. There’s a joke in that somewhere.',
           }),
         },
@@ -155,6 +161,21 @@ export const NORTH_ROAD: Chapter = {
   playerPlate: { x: 800, y: 760 },
   keepsake: { name: 'Captain Josiah Pike', line: 'The North Road, 1763. He bragged; you called.' },
   story: {
+    // What tonight means to you, said at the table as it happens (docs/CHAPTERS.md, "Why you care").
+    heart: {
+      stakes: [
+        say('hannah', 'That deck in your coat, love. Your father’s?'),
+        say('narration', 'His, and his father’s, back two hundred years to a painter’s daughter. Lose it at an inn table and you must ride home and tell your mother the Averys kept it two hundred years, and you kept it one winter.'),
+      ],
+      losing: [
+        say('pike', 'Ha! The sea wants that deck, lad. Let it go!'),
+        say('hannah', 'Don’t you listen, love. Hands on the table, head on your cards.'),
+      ],
+      turning: [
+        say('pike', 'Belay that! The lad can play.'),
+        say('narration', 'For the first time tonight, the captain counts his shillings before he bets them.'),
+      ],
+    },
     stake: {
       afterPlayerWins: 2,
       orAfterHands: 5,

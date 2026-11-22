@@ -43,9 +43,9 @@ const session = (c: Chapter, seed: number) => {
   return new Session(c, { seed, dealRng: (n) => deal.int(n), skipTutorial: true, simTrials: 8 });
 };
 
-/** What the player sees between hands, minus the last hand's cards and talk. */
+/** What the player sees between hands, minus the last hand's cards, talk and reactions. */
 const table = (s: Session) => {
-  const { hand: _hand, speech: _speech, tells: _tells, ...rest } = s.snapshot();
+  const { hand: _hand, speech: _speech, tells: _tells, mood: _mood, bigPot: _bigPot, ...rest } = s.snapshot();
   return rest;
 };
 

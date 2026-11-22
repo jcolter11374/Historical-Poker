@@ -119,6 +119,8 @@ export const LAST_TABLE: Chapter = {
           fold: ['Fold.', 'Not this one.'],
           check: ['Check.'],
           win: ['Thank you.', 'Mm.'],
+          beatYou: ['Thank you.', 'Patience, young Avery.'],
+          lostToYou: ['Mm. Very good.', 'Well played. I have seen that only twice.'],
           bust: 'Very well played. I will watch the rest with great interest.',
           draw: ['One, please.', 'Two.'],
           pat: ['Pat.'],
@@ -141,6 +143,8 @@ export const LAST_TABLE: Chapter = {
           fold: ['Yours.', 'Fold. Don’t look so pleased.'],
           check: ['Check.'],
           win: ['Thank you.', 'Silas would have cheated for that one. I didn’t need to.'],
+          beatYou: ['Silas would have cheated for that one. I didn’t need to.', 'Sorry. Not very sorry.'],
+          lostToYou: ['Oh, that’s not fair. That was lovely.', 'All right, Avery. All right.'],
           bust: 'That’s it, then. Keep it. It was always yours.',
           draw: ['One.', 'Two cards.'],
           pat: ['Pat.'],
@@ -163,6 +167,8 @@ export const LAST_TABLE: Chapter = {
           fold: ['Yours.', 'Fold.'],
           check: ['Check.'],
           win: ['Thank you.', 'Five hundred years, and the Cranes are due.'],
+          beatYou: ['Five hundred years, and the Cranes are due.', 'The deck remembers us.'],
+          lostToYou: ['Hm. Luck.', 'The Avery luck. Nothing more.'],
           bust: `That’s me, then. Nearly five hundred years, and I am out before the end. Elena: it is yours to finish.`,
           draw: ['One.', 'Two cards.'],
           pat: ['Pat.'],
@@ -178,6 +184,23 @@ export const LAST_TABLE: Chapter = {
   playerPlate: { x: 800, y: 760 },
   keepsake: { name: `Elena Crane`, line: 'The Last Table, today. Every game, the end of the feud, and dinner.' },
   story: {
+    // What tonight means to you, said at the table as it happens (docs/CHAPTERS.md, "Why you care").
+    heart: {
+      stakes: [
+        say('narration', 'Every Avery you have read about is in that case: Nan, Will, Henri, Kit, Sam, Clara, Edith, Lou, Ray, Anna, Jamie, Sophie. Lose tonight, and after nearly five hundred years the deck goes to the Cranes, and yours is the name they remember for it.'),
+        say('victor', 'Shall we begin, then?'),
+      ],
+      losing: [
+        say('victor', 'You see, Elena? The deck knows which family it belongs to.'),
+        say('crane', 'Father. Please.'),
+        say('narration', 'She doesn’t look at him. She looks at you, almost as if she is sorry.'),
+      ],
+      turning: [
+        say('crane', 'Oh, that was good. That was really good.'),
+        say('victor', 'Elena.'),
+        say('crane', 'What? It was.'),
+      ],
+    },
     moments: [
       {
         beforeHand: 2,
@@ -189,7 +212,9 @@ export const LAST_TABLE: Chapter = {
         ],
       },
       {
-        beforeHand: 4,
+        beforeHand: 3,
+        // Only once you really have folded to one of her bets.
+        afterYouFoldTo: 'crane',
         lines: [
           say('crane', 'You fold when I look at you. That is not in any of my family’s stories about yours.'),
           say('narration', `You tell her that she looks at you when she is bluffing. She goes a little pink, and looks at her cards instead. For about a hand.`),

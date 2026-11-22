@@ -69,6 +69,14 @@ export interface Lines {
   /** Draw games: said when they change cards, and when they keep them all. Optional; plain words are used otherwise. */
   draw?: string[];
   pat?: string[];
+  /**
+   * Reactions to you (docs/GAME_DESIGN.md, "Why you care"). Said when they
+   * take a big pot off you, and when you take a big pot off them. Optional:
+   * without them they just say a `win` line, or nothing. Not used at practice
+   * tables, since the lines lean on the story.
+   */
+  beatYou?: string[];
+  lostToYou?: string[];
 }
 
 export interface Character {
@@ -368,8 +376,26 @@ export interface Story {
   };
   /** Extra lines after a rival loses their last chips, by character id (after their usual bust line). */
   exits?: Record<string, SceneLine[]>;
-  /** Scenes before a given hand is dealt ("orders arrive"). */
-  moments?: { beforeHand: number; lines: SceneLine[] }[];
+  /**
+   * Scenes before a given hand is dealt ("orders arrive"). With
+   * `afterYouFoldTo`, the moment waits from that hand on until the player
+   * has folded to a bet or raise from that rival, so the line answers
+   * something that really happened ("You fold when I look at you").
+   */
+  moments?: { beforeHand: number; afterYouFoldTo?: string; lines: SceneLine[] }[];
+  /**
+   * What this chapter means to the Avery you play, brought to the table in
+   * short beats that answer how the evening is going (docs/GAME_DESIGN.md,
+   * "Why you care"). Each plays at most once a sitting.
+   */
+  heart?: {
+    /** Before the second hand: what you stand to lose tonight, in a line or two. */
+    stakes: SceneLine[];
+    /** The first time your purse falls below half of what you sat down with. */
+    losing: SceneLine[];
+    /** The first time you take a big pot off the main rival, or their purse falls below half of yours. */
+    turning: SceneLine[];
+  };
   /** What the narrator says as each hand is dealt. Defaults to plain words for the game. */
   dealer?: string[];
 }

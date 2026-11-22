@@ -95,6 +95,8 @@ export const BOARDWALK: Chapter = {
           fold: ['Fuhgeddaboudit.', 'Fold.'],
           check: ['Check.'],
           win: ['Ayyy!', 'That’s what I’m talkin’ about.'],
+          beatYou: ['Ayyy!', 'That’s what I’m talkin’ about!'],
+          lostToYou: ['Aw, you’re killin’ me.', 'Aw, come on!'],
           bust: 'I’m tapped. Hey, Margot, I’m good for a marker? No? Okay.',
         }),
       },
@@ -115,6 +117,8 @@ export const BOARDWALK: Chapter = {
           fold: ['Not this one.', 'I’ll sit this one out.'],
           check: ['Check.'],
           win: ['How kind.', 'Patience. It runs in the family.'],
+          beatYou: ['Patience. It runs in the family.', 'How kind, Mr. Avery.'],
+          lostToYou: ['Delphine warned me about you people.', 'Well. That one stung.'],
           bust: 'Well. Delphine wrote that the Averys were hard to beat. She was right.',
         }),
       },
@@ -135,6 +139,8 @@ export const BOARDWALK: Chapter = {
           fold: ['Not for me.', 'I fold, dear.'],
           check: ['Check, please.'],
           win: ['Oh, how nice.', 'Gold star for me.'],
+          beatYou: ['Gold star for me!', 'Oh, I’m sorry, dear. Not very sorry.'],
+          lostToYou: ['Oh, you rascal.', 'Well! See me after class.'],
           bust: 'That was my bus money! Never mind, I’ll call my son.',
         }),
       },
@@ -154,6 +160,21 @@ export const BOARDWALK: Chapter = {
   playerPlate: { x: 800, y: 760 },
   keepsake: { name: 'Margot Arceneaux', line: 'The Boardwalk, 1995. Delphine’s diary, and half a pot each.' },
   story: {
+    // What tonight means to you, said at the table as it happens (docs/CHAPTERS.md, "Why you care").
+    heart: {
+      stakes: [
+        say('narration', 'Anna kept her promise and brought it home from Paris. You have made one of your own: it will be there for Jamie, the day Jamie leaves for college.'),
+        say('margot', 'One night, Mr. Avery. That’s all I’m asking for.'),
+      ],
+      losing: [
+        say('margot', 'You’d get it back, you know. I keep my word, like she did.'),
+        say('narration', 'You believe her. You still don’t want to explain it to Jamie.'),
+      ],
+      turning: [
+        say('margot', 'Delphine wrote that the Averys were hard to beat. I thought she was being kind.'),
+        say('ruth', 'Gold star, Mr. Avery.'),
+      ],
+    },
     stake: {
       afterPlayerWins: 2,
       orAfterHands: 6,

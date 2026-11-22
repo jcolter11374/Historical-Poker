@@ -4,7 +4,9 @@
  * placeholder painted in code from the chapter's palette: a lamplit wall, a
  * felt table, and silhouettes in each character's colour. See docs/ART.md.
  */
+import type { CSSProperties } from 'react';
 import type { Character, ChapterScene } from '../chapters/types';
+import type { Mood } from '../table/session';
 
 /** Everything behind the characters: the background picture, or a painted wall and lamp glow. */
 export function SceneBack({ scene }: { scene: ChapterScene }) {
@@ -56,13 +58,31 @@ export function SceneFront({ scene }: { scene: ChapterScene }) {
 }
 
 /** A rival: their art, or a painted silhouette in their colour until the art exists. */
-export function Rival({ character, left, folded, light }: { character: Character; left: 'broke' | 'bowed' | null; folded: boolean; light: string }) {
+/**
+ * How a painting is alive at the table (styles.css, "Living portraits"):
+ * every rival breathes; the one speaking leans in; in a story scene the
+ * others fall back into shadow; a mood shows how the last pot landed.
+ */
+export interface RivalLife {
+  /** Which seat they are in, so they don't all breathe together. */
+  index: number;
+  speaking: 'scene' | 'talk' | null;
+  /** A story scene is playing and someone else has the floor. */
+  shadowed: boolean;
+  mood: Mood | null;
+}
+
+export function Rival({ character, left, folded, light, life }: { character: Character; left: 'broke' | 'bowed' | null; folded: boolean; light: string; life?: RivalLife }) {
   // A rival who went broke leaves; one who bowed out stays to watch, dimmed.
   if (left === 'broke') return null;
   const { place, src, kind, aspect, color } = character.art;
   const width = place.height * aspect;
-  const style = { left: place.x - width / 2, top: place.bottom - place.height, width, height: place.height };
-  const dim = folded || left === 'bowed' ? ' rival-folded' : '';
+  const style = { left: place.x - width / 2, top: place.bottom - place.height, width, height: place.height, '--breath-delay': `${-(life?.index ?? 0) * 1.7}s` } as CSSProperties;
+  const dim =
+    (folded || left === 'bowed' ? ' rival-folded' : '') +
+    (life?.speaking ? ` rival-speaking rival-speaking-${life.speaking}` : '') +
+    (life?.shadowed ? ' rival-shadowed' : '') +
+    (life?.mood ? ` rival-${life.mood}` : '');
   if (kind !== 'placeholder') return <img className={`rival rival-${kind}${dim}`} src={src} alt={character.fullName} style={style} />;
   const id = `sil-${character.id}`;
   return (

@@ -43,7 +43,38 @@ button:disabled { opacity: 0.4; cursor: default; }
   -webkit-mask-image: radial-gradient(ellipse 34% 62% at 50% 46%, #000 58%, transparent 100%);
   mask-image: radial-gradient(ellipse 34% 62% at 50% 46%, #000 58%, transparent 100%);
 }
-.rival-folded { filter: brightness(0.55) saturate(0.7); }
+.rival-folded { --rb: 0.55; --rs: 0.7; }
+
+/* Living portraits (Scene.tsx, RivalLife). The paintings never change, so
+   the life is in motion and light: everyone breathes, out of step; whoever
+   speaks leans forward into the lamp; in a story scene everyone else falls
+   back into shadow; a rival who just lost a big pot to you flinches and
+   stays a shade greyer, and one who just took one off you sits up. */
+.rival {
+  filter: brightness(var(--rb, 1)) saturate(var(--rs, 1));
+  transform-origin: 50% 100%;
+  transition: filter 0.45s, translate 0.45s ease-out, scale 0.45s ease-out;
+  animation: breathe 5.6s ease-in-out var(--breath-delay, 0s) infinite;
+}
+@keyframes breathe { 0%, 100% { scale: 1 1; } 50% { scale: 1.004 1.011; } }
+.rival-speaking-talk { translate: 0 -4px; --rb: 1.06; }
+.rival-speaking-scene { translate: 0 -10px; --rb: 1.12; --rs: 1.05; }
+.rival-shadowed { --rb: 0.45; --rs: 0.75; }
+.rival-folded.rival-speaking-scene { --rb: 1; }
+.rival-rattled { --rb: 0.86; --rs: 0.72; animation: breathe 5.6s ease-in-out var(--breath-delay, 0s) infinite, flinch 0.6s ease-in-out 0.45s 1; }
+.rival-smarting { --rs: 0.82; }
+.rival-pleased { translate: 0 -6px; --rb: 1.08; }
+@keyframes flinch {
+  0%, 100% { translate: 0 0; }
+  20% { translate: -7px 2px; }
+  40% { translate: 6px 0; }
+  60% { translate: -4px 1px; }
+  80% { translate: 2px 0; }
+}
+
+/* A story line has the floor: the room and the felt fall into shadow under the speaker. */
+.table-screen .layer, .plate, .boards, .pot, .my-hand, .summary, .tell, .chapter-title, .buck { transition: filter 0.45s; }
+.in-scene .layer, .in-scene .plate, .in-scene .boards, .in-scene .pot, .in-scene .my-hand, .in-scene .summary, .in-scene .tell, .in-scene .chapter-title { filter: brightness(0.5) saturate(0.8); }
 
 /* ---------------------------------------------------------------- headings and corners */
 
@@ -425,7 +456,26 @@ button:disabled { opacity: 0.4; cursor: default; }
 @keyframes pot-bump { 50% { transform: scale(1.06); } }
 .dialogue { animation: line-in 0.25s ease-out; }
 @keyframes line-in { from { opacity: 0; transform: translateY(8px); } }
+/* Story lines are the ones that matter: larger, and slower to arrive. Table talk is a murmur. */
+.dialogue-story { animation-duration: 0.5s; }
+.dialogue-story .speaker { font-size: 26px; text-shadow: 0 0 14px rgba(255, 209, 102, 0.45); }
+.dialogue-story p { font-size: 28px; }
+.dialogue-talk .speaker { font-size: 19px; }
+.dialogue-talk p { font-size: 22px; color: var(--muted); }
+
+/* A big pot (Session BIG_POT): yours flares warm across the room; a rival's
+   taking yours darkens it for a moment. The line on the felt grows too. */
+.big-pot-won, .big-pot-lost { position: absolute; inset: 0; z-index: 2; pointer-events: none; opacity: 0; }
+.big-pot-won { background: radial-gradient(ellipse 60% 55% at 50% 62%, rgba(255, 196, 90, 0.5), rgba(255, 170, 60, 0.12) 55%, transparent 80%); mix-blend-mode: screen; animation: flare 1.8s ease-out 0.35s both; }
+.big-pot-lost { background: radial-gradient(ellipse 75% 70% at 50% 55%, transparent 35%, rgba(0, 0, 0, 0.6) 100%); animation: flare 2s ease-out 0.35s both; }
+@keyframes flare { 0% { opacity: 0; } 25% { opacity: 1; } 100% { opacity: 0; } }
+.summary-big { font-size: 28px; color: var(--gold); animation: summary-pop 0.6s cubic-bezier(0.2, 1.4, 0.4, 1) 0.5s both; }
+@keyframes summary-pop { from { scale: 0.6; opacity: 0; } to { scale: 1; opacity: 1; } }
+.flight-heavy { animation-duration: 0.95s; }
 @media (prefers-reduced-motion: reduce) {
+  .rival, .rival-rattled { animation: none !important; transition: none; }
+  .big-pot-won, .big-pot-lost, .summary-big { animation: none !important; }
+  .big-pot-won, .big-pot-lost { display: none; }
   .deal-in, .flip-in, .flight, .pop-in, .pot svg, .dialogue { animation: none !important; }
   .flight { display: none; }
 }

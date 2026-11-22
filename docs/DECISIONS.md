@@ -171,3 +171,12 @@ John renamed the game from "Historical Poker" ("I feel like we are beyond that")
 - **Not renamed, on purpose:** the GitHub repository (`Historical-Poker`) and so the live address, because John has shared that link; the `historical-poker` package name; and the local-storage keys `historical-poker/progress` and `historical-poker/tables`, because changing them would wipe every player's saved progress.
 - **The tagline** "Five hundred years, two families, one deck of cards." sits under the name on the opening screen and in the page description. John approved it. (The feud is 483 years old; the story text says "nearly five hundred years".)
 - **No painting has the old name in it.** The game draws its name as text over the art, so no picture had to change.
+
+### Why you care: the story at the table (2026-11-22)
+John play-tested and found the game "a little flat", then: "just make there be a reason for the player to care. The story seems flat", and no more art ("It's laborious"). A play-through of chapters 1, 7 and 12 found why: rivals said their move aloud on every action from two-line lists ("Check." fifteen times running in Macau), so story lines looked like more chatter; story moments came on fixed hands whatever had happened (Elena's "You fold when I look at you" after the player won); every pot ended the same way; the paintings never changed; and what each Avery stood to lose was told once, in the intro, then never felt at the table.
+
+- **What was done:** a `heart` for every chapter (stakes, losing, turning; GAME_DESIGN.md "Why you care", the lines in CHAPTERS.md), reactions to big pots for all forty-two rivals, quieter table talk, moments that can wait on what the player did, a spotlight for story lines, a flare for big pots, and paintings that breathe, lean in and flinch, all in code.
+- **Why beats on events, not on hands:** a line that answers what just happened is the cheapest way to make a player feel seen. Each beat plays once, waits for a hand with no other scene, and none changes a deal or a rule.
+- **Why table talk has its own dice:** if speech used the bots' random numbers, quieting the chatter would have changed how every rival plays.
+- **New story facts** these lines add are listed in CHAPTERS.md, "Why you care, chapter by chapter", and were shown to John before merging, per the rule about departing from the outline.
+- **Not done, by choice:** no new pictures or expressions (John), no dialogue choices (that changes the outline; John to decide), and the intros were not cut.

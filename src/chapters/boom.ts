@@ -179,6 +179,8 @@ export const BOOM: Chapter = {
             fold: ['fold', 'gg fold'],
             check: ['check'],
             win: ['ship it', 'gg'],
+            beatYou: ['ship it', 'gg wp jamie'],
+            lostToYou: ['nh', 'sick hand jamie'],
             bust: 'busto. gl jamie, take it down',
             draw: ['2', 'one', 'drawing 3 lol'],
             pat: ['pat.'],
@@ -205,6 +207,8 @@ export const BOOM: Chapter = {
             fold: ['Fold.'],
             check: ['Check.'],
             win: ['…', 'The Cranes say thank you.'],
+            beatYou: ['…', 'Thank you.'],
+            lostToYou: ['…', 'Hm.'],
             bust: 'An Avery, again. Every generation. No excuses: you played it better. Keep your deck.',
             draw: ['One.', 'Two.'],
             pat: ['Pat.'],
@@ -231,6 +235,8 @@ export const BOOM: Chapter = {
             fold: ['fold', 'no luck'],
             check: ['check'],
             win: ['^^', 'thank you!'],
+            beatYou: ['^^', 'sorry jamie!! ^^'],
+            lostToYou: ['nice hand!!', 'wow jamie, fighting!'],
             bust: 'I am out! Good game everyone, very fun. Jamie, fighting!',
             draw: ['draw 1', 'draw 2'],
             pat: ['pat!'],
@@ -249,6 +255,21 @@ export const BOOM: Chapter = {
   playerPlate: { x: 800, y: 760 },
   keepsake: { name: '“N0rthStar”, Nat Crane', line: 'The Boom, 2005. From a $5 qualifier to the final table.' },
   story: {
+    // What tonight means to you, said at the table as it happens (docs/CHAPTERS.md, "Why you care").
+    heart: {
+      stakes: [
+        say('narration', 'That $5 was the last of this week’s food money. The old deck sits by the keyboard, where Dad said to keep it: somewhere you can see it.'),
+        say('deuceseven', 'gl all'),
+      ],
+      losing: [
+        say('deuceseven', 'tilt check jamie. breathe'),
+        say('narration', 'You look at the old deck beside the keyboard, and breathe.'),
+      ],
+      turning: [
+        say('narration', 'For the first time tonight, N0rthStar takes a long time to act.'),
+        say('hanbit', 'wow ^^'),
+      ],
+    },
     dealer: ['Blinds posted. Dealing…', 'New hand.', 'Dealing…'],
     finale: {
       bowOut: {},

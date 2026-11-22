@@ -99,6 +99,8 @@ export const KITCHEN_TABLE: Chapter = {
           fold: ['Fold. It wasn’t seven-deuce.', 'Nope.'],
           check: ['Check.'],
           win: ['Ha!', 'Was it seven-deuce? You’ll never know.'],
+          beatYou: ['Ha! Was it seven-deuce?', 'You’ll never know.'],
+          lostToYou: ['It was seven-deuce. Obviously.', 'Rude. In your wedding week.'],
           bust: 'I’m out. It was seven-deuce, by the way. Every time.',
         }),
       },
@@ -119,6 +121,8 @@ export const KITCHEN_TABLE: Chapter = {
           fold: ['Yours. This once.', 'Fold.'],
           check: ['Check.'],
           win: ['Thank you.', `One day married, and already taking my husband’s money.`],
+          beatYou: ['One day married, and already taking my husband’s money.', 'Sorry, darling. Dishes.'],
+          lostToYou: ['Oh, you are going to be unbearable.', 'Fine. Fine! Well played.'],
           bust: 'I’m out. Fine. You wash, I’ll dry.',
         }),
       },
@@ -139,6 +143,8 @@ export const KITCHEN_TABLE: Chapter = {
           fold: ['Yours.', 'Fold.'],
           check: ['Check.'],
           win: ['Thank you.', 'The Cranes are due. In two-dollar chips, it seems.'],
+          beatYou: ['The Cranes are due. In two-dollar chips, it seems.', 'My son-in-law! Ha!'],
+          lostToYou: ['Remarkable. Again!', 'I see why the Averys kept it.'],
           bust: 'Busted at a kitchen table, by my own family. Wonderful. Deal me in next week.',
         }),
       },
@@ -152,6 +158,21 @@ export const KITCHEN_TABLE: Chapter = {
   playerPlate: { x: 800, y: 760 },
   keepsake: { name: 'Avery and Crane', line: 'The Kitchen Table, the night after the wedding. One deck, one family.' },
   story: {
+    // What tonight means to you, said at the table as it happens (docs/CHAPTERS.md, "Why you care").
+    heart: {
+      stakes: [
+        say('narration', 'Nothing is at stake tonight but the dishes, your pride, and your new father-in-law’s opinion of you.'),
+        say('dee', 'So, everything.'),
+      ],
+      losing: [
+        say('crane', 'Darling, you are losing to my father. At a kitchen table.'),
+        say('victor', 'I am having a wonderful time.'),
+      ],
+      turning: [
+        say('victor', 'Elena, is he always like this?'),
+        say('crane', 'Every time. You get used to it.'),
+      ],
+    },
     dealer: ['Blinds in!', 'Shuffle up and deal.', 'Cards!'],
     moments: [
       {

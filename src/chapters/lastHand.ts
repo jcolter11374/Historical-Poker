@@ -87,6 +87,8 @@ export const LAST_HAND: Chapter = {
             fold: ['Nope.', 'That’s a dry claim.'],
             check: ['Check.'],
             win: ['Hee hee! Pay dirt!', 'Knew it in my knees.'],
+            beatYou: ['Hee hee! Pay dirt!', 'Felt that one in my knees, missy.'],
+            lostToYou: ['Well, dang.', 'Cleaned out like a played-out claim.'],
             bust: 'Dry as my last claim. Did I ever tell you about the time I found a nugget big as a horse?',
             draw: ['Three, and make ’em pretty.', 'Gimme two.', 'One. Just one.'],
             pat: ['I’ll play these, thank you kindly.'],
@@ -114,6 +116,8 @@ export const LAST_HAND: Chapter = {
             fold: ['Yours.', 'Go on, take it.'],
             check: ['Check.'],
             win: ['House thanks you.', 'That’s why I own the place.'],
+            beatYou: ['House thanks you, honey.', 'The lesson’s free. The pot isn’t.'],
+            lostToYou: ['Well, now. Somebody taught you.', 'Nicely done, honey. Don’t get used to it.'],
             bust: 'Well, I’ll be. Nobody’s done that to me in this territory. Drinks are on the house.',
             draw: ['Two for me.', 'One.', 'Three.'],
             pat: ['I’m good.'],
@@ -141,6 +145,8 @@ export const LAST_HAND: Chapter = {
             fold: ['Your hand, this time.', 'I’ll let that one go.'],
             check: ['After you.'],
             win: ['The Cranes thank you.', 'The deck knows its family.'],
+            beatYou: ['The deck knows its family.', 'The Crane luck, coming home.'],
+            lostToYou: ['Luck. Avery luck, and nothing more.', 'Grandfather said you people were lucky.'],
             bust: 'Again. A Crane, beaten by an Avery, again. Grandfather said you people were lucky.',
             draw: ['One card.', 'Two.'],
             pat: ['I’ll stand.'],
@@ -165,6 +171,21 @@ export const LAST_HAND: Chapter = {
   playerPlate: { x: 800, y: 760 },
   keepsake: { name: 'Ruby Calloway', line: 'The Last Hand, 1876. The best in the territory, until you.' },
   story: {
+    // What tonight means to you, said at the table as it happens (docs/CHAPTERS.md, "Why you care").
+    heart: {
+      stakes: [
+        say('narration', 'Grandfather Kit gave you the deck before you came west. He is old now. He asked you to write to him when it was settled, one way or the other.'),
+        say('ruby', 'Then let’s settle it, honey.'),
+      ],
+      losing: [
+        say('jasper', 'Grandfather would have liked to see this. An Avery, losing.'),
+        say('ruby', 'Your grandfather’s not here, Mr. Crane. Deal.'),
+      ],
+      turning: [
+        say('jasper', 'That’s the deck. It’s always the deck with you people.'),
+        say('narration', 'It isn’t the deck. It’s the hands you have been watching all night.'),
+      ],
+    },
     cheat: {
       by: 'jasper',
       afterHand: 4,

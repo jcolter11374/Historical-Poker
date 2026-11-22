@@ -70,6 +70,12 @@ export interface SavedTable {
   redeal: boolean;
   finaleStarted: boolean;
   tutorialTellShown: boolean;
+  /** Which of the chapter's `heart` beats have played (optional: saves from before they existed have none). */
+  heartDone?: string[];
+  /** Indexes of story moments that have played. */
+  momentsDone?: number[];
+  /** Rivals the player has folded to a bet from, by id. */
+  foldedTo?: string[];
 }
 
 /** Seat 0 is always the human; 1-3 are the chapter's rivals in seat order (left, across, right). */
@@ -86,6 +92,16 @@ export interface Seat {
   /** Why they left: lost all their money, or chose to stop (keeping their money) before the finale. */
   left: 'broke' | 'bowed' | null;
 }
+
+/**
+ * How a rival looks after the last hand, for the painting (TableScreen):
+ * rattled when you took a big pot off them, pleased when they took one off
+ * you, smarting while they are on tilt.
+ */
+export type Mood = 'rattled' | 'pleased' | 'smarting';
+
+/** A pot is big when it is at least this share of a starting purse. It gets a reaction and a bigger show. */
+export const BIG_POT = 0.2;
 
 export interface Speech {
   seat: SeatIndex;
@@ -139,6 +155,10 @@ export interface Snapshot {
   tells: Record<SeatIndex, string[]>;
   /** Who has the chapter's prize (the deck) on the table in front of them, if it has been staked. */
   stakeHolder: SeatIndex | null;
+  /** Rivals' moods, by seat (see Mood). */
+  mood: Record<SeatIndex, Mood>;
+  /** The hand just finished was a big pot (BIG_POT): who took most of it, and how much. */
+  bigPot: { seat: SeatIndex; amount: number } | null;
   /** The player may accuse the dealer of cheating right now. */
   canAccuse: boolean;
   /** The next hand is a redeal after a called-off hand (the buck doesn't move). */
@@ -246,6 +266,8 @@ export class Session {
   private tells: Record<SeatIndex, string[]> = {};
   private outcome: Outcome = null;
   private readonly rnd: Random;
+  /** Decides when rivals speak, kept apart from `rnd` so table talk never changes how they play. */
+  private readonly talk: Random;
   private readonly dealRng: Rng;
   private readonly simTrials?: number;
   private readonly onBotDecision?: (info: BotDecisionInfo) => void;
@@ -284,10 +306,22 @@ export class Session {
   private redeal = false;
   private finaleStarted = false;
   private tutorialTellShown = false;
+  private heartDone = new Set<string>();
+  private momentsDone = new Set<number>();
+  /** Rivals the player has folded to a bet from (for moments with `afterYouFoldTo`). */
+  private foldedTo = new Set<string>();
+  /** Who made the last bet or raise this hand, and on which street. */
+  private aggressor: { seat: SeatIndex; street: number } | null = null;
+  private mood: Record<SeatIndex, Mood> = {};
+  private bigPot: { seat: SeatIndex; amount: number } | null = null;
+  /** The game of the last hand dealt, so the dealer only announces a change of game. */
+  private lastDealt: string | null = null;
 
   constructor(chapter: Chapter, opts: SessionOptions = {}) {
     this.chapter = chapter;
-    this.rnd = seeded(opts.seed ?? Math.floor(Math.random() * 2 ** 31));
+    const seed = opts.seed ?? Math.floor(Math.random() * 2 ** 31);
+    this.rnd = seeded(seed);
+    this.talk = seeded((seed * 31 + 7) >>> 0);
     this.dealRng = opts.dealRng ?? cryptoRng;
     this.simTrials = opts.simTrials;
     this.onBotDecision = opts.onBotDecision;
@@ -341,6 +375,9 @@ export class Session {
       redeal: this.redeal,
       finaleStarted: this.finaleStarted,
       tutorialTellShown: this.tutorialTellShown,
+      heartDone: [...this.heartDone],
+      momentsDone: [...this.momentsDone],
+      foldedTo: [...this.foldedTo],
     };
   }
 
@@ -380,6 +417,11 @@ export class Session {
       s.redeal = saved.redeal;
       s.finaleStarted = saved.finaleStarted;
       s.tutorialTellShown = saved.tutorialTellShown;
+      s.heartDone = new Set(saved.heartDone ?? []);
+      s.momentsDone = new Set(saved.momentsDone ?? []);
+      s.foldedTo = new Set(saved.foldedTo ?? []);
+      // A save from before moments were tracked: the ones before this hand have played.
+      if (!saved.momentsDone) (s.story.moments ?? []).forEach((m, i) => m.beforeHand <= saved.handNumber && !m.afterYouFoldTo && s.momentsDone.add(i));
       s.speech = null;
       return s;
     } catch {
@@ -401,6 +443,8 @@ export class Session {
       scene: this.sceneView(),
       tells: Object.fromEntries(Object.entries(this.tells).map(([k, v]) => [k, [...v]])),
       stakeHolder: this.stakeHolder,
+      mood: this.moodView(),
+      bigPot: this.bigPot,
       canAccuse: this.canAccuse(),
       redeal: this.redeal,
       boughtIn: this.boughtIn,
@@ -465,6 +509,9 @@ export class Session {
     this.redeal = false;
     this.handNumber++;
     this.tells = {};
+    this.mood = {};
+    this.bigPot = null;
+    this.aggressor = null;
     this.handStartStacks = this.seats.map((x) => x.stack);
     for (const seat of this.seats) {
       const left = this.tiltLeft[seat.seat] ?? 0;
@@ -531,7 +578,11 @@ export class Session {
     };
     this.handLimit = this.play.betting === 'spread-limit' ? spreadLimit(unit, stage.structure.limitUnits) : null;
     this.state = engine.startHand(input);
-    this.say(this.narratorSeat(), this.dealerLine());
+    // The dealer speaks up for the first hand and when the game changes; otherwise the cards just come.
+    const dealerLine = this.dealerLine();
+    if (this.handNumber === 1 || this.lastDealt !== playKey(this.play) || this.bombPot) this.say(this.narratorSeat(), dealerLine);
+    else this.speech = null;
+    this.lastDealt = playKey(this.play);
     this.afterAction();
   }
 
@@ -577,7 +628,12 @@ export class Session {
   /** The human bets. Throws if it isn't their turn or the move is illegal. */
   act(action: Action): void {
     if (!this.state || this.toAct !== HUMAN || this.state.phase !== 'betting') throw new Error('not your turn');
+    const street = this.state.street;
     this.actFor(HUMAN, action);
+    if (action.type === 'fold' && this.aggressor && this.aggressor.street === street) {
+      const id = this.seats[this.aggressor.seat].character?.id;
+      if (id) this.foldedTo.add(id);
+    }
     this.afterAction();
   }
 
@@ -683,12 +739,12 @@ export class Session {
       const truth = tell.signals === 'bluffing' ? decision.bluffing : tell.signals === 'strong' ? decision.strong : decision.weak;
       if (this.rnd.chance(truth ? tell.showsWhenTrue : tell.showsWhenFalse)) this.noticeTell(seat, tell.text);
     }
+    if (aggressive) this.aggressor = { seat, street: s.street };
     const lines = character.lines;
-    if (aggressive) this.say(seat, this.pick(lines.bet));
-    else if (kind === 'call') this.say(seat, this.pick(lines.call));
-    else if (kind === 'fold') this.say(seat, this.pick(lines.fold));
-    else if (kind === 'check') this.say(seat, this.pick(lines.check));
-    else if (kind === 'bring-in') this.say(seat, 'I’ll bring it in.');
+    // Every move shows on the name plate, so rivals only sometimes say it aloud: a bet more often than a check.
+    const said = aggressive ? this.pick(lines.bet) : kind === 'call' ? this.pick(lines.call) : kind === 'fold' ? this.pick(lines.fold) : kind === 'check' ? this.pick(lines.check) : 'I’ll bring it in.';
+    if (this.talk.chance(aggressive ? TALK_WHEN_BETTING : TALK_OTHERWISE)) this.say(seat, said);
+    else this.speech = null;
     this.afterAction();
     return true;
   }
@@ -864,13 +920,7 @@ export class Session {
 
     const winners = this.handView(s).winners;
     const top = winners[0];
-    if (top && top.seat !== HUMAN) {
-      const c = this.seats[top.seat].character!;
-      this.say(top.seat, this.pick(c.lines.win));
-    } else if (top) {
-      this.playerWins++;
-      this.say(this.narratorSeat(), top.handName ? `Your pot. ${top.handName}.` : 'The pot is yours.');
-    }
+    this.react(top, winners);
 
     if (this.cheatingThisHand && this.cheat === 'cheating') {
       this.cheat = 'missed';
@@ -919,6 +969,69 @@ export class Session {
     if (!this.outcome) this.prepareNextHand();
   }
 
+  /**
+   * Who says what as a hand ends (docs/GAME_DESIGN.md, "Why you care"). A
+   * small pot passes quietly, or with a word from the winner. A big pot gets
+   * a reaction: the rival who beat you says so, or the one you beat does,
+   * and their painting shows it (Mood).
+   */
+  private react(top: HandView['winners'][number] | undefined, winners: HandView['winners']) {
+    if (!top) return;
+    const start = this.chapter.startingStack;
+    const won = winners.filter((w) => w.seat === top.seat).reduce((n, w) => n + w.amount, 0);
+    const big = won >= start * BIG_POT;
+    if (big) this.bigPot = { seat: top.seat, amount: won };
+    const hurt = (seat: SeatIndex) => (this.lastNet[seat] ?? 0) <= -start * BIG_POT * 0.5;
+    const story = !this.chapter.practice;
+    if (top.seat !== HUMAN) {
+      const c = this.seats[top.seat].character!;
+      const win = this.pick(c.lines.win);
+      if (big && hurt(HUMAN)) {
+        this.mood[top.seat] = 'pleased';
+        this.say(top.seat, story && c.lines.beatYou?.length ? this.talkPick(c.lines.beatYou) : win);
+      } else if (big || this.talk.chance(TALK_WHEN_WINNING)) {
+        if (big) this.mood[top.seat] = 'pleased';
+        this.say(top.seat, win);
+      } else this.speech = null;
+      return;
+    }
+    this.playerWins++;
+    // The rival who paid most for your pot.
+    const loser = this.seats.filter((x) => x.character && !x.out && hurt(x.seat)).sort((a, b) => (this.lastNet[a.seat] ?? 0) - (this.lastNet[b.seat] ?? 0))[0];
+    if (big && loser) {
+      this.mood[loser.seat] = 'rattled';
+      const lines = loser.character!.lines.lostToYou;
+      if (story && lines?.length) {
+        this.say(loser.seat, this.talkPick(lines));
+        return;
+      }
+    }
+    if (big) this.say(this.narratorSeat(), top.handName ? `Your pot. ${top.handName}.` : 'The pot is yours.');
+    else this.speech = null;
+  }
+
+  /** The chapter's `heart` beat `key` and moments that wait on what the player did, if their time has come. */
+  private heartBeats() {
+    const heart = this.story.heart;
+    if (!heart || this.handNumber < 2) return;
+    const start = this.chapter.startingStack;
+    const me = this.seats[HUMAN].stack;
+    const nemesis = this.nemesisSeat();
+    const them = this.seats[nemesis];
+    // One beat at a time: if a scene is already queued (a stake, a bust), the beat waits for a later hand.
+    if (this.scene.length) return;
+    if (!this.heartDone.has('losing') && me < start * 0.5) {
+      this.heartDone.add('losing');
+      this.scene.push(...heart.losing);
+      return;
+    }
+    const tookBigPot = this.bigPot?.seat === HUMAN && (this.lastNet[nemesis] ?? 0) <= -start * BIG_POT * 0.5;
+    if (!this.heartDone.has('turning') && !them.out && (tookBigPot || (them.stack < start * 0.5 && them.stack < me))) {
+      this.heartDone.add('turning');
+      this.scene.push(...heart.turning);
+    }
+  }
+
   private storyBeatsAfterHand() {
     const nemesis = this.nemesisSeat();
     const playing = () => this.seats.filter((x) => !x.out);
@@ -948,6 +1061,9 @@ export class Session {
       }
       this.scene.push(...finale.headsUp);
     }
+    this.heartBeats();
+    // A reaction said before a scene would come back under it once the scene ends; the scene has the last word.
+    if (this.scene.length) this.speech = null;
   }
 
   /**
@@ -967,7 +1083,19 @@ export class Session {
     const newStage = stageIndex !== this.stageIndex || next === 1;
     this.stageIndex = stageIndex;
 
-    for (const m of this.story.moments ?? []) if (m.beforeHand === next) this.scene.push(...m.lines);
+    // What tonight means to you, once the first hand has shown how the table plays.
+    const heart = this.story.heart;
+    if (heart && next === 2 && !this.heartDone.has('stakes')) {
+      this.heartDone.add('stakes');
+      this.scene.push(...heart.stakes);
+    }
+    // Story moments: on their hand, or (afterYouFoldTo) once the player has folded to that rival's bet.
+    (this.story.moments ?? []).forEach((m, i) => {
+      if (this.momentsDone.has(i) || next < m.beforeHand) return;
+      if (m.afterYouFoldTo ? !this.foldedTo.has(m.afterYouFoldTo) : m.beforeHand !== next) return;
+      this.momentsDone.add(i);
+      this.scene.push(...m.lines);
+    });
 
     const level = this.chapter.levelEvery ? Math.floor((next - 1) / this.chapter.levelEvery) : 0;
     if (level > this.level) {
@@ -1249,6 +1377,17 @@ export class Session {
     return `${m.prefix ?? (m.suffix ? '' : '$')}${n}${m.suffix ?? ''}`;
   }
 
+  /** Rivals' moods for the painting: this hand's reaction, else smarting while on tilt. */
+  private moodView(): Record<SeatIndex, Mood> {
+    const mood: Record<SeatIndex, Mood> = { ...this.mood };
+    for (const seat of this.seats) if (seat.character && !seat.out && (this.tiltLeft[seat.seat] ?? 0) > 0 && !mood[seat.seat]) mood[seat.seat] = 'smarting';
+    return mood;
+  }
+
+  private talkPick<T>(items: T[]): T {
+    return items[this.talk.int(items.length)];
+  }
+
   private say(seat: SeatIndex, text: string) {
     this.speech = { seat, text };
   }
@@ -1259,6 +1398,12 @@ export class Session {
 }
 
 const playKey = (p: GamePlay) => `${p.game}/${p.betting}`;
+
+/** How often a rival says their move aloud (it always shows on their name plate). */
+const TALK_WHEN_BETTING = 0.55;
+const TALK_OTHERWISE = 0.12;
+/** How often the winner of a small pot says something. */
+const TALK_WHEN_WINNING = 0.4;
 
 const COUNT = ['None', 'One', 'Two', 'Three', 'Four', 'Five'];
 const count = (n: number) => `${COUNT[n] ?? n} card${n === 1 ? '' : 's'}`.replace('None cards', 'No cards');

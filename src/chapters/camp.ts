@@ -98,7 +98,7 @@ export const CAMP: Chapter = {
         'left',
         '#2d3d63',
       ),
-      art: cutout(art('toby.webp'), 1.0722, { x: 340, bottom: 545, height: 380 }),
+      art: cutout(art('toby.webp'), 0.8022, { x: 340, bottom: 545, height: 380 }),
     },
     {
       ...rival(
@@ -124,7 +124,7 @@ export const CAMP: Chapter = {
         'across',
         '#283548',
       ),
-      art: cutout(art('reed.webp'), 0.9189, { x: 800, bottom: 520, height: 470 }),
+      art: cutout(art('reed.webp'), 0.9633, { x: 800, bottom: 520, height: 470 }),
     },
     {
       ...rival(

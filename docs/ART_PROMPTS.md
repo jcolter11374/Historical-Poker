@@ -50,16 +50,18 @@ Copy-ready image prompts for every picture the game needs: each chapter's backgr
 
 **Painted pictures to redo for card count** (checked 2026-11-21 against the originals in `art/layers/`). The prompts below now ask for the right number, so a redo is a re-run of the same prompt with the old picture attached ("the same person and pose as the second attached image, but holding exactly N cards").
 
-| Character | Chapter | Holds now | Should hold |
-| --- | --- | --- | --- |
-| Silas Crane | 1 | about four | five |
-| Sir Roland | 2 | two | four |
-| Brother Anselm | 2 | three | four |
-| Toby Finch | 4 | about six, fanned | one hole card |
-| Sergeant Reed | 4 | four, fanned | one hole card |
-| Hattie Bloom | 4 | four, fanned | one hole card |
-| Doc Whitcomb | 5 | four | five |
-| Ruby Calloway | 5 | about nine | five |
+| Character | Chapter | Held | Should hold | Status (2026-11-21) |
+| --- | --- | --- | --- | --- |
+| Silas Crane | 1 | about four | five | Done: new picture (lamp painted out by `silas-lamp-fix.py`) |
+| Sir Roland | 2 | two | four | Done: new picture came with three; a fourth added by hand (`roland-fix.py`) |
+| Brother Anselm | 2 | three | four | Done by hand: a fourth card added (`anselm-cards-fix.py`) |
+| Toby Finch | 4 | about six, fanned | one hole card | Done: new picture (a second card behind was taken out by a Gemini edit; lantern painted out by `toby-lantern-fix.py`; cropped at the waist so his head matches the old size) |
+| Sergeant Reed | 4 | four, fanned | one hole card | Done, pending John's OK: new picture (the same man and pose, peeking under one card's corner; lantern on his hat painted out by `reed-lantern-fix.py`) |
+| Hattie Bloom | 4 | four, fanned | one hole card | Done by hand: three back cards painted out (`hattie-fix.py`) |
+| Doc Whitcomb | 5 | four | five | Done by hand: a fifth card added (`doc-cards-fix.py`) |
+| Ruby Calloway | 5 | about nine | five | Done: a second try still had nine, but over clean green, so the four back cards were painted out by hand (`ruby-fix.py`) |
+
+Adding a card by hand works well: the scripts build a clean card from the top half of the front card (a card back reads the same either way up), tilt it one fan step past the back card, and lay it under the cards and hand already there. Taking cards away works only where they lie over the green. The scripts are in the project's `art/layers/cleanup-scripts/`; each old picture is kept as `art/layers/<name>-old-*.png`.
 
 Already right: Delphine and Ezra (five), Lady Margery (four), and all of chapter 3 (Hannah, Pike and Sorrel hold three).
 

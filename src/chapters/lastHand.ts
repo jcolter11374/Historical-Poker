@@ -127,7 +127,7 @@ export const LAST_HAND: Chapter = {
         '#6a1d2b',
       ),
       // Her fanned cards widen the picture to her left, so she sits right of centre.
-      art: cutout(art('ruby.webp'), 0.9989, { x: 850, bottom: 520, height: 470 }),
+      art: cutout(art('ruby.webp'), 0.9544, { x: 850, bottom: 520, height: 470 }),
     },
     {
       ...rival(

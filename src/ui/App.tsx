@@ -17,7 +17,7 @@
  * chapter, and a chapter left part-way is saved after every hand, so
  * "Continue" sits you back down at the same table (src/progress/save.ts).
  */
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
 import { CHAPTERS, chapterById, followingChapter, isUnlocked } from '../chapters';
 import { CLOSING, OPENING } from '../story/montages';
 import type { Chapter } from '../chapters/types';
@@ -43,7 +43,7 @@ import { Montage } from './Montage';
 import { PracticeScreen } from './PracticeScreen';
 import { PoweredBy } from './PoweredBy';
 import { Face, SceneBack } from './Scene';
-import { focusOnMount, Stage } from './Stage';
+import { focusOnMount, Stage, useCompact } from './Stage';
 import { playMusic, setMusicOn, setSoundOn, unlock } from './sound';
 import { TableScreen } from './TableScreen';
 
@@ -245,6 +245,38 @@ export function App() {
   );
 }
 
+/** The most a story card may stand, in stage pixels (the stage is 900 tall). */
+const STORY_ROOM = 860;
+
+/**
+ * The words on a story screen. A long chapter (a recap, a long intro, the
+ * cast) can be taller than the stage, which hid the start button below the
+ * screen, so the card shrinks until all of it fits. On small screens the card
+ * scrolls instead (styles.css, "Small screens"), so the words stay readable.
+ */
+function StoryCard({ children, titled = false }: { children: ReactNode; titled?: boolean }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const compact = useCompact();
+  const [fit, setFit] = useState(1);
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el || compact) return;
+    // offsetHeight is the card's own height, before it is scaled.
+    const measure = () => setFit(Math.min(1, STORY_ROOM / el.offsetHeight));
+    measure();
+    const watch = new ResizeObserver(measure);
+    watch.observe(el);
+    document.fonts?.ready.then(measure);
+    return () => watch.disconnect();
+  }, [compact]);
+  return (
+    // The same move as styles.css, then the shrink (about the card's middle, or its left edge beside a title painting).
+    <div ref={ref} className="story-card" style={compact || fit === 1 ? undefined : { transform: `${titled ? 'translateY(-50%)' : 'translate(-50%, -50%)'} scale(${fit})` }}>
+      {children}
+    </div>
+  );
+}
+
 function IntroScreen({
   chapter,
   jumping,
@@ -267,7 +299,7 @@ function IntroScreen({
       {chapter.scene.title ? <img className="layer" src={chapter.scene.title} alt="" /> : <SceneBack scene={chapter.scene} />}
       <div className="story-shade" />
       <PoweredBy />
-      <div className="story-card">
+      <StoryCard titled={!!chapter.scene.title}>
         <div className="eyebrow">
           {chapter.numeral === 'Bonus' || chapter.numeral === 'Epilogue' ? chapter.numeral : `Chapter ${chapter.numeral}`}{chapter.toldBy ? ` · ${chapter.toldBy}` : ''} · {chapter.place}, {chapter.year}
         </div>
@@ -307,7 +339,7 @@ function IntroScreen({
           </button>
           {musicLink}
         </div>
-      </div>
+      </StoryCard>
     </div>
   );
 }
@@ -321,7 +353,7 @@ function EndScreen({ chapter, won, onAgain, onNext, onCase, onClosing, musicLink
       <SceneBack scene={chapter.scene} />
       <div className="story-shade" />
       <PoweredBy />
-      <div className="story-card">
+      <StoryCard>
         <div className="eyebrow">{won ? 'Chapter complete' : 'Not this time'}</div>
         <h1>{won ? chapter.title : 'Busted'}</h1>
         {(won ? chapter.outro.won : chapter.outro.lost).map((p) => <p key={p}>{p}</p>)}
@@ -368,7 +400,7 @@ function EndScreen({ chapter, won, onAgain, onNext, onCase, onClosing, musicLink
           )}
           {musicLink}
         </div>
-      </div>
+      </StoryCard>
     </div>
   );
 }

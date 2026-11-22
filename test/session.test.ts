@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import type { Card } from '@rsdp/engine/core';
 import { seeded } from '../src/bots/random';
+import { chapterById } from '../src/chapters';
 import { LAST_TABLE } from '../src/chapters/lastTable';
 import { RIVERBOAT } from '../src/chapters/riverboat';
 import { getGame } from '../src/games/catalog';
@@ -66,5 +67,18 @@ describe('a finished hand in a rotation', () => {
       if (hand.myCards.length) expect(hand.myHandName).toBe(game.describe(hand.myCards.map((c) => c.card), board));
     }
     expect(changes).toBeGreaterThan(2);
+  });
+});
+
+describe('blinds on the felt', () => {
+  it('names the blinds in front of the players until they act', () => {
+    const s = new Session(chapterById('desert-classic')!, { seed: 3, skipTutorial: true });
+    while (s.inScene) s.advanceScene();
+    s.startHand();
+    while (s.inScene) s.advanceScene();
+    const players = Object.values(s.snapshot().hand!.players);
+    const posted = players.map((p) => p.posted).filter(Boolean).sort();
+    expect(posted).toEqual(['big blind', 'small blind']);
+    for (const p of players) if (p.posted) expect(p.bet).toBeGreaterThan(0);
   });
 });

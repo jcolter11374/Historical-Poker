@@ -34,6 +34,8 @@ export interface Flight {
   delay: number;
   /** Bigger stack for the pot going to a winner. */
   big: boolean;
+  /** A big pot (Session BIG_POT): a heavy pile, moving slower. */
+  heavy?: boolean;
 }
 
 /** Where the player's own chips sit, in stage pixels. */
@@ -88,6 +90,7 @@ export function betSpot(rivals: Character[], seat: SeatIndex, flop: boolean, com
 }
 
 const FLIGHT_MS = 650;
+const HEAVY_MS = 950;
 let nextId = 1;
 
 function cardCount(snap: Snapshot): number {
@@ -162,10 +165,11 @@ export function useTableFx(rivals: Character[], snap: Snapshot, compact: boolean
     // The pot goes to the winners.
     if (h.complete && !(sameHand && before!.hand!.complete)) {
       const seats = [...new Set(h.winners.map((w) => w.seat))];
-      seats.forEach((seat, i) => add.push({ id: nextId++, from: pot, to: seatSpot(rivals, seat), delay: 350 + i * 120, big: true }));
+      const heavy = !!snap.bigPot;
+      seats.forEach((seat, i) => add.push({ id: nextId++, from: pot, to: seatSpot(rivals, seat), delay: 350 + i * 120, big: true, heavy: heavy && seat === snap.bigPot!.seat }));
       const mine = h.winners.filter((w) => w.seat === HUMAN).reduce((n, w) => n + w.amount, 0);
       const showdown = Object.values(h.players).some((p) => p.handName);
-      if (mine > 0) sounds.push([mine >= h.pot * 0.9 && h.pot >= snap.play.unit * 8 ? 'bigWin' : 'win', 350]);
+      if (mine > 0) sounds.push([snap.bigPot?.seat === HUMAN || (mine >= h.pot * 0.9 && h.pot >= snap.play.unit * 8) ? 'bigWin' : 'win', 350]);
       else if (showdown && !h.players[HUMAN]?.folded) sounds.push(['lose', 350]);
       else sounds.push(['chips', 350]);
     }
@@ -177,7 +181,7 @@ export function useTableFx(rivals: Character[], snap: Snapshot, compact: boolean
     if (add.length) {
       setFlights((f) => [...f, ...add]);
       const ids = new Set(add.map((a) => a.id));
-      const longest = Math.max(...add.map((a) => a.delay)) + FLIGHT_MS + 50;
+      const longest = Math.max(...add.map((a) => a.delay + (a.heavy ? HEAVY_MS : FLIGHT_MS))) + 50;
       window.setTimeout(() => setFlights((f) => f.filter((x) => !ids.has(x.id))), longest);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

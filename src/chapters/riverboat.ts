@@ -7,7 +7,7 @@
  */
 import type { Chapter } from './types';
 import { GAME_ID } from '../games/straightPoker';
-import { music } from './cast';
+import { music, say } from './cast';
 
 const art = (file: string) => `${import.meta.env.BASE_URL}art/riverboat/${file}`;
 
@@ -57,6 +57,8 @@ export const RIVERBOAT: Chapter = {
         fold: ['Not this time, darling.', 'I shall sit this one out.'],
         check: ['I\'ll wait.'],
         win: ['How kind of you all.', 'Patience, gentlemen. Always patience.'],
+        beatYou: ['Forgive me, darling. Cards are cards.', 'Do not chase it, darling. Watch them instead.'],
+        lostToYou: ['Oh, well played! You were watching faces.', 'Darling! Your father never did that.'],
         bust: 'Well. I do believe I\'ve been outplayed. Good evening.',
       },
       art: { src: art('delphine.webp'), kind: 'cutout', aspect: 722 / 900, place: { x: 365, bottom: 555, height: 505 } },
@@ -76,6 +78,8 @@ export const RIVERBOAT: Chapter = {
         fold: ['Your hand, this time.', 'I\'ll let that one go.'],
         check: ['After you.'],
         win: ['Thank you kindly.', 'The river provides.'],
+        beatYou: ['Your father made that same face.', 'Steady, friend. The begging comes later.'],
+        lostToYou: ['Beginner’s luck. It runs out.', 'Enjoy it, Avery. The river is long.'],
         bust: 'Take it, then. A Crane has a long memory, Avery. Longer than yours.',
       },
       art: { src: art('silas.webp'), kind: 'cutout', aspect: 870 / 900, place: { x: 835, bottom: 545, height: 560 } },
@@ -96,6 +100,8 @@ export const RIVERBOAT: Chapter = {
         fold: ['No, no. Fold.', 'Too rich for me.'],
         check: ['Check. Yes. Check.'],
         win: ['Oh! Oh my.', 'I, well, thank you.'],
+        beatYou: ['Oh! I, I am so sorry. Truly.', 'I hardly know how that happened.'],
+        lostToYou: ['Oh dear. Oh dear, oh dear.', 'My employer must never hear of this.'],
         bust: 'My employer will hear of this. Good night.',
       },
       art: { src: art('ezra.webp'), kind: 'cutout', aspect: 796 / 900, place: { x: 1245, bottom: 555, height: 490 } },
@@ -113,6 +119,21 @@ export const RIVERBOAT: Chapter = {
   },
   playerPlate: { x: 800, y: 760 },
   story: {
+    // What tonight means to you, said at the table as it happens (docs/CHAPTERS.md, "Why you care").
+    heart: {
+      stakes: [
+        say('delphine', 'You have your father’s eyes, darling. He sat at this very table, I am told. Is that why your hands are shaking?'),
+        say('narration', 'It is. Since that night your father has been the Avery who lost the deck. Win it back, and he can stop being that man.'),
+      ],
+      losing: [
+        say('silas', 'Just like your father, friend. Shall I save you a seat for the begging?'),
+        say('narration', 'Not like him. Not tonight. You fold your hands on the felt to keep them still.'),
+      ],
+      turning: [
+        say('narration', 'For the first time tonight, Silas Crane is not smiling. His hand drifts toward the old leather case, as if to check it is still his.'),
+        say('delphine', 'There, darling. Now he is the one counting his money.'),
+      ],
+    },
     tutorial: {
       before: [
         { who: 'delphine', text: 'Sit, darling, sit. You know the twenty-card game? Aces down to tens, four of each. Four of us, five cards apiece: every card is dealt.' },

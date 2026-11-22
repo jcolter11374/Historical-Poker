@@ -122,6 +122,8 @@ export const CERCLE: Chapter = {
           fold: ['Not this time.', 'Fold.'],
           check: ['Check.'],
           win: ['Grand.', 'Lovely stuff.'],
+          beatYou: ['Grand.', 'Sorry, Anna. That’s Omaha.'],
+          lostToYou: ['Ah, well played, girl.', 'Lovely stuff. From you, I mean.'],
           bust: 'Ah, that’s Omaha for you. Good luck, Anna.',
         }),
       },
@@ -142,6 +144,8 @@ export const CERCLE: Chapter = {
           fold: ['Non.', 'I pass.'],
           check: ['Parole.'],
           win: ['Merci.', 'Naturellement.'],
+          beatYou: ['Naturellement.', 'The club thanks you, mademoiselle.'],
+          lostToYou: ['Ah! Magnifique.', 'Your father would be proud, mademoiselle.'],
           bust: 'Magnifique. I am beaten, in my own club. My compliments to your deck, and to you.',
         }),
       },
@@ -162,6 +166,8 @@ export const CERCLE: Chapter = {
           fold: ['Fold.'],
           check: ['Check.'],
           win: ['Correct.', 'As expected.'],
+          beatYou: ['Correct.', 'As expected.'],
+          lostToYou: ['Inaccurate. On my part.', 'I did not see that move.'],
           bust: 'A blunder. I resign.',
         }),
       },
@@ -181,6 +187,21 @@ export const CERCLE: Chapter = {
   playerPlate: { x: 800, y: 760 },
   keepsake: { name: 'Comte Lucien Varenne', line: 'The Cercle, 1992. Two from the hand, three from the board.' },
   story: {
+    // What tonight means to you, said at the table as it happens (docs/CHAPTERS.md, "Why you care").
+    heart: {
+      stakes: [
+        say('narration', 'Your father tied a luggage tag to the case before you left. In his square capitals: “COMES HOME WITH ANNA. R.A.”'),
+        say('varenne', 'A charming tag, mademoiselle. Shall we see if it holds?'),
+      ],
+      losing: [
+        say('varenne', 'Mademoiselle, I could make you an offer for it now. It would spare you the trouble.'),
+        say('narration', 'You think of the luggage tag, and shake your head.'),
+      ],
+      turning: [
+        say('varenne', 'Ah. Formidable.'),
+        say('narration', 'For a moment the Comte forgets to look like a man who is enjoying himself.'),
+      ],
+    },
     dealer: ['Faites vos jeux. Blinds, please.', 'Blinds in.', 'Cartes.'],
     moments: [
       {

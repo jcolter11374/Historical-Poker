@@ -145,6 +145,8 @@ export const BIG_O: Chapter = {
           fold: ['Nah.', 'Fold.'],
           check: ['Check.'],
           win: ['Get in!', 'Lovely.'],
+          beatYou: ['Get in!', 'Sorry, love! Night shift luck.'],
+          lostToYou: ['Oh, you’re joking.', 'Lovely hand. Horrible, but lovely.'],
           bust: 'That’s me done. Off to bed. Night all.',
         }),
       },
@@ -165,6 +167,8 @@ export const BIG_O: Chapter = {
           fold: ['Not with that rubbish.', 'Fold.'],
           check: ['Check.'],
           win: ['Lovely jubbly.', 'Told you. Seen it all.'],
+          beatYou: ['Lovely jubbly.', 'Seen it all, duck. Seen that too.'],
+          lostToYou: ['Well, I’ve not seen that before.', 'Cheeky. Very cheeky.'],
           bust: 'Well, I’ve seen everything now. Beaten by an American with a deck older than this town.',
         }),
       },
@@ -185,6 +189,8 @@ export const BIG_O: Chapter = {
           fold: ['I fold.', 'No, thank you.'],
           check: ['Check.'],
           win: ['Splendid.', 'The books balance.'],
+          beatYou: ['Splendid.', 'The books balance, I’m afraid.'],
+          lostToYou: ['Most unfortunate.', 'A debit, then. Well played.'],
           bust: 'Most unfortunate. Same time next Friday, everyone.',
         }),
       },
@@ -198,6 +204,21 @@ export const BIG_O: Chapter = {
   playerPlate: { x: 800, y: 760 },
   keepsake: { name: 'Gaz Whitlock', line: 'The Big O, 2019. He had seen everything, except you.' },
   story: {
+    // What tonight means to you, said at the table as it happens (docs/CHAPTERS.md, "Why you care").
+    heart: {
+      stakes: [
+        say('narration', 'Jamie gave you the deck the day you left. “Don’t lose it to some guy in a parking lot,” Jamie said.'),
+        say('gaz', 'Car park, duck. Over here it’s a car park. And it’s round the back.'),
+      ],
+      losing: [
+        say('gaz', 'Don’t worry, duck. Omaha gets everyone in the end.'),
+        say('narration', 'You think of the note in the case. If the deck goes tonight, you will have nothing to show E. Crane, ever.'),
+      ],
+      turning: [
+        say('gaz', 'Well. I’ve not seen that before.'),
+        say('kerryann', 'Gaz has seen everything, love. You’ve just made history.'),
+      ],
+    },
     dealer: ['Blinds in, please.', 'Shuffle up.', 'Cards.'],
     moments: [
       {

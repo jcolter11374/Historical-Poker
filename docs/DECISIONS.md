@@ -191,5 +191,9 @@ John asked for a bug check of the whole game. Method: the test suite; a random p
 - **Rules sheet on a phone:** it was taller than the screen, so its top and its "Back to the table" button were cut off (a minimum height meant for computers also applied, enlarged, on phones).
 - **Bet chips covered the dealer's marker** whenever the dealer sat across or on the right and bet. The marker now lies on the plate's other side from the bets. On a phone the pot-limit sum could also run over the river card; it wraps now.
 
-Looked at and left alone, on purpose: a hand in play is not saved (leaving mid-hand deals it again; DECISIONS, "Leaving a chapter part-way"); a long hint can touch the bottom edge of the left seat's cards; on a computer a long rules page scrolls inside the sheet and its "Back to the table" button is at the end (clicking outside also closes it).
+Looked at and left alone, on purpose: a hand in play is not saved (leaving mid-hand deals it again; DECISIONS, "Leaving a chapter part-way"); a long hint can touch the bottom edge of the left seat's cards.
 
+Two more, fixed the same day after John said "go ahead and fix and merge":
+
+- **Rules sheet:** on a long page the "Back to the table" button was at the end of the scroll. The sheet now has a foot that stays in view (`.sheet-foot`), on computers and phones.
+- **Phones, your hand's name:** the enlarged name reaches up over the bottom of your own cards, gold on pale card faces. The cards could not be lifted clear (about 40 stage pixels were needed; the board in flop games and the pot in the others sit right above them, and smaller cards would be too small to read), so the name now carries a dark halo and the whole hand sits a little lower. It is readable, but it still lies over the cards: a real fix needs the phone table laid out again.

@@ -122,9 +122,11 @@ export function RulesPanel({
           </div>
         )}
 
-        <button type="button" className="sheet-close" onClick={onClose}>
-          Back to the table
-        </button>
+        <div className="sheet-foot">
+          <button type="button" className="sheet-close" onClick={onClose}>
+            Back to the table
+          </button>
+        </div>
       </div>
     </div>
   );

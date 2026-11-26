@@ -180,3 +180,16 @@ John play-tested and found the game "a little flat", then: "just make there be a
 - **Why table talk has its own dice:** if speech used the bots' random numbers, quieting the chatter would have changed how every rival plays.
 - **New story facts** these lines add are listed in CHAPTERS.md, "Why you care, chapter by chapter", and were shown to John before merging, per the rule about departing from the outline.
 - **Not done, by choice:** no new pictures or expressions (John), no dialogue choices (that changes the outline; John to decide), and the intros were not cut.
+
+### Bug check, 2026-11-26
+John asked for a bug check of the whole game. Method: the test suite; a random player (folds, calls, raises any amount, draws anything, accuses) through every chapter and practice game with a save and a resume after every hand; and every chapter and practice game played in a real browser at computer and phone size, with every screen measured for overlaps, things off the screen, buttons that can't be pressed, console errors and missing files. No crash, stuck hand, lost money, console error or missing file was found. Six things were, and were fixed:
+
+- **A table left part-way could be lost.** If the player who dealt the last hand had just gone broke (or bowed out), the buck lay in front of an empty seat and `Session.resume()` refused the save as broken, so "Back to the table" silently started the chapter over. Only in a chapter's last round, where broke means out, so it cost the most progress. The check was too strict: `startHand` already passes the buck to the next player still in.
+- **A story moment could be skipped** when the hand before it was called off for cheating (the redeal took the moment's hand number). Rare today (Deadwood only, and only if someone goes broke in the first three hands), but any chapter with a cheat and moments had it.
+- **The Boom, online rounds:** the line saying who won, and "The draw", lay across N0rthStar's name. Now at the top of the monitor (`lineAtTop`).
+- **Practice:** twenty-five games make six rows, which pushed the "Sit down" chip partly off the bottom of the screen (mostly off, on a phone). The practice screen is drawn tighter.
+- **Rules sheet on a phone:** it was taller than the screen, so its top and its "Back to the table" button were cut off (a minimum height meant for computers also applied, enlarged, on phones).
+- **Bet chips covered the dealer's marker** whenever the dealer sat across or on the right and bet. The marker now lies on the plate's other side from the bets. On a phone the pot-limit sum could also run over the river card; it wraps now.
+
+Looked at and left alone, on purpose: a hand in play is not saved (leaving mid-hand deals it again; DECISIONS, "Leaving a chapter part-way"); a long hint can touch the bottom edge of the left seat's cards; on a computer a long rules page scrolls inside the sheet and its "Back to the table" button is at the end (clicking outside also closes it).
+

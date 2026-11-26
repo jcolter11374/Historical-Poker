@@ -394,7 +394,8 @@ export class Session {
       if (saved.seats.length !== chapter.rivals.length + 1 || saved.handNumber < 1) return null;
       const stage = chapter.stages[saved.stageIndex];
       const play = stage?.games[saved.playIndex];
-      if (!play || saved.seats[saved.button]?.out !== false) return null;
+      // The buck may lie with someone who has just left the table (broke, or bowed out): startHand passes it on.
+      if (!play || !saved.seats[saved.button]) return null;
       // A scene saved before the chapter's cast changed may name someone who no longer sits here.
       const known = (who: string) => who === 'narration' || chapter.rivals.some((r) => r.id === who) || !!chapter.bystanders?.[who];
       if (!saved.scene.every((l) => known(l.who))) return null;
@@ -423,7 +424,8 @@ export class Session {
       s.momentsDone = new Set(saved.momentsDone ?? []);
       s.foldedTo = new Set(saved.foldedTo ?? []);
       // A save from before moments were tracked: the ones before this hand have played.
-      if (!saved.momentsDone) (s.story.moments ?? []).forEach((m, i) => m.beforeHand <= saved.handNumber && !m.afterYouFoldTo && s.momentsDone.add(i));
+      // (The one for the next hand is already in the saved scene.)
+      if (!saved.momentsDone) (s.story.moments ?? []).forEach((m, i) => m.beforeHand <= saved.handNumber + 1 && !m.afterYouFoldTo && s.momentsDone.add(i));
       s.speech = null;
       return s;
     } catch {
@@ -1091,10 +1093,12 @@ export class Session {
       this.heartDone.add('stakes');
       this.scene.push(...heart.stakes);
     }
-    // Story moments: on their hand, or (afterYouFoldTo) once the player has folded to that rival's bet.
+    // Story moments: from their hand on, or (afterYouFoldTo) once the player has folded to that rival's bet.
+    // "From", not "on": a hand called off for cheating is dealt again under the next number, and a moment
+    // due on that number must not be lost (Deadwood: catch Jasper on hand 4 and the moment before hand 5).
     (this.story.moments ?? []).forEach((m, i) => {
       if (this.momentsDone.has(i) || next < m.beforeHand) return;
-      if (m.afterYouFoldTo ? !this.foldedTo.has(m.afterYouFoldTo) : m.beforeHand !== next) return;
+      if (m.afterYouFoldTo && !this.foldedTo.has(m.afterYouFoldTo)) return;
       this.momentsDone.add(i);
       this.scene.push(...m.lines);
     });

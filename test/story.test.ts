@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { LAST_HAND } from '../src/chapters/lastHand';
 import { RIVERBOAT } from '../src/chapters/riverboat';
 import { evaluate1836 } from '../src/games/straightPoker';
 import { HUMAN, Session } from '../src/table/session';
@@ -107,5 +108,51 @@ describe('chapter 1 story', () => {
       const bowed = snap.seats.filter((x) => x.left === 'bowed');
       for (const b of bowed) expect(b.stack).toBeGreaterThan(0);
     }
+  });
+});
+
+describe('a hand called off for cheating', () => {
+  it('does not swallow the story moment due before the next hand', () => {
+    // The redeal takes the next hand number. In Deadwood Jasper usually first cheats on hand 6, so put a moment before hand 7.
+    const due = { beforeHand: 7, lines: [{ who: 'narration', text: 'A moment due before hand seven.' }] };
+    const chapter = { ...LAST_HAND, story: { ...LAST_HAND.story!, moments: [due] } };
+    const cheat = chapter.story.cheat!;
+    let caughtOnSix = 0;
+    for (let seed = 1; seed <= 12; seed++) {
+      const deal = dealFrom(seed);
+      const s = new Session(chapter, { seed, dealRng: deal, simTrials: 6 });
+      const said: string[] = [];
+      const skipAll = () => {
+        while (s.inScene) {
+          said.push(s.snapshot().scene!.text);
+          s.advanceScene();
+        }
+      };
+      let caught: number | null = null;
+      for (let h = 0; h < 9 && !s.snapshot().outcome; h++) {
+        skipAll();
+        s.startHand();
+        while (s.handInProgress) {
+          skipAll();
+          if (!s.handInProgress) break;
+          const snap = s.snapshot();
+          if (snap.canAccuse && Object.values(snap.tells).flat().includes(cheat.tell)) {
+            caught = snap.handNumber;
+            s.accuse();
+            continue;
+          }
+          if (s.toAct === HUMAN) {
+            if (s.drawLimit() !== null) s.draw([]);
+            else s.act(s.legal()!.canCheck ? { type: 'check' } : { type: 'call' });
+          } else s.botStep();
+        }
+        skipAll();
+      }
+      if (caught !== 6 || s.snapshot().handNumber < 8) continue;
+      caughtOnSix++;
+      expect(said, `seed ${seed}`).toContain(due.lines[0].text);
+      expect(said.filter((t) => t === due.lines[0].text)).toHaveLength(1);
+    }
+    expect(caughtOnSix).toBeGreaterThan(0);
   });
 });

@@ -80,6 +80,31 @@ describe('a chapter left part-way', () => {
     });
   }
 
+  it('is still picked up when the dealer has just gone broke and left the table', () => {
+    // The buck stays in front of the seat that dealt until the next deal, even if that player is out.
+    let seen = 0;
+    for (const { chapter } of CHAPTERS.slice(0, 5)) {
+      for (let seed = 1; seed < 40; seed++) {
+        const s = session(chapter, seed);
+        for (let h = 0; h < 60 && !s.snapshot().outcome; h++) {
+          playHands(s, 1);
+          const snap = s.snapshot();
+          if (snap.outcome || !snap.seats[snap.button].out) continue;
+          seen++;
+          const saved = JSON.parse(JSON.stringify(s.saveTable())) as SavedTable;
+          const r = Session.resume(chapter, saved, { seed: 4, simTrials: 8 });
+          expect(r, `${chapter.id}, seed ${seed}, hand ${snap.handNumber}`).not.toBeNull();
+          expect(table(r!)).toEqual(table(s));
+          playHands(r!, 2);
+          // The buck moved on to someone still playing.
+          const after = r!.snapshot();
+          if (!after.outcome) expect(after.seats[after.button].out).toBe(false);
+        }
+      }
+    }
+    expect(seen).toBeGreaterThan(0);
+  });
+
   it('keeps a story beat already played (the stake on the table)', () => {
     const river = chapterById('riverboat')!;
     for (let seed = 1; seed < 40; seed++) {

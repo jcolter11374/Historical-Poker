@@ -254,11 +254,11 @@ export function TableScreen({
       )}
 
       {big && <div key={`flare-${snap.handNumber}`} className={`big-pot-${big}`} aria-hidden="true" />}
-      {hand?.complete && hand.summary && <div className={`summary${big ? ' summary-big' : ''}`}>{hand.summary}</div>}
+      {hand?.complete && hand.summary && <div className={`summary${big ? ' summary-big' : ''}${scene.lineAtTop ? ' summary-top' : ''}`}>{hand.summary}</div>}
 
       {/* The draw is easy to miss, so it is announced where the showdown line goes. */}
       {drawing && !snap.scene && (
-        <div className="summary draw-call" aria-live="polite">
+        <div className={`summary draw-call${scene.lineAtTop ? ' summary-top' : ''}`} aria-live="polite">
           <span className="draw-call-title">{drawing.rounds > 1 ? `The draw, ${drawing.round} of ${drawing.rounds}` : 'The draw'}</span>
           Pick the cards to throw away: {drawing.words}. Or stand pat and keep them all.
         </div>
@@ -410,7 +410,8 @@ function SeatPlate({
   const showHand = !!p?.handName && !p.folded;
   return (
     <div className={`plate${s.out || p?.folded ? ' plate-dim' : ''}`} style={{ left: character.plate.x, top: character.plate.y }}>
-      {snap.button === seat && <Marker kind={marker} />}
+      {/* The marker lies on the other side from the seat's bets, so chips never land on it. */}
+      {snap.button === seat && <Marker kind={marker} side={betSide === 'left' ? 'right' : 'left'} />}
       {snap.stakeHolder === seat && <DeckCase />}
       <div className="plate-name">{character.name}</div>
       <div className="plate-stack">
@@ -484,11 +485,12 @@ function Coins() {
 }
 
 /** The dealer's marker, drawn for the room and year (types.ts, DealerMarker). Nothing where none was used. */
-function Marker({ kind }: { kind: DealerMarker }) {
+function Marker({ kind, side }: { kind: DealerMarker; side: BetSide }) {
   if (kind === 'none') return null;
+  const at = side === 'right' ? ' buck-right' : '';
   if (kind === 'buck') {
     return (
-      <svg className="buck" width="70" height="20" viewBox="0 0 70 20" role="img" aria-label="Holds the buck (deals this hand)">
+      <svg className={`buck${at}`} width="70" height="20" viewBox="0 0 70 20" role="img" aria-label="Holds the buck (deals this hand)">
         <path d="M2 10 L34 4 L48 10 L34 16 Z" fill="#e2e2da" stroke="#5e5e56" strokeWidth="1.5" />
         <rect x="46" y="5" width="22" height="10" rx="4" fill="#9a6a34" stroke="#4a2e10" strokeWidth="1.5" />
       </svg>
@@ -496,7 +498,7 @@ function Marker({ kind }: { kind: DealerMarker }) {
   }
   // A white disc lying on the felt: "DEALER" in a card room, "D" on a poker site.
   return (
-    <svg className="buck dealer-button" width="52" height="34" viewBox="0 0 52 34" role="img" aria-label="Has the dealer button">
+    <svg className={`buck dealer-button${at}`} width="52" height="34" viewBox="0 0 52 34" role="img" aria-label="Has the dealer button">
       <ellipse cx="26" cy="19" rx="24" ry="13" fill="#8f8a7c" stroke="#4d4a42" strokeWidth="1.5" />
       <ellipse cx="26" cy="15" rx="24" ry="13" fill="#f6f3e8" stroke="#4d4a42" strokeWidth="1.5" />
       <text x="26" y={kind === 'online' ? 21 : 18.5} textAnchor="middle" fontFamily="Arial, Helvetica, sans-serif" fontWeight="700" fontSize={kind === 'online' ? 17 : 9} fill="#1c1a16">

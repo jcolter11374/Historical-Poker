@@ -217,6 +217,13 @@ export interface ChapterScene {
    * music keeps the chapter's. Omit for silence.
    */
   music?: string;
+  /**
+   * Put the line over the felt (who won the hand; "The draw") at the top of
+   * the room, not above the seat across. For a room whose seats sit high and
+   * close together, where the usual place is taken: the Boom's monitor, where
+   * it would lie on the middle avatar's name.
+   */
+  lineAtTop?: boolean;
 }
 
 export interface Chapter {

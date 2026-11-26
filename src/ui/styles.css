@@ -117,6 +117,8 @@ button:disabled { opacity: 0.4; cursor: default; }
 .plate-hand { font-weight: 800; font-size: 15px; color: var(--text); margin-top: 4px; white-space: nowrap; }
 .plate-win { font-family: var(--display); font-size: 18px; color: var(--gold); }
 .buck { position: absolute; left: -84px; top: 32px; }
+/* On the plate's other side, for a seat whose bets lie on its left (useTableFx.ts, betSide). */
+.buck-right { left: auto; right: -84px; }
 
 /* Coins and amount side by side, so the pot is short enough to sit between the seat across and your cards. */
 .pot { position: absolute; transform: translate(-50%, -50%); display: flex; align-items: center; gap: 2px; }
@@ -191,6 +193,8 @@ button:disabled { opacity: 0.4; cursor: default; }
   position: absolute; left: 800px; top: 388px; transform: translateX(-50%); width: 760px; text-align: center; z-index: 2;
   font-family: var(--story); font-size: 22px; line-height: 1.3; color: var(--text); text-shadow: 0 2px 8px #000, 0 0 18px #000;
 }
+/* A room whose seats sit high (ChapterScene.lineAtTop, the Boom's monitor): the line goes at the top of the screen, clear of the avatars' names. */
+.summary-top { top: 138px; }
 /* The draw: announced over the felt, and your cards bob to show they can be picked. */
 .draw-call-title { display: block; font-family: var(--display); font-size: 30px; color: var(--gold); }
 .my-cards-draw .card-button { animation: draw-bob 1.6s ease-in-out infinite; }
@@ -419,7 +423,11 @@ button:disabled { opacity: 0.4; cursor: default; }
 .practice-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .practice-name { font-family: var(--display); font-size: 15px; line-height: 1.05; }
 .practice-where { font-family: var(--story); font-style: italic; font-size: 14px; line-height: 1.15; color: #5a3a20; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.practice-foot { min-height: 90px; }
+/* Twenty-five games make six rows of cards: the screen is drawn tighter than the chapter select so the "Sit down" chip stays on it. */
+.practice-screen { padding: 16px 40px 12px; }
+.practice-screen .select-head h1 { font-size: 54px; }
+.practice-screen .case { margin-top: 12px; }
+.practice-foot { min-height: 84px; }
 .practice-foot .chip, .practice-foot .toggle, .practice-foot .text-link { white-space: nowrap; }
 .practice-at { font-family: var(--story); font-style: italic; font-size: 20px; color: var(--muted); }
 .card-button[aria-pressed='true'] .card { box-shadow: 0 0 0 4px var(--gold), 0 14px 24px rgba(0, 0, 0, 0.6); }
@@ -541,7 +549,7 @@ button:disabled { opacity: 0.4; cursor: default; }
 .stage-compact .dialogue-hint .aside { font-size: 16px; }
 .stage-compact .controls { scale: calc(var(--boost) * 0.72); transform-origin: bottom right; right: 18px; bottom: 18px; gap: 14px; }
 .stage-compact .chip-row { gap: 14px; }
-.stage-compact .limit-note { font-size: 21px; }
+.stage-compact .limit-note { font-size: 21px; white-space: normal; width: 520px; text-align: right; line-height: 1.1; bottom: calc(100% + 2px); }
 /* Less, more and max stand in a column beside the raise chip, below the right-hand seat's cards. */
 .stage-compact .raise-group { flex-direction: row; align-items: center; }
 .stage-compact .raise-adjust { flex-direction: column; }
@@ -555,11 +563,12 @@ button:disabled { opacity: 0.4; cursor: default; }
 .stage-compact .my-purse::before { content: none; }
 /* Grows upward from just above the seat across, so a long split-pot line never covers the name plates. */
 .stage-compact .summary { scale: var(--boost); transform-origin: 0 100%; width: 640px; top: auto; bottom: 424px; }
+.stage-compact .summary-top { scale: calc(var(--boost) * 0.8); transform-origin: 0 0; width: 760px; top: 124px; bottom: auto; }
 .stage-compact .pot-amount { scale: calc(var(--boost) * 0.8); }
 /* The seat across is enlarged too, so its hand line needs the board a little lower. */
 .stage-compact .table-flop .boards { top: 640px; }
 .stage-compact .my-hand-low { scale: 0.74; }
-.stage-compact .sheet { scale: var(--boost); max-height: calc(860px / var(--boost)); width: calc(1500px / var(--boost)); padding: 26px 34px; }
+.stage-compact .sheet { scale: var(--boost); min-height: 0; max-height: calc(860px / var(--boost)); width: calc(1500px / var(--boost)); padding: 26px 34px; }
 .stage-compact .sheet-columns { gap: 24px; }
 .stage-compact .story-card { scale: calc(var(--boost) * 0.85); transform-origin: 0 0; max-height: calc(860px / (var(--boost) * 0.85)); width: calc(1480px / (var(--boost) * 0.85)); overflow-y: auto; }
 .stage-compact .select-screen { padding-top: 16px; }
@@ -583,6 +592,10 @@ button:disabled { opacity: 0.4; cursor: default; }
 /* Practice on a small screen: drop the faces so the names can be bigger, and keep the footer on the stage. */
 .stage-compact .practice-screen .select-head p { display: none; }
 .stage-compact .practice-face { display: none; }
+.stage-compact .practice-screen { padding: 8px 40px 6px; }
+.stage-compact .practice-screen .select-head .eyebrow { display: none; }
+.stage-compact .practice-screen .select-head h1 { font-size: 46px; }
+.stage-compact .practice-screen .case { margin-top: 6px; padding-top: 8px; padding-bottom: 10px; }
 .stage-compact .practice-card { height: 92px; padding: 6px 12px; }
 .stage-compact .practice-name { font-size: 21px; }
 .stage-compact .practice-where { font-size: 17px; }

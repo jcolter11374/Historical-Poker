@@ -98,7 +98,12 @@ describe('a chapter left part-way', () => {
           playHands(r!, 2);
           // The buck moved on to someone still playing.
           const after = r!.snapshot();
-          if (!after.outcome) expect(after.seats[after.button].out).toBe(false);
+          // (To a seat that was playing when the table was saved. Not "is playing now": the deals after a
+          // resume are random, and the new dealer can go broke in these two hands too, as the old one did.)
+          if (!after.outcome) {
+            expect(after.button).not.toBe(snap.button);
+            expect(snap.seats[after.button].out).toBe(false);
+          }
         }
       }
     }

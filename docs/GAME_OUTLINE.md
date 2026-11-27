@@ -340,7 +340,7 @@ The story runs in a straight line, one chapter unlocking the next, and every cha
 - **Almanac.** Each chapter's history notes and rules are collected in a book the player can browse, with a short "how this game led to poker" line per era.
 - **Difficulty.** Two levels: Story (bots make more mistakes, hints on) and Gambler (sharper bots, no hints).
 - **Free Play** ("Practice any game"). Any game, open from the start, against the characters of the chapter that teaches it, for practice or fun. Nobody is knocked out and nothing is saved (John agreed, 2026-11-21).
-- **Saving.** Progress, keepsakes and settings save in the browser automatically. There are no accounts; clearing the browser's data resets it.
+- **Saving.** Progress, keepsakes and settings save in the browser automatically, in one of three named save slots (John agreed, 2026-11-27). There are no accounts; clearing the browser's data resets it.
 
 ## Art and UI direction
 
@@ -391,7 +391,7 @@ A static TypeScript web app in the repo `jcolter11374/Historical-Poker` (the rep
 - **Bots.** One shared bot built from RSDP Live's practice bot and coach (copied in, as the engine is), given a personality per character: RSDP's level (Easy, Normal or Hard), how loose, how aggressive, how often it bluffs, its tell and the tell's reliability, plus special behaviors (Silas's cheat, Ruby adapting to the player). It is a teaching game, so most rivals are Easy or Normal and Hard is kept for a late boss or two (John, 2026-11-21). RSDP Live has no bot for the old games (Primero, Brag, Poque, straight poker, five-card stud and draw), so its bot is taught their decks and hand rankings here; see [BOTS.md](BOTS.md). (Until 2026-11-21 the rivals ran on a bot written for this game, not RSDP's; John asked for the promise in this line to be kept.)
 - **Story.** Each chapter's scenes are data, not code: lines of dialogue with a speaker, and triggers that fire them (hand number, a rival going broke, a big pot). New chapters are mostly new data and art.
 - **Scene.** The table screen draws the layered art (background, cut-out characters, table rim, cards, coins) with chip buttons and the dialogue strip. Each chapter supplies its own art and palette.
-- **Saves.** Progress, keepsakes and settings in the browser's local storage.
+- **Saves.** Progress, keepsakes and settings in the browser's local storage, in three named save slots so several people can share a device (John agreed, 2026-11-27).
 - **Publishing.** Every push to the main branch rebuilds and publishes the site to GitHub Pages. The repo is public so hosting stays free.
 
 ### Adding a chapter

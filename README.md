@@ -4,7 +4,7 @@ A single-player card game that tells the history of poker, one chapter per era. 
 
 **All fourteen chapters are built and playable.** Chapters 1 to 9 have their painted art; the others use placeholders drawn in code until their art is made. Every chapter has its own original music. The whole game is designed in [docs/GAME_OUTLINE.md](docs/GAME_OUTLINE.md); what's built and what's next is in [docs/ROADMAP.md](docs/ROADMAP.md).
 
-It runs entirely in the browser: no server, no accounts. Progress is saved in the browser's local storage. It is hosted for free on GitHub Pages.
+It runs entirely in the browser: no server, no accounts. Progress is saved in the browser's local storage, in three named save slots. It is hosted for free on GitHub Pages.
 
 Powered by [RSDP Live](https://rsdp-poker-live.fly.dev): its poker engine runs every hand ([docs/ENGINE.md](docs/ENGINE.md)), and its practice bot and coach do the rivals' thinking and the hints ([docs/BOTS.md](docs/BOTS.md)). Both are copies, used under RSDP Live's MIT license.
 

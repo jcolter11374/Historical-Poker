@@ -2,11 +2,11 @@
  * Saving: progress and settings, and a chapter left part-way (the table after
  * the last finished hand) picked up again exactly where it stood.
  */
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it } from 'vitest';
 import { seeded } from '../src/bots/random';
 import { CHAPTERS, chapterById } from '../src/chapters';
 import type { Chapter } from '../src/chapters/types';
-import { clearTable, latestTable, loadProgress, loadTables, record, resetProgress, saveTable, type Store } from '../src/progress/save';
+import { clearSlot, clearTable, currentSlot, latestTable, loadProgress, loadTables, nameSlot, pickSlot, record, resetProgress, saveTable, setOption, SLOT_COUNT, slotSummaries, type Store } from '../src/progress/save';
 import { HUMAN, Session, TABLE_SAVE_VERSION, type SavedTable } from '../src/table/session';
 
 function memory(): Store & { data: Map<string, string> } {
@@ -98,7 +98,12 @@ describe('a chapter left part-way', () => {
           playHands(r!, 2);
           // The buck moved on to someone still playing.
           const after = r!.snapshot();
-          if (!after.outcome) expect(after.seats[after.button].out).toBe(false);
+          // (To a seat that was playing when the table was saved. Not "is playing now": the deals after a
+          // resume are random, and the new dealer can go broke in these two hands too, as the old one did.)
+          if (!after.outcome) {
+            expect(after.button).not.toBe(snap.button);
+            expect(snap.seats[after.button].out).toBe(false);
+          }
         }
       }
     }
@@ -172,5 +177,94 @@ describe('the opening is shown once', () => {
     expect(loadProgress(store).seenOpening).toBe(true);
     store.setItem('historical-poker/progress', JSON.stringify({ version: 1, won: { riverboat: 'x' }, played: {}, hints: true, sound: true, music: true, math: false, mathStars: 0 }));
     expect(loadProgress(store)).toMatchObject({ won: { riverboat: 'x' }, seenOpening: false });
+  });
+});
+
+describe('save slots', () => {
+  // The slot in play is remembered by the module: put it back for the other tests.
+  afterEach(() => pickSlot(1, memory()));
+
+  const table = (chapterId: string): SavedTable => {
+    const s = new Session(chapterById(chapterId)!);
+    playHands(s, 1);
+    return s.saveTable()!;
+  };
+
+  it('a save from before slots existed is slot 1, untouched', () => {
+    const s = memory();
+    s.setItem('historical-poker/progress', JSON.stringify({ version: 1, won: { riverboat: '2026-11-20T00:00:00Z' }, played: { riverboat: '2026-11-20T00:00:00Z' }, hints: false, sound: true, music: true, math: false, mathStars: 0, seenOpening: true }));
+    pickSlot(1, s);
+    expect(Object.keys(loadProgress(s).won)).toEqual(['riverboat']);
+    expect(loadProgress(s).hints).toBe(false);
+    const [one, two, three] = slotSummaries(s);
+    expect(one).toMatchObject({ slot: 1, name: 'Player 1', used: true, won: 1 });
+    expect(two.used).toBe(false);
+    expect(three.used).toBe(false);
+    expect(slotSummaries(s)).toHaveLength(SLOT_COUNT);
+  });
+
+  it('each slot keeps its own progress, settings and tables', () => {
+    const s = memory();
+    pickSlot(1, s);
+    const first = CHAPTERS[0].chapter.id;
+    const second = CHAPTERS[1].chapter.id;
+    record(loadProgress(s), first, 'won', s);
+    saveTable(table(first), s);
+
+    pickSlot(2, s);
+    expect(loadProgress(s).won).toEqual({});
+    expect(loadTables(s)).toEqual({});
+    setOption(record(loadProgress(s), second, 'won', s), 'math', true, s);
+    saveTable(table(second), s);
+
+    pickSlot(1, s);
+    expect(Object.keys(loadProgress(s).won)).toEqual([first]);
+    expect(loadProgress(s).math).toBe(false);
+    expect(Object.keys(loadTables(s))).toEqual([first]);
+    pickSlot(2, s);
+    expect(Object.keys(loadProgress(s).won)).toEqual([second]);
+    expect(loadProgress(s).math).toBe(true);
+    expect(Object.keys(loadTables(s))).toEqual([second]);
+    expect(slotSummaries(s)[1].latest?.chapterId).toBe(second);
+  });
+
+  it('remembers the slot played last, and ignores a slot that does not exist', () => {
+    const s = memory();
+    pickSlot(3, s);
+    expect(JSON.parse(s.getItem('historical-poker/slots')!).current).toBe(3);
+    pickSlot(7, s);
+    pickSlot(0, s);
+    expect(currentSlot(s)).toBe(3);
+  });
+
+  it('names are tidied, and an unnamed slot is "Player n"', () => {
+    const s = memory();
+    nameSlot(2, '   Anna   Sophia of the very long name  ', s);
+    expect(slotSummaries(s)[1]).toMatchObject({ name: 'Anna Sophia of', used: true });
+    nameSlot(2, '  ', s);
+    expect(slotSummaries(s)[1]).toMatchObject({ name: 'Player 2', used: false });
+  });
+
+  it('"Start over" wipes only the slot in play; clearing a slot empties it and leaves the others', () => {
+    const s = memory();
+    const first = CHAPTERS[0].chapter.id;
+    for (const n of [1, 2, 3]) {
+      pickSlot(n, s);
+      nameSlot(n, `P${n}`, s);
+      record(loadProgress(s), first, 'won', s);
+      saveTable(table(first), s);
+    }
+    pickSlot(2, s);
+    resetProgress(s);
+    expect(slotSummaries(s).map((x) => [x.name, x.won, !!x.latest])).toEqual([['P1', 1, true], ['P2', 0, false], ['P3', 1, true]]);
+    clearSlot(3, s);
+    expect(slotSummaries(s).map((x) => [x.name, x.used])).toEqual([['P1', true], ['P2', true], ['Player 3', false]]);
+    expect(currentSlot(s)).toBe(2);
+  });
+
+  it('broken slot data falls back to slot 1 with no names', () => {
+    const s = memory();
+    s.setItem('historical-poker/slots', '{not json');
+    expect(slotSummaries(s).map((x) => x.name)).toEqual(['Player 1', 'Player 2', 'Player 3']);
   });
 });

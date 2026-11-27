@@ -16,6 +16,7 @@ Done:
 - [x] Stages, game rotations (HORSE, 8-Game), lessons from a teacher the first time each game is dealt, rising stakes, buy-backs before the last stage, tournament restarts.
 - [x] Chapter select (the deck case), jump-ahead with "the story so far", keepsakes, saved progress, "Start over".
 - [x] A chapter left part-way is saved after every hand and picked up from the case or its intro; each chapter keeps its own table (2026-11-21).
+- [x] Three save slots, each with a name and its own progress, so several people can share one device; "Who's playing?" screen (2026-11-27).
 - [x] Teacher hints (on by default, can be turned off), hand names, one-line showdown summaries, a rules card per game.
 - [x] Draw controls, stud up-cards and bring-in, two boards.
 - [x] Placeholder art drawn in code for every room and character.

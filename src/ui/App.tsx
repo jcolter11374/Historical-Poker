@@ -13,6 +13,10 @@
  *   chapter select -> practice (pick any game) -> a practice table -> back
  *   to practice. Practice tables never end and are never saved.
  *
+ *   "Who's playing?" (PlayersScreen.tsx): three save slots, so three people
+ *   can share a browser. It opens the game when two or more slots are in use,
+ *   and is reached from "Change player" on the chapter select.
+ *
  * Progress (chapters won, hints on or off) is saved in the browser after each
  * chapter, and a chapter left part-way is saved after every hand, so
  * "Continue" sits you back down at the same table (src/progress/save.ts).
@@ -24,15 +28,18 @@ import type { Chapter } from '../chapters/types';
 import {
   addMathStar,
   clearTable,
+  currentSlot,
   latestTable,
   loadProgress,
   loadTables,
+  pickSlot,
   record,
   resetProgress,
   sawOpening,
   saveTable,
   setHints,
   setOption,
+  slotSummaries,
   type KeptTable,
   type Progress,
 } from '../progress/save';
@@ -40,6 +47,7 @@ import { practiceChapter, type PracticeGame } from '../practice';
 import { Session } from '../table/session';
 import { ChapterSelect } from './ChapterSelect';
 import { Montage } from './Montage';
+import { PlayersScreen } from './PlayersScreen';
 import { PracticeScreen } from './PracticeScreen';
 import { PoweredBy } from './PoweredBy';
 import { Face, SceneBack } from './Scene';
@@ -53,6 +61,8 @@ type Screen =
   | { name: 'table'; session: Session }
   | { name: 'end'; chapter: Chapter; won: boolean }
   | { name: 'practice' }
+  /** "Who's playing?": the save slots. */
+  | { name: 'players' }
   /** The feud in pictures, before the chapter select. */
   | { name: 'opening' }
   /** The ending pictures and the credits, after the epilogue. */
@@ -62,7 +72,12 @@ export function App() {
   const [progress, setProgress] = useState<Progress>(() => loadProgress());
   const [tables, setTables] = useState(() => loadTables());
   const won = new Set(Object.keys(progress.won));
-  const [screen, setScreen] = useState<Screen>(() => (loadProgress().seenOpening ? { name: 'select' } : { name: 'opening' }));
+  // With two or more players on this browser, ask who is playing before anything else.
+  const [screen, setScreen] = useState<Screen>(() =>
+    slotSummaries().filter((s) => s.used).length > 1 ? { name: 'players' } : loadProgress().seenOpening ? { name: 'select' } : { name: 'opening' },
+  );
+  /** The name of the player in play, if they gave one (shown on the chapter select). */
+  const [playerName, setPlayerName] = useState(() => namedPlayer());
   // Sound: browsers only allow it after a press, so start audio on the first one.
   useEffect(() => {
     window.addEventListener('pointerdown', unlock);
@@ -93,6 +108,16 @@ export function App() {
   const practise = (game: PracticeGame, lesson: boolean) => {
     setPracticed(game.key);
     setScreen({ name: 'table', session: new Session(practiceChapter(game, { lesson })) });
+  };
+  /** Plays as another save slot: its progress, settings and tables. A new player sees the opening first. */
+  const playAs = (slot: number) => {
+    pickSlot(slot);
+    const p = loadProgress();
+    setProgress(p);
+    setTables(loadTables());
+    setPlayerName(namedPlayer());
+    setPracticed(null);
+    setScreen(p.seenOpening ? { name: 'select' } : { name: 'opening' });
   };
   // "Music on" / "Music off": a plain text link on the story screens and the table.
   const musicLink = (
@@ -137,6 +162,8 @@ export function App() {
           onClosing={() => setScreen({ name: 'closing' })}
           onResume={() => resume(latestTable(tables))}
           onPractice={() => setScreen({ name: 'practice' })}
+          playerName={playerName}
+          onPlayers={() => setScreen({ name: 'players' })}
           onHints={(on) => setProgress(setHints(progress, on))}
           onOption={(option, on) => setProgress(setOption(progress, option, on))}
           onReset={() => {
@@ -145,6 +172,7 @@ export function App() {
           }}
         />
       )}
+      {screen.name === 'players' && <PlayersScreen current={currentSlot()} onPick={playAs} />}
       {screen.name === 'opening' && (
         <Montage
           slides={OPENING}
@@ -243,6 +271,12 @@ export function App() {
       )}
     </Stage>
   );
+}
+
+/** The name the player in play gave their save slot, or null if they never named it. */
+function namedPlayer(): string | null {
+  const s = slotSummaries().find((x) => x.slot === currentSlot());
+  return s && s.name !== `Player ${s.slot}` ? s.name : null;
 }
 
 /** The most a story card may stand, in stage pixels (the stage is 900 tall). */

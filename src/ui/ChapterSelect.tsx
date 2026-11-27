@@ -8,6 +8,8 @@
  * chapter that goes back in time is marked as a tale told in the story
  * (Chapter.toldBy), because the story opens in 1836, not 1543.
  *
+ * "Change player" leads to the save slots (PlayersScreen.tsx).
+ *
  * "Continue" sits you back down at the table you left most recently, or
  * opens the next chapter of the story.
  */
@@ -29,6 +31,8 @@ export function ChapterSelect({
   onClosing,
   onResume,
   onPractice,
+  playerName,
+  onPlayers,
   onHints,
   onOption,
   onReset,
@@ -43,6 +47,10 @@ export function ChapterSelect({
   /** Back to the table left most recently. */
   onResume: () => void;
   onPractice: () => void;
+  /** The name on the save slot in play, if it has one. */
+  playerName: string | null;
+  /** To "Who's playing?", the save slots. */
+  onPlayers: () => void;
   onHints: (on: boolean) => void;
   onOption: (option: 'sound' | 'music' | 'math', on: boolean) => void;
   onReset: () => void;
@@ -137,6 +145,9 @@ export function ChapterSelect({
         )}
       </footer>
       <div className="select-links">
+        <button type="button" className="text-link" onClick={onPlayers} title="Three players can each keep their own save on this device">
+          {playerName ? `Playing as ${playerName} · Change player` : 'Change player'}
+        </button>
         <button type="button" className="text-link" onClick={onOpening}>
           Watch the opening
         </button>

@@ -651,3 +651,29 @@ button:disabled { opacity: 0.4; cursor: default; }
 /* The chapter select's second row of links: watch the opening or the ending again. */
 .select-links { display: flex; align-items: center; gap: 26px; margin-top: 10px; }
 .stage-compact .my-cards-wrap .bet { scale: 1.5; transform-origin: 100% 0; }
+/* ---------------------------------------------------------------- "Who's playing?": the three save slots, three cards on the case */
+.players-screen { justify-content: center; padding-bottom: 60px; }
+.players-row { margin-top: 40px; display: flex; gap: 56px; align-items: flex-start; }
+.player-seat { width: 300px; display: flex; flex-direction: column; align-items: center; gap: 22px; }
+.player-card { width: 280px; height: 392px; padding: 30px 20px; gap: 12px; border-radius: 16px; }
+.player-card .case-seal { font-size: 64px; margin: 4px 0 10px; }
+.player-name { font-family: var(--display); font-size: 36px; line-height: 1.1; overflow-wrap: anywhere; }
+.player-line { font-family: var(--story); font-style: italic; font-size: 22px; line-height: 1.2; }
+.player-where { color: #8a2a1e; }
+/* Typing a name: written on the card, on a ruled line. */
+.player-naming:hover { transform: none; }
+.player-label { font-family: var(--story); font-style: italic; font-size: 22px; }
+.player-input {
+  width: 100%; padding: 2px 0 4px; border: 0; border-bottom: 2px solid #3a2a18; border-radius: 0; background: none; outline: none;
+  font-family: var(--display); font-size: 27px; color: var(--ink); text-align: center;
+}
+.player-input:focus { border-bottom-color: #8a2a1e; }
+.player-go { min-width: 0; margin-top: 14px; padding: 16px 28px; }
+.player-cancel { border: 0; background: none; font-family: var(--story); font-style: italic; font-size: 19px; color: #5a3d20; text-decoration: underline; text-underline-offset: 4px; }
+.player-links { min-height: 34px; display: flex; gap: 26px; justify-content: center; text-align: center; }
+.stage-compact .players-screen { padding-bottom: 20px; }
+.stage-compact .players-row { margin-top: 18px; gap: 90px; }
+.stage-compact .player-card { scale: 1.2; transform-origin: top center; }
+.stage-compact .player-seat { gap: 96px; }
+.stage-compact .player-links { scale: var(--boost); transform-origin: top center; white-space: nowrap; }
+.stage-compact .player-links .reset { white-space: normal; width: 260px; }

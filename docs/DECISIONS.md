@@ -197,3 +197,15 @@ Two more, fixed the same day after John said "go ahead and fix and merge":
 
 - **Rules sheet:** on a long page the "Back to the table" button was at the end of the scroll. The sheet now has a foot that stays in view (`.sheet-foot`), on computers and phones.
 - **Phones, your hand's name:** the enlarged name reaches up over the bottom of your own cards, gold on pale card faces. The cards could not be lifted clear (about 40 stage pixels were needed; the board in flop games and the pot in the others sit right above them, and smaller cards would be too small to read), so the name now carries a dark halo and the whole hand sits a little lower. It is readable, but it still lies over the cards: a real fix needs the phone table laid out again.
+
+## Save slots (2026-11-27)
+
+John asked whether the game had save slots; it kept one save per browser. He agreed to three, each with its own name and progress, so friends and family can share a device.
+
+- **The old save is slot 1, by leaving it where it is.** Slot 1 reads and writes the two keys the game has always used, so nobody's progress moves or can be lost, and there is no migration to get wrong. Slots 2 and 3 are new keys beside them.
+- **Settings belong to the slot** (hints, sound, music, Math Mode and its stars), not to the browser: the point of slots is a parent and a child sharing a tablet, and the child's Math Mode shouldn't switch on for the parent.
+- **No extra screen for a lone player.** John doesn't want the site overwhelming, so with one player the game opens exactly as before, and "Change player" is one text link at the foot of the case. "Who's playing?" opens the game only once two or more slots are in use.
+- **Names are optional.** An unnamed slot is "Player 1" (which is what an existing player sees until they rename it). Names are at most 14 letters so they fit the card.
+- **"Start over" clears the player in play only** and keeps the name; "Clear" on the "Who's playing?" screen empties a slot, name and all. Both ask first.
+- **The screen is the deck case again**, with three big cards in the style of the chapter cards (a player's card face up, an empty seat face down), not a list or a form: no new art, and no panels.
+- **Practice is still never saved**, in any slot.
